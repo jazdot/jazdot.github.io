@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAT Mastermind</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e3a8a', // deep blue
+            secondary: '#3b82f6',
+            accent: '#f59e0b', // vibrant accent
+            darkbg: '#0f172a',
+            darkcard: '#1e293b'
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { transition: background-color 0.3s, color 0.3s; }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+    /* Flashcard Flip Animation */
+    .flashcard { perspective: 1000px; cursor: pointer; }
+    .flashcard-inner {
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard-front, .flashcard-back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 1.5rem; text-align: center;
+      border-radius: 1rem;
+    }
+    .flashcard-back { transform: rotateY(180deg); }
+    
+    /* Spinner */
+    .spinner {
+      border: 4px solid rgba(59, 130, 246, 0.1);
+      width: 48px; height: 48px; border-radius: 50%;
+      border-left-color: #3b82f6;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Custom Radio Inputs */
+    .option-radio:checked + div {
+      border-color: #3b82f6;
+      background-color: #eff6ff;
+    }
+    .dark .option-radio:checked + div {
+      border-color: #3b82f6;
+      background-color: #1e3a8a;
+    }
+
+    .correct-option { border-color: #10b981 !important; background-color: #d1fae5 !important; }
+    .dark .correct-option { background-color: #064e3b !important; }
+    .incorrect-option { border-color: #ef4444 !important; background-color: #fee2e2 !important; }
+    .dark .incorrect-option { background-color: #7f1d1d !important; }
+
+    /* Explanations */
+    .explanation {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    }
+    .explanation.open {
+      max-height: 500px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 flex h-screen overflow-hidden dark:bg-darkbg dark:text-slate-100">
+
+  <!-- Sidebar / Navbar -->
+  <nav class="w-20 md:w-64 bg-white dark:bg-darkcard border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between h-full transition-all duration-300 z-10 flex-shrink-0">
+    <div>
+      <div class="p-4 md:p-6 flex items-center gap-3">
+        <div class="bg-primary text-white p-2 rounded-xl">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <h1 class="font-bold text-xl hidden md:block text-primary dark:text-white">CAT Mastermind</h1>
+      </div>
+      
+      <div class="px-3 mt-4 space-y-2" id="nav-menu">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+    
+    <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-4">
+      <button id="auth-btn" class="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <i data-lucide="log-in"></i>
+        <span class="hidden md:inline font-medium">Log In</span>
+      </button>
+      <button id="theme-toggle" class="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <i data-lucide="moon" id="theme-icon"></i>
+        <span class="hidden md:inline font-medium" id="theme-text">Dark Mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <!-- Header with Dashboard Widget -->
+    <header class="bg-white dark:bg-darkcard border-b border-slate-200 dark:border-slate-800 p-4 sticky top-0 z-10 flex justify-between items-center px-6">
+      <h2 id="page-title" class="text-2xl font-bold text-slate-800 dark:text-white">Dashboard</h2>
+      
+      <!-- Progress Widget -->
+      <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800 py-2 px-4 rounded-full border border-slate-200 dark:border-slate-700">
+        <div class="text-sm font-medium">
+          <span class="text-slate-500 dark:text-slate-400">Accuracy: </span>
+          <span id="accuracy-display" class="text-primary dark:text-secondary font-bold">0%</span>
+        </div>
+        <div class="w-px h-4 bg-slate-300 dark:bg-slate-600"></div>
+        <div class="text-sm font-medium">
+          <span class="text-slate-500 dark:text-slate-400">Tests: </span>
+          <span id="tests-display" class="text-primary dark:text-secondary font-bold">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content Container -->
+    <div id="content-container" class="p-4 md:p-8 max-w-6xl mx-auto w-full">
+      <!-- Content injected by JS -->
+    </div>
+  </main>
+
+  <!-- Authentication Modal -->
+  <div id="auth-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <div class="bg-white dark:bg-darkcard p-8 rounded-2xl shadow-xl max-w-md w-full mx-4 transform scale-95 transition-transform duration-300">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold dark:text-white">Sign In</h3>
+        <button id="close-modal" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
+      </div>
+      <p class="text-slate-600 dark:text-slate-400 mb-6">Sign in to sync your CAT preparation progress across all your devices.</p>
+      
+      <div class="space-y-3">
+        <button onclick="simulateAuth('Google')" class="w-full flex items-center justify-center gap-3 border border-slate-300 dark:border-slate-600 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition font-medium dark:text-white">
+          <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/><path fill="none" d="M1 1h22v22H1z"/></svg>
+          Continue with Google
+        </button>
+        <button onclick="simulateAuth('GitHub')" class="w-full flex items-center justify-center gap-3 bg-slate-900 border border-slate-900 dark:bg-white dark:border-white text-white dark:text-slate-900 py-3 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition font-medium">
+          <i data-lucide="github"></i>
+          Continue with GitHub
+        </button>
+      </div>
+      <div id="auth-status" class="mt-4 text-center text-sm text-emerald-600 dark:text-emerald-400 font-medium h-5"></div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // =============== STATE MANAGEMENT ===============
+    const AppState = {
+      darkMode: false,
+      user: null, // Mock user auth state
+      progress: {
+        totalAttempted: 0,
+        correct: 0,
+        testsCompleted: 0
+      },
+      currentTab: 'dashboard'
+    };
+
+    // Load from LocalStorage for Offline Access & Persistence
+    function loadState() {
+      const saved = localStorage.getItem('catMastermindState');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        AppState.progress = parsed.progress || AppState.progress;
+        AppState.darkMode = parsed.darkMode || false;
+        AppState.user = parsed.user || null;
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem('catMastermindState', JSON.stringify({
+        progress: AppState.progress,
+        darkMode: AppState.darkMode,
+        user: AppState.user
+      }));
+      updateDashboardWidget();
+    }
+
+    // _______________ UI UPDATES _______________
+    function updateDashboardWidget() {
+      const { totalAttempted, correct, testsCompleted } = AppState.progress;
+      const acc = totalAttempted > 0 ? Math.round((correct / totalAttempted) * 100) : 0;
+      document.getElementById('accuracy-display').textContent = `${acc}%`;
+      document.getElementById('tests-display').textContent = testsCompleted;
+    }
+
+    function toggleDarkMode() {
+      AppState.darkMode = !AppState.darkMode;
+      applyDarkMode();
+      saveState();
+    }
+
+    function applyDarkMode() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      const text = document.getElementById('theme-text');
+      
+      if (AppState.darkMode) {
+        body.classList.add('dark');
+        icon.setAttribute('data-lucide', 'sun');
+        text.textContent = 'Light Mode';
+      } else {
+        body.classList.remove('dark');
+        icon.setAttribute('data-lucide', 'moon');
+        text.textContent = 'Dark Mode';
+      }
+      lucide.createIcons();
+    }
+
+    // =============== DATA SOURCES ===============
+    const sampleQuestions = {
+      QA: [
+        { id: 'q1', text: 'If a,b,c and d are integers such that their sum is 46, then the minimum possible value of (a-b)² + (a-c)² + (a-d)² is:', options: ['0', '2', '3', '4'], correct: 1, explanation: 'The given expression has just the sum of squares of the terms. The minimum value is positive. If their sum is 46, which is not divisible by 4, we take values 12, 11, 11, 12. Sum of differences squared is (12-11)² + (12-11)² + (12-12)² = 2.' },
+        { id: 'q2', text: 'Let A, B, C be priced at Rs 120, 90, 150 respectively. A portfolio has 10 shares of A and 20 of B & C combined. Total value Rs 3300. Number of B shares is:', options: ['12', '15', '10', '8'], correct: 1, explanation: 'Let B shares be x, C shares be 20-x. 120(10) + 90x + 150(20-x) = 3300. 1200 + 3000 - 60x = 3300 => 60x = 900 => x = 15.' }
+      ],
+      VARC: [
+        { id: 'v1', text: 'Arrange to form a coherent paragraph: 1. Developments both technological... 2. But I believe... 3. Legalising assisted dying... 4. Many people endorse... 5. Freedom is notoriously complex...', options: ['5,1,2,3', '1,4,2,3', '4,1,5,2', '1,3,2,5'], correct: 0, explanation: 'The philosophical discussion starts with 5, setting the framework of freedom. Sentence 1 focuses on freedom over death, 2 builds on it, and 3 concludes with the legal step.' },
+      ],
+      DILR: [
+        { id: 'd1', text: 'Four friends take turns moving around a 7-chair round table. The chairs occupied after Turn 6 are 4, 5, 6, 7. Who sat on chair 4 at Turn 3?', options: ['Aslam', 'Bashir', 'Chhavi', 'No one'], correct: 3, explanation: 'After tracing the paths and vacant chairs constraints, Chair 4 must be empty at turn 3 because Davies occupies it only after Turn 5.' }
+      ]
+    };
+
+    const flashcards = [
+      { front: 'Basic Proportionality Theorem<br><span class="text-sm mt-2 opacity-70">Geometry</span>', back: 'If a line is drawn parallel to one side of a triangle and it intersects the other two sides at two distinct points, then it divides the two sides in the same ratio.<br><span class="text-sm mt-3 text-accent block">Tip: Crucial for similar triangles.</span>' },
+      { front: 'Compound Interest<br><span class="text-sm mt-2 opacity-70">Quant</span>', back: 'A = P(1 + R/100)<sup>N</sup><br><span class="text-sm mt-3 text-accent block">Tip: For half-yearly, use R/2 and 2N.</span>' },
+      { front: 'Logarithm Power Rule<br><span class="text-sm mt-2 opacity-70">Algebra</span>', back: 'log<sub>a</sub>(x<sup>n</sup>) = n × log<sub>a</sub>(x)<br><span class="text-sm mt-3 text-accent block">Tip: Brings exponents down to baseline.</span>' },
+      { front: 'Cyclic Quadrilateral Area<br><span class="text-sm mt-2 opacity-70">Geometry</span>', back: 'Area = √(s-a)(s-b)(s-c)(s-d)<br>where s = (a+b+c+d)/2<br><span class="text-sm mt-3 text-accent block">Tip: Exterior angle equals remote interior opposite angle.</span>' }
+    ];
+
+    // =============== NAVIGATION ===============
+    const navItems = [
+      { id: 'dashboard', icon: 'layout-dashboard', label: 'Dashboard' },
+      { id: 'practice', icon: 'pen-tool', label: 'Practice Subjects' },
+      { id: 'mock', icon: 'bot', label: 'AI Mock Tests' },
+      { id: 'formula', icon: 'book', label: 'Formula Hub' }
+    ];
+
+    function renderNav() {
+      const navContainer = document.getElementById('nav-menu');
+      navContainer.innerHTML = navItems.map(item => `
+        <button onclick="navigateTo('${item.id}', '${item.label}')" class="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${AppState.currentTab === item.id ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-white font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+          <i data-lucide="${item.icon}" class="${AppState.currentTab === item.id ? 'text-primary' : ''}"></i>
+          <span class="hidden md:inline">${item.label}</span>
+        </button>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function navigateTo(tabId, title) {
+      AppState.currentTab = tabId;
+      document.getElementById('page-title').textContent = title;
+      renderNav();
+      renderContent();
+    }
+
+    // =============== CONTENT RENDERING ===============
+    function renderContent() {
+      const container = document.getElementById('content-container');
+      container.innerHTML = '';
+      container.className = 'p-4 md:p-8 max-w-6xl mx-auto w-full fade-in';
+
+      if (AppState.currentTab === 'dashboard') {
+        renderDashboard(container);
+      } else if (AppState.currentTab === 'practice') {
+        renderPractice(container);
+      } else if (AppState.currentTab === 'mock') {
+        renderMockTest(container);
+      } else if (AppState.currentTab === 'formula') {
+        renderFormula(container);
+      }
+    }
+
+    // --- DASHBOARD VIEW ---
+    function renderDashboard(container) {
+      const authCard = !AppState.user ? `
+        <div class="bg-gradient-to-r from-primary to-secondary p-6 rounded-2xl text-white flex justify-between items-center mb-8 shadow-lg">
+          <div>
+            <h3 class="text-xl font-bold mb-1">Sync your progress</h3>
+            <p class="opacity-90">Log in to safely store your offline data to the cloud.</p>
+          </div>
+          <button onclick="openAuthModal()" class="bg-white text-primary px-5 py-2.5 rounded-xl font-bold shadow-sm hover:scale-105 transition-transform">
+            Connect
+          </button>
+        </div>
+      ` : `
+        <div class="bg-emerald-500 p-6 rounded-2xl text-white flex items-center gap-4 mb-8 shadow-lg">
+          <div class="bg-white/20 p-3 rounded-full"><i data-lucide="check-circle" class="w-8 h-8"></i></div>
+          <div>
+            <h3 class="text-xl font-bold mb-1">Welcome back, ${AppState.user.name}</h3>
+            <p class="opacity-90">Progress is syncing securely across your devices.</p>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = `
+        ${authCard}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-darkcard p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+            <h3 class="text-lg font-bold mb-4 dark:text-white">Performance Overview</h3>
+            <div class="aspect-video relative w-full h-[250px]">
+              <canvas id="perfChart"></canvas>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-darkcard p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+            <h3 class="text-lg font-bold mb-4 dark:text-white">Quick Stats</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                <div class="text-slate-500 dark:text-slate-400 mb-1 text-sm">Questions Attempted</div>
+                <div class="text-3xl font-black text-slate-800 dark:text-white">${AppState.progress.totalAttempted}</div>
+              </div>
+              <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                <div class="text-slate-500 dark:text-slate-400 mb-1 text-sm">Correct Answers</div>
+                <div class="text-3xl font-black text-emerald-500">${AppState.progress.correct}</div>
+              </div>
+              <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                <div class="text-slate-500 dark:text-slate-400 mb-1 text-sm">Mocks Completed</div>
+                <div class="text-3xl font-black text-primary dark:text-secondary">${AppState.progress.testsCompleted}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+
+      // Render Chart
+      const ctx = document.getElementById('perfChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Correct', 'Incorrect'],
+            datasets: [{
+              data: [AppState.progress.correct, Math.max(0, AppState.progress.totalAttempted - AppState.progress.correct)],
+              backgroundColor: ['#10b981', '#ef4444'],
+              borderWidth: 0
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: AppState.darkMode ? '#fff' : '#333' } } } }
+        });
+      }
+    }
+
+    // --- PRACTICE VIEW ---
+    function renderPractice(container) {
+      let html = `<div class="space-y-8">`;
+      
+      for (const [section, questions] of Object.entries(sampleQuestions)) {
+        html += `
+          <section>
+            <h3 class="text-xl font-bold bg-primary text-white inline-block px-4 py-1.5 rounded-lg mb-4 shadow-sm">${section} Training</h3>
+            <div class="space-y-4">
+        `;
+        
+        questions.forEach((q, idx) => {
+          html += `
+            <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+              <p class="font-medium text-slate-800 dark:text-slate-200 mb-4">${idx + 1}. ${q.text}</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="opts-${q.id}">
+          `;
+          
+          q.options.forEach((opt, oIdx) => {
+            html += `
+                <label class="cursor-pointer relative">
+                  <input type="radio" name="q-${q.id}" class="sr-only option-radio" onchange="checkAnswer('${q.id}', ${oIdx}, ${q.correct})">
+                  <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 hover:border-primary dark:hover:border-secondary transition-colors" id="opt-div-${q.id}-${oIdx}">
+                    ${opt}
+                  </div>
+                </label>
+            `;
+          });
+
+          html += `
+              </div>
+              <div id="exp-${q.id}" class="explanation mt-0 pt-0 bg-slate-50 dark:bg-slate-800 rounded-lg text-slate-700 dark:text-slate-300">
+                <div class="font-bold flex items-center gap-2 mb-2"><i data-lucide="book-open" class="w-4 h-4 text-primary"></i> Coach's Explanation</div>
+                <p class="text-sm">${q.explanation}</p>
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `</div></section>`;
+      }
+      
+      html += `</div>`;
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    window.checkAnswer = function(qId, selectedIdx, correctIdx) {
+      const expDiv = document.getElementById(`exp-${qId}`);
+      expDiv.classList.add('open', 'mt-4', 'p-4', 'border', 'border-slate-200', 'dark:border-slate-700');
+      
+      const allDivs = document.querySelectorAll(`[id^='opt-div-${qId}']`);
+      allDivs.forEach(div => {
+        div.classList.remove('correct-option', 'incorrect-option');
+        div.parentElement.style.pointerEvents = 'none'; // disable further clicks
+      });
+
+      const selectedDiv = document.getElementById(`opt-div-${qId}-${selectedIdx}`);
+      const correctDiv = document.getElementById(`opt-div-${qId}-${correctIdx}`);
+      
+      correctDiv.classList.add('correct-option');
+      if (selectedIdx !== correctIdx) {
+        selectedDiv.classList.add('incorrect-option');
+      } else {
+        AppState.progress.correct++;
+      }
+      AppState.progress.totalAttempted++;
+      saveState();
+    };
+
+    // --- MOCK TEST VIEW ---
+    function renderMockTest(container) {
+      container.innerHTML = `
+        <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-[500px]">
+          
+          <div id="upload-phase" class="p-8 flex flex-col items-center justify-center flex-1 text-center border-b-4 border-primary">
+            <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+              <i data-lucide="brain-circuit" class="w-10 h-10 text-primary"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 dark:text-white">AI Mock Test Generation</h2>
+            <p class="text-slate-500 dark:text-slate-400 max-w-md mb-8">Upload a previous year's CAT question paper (PDF/Image). Our Gemini AI engine will parse the document and generate an interactive timed mock test instantly.</p>
+            
+            <label class="cursor-pointer border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-primary dark:hover:border-secondary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl p-8 transition-colors w-full max-w-md flex flex-col items-center">
+              <i data-lucide="upload-cloud" class="w-8 h-8 text-slate-400 mb-3"></i>
+              <span class="font-medium dark:text-white">Select File or Drag & Drop</span>
+              <span class="text-xs text-slate-400 mt-1">PDF, JPG, PNG (Max 10MB)</span>
+              <input type="file" class="hidden" onchange="generateMockTest(this.files[0])" accept="application/pdf,image/*">
+            </label>
+          </div>
+
+          <div id="loading-phase" class="hidden flex-col items-center justify-center flex-1 p-12">
+            <div class="spinner mb-6"></div>
+            <h3 class="text-xl font-bold dark:text-white">Analyzing Document...</h3>
+            <p class="text-slate-500 dark:text-slate-400">Gemini AI is extracting questions and formulating test layout.</p>
+          </div>
+
+          <div id="test-phase" class="hidden flex-col flex-1 relative">
+            <div class="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-4 flex justify-between items-center px-6">
+              <span class="font-bold text-slate-700 dark:text-slate-200">Mock Test: Extracted Paper</span>
+              <div class="flex items-center gap-2 text-rose-500 font-mono text-xl bg-white dark:bg-slate-900 px-4 py-1.5 rounded-lg border border-rose-200 dark:border-rose-900 shadow-sm">
+                <i data-lucide="timer" class="w-5 h-5"></i> <span id="timer">40:00</span>
+              </div>
+            </div>
+            <div class="p-6 md:p-8 flex-1 overflow-y-auto space-y-6" id="mock-questions">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="p-4 bg-white dark:bg-darkcard border-t border-slate-200 dark:border-slate-800 flex justify-end">
+              <button onclick="submitMockTest()" class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-xl font-bold shadow-md transition-all">Submit Test</button>
+            </div>
+          </div>
+
+          <div id="result-phase" class="hidden flex-col items-center justify-center flex-1 p-12 text-center">
+            <div class="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 rounded-full flex items-center justify-center mb-6">
+              <i data-lucide="trophy" class="w-12 h-12"></i>
+            </div>
+            <h2 class="text-3xl font-black mb-2 dark:text-white" id="mock-score">Score: 4/5</h2>
+            <p class="text-slate-500 dark:text-slate-400 mb-8">Test completed successfully. Results synced to dashboard.</p>
+            <button onclick="renderMockTest(document.getElementById('content-container'))" class="border border-slate-300 dark:border-slate-600 px-6 py-2 rounded-lg font-medium hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-white transition">Take Another Test</button>
+          </div>
+
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    let mockTimerInt;
+    window.generateMockTest = function(file) {
+      if(!file) return;
+      document.getElementById('upload-phase').classList.add('hidden');
+      document.getElementById('loading-phase').classList.remove('hidden');
+      document.getElementById('loading-phase').classList.add('flex');
+
+      // Simulate Gemini API network delay and potential error handling
+      setTimeout(() => {
+        try {
+          if (file.size > 10 * 1024 * 1024) throw new Error("File too large. Maximum size is 10MB.");
+          
+          document.getElementById('loading-phase').classList.remove('flex');
+          document.getElementById('loading-phase').classList.add('hidden');
+          document.getElementById('test-phase').classList.remove('hidden');
+          document.getElementById('test-phase').classList.add('flex');
+          
+          populateMockQuestions();
+          startTimer();
+        } catch (err) {
+          alert('Error: ' + err.message + ' Please try another file.');
+          document.getElementById('loading-phase').classList.remove('flex');
+          document.getElementById('loading-phase').classList.add('hidden');
+          document.getElementById('upload-phase').classList.remove('hidden');
+        }
+      }, 2500);
+    };
+
+    function populateMockQuestions() {
+      // Re-using some practice questions for the mock simulation
+      const allQs = [...sampleQuestions.QA, ...sampleQuestions.VARC, ...sampleQuestions.DILR];
+      const html = allQs.map((q, idx) => `
+        <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <p class="font-medium text-slate-800 dark:text-slate-200 mb-4">${idx + 1}. ${q.text}</p>
+          <div class="space-y-2">
+            ${q.options.map((opt, oIdx) => `
+              <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-darkcard cursor-pointer hover:border-primary">
+                <input type="radio" name="mock-q-${idx}" value="${oIdx}" class="text-primary w-4 h-4">
+                <span class="dark:text-slate-200">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div
+      `).join('');
+      document.getElementById('mock-questions').innerHTML = html;
+    }
+
+    function startTimer() {
+      let time = 40 * 60; // 40 mins
+      const display = document.getElementById('timer');
+      clearInterval(mockTimerInt);
+      mockTimerInt = setInterval(() => {
+        time--;
+        if(time <= 0) { clearInterval(mockTimerInt); submitMockTest(); }
+        const m = Math.floor(time / 60).toString().padStart(2, '0');
+        const s = (time % 60).toString().padStart(2, '0');
+        display.textContent = `${m}:${s}`;
+      }, 1000);
+    }
+
+    window.submitMockTest = function() {
+      clearInterval(mockTimerInt);
+      document.getElementById('test-phase').classList.remove('flex');
+      document.getElementById('test-phase').classList.add('hidden');
+      document.getElementById('result-phase').classList.remove('hidden');
+      document.getElementById('result-phase').classList.add('flex');
+      
+      // Simulate random score
+      const score = Math.floor(Math.random() * 4) + 1;
+      document.getElementById('mock-score').textContent = `Score: ${score}/4`;
+      
+      AppState.progress.testsCompleted++;
+      AppState.progress.totalAttempted += 4;
+      AppState.progress.correct += score;
+      saveState();
+      lucide.createIcons();
+    };
+
+
+    // --- FORMULA VIEW ---
+    function renderFormula(container) {
+      container.innerHTML = `
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold dark:text-white mb-2">Interactive Formula Hub</h2>
+          <p class="text-slate-500 dark:text-slate-400">Click a card to reveal the formula and application tips.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-fr">
+          ${flashcards.map((f, i) => `
+            <div class="flashcard h-64 w-full" onclick="this.classList.toggle('flipped')">
+              <div class="flashcard-inner shadow-sm border border-slate-200 dark:border-slate-800 rounded-2xl">
+                <div class="flashcard-front bg-white dark:bg-darkcard text-slate-800 dark:text-slate-100">
+                  <h3 class="text-xl font-bold">${f.front}</h3>
+                </div>
+                <div class="flashcard-back bg-primary text-white border-primary">
+                  <div class="text-lg font-medium">${f.back}</div>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // =============== AUTHENTICATION ===============
+    const authModal = document.getElementById('auth-modal');
+    window.openAuthModal = function() {
+      authModal.classList.remove('hidden');
+      // trigger reflow
+      void authModal.offsetWidth;
+      authModal.classList.remove('opacity-0');
+      authModal.children[0].classList.remove('scale-95');
+    };
+
+    document.getElementById('close-modal').addEventListener('click', closeAuthModal);
+    document.getElementById('auth-btn').addEventListener('click', () => {
+      if(AppState.user) {
+        AppState.user = null;
+        saveState();
+        renderNav();
+        renderContent();
+        document.getElementById('auth-btn').innerHTML = '<i data-lucide="log-in"></i><span class="hidden md:inline font-medium">Log In</span>';
+        lucide.createIcons();
+      } else {
+        openAuthModal();
+      }
+    });
+
+    function closeAuthModal() {
+      authModal.classList.add('opacity-0');
+      authModal.children[0].classList.add('scale-95');
+      setTimeout(() => authModal.classList.add('hidden'), 300);
+      document.getElementById('auth-status').textContent = '';
+    }
+
+    window.simulateAuth = function(provider) {
+      const status = document.getElementById('auth-status');
+      status.textContent = `Connecting to ${provider}...`;
+      
+      // Simulate OAuth redirect/popup delay
+      setTimeout(() => {
+        AppState.user = { name: 'Aspirant', provider: provider };
+        saveState();
+        closeAuthModal();
+        renderDashboard(document.getElementById('content-container'));
+        document.getElementById('auth-btn').innerHTML = '<i data-lucide="log-out"></i><span class="hidden md:inline font-medium">Log Out</span>';
+        lucide.createIcons();
+      }, 1500);
+    };
+
+    // =============== INITIALIZATION ===============
+    document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+    
+    // Boot sequence
+    loadState();
+    applyDarkMode();
+    if(AppState.user) {
+      document.getElementById('auth-btn').innerHTML = '<i data-lucide="log-out"></i><span class="hidden md:inline font-medium">Log Out</span>';
+    }
+    navigateTo('dashboard', 'Dashboard');
+
+  </script>
+</body>
+</html>
+

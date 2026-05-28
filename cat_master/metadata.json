@@ -1,0 +1,6 @@
+{
+  "name": "CAT Mastermind",
+  "description": "A single-page interactive Common Admission Test (CAT) prep coach featuring practice subjects, simulated AI mock tests, and an interactive formula flashcard hub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
