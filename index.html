@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Mastermind | Ace the CAT Exam</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Reset & Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        body {
+            background-color: #09090b;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient Neon Glows */
+        .glow-cyan {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #00f3ff;
+            filter: blur(150px);
+            opacity: 0.15;
+            top: -10%;
+            left: -10%;
+            z-index: -1;
+        }
+        .glow-purple {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #bc13fe;
+            filter: blur(150px);
+            opacity: 0.15;
+            bottom: -10%;
+            right: -10%;
+            z-index: -1;
+        }
+
+        /* Typography */
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .hero-title span {
+            color: #00f3ff;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+        .hero-subtitle {
+            color: #a1a1aa;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Glassmorphism Card */
+        .app-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+            transition: all 0.4s ease;
+        }
+        .app-card:hover {
+            transform: translateY(-10px);
+            border-color: #00f3ff;
+            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.15);
+        }
+        .app-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #f4f4f5;
+        }
+        .app-card p {
+            color: #a1a1aa;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Futuristic Button */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: transparent;
+            color: #00f3ff;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid #00f3ff;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            background: #00f3ff;
+            color: #09090b;
+            box-shadow: 0 0 25px #00f3ff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.8rem; }
+            .hero-subtitle { font-size: 1rem; padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-cyan"></div>
+    <div class="glow-purple"></div>
+
+    <h1 class="hero-title">Cat <span>Mastermind</span></h1>
+    <p class="hero-subtitle">The ultimate MBA preparation portal. Master logical reasoning, quantitative aptitude, and verbal ability with precision.</p>
+
+    <div class="app-card">
+        <h2>Ready to Begin?</h2>
+        <p>Launch the Cat Mastermind dashboard and start your journey to a top IIM today.</p>
+        
+        <a href="./app/" class="btn">Launch App</a>
+    </div>
+</body>
+</html>
