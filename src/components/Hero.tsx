@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring, Variants } from "framer-motion";
 
 // ----------------------------------------------------------------------
 // 1. Magnetic Button (Secondary CTA)
@@ -81,7 +81,7 @@ const GlowingButton = ({ children }: { children: React.ReactNode }) => {
 const StaggeredHeadline = ({ text }: { text: string }) => {
   const words = text.split(" ");
   
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -89,7 +89,7 @@ const StaggeredHeadline = ({ text }: { text: string }) => {
     },
   };
   
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 50, rotateX: -60 },
     show: {
       opacity: 1,
