@@ -1,14 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Cat, Wrench } from 'lucide-react';
+import Hero from './components/Hero';
 
 export default function App() {
+  // State to track the current color of the mouse glow
+  const [glowColor, setGlowColor] = useState('rgba(120, 119, 198, 0.15)');
+
   // 1. Initialize motion values for X and Y coordinates
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   // 2. Wrap them in a spring for a smooth, organic trailing effect
-  const springConfig = { stiffness: 300, damping: 28, mass: 0.5 };
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
@@ -33,12 +37,16 @@ export default function App() {
         minHeight: '100vh', 
         backgroundColor: '#0a0a0a', 
         color: '#ffffff',
-        overflow: 'hidden',
+        overflowX: 'hidden',
         fontFamily: 'system-ui, sans-serif'
       }}
     >
       {/* Background Mouse Tracking Glow */}
       <motion.div
+        animate={{
+          background: `radial-gradient(circle, ${glowColor} 0%, rgba(0,0,0,0) 70%)`
+        }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         style={{
           x: glowX,
           y: glowY,
@@ -47,31 +55,18 @@ export default function App() {
           left: 0,
           width: '400px',
           height: '400px',
-          background: 'radial-gradient(circle, rgba(120, 119, 198, 0.15) 0%, rgba(0,0,0,0) 70%)',
           borderRadius: '50%',
           pointerEvents: 'none', // Prevents the glow from blocking clicks on your tools
           zIndex: 0,
         }}
       />
 
+      {/* Hero Section */}
+      <Hero />
+
       {/* Main Content */}
-      <div style={{ position: 'relative', zIndex: 10, padding: '10vh 5vw', maxWidth: '1200px', margin: '0 auto' }}>
-        
-        {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ marginBottom: '4rem' }}
-        >
-          <h1 style={{ fontSize: '4rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.05em' }}>
-            jazdot.
-          </h1>
-          <p style={{ fontSize: '1.25rem', color: '#a3a3a3', maxWidth: '600px', lineHeight: '1.6' }}>
-            A collection of my tools, experiments, and creative coding projects. 
-            Built for performance and beautifully designed.
-          </p>
-        </motion.div>
+      <div id="tools" style={{ position: 'relative', zIndex: 10, padding: '10vh 5vw', maxWidth: '1200px', margin: '0 auto' }}>
+        <h2 style={{ fontSize: '2.5rem', marginBottom: '2.5rem', fontWeight: 700, letterSpacing: '-0.02em' }}>Explore Tools</h2>
 
         {/* Tools Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
@@ -89,8 +84,14 @@ export default function App() {
               backdropFilter: 'blur(10px)',
               transition: 'border-color 0.3s ease'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(120, 119, 198, 0.5)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(120, 119, 198, 0.5)';
+              setGlowColor('rgba(120, 119, 198, 0.5)'); // Intensify the purple glow!
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              setGlowColor('rgba(120, 119, 198, 0.15)'); // Reset back to default
+            }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
               <div style={{ background: '#7877c6', padding: '0.75rem', borderRadius: '12px' }}>
