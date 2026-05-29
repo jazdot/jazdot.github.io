@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, Variants } from "framer-motion";
+import { motion, useMotionValue, useSpring, type Variants } from "framer-motion";
 
 // ----------------------------------------------------------------------
 // 1. Magnetic Button (Secondary CTA)
