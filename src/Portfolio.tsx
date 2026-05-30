@@ -25,27 +25,29 @@ const staggerContainer: Variants = {
 };
 
 const timelineItemVariant: Variants = {
-  hidden: { opacity: 0, x: 30, scale: 0.95 },
+  hidden: { opacity: 0, x: -40, scale: 0.9, filter: "blur(8px)" },
   visible: { 
     opacity: 1, 
     x: 0, 
     scale: 1, 
+    filter: "blur(0px)",
     transition: { 
       type: "spring", 
-      stiffness: 100, 
-      damping: 15,
-      staggerChildren: 0.1,
+      stiffness: 120, 
+      damping: 14,
+      staggerChildren: 0.15,
       delayChildren: 0.2
     } 
   }
 };
 
 const bulletVariant: Variants = {
-  hidden: { opacity: 0, x: 10 },
+  hidden: { opacity: 0, x: 20, filter: "blur(4px)" },
   visible: { 
     opacity: 1, 
     x: 0, 
-    transition: { type: "spring", stiffness: 120, damping: 12 } 
+    filter: "blur(0px)",
+    transition: { type: "spring", stiffness: 150, damping: 12 } 
   }
 };
 
@@ -101,14 +103,35 @@ const education = [
 
 export default function Portfolio() {
   return (
-    <div className="portfolio-content" style={{ paddingTop: '120px', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 5vw 0' }}>
-        <m.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ fontSize: '3.5rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--page-text)' }}>
-          Professional Profile
-        </m.h2>
-        <m.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} style={{ color: 'var(--nav-text)', fontSize: '1.2rem', marginBottom: '1rem', maxWidth: '600px' }}>
-          A detailed overview of my experience, technical skills, and educational background.
-        </m.p>
+    <m.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="portfolio-content" style={{ paddingTop: '120px', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 5vw 0' }} className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 mb-8">
+        
+        <m.div 
+          initial={{ opacity: 0, scale: 0.5, rotate: -15 }} 
+          animate={{ opacity: 1, scale: 1, rotate: 0 }} 
+          transition={{ type: "spring", stiffness: 120, damping: 15 }} 
+          className="relative shrink-0"
+        >
+          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-slate-200/50 dark:border-white/10 shadow-2xl relative z-10 backdrop-blur-sm bg-white/20 dark:bg-white/5">
+            <img src="/pp.jpeg" alt="Muhammed Riswan M. P." className="w-full h-full object-cover" />
+          </div>
+          {/* Subtle animated glow behind the avatar */}
+          <div className="absolute inset-0 bg-blue-500 blur-[40px] opacity-40 rounded-full -z-10 scale-110"></div>
+        </m.div>
+
+        <div className="text-center md:text-left flex-1 mt-4 md:mt-0">
+          <m.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} style={{ fontSize: '3.5rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--page-text)' }}>
+            Professional Profile
+          </m.h2>
+          <m.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} style={{ color: 'var(--nav-text)', fontSize: '1.2rem', marginBottom: '1rem', maxWidth: '600px' }} className="mx-auto md:mx-0">
+            A detailed overview of my experience, technical skills, and educational background.
+          </m.p>
+        </div>
       </div>
 
       {/* About Section */}
@@ -204,6 +227,6 @@ export default function Portfolio() {
         </m.div>
       </m.section>
 
-    </div>
+    </m.div>
   );
 }

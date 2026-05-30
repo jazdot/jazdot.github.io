@@ -1,6 +1,6 @@
 import { useEffect, useState, Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { m, LazyMotion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { m, LazyMotion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { GlassNavBar, AuroraBackground } from './components/Hero';
 import Home from './pages/Home';
 import Tools from './pages/Tools';
@@ -10,6 +10,25 @@ const Portfolio = lazy(() => import('./Portfolio'));
 
 // Dynamically load Framer Motion's animation features
 const loadFeatures = () => import('framer-motion').then(res => res.domAnimation);
+
+// Extracted routes component to allow useLocation for page transitions
+const AnimatedRoutes = ({ setGlowColor }: { setGlowColor: (color: string) => void }) => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={
+          <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh] text-slate-500">Loading profile...</div>}>
+            <Portfolio />
+          </Suspense>
+        } />
+        <Route path="/tools" element={<Tools setGlowColor={setGlowColor} />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 export default function App() {
   // State to track the current color of the mouse glow
@@ -103,15 +122,7 @@ export default function App() {
       <Router>
         <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
         
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={
-            <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh] text-slate-500">Loading profile...</div>}>
-              <Portfolio />
-            </Suspense>
-          } />
-          <Route path="/tools" element={<Tools setGlowColor={setGlowColor} />} />
-        </Routes>
+        <AnimatedRoutes setGlowColor={setGlowColor} />
       </Router>
 
       {/* Footer / Contact */}
