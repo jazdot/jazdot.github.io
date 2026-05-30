@@ -13,6 +13,9 @@
     --aurora-bg: #eff6ff;
     --aurora-blend: multiply;
     --aurora-opacity: 0.6;
+    --scrollbar-thumb: #cbd5e1;
+    --scrollbar-thumb-hover: #94a3b8;
+    --scrollbar-track: transparent;
   }
 
   html.dark {
@@ -27,11 +30,15 @@
     --aurora-bg: #020617;
     --aurora-blend: screen;
     --aurora-opacity: 1;
+    --scrollbar-thumb: #1e293b;
+    --scrollbar-thumb-hover: #334155;
+    --scrollbar-track: transparent;
   }
 }
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* For Firefox */
 }
 
 html, body {
@@ -42,4 +49,21 @@ html, body {
   font-family: system-ui, -apple-system, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+}
+
+/* Custom Webkit Scrollbar (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 8px;
+  border: 3px solid var(--page-bg); /* Creates the "floating" illusion */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }
