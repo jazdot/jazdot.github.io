@@ -20,16 +20,17 @@ export default function GitHubProjects() {
   useEffect(() => {
     if (cachedRepos) return;
 
-    // Fetching the top 4 most recently updated repositories
-    fetch('https://api.github.com/users/jazdot/repos?sort=updated&per_page=4')
+    // Fetching repositories to sort by stars
+    fetch('https://api.github.com/users/jazdot/repos?per_page=100')
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch');
         return res.json();
       })
       .then(data => {
         if (!Array.isArray(data)) throw new Error('Invalid data');
-        // Filter out forks and grab the top ones
-        cachedRepos = data.filter(r => !r.fork).slice(0, 4);
+        // Filter out forks, sort by stars (highest first), and grab the top 4
+        const nonForks = data.filter(r => !r.fork);
+        cachedRepos = nonForks.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 4);
         setRepos(cachedRepos);
         setLoading(false);
       })
@@ -42,7 +43,7 @@ export default function GitHubProjects() {
   return (
     <div className="flex flex-col gap-6 text-slate-900 dark:text-white">
       <p className="text-sm opacity-80 text-center">
-        Here are a few of my recently updated open-source repositories dynamically fetched from GitHub.
+        Here are my top-starred open-source repositories dynamically fetched from GitHub.
       </p>
       
       {loading ? (

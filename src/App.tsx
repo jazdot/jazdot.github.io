@@ -8,6 +8,7 @@ import Loader from './components/Loader';
 import ToolModal from './components/ToolModal';
 import ContactForm from './components/ContactForm';
 import GitHubProjects from './components/GitHubProjects';
+import NotFound from './pages/NotFound';
 
 // Dynamically import the Profile page
 const Portfolio = lazy(() => import('./Portfolio'));
@@ -29,6 +30,7 @@ const AnimatedRoutes = ({ setGlowColor }: { setGlowColor: (color: string) => voi
           </Suspense>
         } />
         <Route path="/tools" element={<Tools setGlowColor={setGlowColor} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
