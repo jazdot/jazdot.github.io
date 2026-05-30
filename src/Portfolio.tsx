@@ -1,4 +1,5 @@
-import { m, type Variants } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { m, useInView, useMotionValue, useSpring, useTransform, type Variants } from 'framer-motion';
 import './Portfolio.css';
 import SEO from './components/SEO';
 
@@ -52,6 +53,27 @@ const bulletVariant: Variants = {
   }
 };
 
+// Animated Counter Component
+const AnimatedCounter = ({ value, prefix = "", suffix = "", decimals = 0 }: { value: number, prefix?: string, suffix?: string, decimals?: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { damping: 30, stiffness: 100, mass: 1 });
+  const displayValue = useTransform(springValue, (latest) => latest.toFixed(decimals));
+
+  useEffect(() => {
+    if (inView) {
+      motionValue.set(value);
+    }
+  }, [inView, value, motionValue]);
+
+  return (
+    <span ref={ref} className="font-mono text-3xl font-extrabold text-[hsl(var(--accent))] flex items-baseline">
+      {prefix}<m.span>{displayValue}</m.span>{suffix}
+    </span>
+  );
+};
+
 // Resume Data
 const skills = [
   { category: 'Networking & Telecom', items: 'TCP/IP, SDN, VPC, DNS, O-RAN (CU/DU), Mesh Networks, NMS' },
@@ -73,6 +95,11 @@ const experience = [
       'Virtual Networking & SDN: Executed live migration of 50+ virtual machines from VMware to OpenStack SDN/Neutron, resolving IP conflicts and optimizing routing to achieve zero-downtime cutovers.',
       'Network Automation: Automated network provisioning using IBM Concert, Terraform, and Ansible, reducing manual configuration errors by 40% and cutting deployment time from hours to under 15 minutes.',
       'Linux Network Administration: Resolved 100+ L3 network tickets in RHEL environments by troubleshooting TCP/IP stack issues and firewall rules, maintaining a 95% SLA compliance rate.'
+    ],
+    metrics: [
+      { value: 99.9, suffix: "%", label: "Protocol Adherence", decimals: 1 },
+      { value: 15, prefix: "-", suffix: "ms", label: "Routing Latency" },
+      { value: 40, prefix: "-", suffix: "%", label: "Config Errors" }
     ]
   },
   {
@@ -83,6 +110,11 @@ const experience = [
     description: [
       'Mesh Communication: Developed decentralized Python mesh networking algorithms to coordinate a swarm of 10+ autonomous UAVs, increasing data transmission reliability by 30% in disaster scenarios.',
       'Data Transmission: Optimized payload delivery and telemetry streaming protocols, reducing bandwidth consumption by 20% in high-latency environments during field testing.'
+    ],
+    metrics: [
+      { value: 10, prefix: "+", suffix: "", label: "UAV Swarm Size" },
+      { value: 30, prefix: "+", suffix: "%", label: "Tx Reliability" },
+      { value: 20, prefix: "-", suffix: "%", label: "Bandwidth Used" }
     ]
   }
 ];
@@ -231,6 +263,18 @@ export default function Portfolio() {
                 <span className="exp-date">{exp.date}</span>
               </div>
               <div className="exp-company">{exp.company} &bull; {exp.location}</div>
+              
+              {exp.metrics && (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
+                  {exp.metrics.map((metric, idx) => (
+                    <m.div key={idx} variants={bulletVariant} className="flex flex-col p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-inner">
+                      <AnimatedCounter value={metric.value} prefix={metric.prefix} suffix={metric.suffix} decimals={metric.decimals} />
+                      <span className="text-xs text-slate-600 dark:text-slate-400 mt-1 uppercase tracking-wider font-semibold">{metric.label}</span>
+                    </m.div>
+                  ))}
+                </div>
+              )}
+
               <ul className="exp-desc">
                 {exp.description.map((item, idx) => (
                   <m.li key={idx} variants={bulletVariant}>{item}</m.li>
