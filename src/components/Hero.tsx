@@ -130,7 +130,7 @@ const StaggeredHeadline = ({ text }: { text: string }) => {
 // ----------------------------------------------------------------------
 // 4. Glassmorphism Navigation Bar
 // ----------------------------------------------------------------------
-const GlassNavBar = () => {
+export const GlassNavBar = () => {
   const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -297,7 +297,6 @@ export default function Hero() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden font-sans">
       <AuroraBackground />
-      <GlassNavBar />
 
       <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-5xl mx-auto mt-20">
         <motion.div

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Cat, Gauge, Wrench } from 'lucide-react';
-import Hero from './components/Hero';
+import Hero, { GlassNavBar } from './components/Hero';
 import Portfolio from './Portfolio';
 import ToolModal from './components/ToolModal';
 import SpeedTestTool from './tools/SpeedTestTool';
@@ -78,6 +78,9 @@ export default function App() {
           zIndex: 0,
         }}
       />
+
+      {/* Global Header */}
+      <GlassNavBar />
 
       {/* Hero Section */}
       <Hero />
