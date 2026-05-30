@@ -20,8 +20,8 @@
     --aurora-bg: #eff6ff;
     --aurora-blend: multiply;
     --aurora-opacity: 0.6;
-    --scrollbar-thumb: #cbd5e1;
-    --scrollbar-thumb-hover: #94a3b8;
+    --scrollbar-thumb: rgba(15, 23, 42, 0.2);
+    --scrollbar-thumb-hover: hsl(var(--accent) / 0.8);
     --scrollbar-track: transparent;
   }
 
@@ -37,8 +37,8 @@
     --aurora-bg: #020617;
     --aurora-blend: screen;
     --aurora-opacity: 1;
-    --scrollbar-thumb: #1e293b;
-    --scrollbar-thumb-hover: #334155;
+    --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+    --scrollbar-thumb-hover: hsl(var(--accent) / 0.8);
     --scrollbar-track: transparent;
   }
 }
@@ -78,16 +78,17 @@ html.dark .bg-dot-pattern {
 }
 /* Custom Webkit Scrollbar (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
   background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
-  border-radius: 8px;
+  border-radius: 10px;
   border: 3px solid var(--page-bg); /* Creates the "floating" illusion */
+  background-clip: padding-box; /* Ensures the background doesn't bleed under the border */
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);
