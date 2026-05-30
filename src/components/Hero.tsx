@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
 
 // ----------------------------------------------------------------------
@@ -130,6 +130,32 @@ const StaggeredHeadline = ({ text }: { text: string }) => {
 // 4. Glassmorphism Navigation Bar
 // ----------------------------------------------------------------------
 const GlassNavBar = () => {
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["about", "work", "tools"];
+      let current = "";
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Highlight the section if it is in the top half of the viewport
+          if (rect.top <= window.innerHeight / 2) {
+            current = section;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Call once to set initial state
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <motion.nav
       initial={{ y: -100, x: "-50%", opacity: 0 }}
@@ -141,13 +167,13 @@ const GlassNavBar = () => {
         JAZDOT<span className="text-blue-500">.</span>
       </div>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-        <a href="#work" className="hover:text-white transition-colors">
+        <a href="#work" className={`transition-colors ${activeSection === "work" ? "text-blue-400 font-bold" : "hover:text-white"}`}>
           Work
         </a>
-        <a href="#tools" className="hover:text-white transition-colors">
+        <a href="#tools" className={`transition-colors ${activeSection === "tools" ? "text-blue-400 font-bold" : "hover:text-white"}`}>
           Tools
         </a>
-        <a href="#about" className="hover:text-white transition-colors">
+        <a href="#about" className={`transition-colors ${activeSection === "about" ? "text-blue-400 font-bold" : "hover:text-white"}`}>
           About
         </a>
       </div>
