@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +14,26 @@ export default defineConfig({
       avif: { lossless: true },
       svg: {
         multipass: true,
+      }
+    }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['vite.svg', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf'],
+      manifest: {
+        name: 'Muhammed Riswan | Network Engineer',
+        short_name: 'JAZDOT',
+        description: 'Portfolio of Muhammed Riswan M. P., Network & MLOps Engineer.',
+        theme_color: '#0f172a',
+        background_color: '#020617',
+        display: 'standalone',
+        icons: [
+          {
+            src: 'vite.svg',
+            sizes: '192x192 512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+          }
+        ]
       }
     })
   ],
