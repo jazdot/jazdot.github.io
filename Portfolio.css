@@ -1,0 +1,137 @@
+:root {
+  --bg-color: transparent;
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --accent: #7877c6;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-content {
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10vh 5vw;
+}
+
+
+/* Global Section Styles */
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.objective-text {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  max-width: 800px;
+}
+
+/* Cards & Grids */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.skills-grid, .edu-grid, .tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.skill-category {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Timeline / Experience */
+.experience-item {
+  border-left: 2px solid #334155;
+  padding-left: 2rem;
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.experience-item::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 4px solid #0a0a0a;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
+.exp-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.exp-company {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.exp-date {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.exp-desc {
+  padding-left: 1.2rem;
+}
+
+.exp-desc li {
+  margin-bottom: 0.75rem;
+  color: #cbd5e1;
+}
+
+/* Education */
+.edu-details {
+  margin-top: 1rem;
+  color: #cbd5e1;
+}
+
+.publication-card {
+  margin-top: 1.5rem;
+}
+
+.publication-card p {
+  margin-top: 0.5rem;
+  color: #cbd5e1;
+}

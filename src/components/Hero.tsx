@@ -7,9 +7,11 @@ import { motion, useMotionValue, useSpring, type Variants } from "framer-motion"
 const MagneticButton = ({
   children,
   className = "",
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
@@ -42,6 +44,7 @@ const MagneticButton = ({
       ref={ref}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      onClick={onClick}
       style={{ x: springX, y: springY }}
       className={`relative px-8 py-3 rounded-full font-medium transition-colors duration-300 ${className}`}
     >
@@ -53,9 +56,12 @@ const MagneticButton = ({
 // ----------------------------------------------------------------------
 // 2. Glowing Button (Primary CTA)
 // ----------------------------------------------------------------------
-const GlowingButton = ({ children }: { children: React.ReactNode }) => {
+const GlowingButton = ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) => {
   return (
-    <div className="relative group rounded-full overflow-hidden p-[2px] cursor-pointer sm:w-auto w-full">
+    <div 
+      onClick={onClick}
+      className="relative group rounded-full overflow-hidden p-[2px] cursor-pointer sm:w-auto w-full"
+    >
       {/* Animated gradient border */}
       <motion.div
         animate={{ rotate: 360 }}
@@ -145,7 +151,9 @@ const GlassNavBar = () => {
           About
         </a>
       </div>
-      <MagneticButton className="hidden sm:block text-sm bg-white/10 border border-white/20 text-white hover:bg-white/20 !px-5 !py-2">
+      <MagneticButton 
+        onClick={() => window.location.href="mailto:riswanmp6@gmail.com"}
+        className="hidden sm:block text-sm bg-white/10 border border-white/20 text-white hover:bg-white/20 !px-5 !py-2">
         Contact
       </MagneticButton>
     </motion.nav>
@@ -205,7 +213,7 @@ export default function Hero() {
           ✨ Available for new opportunities
         </motion.div>
 
-        <StaggeredHeadline text="Building Tools & Breaking Rules" />
+        <StaggeredHeadline text="Network Engineer & Cloud DevOps" />
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -213,9 +221,9 @@ export default function Hero() {
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.8 }}
           className="mt-8 mb-12 text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed"
         >
-          I'm an expert frontend developer and UI/UX designer specializing in
-          high-performance, interactive web experiences that leave a lasting
-          impression.
+          Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, 
+          and network automation. Specializing in Python, Terraform, and high-performance 
+          cloud infrastructures.
         </motion.p>
 
         {/* CTAs */}
@@ -225,8 +233,11 @@ export default function Hero() {
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 1 }}
           className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
         >
-          <GlowingButton>View My Work</GlowingButton>
-          <MagneticButton className="text-white hover:text-blue-400 w-full sm:w-auto group">
+          <GlowingButton onClick={() => window.location.href="#work"}>View My Work</GlowingButton>
+          <MagneticButton 
+            onClick={() => window.location.href="#tools"}
+            className="text-white hover:text-blue-400 w-full sm:w-auto group"
+          >
             Explore Tools{" "}
             <span className="ml-1 transition-transform inline-block group-hover:translate-x-1">
               →
