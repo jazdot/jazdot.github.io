@@ -102,6 +102,29 @@ const education = [
   }
 ];
 
+// Infinite Scrolling Tech Stack Marquee
+const techStackKeys = [
+  "Python", "Terraform", "Ansible", "Kubernetes", "Docker", "AWS",
+  "OpenStack", "SDN", "O-RAN", "BGP/OSPF", "Linux", "Jenkins", "Prometheus"
+];
+
+const TechMarquee = () => (
+  <div className="marquee-container my-12 relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw]">
+    <m.div
+      className="flex w-max"
+      animate={{ x: ["0%", "-50%"] }}
+      transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+    >
+      {[...techStackKeys, ...techStackKeys].map((tech, index) => (
+        <div key={index} className="text-2xl md:text-3xl font-mono font-bold text-slate-400/40 dark:text-slate-500/40 whitespace-nowrap flex items-center px-6 hover:text-[hsl(var(--accent))] transition-colors duration-300 cursor-default">
+          {tech}
+          <span className="text-[hsl(var(--accent))]/30 ml-12">/</span>
+        </div>
+      ))}
+    </m.div>
+  </div>
+);
+
 export default function Portfolio() {
   return (
     <m.div 
@@ -161,6 +184,9 @@ export default function Portfolio() {
           Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, and network automation. Proven track record of managing complex topologies across OpenStack and AWS, automating infrastructure with Python and Terraform, and optimizing routing to reduce latency and ensure 99.9% availability.
         </m.p>
       </m.section>
+
+      {/* Tech Stack Marquee */}
+      <TechMarquee />
 
       {/* Skills */}
       <m.section 

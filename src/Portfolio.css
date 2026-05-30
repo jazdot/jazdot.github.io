@@ -191,3 +191,13 @@
   margin-top: 0.5rem;
   color: var(--nav-text);
 }
+
+/* Infinite Scrolling Marquee */
+.marquee-container {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
