@@ -99,15 +99,15 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter flex flex-wrap justify-center items-center mt-6"
+      className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter text-center mt-6 text-slate-900 dark:text-white"
     >
       {characters.map((char, i) => (
         <m.span
           key={i}
           variants={charVariants}
-          style={{ display: "inline-block" }}
+          style={{ display: "inline-block", whiteSpace: "pre" }}
         >
-          {char === " " ? "\u00A0" : char}
+          {char}
         </m.span>
       ))}
       <m.span
@@ -263,6 +263,9 @@ export const AuroraBackground = () => {
 
   return (
     <div className="fixed inset-0 -z-10 flex items-center justify-center overflow-hidden bg-[var(--page-bg)] transition-colors duration-300" style={{ filter: `hue-rotate(${hue}deg)` }}>
+      {/* Subtle Grid Overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none [background-image:linear-gradient(to_right,rgba(128,128,128,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.07)_1px,transparent_1px)] [background-size:40px_40px] dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]"></div>
+
       {/* Subtle Noise Texture Overlay */}
       <div
         style={{
@@ -309,7 +312,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.1 }}
-          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-black dark:text-slate-300"
+          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/40 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-900 dark:text-white"
         >
           ✨ Available for new opportunities
         </m.div>
@@ -320,7 +323,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.8 }}
-          className="mt-8 mb-12 text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed"
+          className="mt-8 mb-12 text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed"
         >
           Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, 
           and network automation. Specializing in Python, Terraform, and high-performance 
