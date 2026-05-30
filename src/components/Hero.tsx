@@ -86,7 +86,7 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
     hidden: { opacity: 1 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.05, delayChildren: 0.2 },
+      transition: { staggerChildren: 0.015, delayChildren: 0.1 },
     },
   };
   
@@ -236,27 +236,28 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
 export const AuroraBackground = () => {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
   const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
-  const pointerX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
-  const pointerY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX - window.innerWidth / 2);
       mouseY.set(e.clientY - window.innerHeight / 2);
-      pointerX.set(e.clientX);
-      pointerY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY, pointerX, pointerY]);
+  }, [mouseX, mouseY]);
 
-  const transformX1 = useSpring(useTransform(mouseX, [-500, 500], [-50, 50]), { stiffness: 50, damping: 20 });
-  const transformY1 = useSpring(useTransform(mouseY, [-500, 500], [-50, 50]), { stiffness: 50, damping: 20 });
-  const transformX2 = useSpring(useTransform(mouseX, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
-  const transformY2 = useSpring(useTransform(mouseY, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
+  const transformX1 = useSpring(useTransform(mouseX, [-500, 500], [-80, 80]), { stiffness: 50, damping: 20 });
+  const transformY1 = useSpring(useTransform(mouseY, [-500, 500], [-80, 80]), { stiffness: 50, damping: 20 });
+  const transformX2 = useSpring(useTransform(mouseX, [-500, 500], [80, -80]), { stiffness: 50, damping: 20 });
+  const transformY2 = useSpring(useTransform(mouseY, [-500, 500], [80, -80]), { stiffness: 50, damping: 20 });
 
-  // State to smoothly shift the aurora colors on click, explicitly skipping the red spectrum (90deg - 180deg)
-  const safeHues = [0, 45, 225, 270, 315];
+  // Subtle Parallax mapping for the dots
+  const bgPosX = useSpring(useTransform(mouseX, [-500, 500], [-30, 30]), { stiffness: 50, damping: 20 });
+  const bgPosY = useSpring(useTransform(mouseY, [-500, 500], [-30, 30]), { stiffness: 50, damping: 20 });
+  const backgroundPosition = useMotionTemplate`${bgPosX}px ${bgPosY}px`;
+
+  // State to smoothly shift the aurora colors on click, strictly keeping to the blue and green spectrum
+  const safeHues = [0, 315, 330, 345];
   const [hueIndex, setHueIndex] = useState(0);
   
   useEffect(() => {
@@ -266,9 +267,6 @@ export const AuroraBackground = () => {
   }, []);
 
   const hue = safeHues[hueIndex];
-
-  // Combines a static center fade with a dynamic cursor spotlight
-  const maskImage = useMotionTemplate`radial-gradient(ellipse at center, rgba(0,0,0,0.4) 30%, transparent 80%), radial-gradient(400px circle at ${pointerX}px ${pointerY}px, black 0%, transparent 100%)`;
 
   return (
     <div className="fixed inset-0 -z-10 flex items-center justify-center overflow-hidden bg-[var(--page-bg)] transition-colors duration-300" style={{ filter: `hue-rotate(${hue}deg)` }}>
@@ -285,7 +283,7 @@ export const AuroraBackground = () => {
         <m.div
           animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[40vw] h-[40vw] md:w-[35vw] md:h-[35vw] rounded-full bg-purple-500/10 dark:bg-purple-600/10 blur-[120px] mix-blend-multiply dark:mix-blend-color-dodge will-change-transform transform-gpu"
+          className="w-[40vw] h-[40vw] md:w-[35vw] md:h-[35vw] rounded-full bg-cyan-500/10 dark:bg-cyan-600/10 blur-[120px] mix-blend-multiply dark:mix-blend-color-dodge will-change-transform transform-gpu"
         />
       </m.div>
       <m.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -308,8 +306,9 @@ export const AuroraBackground = () => {
       <m.div 
         className="absolute inset-0 pointer-events-none bg-dot-pattern z-10"
         style={{
-          maskImage: maskImage,
-          WebkitMaskImage: maskImage
+          maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.5) 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.5) 30%, transparent 80%)',
+          backgroundPosition: backgroundPosition
         }}
       ></m.div>
     </div>
@@ -329,8 +328,9 @@ export default function Hero() {
         <m.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ y: -4, scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 10 } }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.1 }}
-          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/40 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-900 dark:text-white"
+          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/40 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-900 dark:text-white cursor-default"
         >
           ✨ Available for new opportunities
         </m.div>

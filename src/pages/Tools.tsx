@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy } from 'react';
 import { m } from 'framer-motion';
-import { Cat, Gauge, Wrench } from 'lucide-react';
+import { GraduationCap, Gauge, Wrench } from 'lucide-react';
 import ToolModal from '../components/ToolModal';
 import Loader from '../components/Loader';
 
@@ -63,10 +63,10 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <div style={{ background: '#7877c6', padding: '0.75rem', borderRadius: '12px' }}><Cat size={24} color="#fff" /></div>
-            <h2 style={{ margin: 0, fontSize: '1.5rem' }}>cat_master</h2>
+            <div style={{ background: '#7877c6', padding: '0.75rem', borderRadius: '12px' }}><GraduationCap size={24} color="#fff" /></div>
+            <h2 style={{ margin: 0, fontSize: '1.5rem' }}>CAT Master</h2>
           </div>
-          <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>The ultimate feline management toolkit. Access statistics, feeding schedules, and monitoring.</p>
+          <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>Final step to you favourite Business school journey. Master the concepts. Crush the mock. Own the CAT.</p>
         </m.div>
 
         {/* Placeholder for future tools */}
