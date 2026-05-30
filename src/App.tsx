@@ -58,19 +58,9 @@ export default function App() {
       mouseY.set(e.clientY);
     };
     
-    // Let the glow follow touches on mobile as well!
-    const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        mouseX.set(e.touches[0].clientX);
-        mouseY.set(e.touches[0].clientY);
-      }
-    };
-
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [mouseX, mouseY]);
 
@@ -97,6 +87,7 @@ export default function App() {
           pointerEvents: 'none', // Prevents the glow from blocking clicks on your tools
           zIndex: 0,
         }}
+        className="hidden md:block" // Completely hide the glow on mobile devices
       />
 
       {/* Global Background */}
