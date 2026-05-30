@@ -9,6 +9,7 @@ import ToolModal from './components/ToolModal';
 import ContactForm from './components/ContactForm';
 import GitHubProjects from './components/GitHubProjects';
 import NotFound from './pages/NotFound';
+import PWAReloadPrompt from './components/PWAReloadPrompt';
 
 // Dynamically import the Profile page
 const Portfolio = lazy(() => import('./Portfolio'));
@@ -74,6 +75,45 @@ export default function App() {
       localStorage.setItem('theme', 'light');
     }
   }, [isDark]);
+
+  // Synthesized Web Audio API Theme Switch Sound
+  const playThemeSound = (isTurningDark: boolean) => {
+    try {
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContext) return;
+      
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.type = 'sine';
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      const now = ctx.currentTime;
+      if (isTurningDark) {
+        osc.frequency.setValueAtTime(400, now);
+        osc.frequency.exponentialRampToValueAtTime(100, now + 0.15); // Pitch bends down
+      } else {
+        osc.frequency.setValueAtTime(200, now);
+        osc.frequency.exponentialRampToValueAtTime(600, now + 0.15); // Pitch bends up
+      }
+      
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+      
+      osc.start(now);
+      osc.stop(now + 0.15);
+    } catch (e) {
+      // Silently fail if browser blocks autoplay
+    }
+  };
+
+  const handleThemeToggle = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    playThemeSound(newTheme);
+  };
 
   // 2. Wrap them in a spring for a smooth, organic trailing effect
   const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
@@ -147,7 +187,7 @@ export default function App() {
       <AuroraBackground />
 
       <Router>
-        <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} onContactClick={() => setIsContactOpen(true)} />
+        <GlassNavBar isDark={isDark} toggleTheme={handleThemeToggle} onContactClick={() => setIsContactOpen(true)} />
         
         <AnimatedRoutes setGlowColor={setGlowColor} />
       </Router>
@@ -179,6 +219,9 @@ export default function App() {
       <ToolModal isOpen={isGitHubOpen} onClose={() => setIsGitHubOpen(false)} title="Open Source Contributions">
         <GitHubProjects />
       </ToolModal>
+
+      {/* Global PWA Update Notification */}
+      <PWAReloadPrompt />
     </div>
     </LazyMotion>
   );

@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { m, useInView, useMotionValue, useSpring, useTransform, type Variants } from 'framer-motion';
+import { m, useInView, useMotionValue, useSpring, useTransform, type Variants, useScroll } from 'framer-motion';
 import './Portfolio.css';
 import SEO from './components/SEO';
 
@@ -158,6 +158,13 @@ const TechMarquee = () => (
 );
 
 export default function Portfolio() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start center", "end center"]
+  });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
+
   return (
     <m.div 
       initial={{ opacity: 0, y: 20 }}
@@ -248,7 +255,13 @@ export default function Portfolio() {
         variants={staggerContainer}
       >
         <m.h3 variants={fadeUp} className="section-title">Work Experience</m.h3>
-        <div className="timeline">
+        <div className="relative">
+          {/* Animated Scroll Progress Line */}
+          <m.div 
+            style={{ scaleY, transformOrigin: 'top' }} 
+            className="absolute left-[0.5rem] md:left-0 top-2 bottom-0 w-[2px] bg-[hsl(var(--accent))] shadow-[0_0_8px_hsl(var(--accent))] z-0" 
+          />
+        <div className="timeline" ref={timelineRef}>
           {experience.map((exp, index) => (
             <m.div 
               key={index} 
@@ -282,6 +295,7 @@ export default function Portfolio() {
               </ul>
             </m.div>
           ))}
+        </div>
         </div>
       </m.section>
 

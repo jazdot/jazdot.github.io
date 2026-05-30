@@ -17,7 +17,7 @@ export default defineConfig({
       }
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['vite.svg', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf'],
       manifest: {
         name: 'Muhammed Riswan | Network Engineer',
