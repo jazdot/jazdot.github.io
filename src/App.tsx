@@ -1,12 +1,12 @@
 import { useEffect, useState, Suspense, lazy } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { m, LazyMotion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Cat, Gauge, Wrench } from 'lucide-react';
-import Hero, { GlassNavBar, AuroraBackground } from './components/Hero';
-import ToolModal from './components/ToolModal';
+import { GlassNavBar, AuroraBackground } from './components/Hero';
+import Home from './pages/Home';
+import Tools from './pages/Tools';
 
-// Dynamically import components that are not immediately visible
+// Dynamically import the Profile page
 const Portfolio = lazy(() => import('./Portfolio'));
-const SpeedTestTool = lazy(() => import('./tools/SpeedTestTool'));
 
 // Dynamically load Framer Motion's animation features
 const loadFeatures = () => import('framer-motion').then(res => res.domAnimation);
@@ -18,10 +18,8 @@ export default function App() {
   // 1. Initialize motion values for X and Y coordinates
   const mouseX = useMotionValue(0);
 
-  // State to manage the active tool modal
-  const [activeTool, setActiveTool] = useState<string | null>(null);
   const mouseY = useMotionValue(0);
-  
+
   // State for Dynamic Theme
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -58,9 +56,19 @@ export default function App() {
       mouseY.set(e.clientY);
     };
     
+    // Let the glow follow touches on mobile as well!
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        mouseX.set(e.touches[0].clientX);
+        mouseY.set(e.touches[0].clientY);
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [mouseX, mouseY]);
 
@@ -87,136 +95,24 @@ export default function App() {
           pointerEvents: 'none', // Prevents the glow from blocking clicks on your tools
           zIndex: 0,
         }}
-        className="hidden md:block" // Completely hide the glow on mobile devices
       />
 
       {/* Global Background */}
       <AuroraBackground />
 
-      {/* Global Header */}
-      <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
-
-      {/* Hero Section */}
-      <Hero />
-
-      {/* Portfolio Sections */}
-      <div style={{ position: 'relative', zIndex: 10 }}>
-        <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh] text-slate-500">Loading portfolio...</div>}>
-          <Portfolio />
-        </Suspense>
-      </div>
-
-      {/* Main Content */}
-      <div id="tools" style={{ position: 'relative', zIndex: 10, padding: '10vh 5vw', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ fontSize: '2.5rem', marginBottom: '2.5rem', fontWeight: 700, letterSpacing: '-0.02em', position: 'relative', display: 'inline-block' }}>
-          Explore Tools
-          <span style={{ position: 'absolute', bottom: '-8px', left: 0, width: '60px', height: '4px', background: 'var(--accent)', borderRadius: '2px' }}></span>
-        </h2>
-
-        {/* Tools Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
-          
-          {/* Speed Test Tool Card */}
-          <m.div
-            onClick={() => setActiveTool('speedTest')}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            style={{
-              background: 'var(--card-bg)',
-              border: '1px solid var(--card-border)',
-              borderRadius: '16px',
-              padding: '2rem',
-              cursor: 'pointer',
-              backdropFilter: 'blur(10px)',
-              transition: 'border-color 0.3s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.5)';
-              setGlowColor('rgba(56, 189, 248, 0.25)');
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--card-border)';
-              setGlowColor('rgba(120, 119, 198, 0.15)');
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-              <div style={{ background: '#38bdf8', padding: '0.75rem', borderRadius: '12px' }}>
-                <Gauge size={24} color="#fff" />
-              </div>
-              <h2 style={{ margin: 0, fontSize: '1.5rem' }}>Network Speed Test</h2>
-            </div>
-            <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>
-              Measure your download speed with a quick and simple test.
-            </p>
-          </m.div>
-
-          {/* Cat Master Tool Card */}
-          <m.div 
-            onClick={() => window.open('/cat_master/index.html', '_blank')}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            style={{ 
-              background: 'var(--card-bg)', 
-              border: '1px solid var(--card-border)',
-              borderRadius: '16px',
-              padding: '2rem',
-              cursor: 'pointer',
-              backdropFilter: 'blur(10px)',
-              transition: 'border-color 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(120, 119, 198, 0.5)';
-              setGlowColor('rgba(120, 119, 198, 0.5)'); // Intensify the purple glow!
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--card-border)';
-              setGlowColor('rgba(120, 119, 198, 0.15)'); // Reset back to default
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-              <div style={{ background: '#7877c6', padding: '0.75rem', borderRadius: '12px' }}>
-                <Cat size={24} color="#fff" />
-              </div>
-              <h2 style={{ margin: 0, fontSize: '1.5rem' }}>cat_master</h2>
-            </div>
-            <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>
-              The ultimate feline management toolkit. Access statistics, feeding schedules, and monitoring.
-            </p>
-          </m.div>
-
-          {/* Placeholder for future tools */}
-          <m.div 
-            whileHover={{ y: -8, scale: 1.02 }}
-            style={{ 
-              background: 'var(--card-bg)', 
-              border: '1px dashed var(--card-border)',
-              borderRadius: '16px',
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              opacity: 0.6
-            }}
-          >
-            <Wrench size={32} color="#888" style={{ marginBottom: '1rem' }} />
-            <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#888' }}>More tools incoming...</h2>
-          </m.div>
-
-        </div>
-      </div>
-
-      <ToolModal
-        isOpen={activeTool !== null}
-        onClose={() => setActiveTool(null)}
-        title={
-          activeTool === 'speedTest' ? 'Network Speed Test' : ''
-        }
-      >
-        <Suspense fallback={<div className="flex justify-center items-center p-8 text-slate-500">Loading tool...</div>}>
-          {activeTool === 'speedTest' && <SpeedTestTool />}
-        </Suspense>
-      </ToolModal>
+      <Router>
+        <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={
+            <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh] text-slate-500">Loading profile...</div>}>
+              <Portfolio />
+            </Suspense>
+          } />
+          <Route path="/tools" element={<Tools setGlowColor={setGlowColor} />} />
+        </Routes>
+      </Router>
 
       {/* Footer / Contact */}
       <footer style={{ position: 'relative', zIndex: 10, padding: '4rem 5vw', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)' }}>

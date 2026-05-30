@@ -101,10 +101,19 @@ const education = [
 
 export default function Portfolio() {
   return (
-    <div className="portfolio-content">
+    <div className="portfolio-content" style={{ paddingTop: '120px', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 5vw 0' }}>
+        <m.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ fontSize: '3.5rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--page-text)' }}>
+          Professional Profile
+        </m.h2>
+        <m.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} style={{ color: 'var(--nav-text)', fontSize: '1.2rem', marginBottom: '1rem', maxWidth: '600px' }}>
+          A detailed overview of my experience, technical skills, and educational background.
+        </m.p>
+      </div>
+
       {/* About Section */}
       <m.section 
-        className="section" id="about"
+        className="section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
@@ -137,7 +146,7 @@ export default function Portfolio() {
 
       {/* Experience */}
       <m.section 
-        className="section" id="work"
+        className="section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}

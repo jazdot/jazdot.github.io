@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { m, useMotionValue, useSpring, useTransform, type Variants, AnimatePresence } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 
 // ----------------------------------------------------------------------
@@ -125,30 +126,27 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
 export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleTheme?: () => void }) => {
   const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["about", "work", "tools"];
-      let current = "";
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // Highlight the section if it is in the top half of the viewport
-          if (rect.top <= window.innerHeight / 2) {
-            current = section;
-          }
-        }
-      }
-      setActiveSection(current);
-    };
+    if (location.pathname === '/tools') {
+      setActiveSection('tools');
+    } else if (location.pathname === '/about') {
+      setActiveSection('profile');
+    } else {
+      setActiveSection('home');
+    }
+  }, [location]);
 
-    window.addEventListener("scroll", handleScroll);
-    // Call once to set initial state
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const handleNav = (path: string) => {
+    setIsMobileMenuOpen(false);
+    
+    if (location.pathname !== path) {
+      navigate(path);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -158,28 +156,28 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
       transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.4 }}
       className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl bg-white/60 dark:bg-white/5 border border-slate-200/50 dark:border-white/10"
     >
-      <div className="font-bold tracking-widest text-lg text-slate-900 dark:text-white">
+      <div className="font-bold tracking-widest text-lg text-slate-900 dark:text-white cursor-pointer" onClick={() => handleNav('/')}>
         JAZDOT<span style={{ color: "var(--accent)" }}>.</span>
       </div>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-300">
-        <a href="#work" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "work" ? "text-slate-900 dark:text-white" : ""}`}>
-          Work
-          {activeSection === "work" && (
+        <button onClick={() => handleNav('/')} className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "home" ? "text-slate-900 dark:text-white" : ""}`}>
+          Home
+          {activeSection === "home" && (
             <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
-        </a>
-        <a href="#tools" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "tools" ? "text-slate-900 dark:text-white" : ""}`}>
+        </button>
+        <button onClick={() => handleNav('/about')} className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "profile" ? "text-slate-900 dark:text-white" : ""}`}>
+          Profile
+          {activeSection === "profile" && (
+            <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
+          )}
+        </button>
+        <button onClick={() => handleNav('/tools')} className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "tools" ? "text-slate-900 dark:text-white" : ""}`}>
           Tools
           {activeSection === "tools" && (
             <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
-        </a>
-        <a href="#about" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "about" ? "text-slate-900 dark:text-white" : ""}`}>
-          About
-          {activeSection === "about" && (
-            <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
-          )}
-        </a>
+        </button>
       </div>
       <div className="flex items-center gap-4">
         {toggleTheme && (
@@ -213,9 +211,9 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
           exit={{ opacity: 0, y: -20, x: "-50%" }}
           className="fixed top-24 left-1/2 z-40 flex flex-col items-center gap-6 px-6 py-8 rounded-3xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-sm md:hidden"
         >
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'about' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>About</a>
-          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'work' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Work</a>
-          <a href="#tools" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Tools</a>
+          <button onClick={() => handleNav('/')} className={`text-lg font-medium transition-colors ${activeSection === 'home' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Home</button>
+          <button onClick={() => handleNav('/about')} className={`text-lg font-medium transition-colors ${activeSection === 'profile' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Profile</button>
+          <button onClick={() => handleNav('/tools')} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Tools</button>
           <button 
             onClick={() => {
               window.location.href="mailto:riswanmp6@gmail.com";
@@ -279,21 +277,21 @@ export const AuroraBackground = () => {
         <m.div
           animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen dark:mix-blend-color-dodge will-change-transform transform-gpu"
+          className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </m.div>
       <m.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
         <m.div
           animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen dark:mix-blend-color-dodge will-change-transform transform-gpu"
+          className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </m.div>
       <m.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <m.div
           animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen dark:mix-blend-color-dodge will-change-transform transform-gpu"
+          className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </m.div>
     </div>
@@ -304,6 +302,8 @@ export const AuroraBackground = () => {
 // 6. Main Hero Component
 // ----------------------------------------------------------------------
 export default function Hero() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center font-sans">
 
@@ -337,14 +337,12 @@ export default function Hero() {
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 1 }}
           className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
         >
-          <a href="#work" className="w-full sm:w-auto">
-            <GlowingButton>View My Work</GlowingButton>
-          </a>
+          <div className="w-full sm:w-auto" onClick={() => navigate('/about')}>
+            <GlowingButton>View Profile</GlowingButton>
+          </div>
           <MagneticButton 
-            className="w-full sm:w-auto group flex items-center justify-center bg-slate-200/50 dark:bg-white/5 border border-slate-300/50 dark:border-white/10 text-slate-900 dark:text-white hover:bg-slate-300/50 dark:hover:bg-white/10"
-            onClick={() => {
-              document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            className="w-full sm:w-auto group text-black dark:text-white hover:text-blue-400"
+            onClick={() => navigate('/tools')}
           >
             Explore Tools{" "}<span className="ml-1 transition-transform inline-block group-hover:translate-x-1">→</span>
           </MagneticButton>
