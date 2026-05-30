@@ -156,25 +156,25 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
       initial={{ y: -100, x: "-50%", opacity: 0 }}
       animate={{ y: 0, x: "-50%", opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.4 }}
-      className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl bg-white/5 border border-white/10"
+      className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl bg-white/60 dark:bg-white/5 border border-slate-200/50 dark:border-white/10"
     >
-      <div className="font-bold tracking-widest text-lg text-white">
+      <div className="font-bold tracking-widest text-lg text-slate-900 dark:text-white">
         JAZDOT<span style={{ color: "var(--accent)" }}>.</span>
       </div>
-      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-        <a href="#work" className="relative transition-colors hover:text-white" style={{ color: activeSection === "work" ? "white" : "" }}>
+      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-300">
+        <a href="#work" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "work" ? "text-slate-900 dark:text-white" : ""}`}>
           Work
           {activeSection === "work" && (
             <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
-        <a href="#tools" className="relative transition-colors hover:text-white" style={{ color: activeSection === "tools" ? "white" : "" }}>
+        <a href="#tools" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "tools" ? "text-slate-900 dark:text-white" : ""}`}>
           Tools
           {activeSection === "tools" && (
             <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
-        <a href="#about" className="relative transition-colors hover:text-white" style={{ color: activeSection === "about" ? "white" : "" }}>
+        <a href="#about" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "about" ? "text-slate-900 dark:text-white" : ""}`}>
           About
           {activeSection === "about" && (
             <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
@@ -183,20 +183,20 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
       </div>
       <div className="flex items-center gap-4">
         {toggleTheme && (
-          <button onClick={toggleTheme} className="text-slate-300 transition-colors hover:text-accent" aria-label="Toggle Theme">
+          <button onClick={toggleTheme} className="text-slate-500 dark:text-slate-300 transition-colors hover:text-accent dark:hover:text-accent" aria-label="Toggle Theme">
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         )}
         <MagneticButton 
           onClick={() => window.location.href="mailto:riswanmp6@gmail.com"}
-          className="hidden sm:block text-sm !px-5 !py-2 bg-white/10 border border-white/20 text-white hover:bg-white/20">
+          className="hidden sm:block text-sm !px-5 !py-2 bg-slate-900 dark:bg-white/10 border border-transparent dark:border-white/20 text-white hover:bg-slate-800 dark:hover:bg-white/20">
           Contact
         </MagneticButton>
       </div>
 
       {/* Mobile Menu Toggle */}
       <button 
-        className="md:hidden text-slate-300 hover:text-white"
+        className="md:hidden text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
@@ -211,17 +211,17 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
           initial={{ opacity: 0, y: -20, x: "-50%" }}
           animate={{ opacity: 1, y: 0, x: "-50%" }}
           exit={{ opacity: 0, y: -20, x: "-50%" }}
-          className="fixed top-24 left-1/2 z-40 flex flex-col items-center gap-6 px-6 py-8 rounded-3xl bg-slate-900/95 border border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-sm md:hidden"
+          className="fixed top-24 left-1/2 z-40 flex flex-col items-center gap-6 px-6 py-8 rounded-3xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-sm md:hidden"
         >
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'about' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>About</a>
-          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'work' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>Work</a>
-          <a href="#tools" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>Tools</a>
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'about' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>About</a>
+          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'work' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Work</a>
+          <a href="#tools" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Tools</a>
           <button 
             onClick={() => {
               window.location.href="mailto:riswanmp6@gmail.com";
               setIsMobileMenuOpen(false);
             }}
-            className="mt-2 px-8 py-3 w-full rounded-full font-medium bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
+            className="mt-2 px-8 py-3 w-full rounded-full font-medium bg-slate-900 dark:bg-white/10 border border-transparent dark:border-white/20 text-white hover:bg-slate-800 dark:hover:bg-white/20 transition-colors"
           >
             Contact
           </button>
