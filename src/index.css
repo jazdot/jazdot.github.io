@@ -58,6 +58,16 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Custom Text Selection Highlight */
+::selection {
+  background-color: hsl(var(--accent)); /* Uses your accent color for highlight background */
+  color: var(--page-bg); /* Text color inside highlight should contrast with accent and match page background */
+}
+
+::-moz-selection { /* For Firefox compatibility */
+  background-color: hsl(var(--accent));
+  color: var(--page-bg);
+}
 /* Custom Webkit Scrollbar (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 14px;
