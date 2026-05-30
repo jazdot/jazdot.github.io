@@ -317,7 +317,7 @@ export default function Hero() {
           ✨ Available for new opportunities
         </m.div>
 
-        <TypewriterHeadline text="Network Engineer & Cloud DevOps" />
+        <TypewriterHeadline text="Welcome Explorer" />
 
         <m.p
           initial={{ opacity: 0, y: 20 }}
@@ -325,7 +325,7 @@ export default function Hero() {
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.8 }}
           className="mt-8 mb-12 text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed"
         >
-          Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, 
+          I'm a Results-oriented Network Engineer with hands-on experience in MLOps, SDN, 5G/O-RAN, 
           and network automation. Specializing in Python, Terraform, and high-performance 
           cloud infrastructures.
         </m.p>

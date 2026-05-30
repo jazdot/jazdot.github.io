@@ -126,10 +126,10 @@ export default function Portfolio() {
 
         <div className="text-center md:text-left flex-1 mt-4 md:mt-0">
           <m.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} style={{ fontSize: '3.5rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--page-text)' }}>
-            Professional Profile
+            Muhammed Riswan M. P.
           </m.h2>
           <m.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} style={{ color: 'var(--nav-text)', fontSize: '1.2rem', marginBottom: '1rem', maxWidth: '600px' }} className="mx-auto md:mx-0">
-            A detailed overview of my experience, technical skills, and educational background.
+            Network & MLOps Engineer
           </m.p>
         </div>
       </div>
