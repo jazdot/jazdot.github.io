@@ -261,8 +261,14 @@ export const AuroraBackground = () => {
 
   return (
     <div className="fixed inset-0 -z-10 flex items-center justify-center overflow-hidden bg-[var(--page-bg)] transition-colors duration-300" style={{ filter: `hue-rotate(${hue}deg)` }}>
-      {/* Subtle Grid Overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none [background-image:linear-gradient(to_right,rgba(128,128,128,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.07)_1px,transparent_1px)] [background-size:40px_40px] dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]"></div>
+      {/* Subtle Dot Pattern Overlay */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none [background-image:radial-gradient(circle,rgba(128,128,128,0.25)_1px,transparent_1px)] [background-size:24px_24px] dark:[background-image:radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)]"
+        style={{
+          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)'
+        }}
+      ></div>
 
       {/* Subtle Noise Texture Overlay */}
       <div
@@ -317,7 +323,7 @@ export default function Hero() {
           ✨ Available for new opportunities
         </m.div>
 
-        <TypewriterHeadline text="Welcome Explorer" />
+        <TypewriterHeadline text="Welcome Explorer!" />
 
         <m.p
           initial={{ opacity: 0, y: 20 }}
