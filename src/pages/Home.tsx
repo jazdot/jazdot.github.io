@@ -1,5 +1,6 @@
 import { m } from 'framer-motion';
 import Hero from '../components/Hero';
+import SEO from '../components/SEO';
 
 export default function Home() {
   return (
@@ -10,6 +11,10 @@ export default function Home() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       style={{ position: 'relative', zIndex: 10 }}
     >
+      <SEO 
+        title="Muhammed Riswan M. P. | Network Engineer & Cloud DevOps" 
+        description="Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, and network automation. Specializing in Python, Terraform, and high-performance cloud infrastructures."
+      />
       {/* Hero Section */}
       <Hero />
     </m.div>

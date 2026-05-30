@@ -1,5 +1,6 @@
 import { m, type Variants } from 'framer-motion';
 import './Portfolio.css';
+import SEO from './components/SEO';
 
 // Animation Variants
 const fadeUp: Variants = {
@@ -109,6 +110,11 @@ export default function Portfolio() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="portfolio-content" style={{ paddingTop: '120px', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
+      <SEO 
+        title="Profile | Muhammed Riswan M. P." 
+        description="Explore the professional experience, skills, and education of Muhammed Riswan M. P. in Networking, SDN, and MLOps."
+        path="#/about"
+      />
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 5vw 0' }} className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 mb-8">
         
         <m.div 

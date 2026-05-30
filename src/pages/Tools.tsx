@@ -3,6 +3,7 @@ import { m } from 'framer-motion';
 import { GraduationCap, Gauge, Wrench } from 'lucide-react';
 import ToolModal from '../components/ToolModal';
 import Loader from '../components/Loader';
+import SEO from '../components/SEO';
 
 const SpeedTestTool = lazy(() => import('../tools/SpeedTestTool'));
 
@@ -17,6 +18,11 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
       transition={{ duration: 0.4, ease: "easeOut" }}
       style={{ position: 'relative', zIndex: 10, padding: '150px 5vw 10vh', maxWidth: '1200px', margin: '0 auto', minHeight: '80vh' }}
     >
+      <SEO 
+        title="Tools | Muhammed Riswan M. P." 
+        description="Explore custom networking and productivity tools built by Muhammed Riswan M. P., including Network Speed Test and CAT Master."
+        path="#/tools"
+      />
       <h2 style={{ fontSize: '2.5rem', margin: '0 0 2.5rem 0', fontWeight: 700, letterSpacing: '-0.02em', position: 'relative', display: 'inline-block' }}>
         Explore Tools
         <span style={{ position: 'absolute', bottom: '-8px', left: 0, width: '60px', height: '4px', background: 'var(--accent)', borderRadius: '2px' }}></span>
