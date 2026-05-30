@@ -266,21 +266,21 @@ export const AuroraBackground = () => {
       <m.div style={{ x: transformX1, y: transformY1 }} className="absolute top-1/4 left-1/4">
         <m.div
           animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </m.div>
       <m.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
         <m.div
           animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </m.div>
       <m.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <m.div
           animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </m.div>
