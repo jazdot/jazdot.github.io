@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { m, useInView, useMotionValue, useSpring, useTransform, type Variants, useScroll } from 'framer-motion';
+import { MapPin } from 'lucide-react';
 import './Portfolio.css';
 import SEO from './components/SEO';
 
@@ -157,6 +158,81 @@ const TechMarquee = () => (
   </div>
 );
 
+// Interactive Career Topology Map
+const JobLocationsMap = () => {
+  return (
+    <m.div 
+      variants={fadeUp}
+      className="relative w-full h-[350px] md:h-[450px] rounded-3xl border border-black/10 dark:border-white/10 bg-[#f8fafc] dark:bg-[#020617] overflow-hidden shadow-2xl mt-12 group"
+    >
+      {/* Radar Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]"></div>
+
+      {/* SVG Connection Map (preserveAspectRatio="none" perfectly syncs % based HTML coords with SVG coords) */}
+      <svg viewBox="0 0 1000 450" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+        {/* Path connecting Trivandrum and Bengaluru */}
+        <m.path
+          d="M 400 346 Q 250 220 450 99"
+          fill="none"
+          stroke="hsl(var(--accent))"
+          strokeWidth="2"
+          strokeDasharray="6 6"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 0.5 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
+        />
+        {/* Packet Animation */}
+        <m.circle
+          r="4"
+          fill="hsl(var(--accent))"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.5 }}
+        >
+          <animateMotion 
+            path="M 400 346 Q 250 220 450 99" 
+            dur="2.5s" 
+            repeatCount="indefinite" 
+            calcMode="linear" 
+          />
+        </m.circle>
+      </svg>
+
+      {/* Trivandrum Node */}
+      <div className="absolute z-10" style={{ left: '40%', top: '77%', transform: 'translate(-50%, -50%)' }}>
+        <div className="relative group/node cursor-crosshair">
+          <m.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", delay: 0.2 }} className="w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)] relative z-10" />
+          <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-70" style={{ animationDuration: '2s' }}></div>
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max opacity-0 group-hover/node:opacity-100 transition-opacity pointer-events-none origin-bottom">
+            <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-black/10 dark:border-white/10 text-center">
+              <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 justify-center"><MapPin size={14} className="text-blue-500"/> Trivandrum</div>
+              <div className="text-xs text-slate-500 mt-1">Research Intern @ ICFOSS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bengaluru Node */}
+      <div className="absolute z-10" style={{ left: '45%', top: '22%', transform: 'translate(-50%, -50%)' }}>
+        <div className="relative group/node cursor-crosshair">
+          <m.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", delay: 1.5 }} className="w-5 h-5 rounded-full bg-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.8)] relative z-10 flex items-center justify-center"><div className="w-2 h-2 rounded-full bg-white"></div></m.div>
+          <div className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-60" style={{ animationDuration: '3s' }}></div>
+          <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-max opacity-0 group-hover/node:opacity-100 transition-opacity pointer-events-none origin-top z-20">
+            <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-black/10 dark:border-white/10 text-center">
+              <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 justify-center"><MapPin size={14} className="text-purple-500"/> Bengaluru</div>
+              <div className="text-xs text-slate-500 mt-1">Senior Engineer @ Tata Elxsi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="absolute bottom-6 right-6 bg-white/40 dark:bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-black/5 dark:border-white/5 text-xs font-mono font-bold text-slate-500 tracking-widest uppercase shadow-sm pointer-events-none">Career Topology</div>
+    </m.div>
+  );
+};
+
 export default function Portfolio() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -297,6 +373,9 @@ export default function Portfolio() {
           ))}
         </div>
         </div>
+
+        {/* Interactive Job Locations Map */}
+        <JobLocationsMap />
       </m.section>
 
       {/* Education & Publications */}

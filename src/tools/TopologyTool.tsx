@@ -5,8 +5,8 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
-  Connection,
-  Edge,
+  type Connection,
+  type Edge,
   BackgroundVariant
 } from 'reactflow';
 import 'reactflow/dist/style.css';

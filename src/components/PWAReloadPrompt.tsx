@@ -1,5 +1,4 @@
 /// <reference types="vite-plugin-pwa/client" />
-import React from 'react';
 // @ts-ignore - Ignores TS error if vite-env.d.ts doesn't explicitly declare the virtual module
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { m, AnimatePresence } from 'framer-motion';
