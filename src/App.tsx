@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Cat, Gauge, Wrench, Sun, Moon } from 'lucide-react';
-import Hero, { GlassNavBar } from './components/Hero';
+import { Cat, Gauge, Wrench } from 'lucide-react';
+import Hero, { GlassNavBar, AuroraBackground } from './components/Hero';
 import Portfolio from './Portfolio';
 import ToolModal from './components/ToolModal';
 import SpeedTestTool from './tools/SpeedTestTool';
@@ -71,15 +71,7 @@ export default function App() {
 
   return (
     <div 
-      style={{ 
-        position: 'relative', 
-        minHeight: '100vh', 
-        backgroundColor: 'var(--page-bg)', 
-        color: 'var(--page-text)',
-        overflowX: 'hidden',
-        fontFamily: 'system-ui, sans-serif',
-        transition: 'background-color 0.3s ease, color 0.3s ease'
-      }}
+      className="relative min-h-screen overflow-x-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300"
     >
       {/* Background Mouse Tracking Glow */}
       <motion.div
@@ -101,6 +93,9 @@ export default function App() {
         }}
       />
 
+      {/* Global Background */}
+      <AuroraBackground />
+
       {/* Global Header */}
       <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
 
@@ -116,7 +111,7 @@ export default function App() {
       <div id="tools" style={{ position: 'relative', zIndex: 10, padding: '10vh 5vw', maxWidth: '1200px', margin: '0 auto' }}>
         <h2 style={{ fontSize: '2.5rem', marginBottom: '2.5rem', fontWeight: 700, letterSpacing: '-0.02em', position: 'relative', display: 'inline-block' }}>
           Explore Tools
-          <span style={{ position: 'absolute', bottom: '-8px', left: 0, width: '60px', height: '4px', background: '#7877c6', borderRadius: '2px' }}></span>
+          <span style={{ position: 'absolute', bottom: '-8px', left: 0, width: '60px', height: '4px', background: 'var(--accent)', borderRadius: '2px' }}></span>
         </h2>
 
         {/* Tools Grid */}

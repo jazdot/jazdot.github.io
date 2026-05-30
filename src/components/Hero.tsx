@@ -9,10 +9,12 @@ const MagneticButton = ({
   children,
   className = "",
   onClick,
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
@@ -46,7 +48,7 @@ const MagneticButton = ({
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       onClick={onClick}
-      style={{ x: springX, y: springY }}
+      style={{ x: springX, y: springY, ...style }}
       className={`relative px-8 py-3 rounded-full font-medium transition-colors duration-300 ${className}`}
     >
       {children}
@@ -59,26 +61,15 @@ const MagneticButton = ({
 // ----------------------------------------------------------------------
 const GlowingButton = ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) => {
   return (
-    <div 
+    <div
       onClick={onClick}
-      className="relative group rounded-full overflow-hidden p-[2px] cursor-pointer sm:w-auto w-full transition-transform hover:scale-105 active:scale-95 duration-300 shadow-xl"
+      className="relative group cursor-pointer sm:w-auto w-full transition-transform hover:scale-105 active:scale-95 duration-300"
     >
-      {/* Animated gradient border */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-1/2 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2"
-        style={{ backgroundImage: 'conic-gradient(from 0deg, transparent 0 340deg, var(--accent) 360deg)' }}
-      />
-      {/* Extra blurred layer for the intense glow effect */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-1/2 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 opacity-50 blur-md"
-        style={{ backgroundImage: 'conic-gradient(from 0deg, transparent 0 340deg, var(--accent) 360deg)' }}
-      />
-      <button className="relative z-10 w-full h-full rounded-full px-8 py-3 font-medium transition-colors" style={{ backgroundColor: 'var(--page-bg)', color: 'var(--page-text)' }}>
-        {children}
+      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-md opacity-60 group-hover:opacity-100 transition duration-500 group-hover:duration-200"></div>
+      <button className="relative w-full h-full rounded-full px-8 py-3 font-bold text-white bg-slate-900/80 border border-white/20 shadow-2xl flex items-center justify-center overflow-hidden backdrop-blur-sm">
+        <span className="relative z-10">{children}</span>
+        {/* Glossy overlay */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition duration-500"></div>
       </button>
     </div>
   );
@@ -108,14 +99,13 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter flex flex-wrap justify-center items-center mt-6 transition-colors duration-300"
-      style={{ color: 'var(--page-text)' }}
+      className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter flex flex-wrap justify-center items-center mt-6"
     >
       {characters.map((char, i) => (
         <motion.span
           key={i}
           variants={charVariants}
-          className="inline-block drop-shadow-lg"
+          style={{ display: "inline-block" }}
         >
           {char === " " ? "\u00A0" : char}
         </motion.span>
@@ -123,8 +113,7 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        className="inline-block w-[4px] md:w-[6px] h-[1em] ml-2 md:ml-4 rounded-full"
-        style={{ backgroundColor: 'var(--accent)' }}
+        style={{ display: "inline-block", width: "4px", height: "1em", marginLeft: "12px", borderRadius: "4px", backgroundColor: "var(--accent)" }}
       />
     </motion.h1>
   );
@@ -167,50 +156,47 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
       initial={{ y: -100, x: "-50%", opacity: 0 }}
       animate={{ y: 0, x: "-50%", opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.4 }}
-      className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl transition-colors duration-300"
-      style={{ backgroundColor: 'var(--nav-bg)', borderColor: 'var(--nav-border)' }}
+      className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl bg-white/5 border border-white/10"
     >
-      <div className="font-bold tracking-widest text-lg transition-colors duration-300" style={{ color: 'var(--page-text)' }}>
-        JAZDOT<span className="text-blue-500">.</span>
+      <div className="font-bold tracking-widest text-lg text-white">
+        JAZDOT<span style={{ color: "var(--accent)" }}>.</span>
       </div>
-      <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="#work" className="relative transition-colors" style={{ color: activeSection === "work" ? "var(--nav-text-hover)" : "var(--nav-text)" }}>
+      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#work" className="relative transition-colors hover:text-white" style={{ color: activeSection === "work" ? "white" : "" }}>
           Work
           {activeSection === "work" && (
-            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 bg-blue-500 rounded-full" />
+            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
-        <a href="#tools" className="relative transition-colors" style={{ color: activeSection === "tools" ? "var(--nav-text-hover)" : "var(--nav-text)" }}>
+        <a href="#tools" className="relative transition-colors hover:text-white" style={{ color: activeSection === "tools" ? "white" : "" }}>
           Tools
           {activeSection === "tools" && (
-            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 bg-blue-500 rounded-full" />
+            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
-        <a href="#about" className="relative transition-colors" style={{ color: activeSection === "about" ? "var(--nav-text-hover)" : "var(--nav-text)" }}>
+        <a href="#about" className="relative transition-colors hover:text-white" style={{ color: activeSection === "about" ? "white" : "" }}>
           About
           {activeSection === "about" && (
-            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 bg-blue-500 rounded-full" />
+            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
       </div>
       <div className="flex items-center gap-4">
         {toggleTheme && (
-          <button onClick={toggleTheme} className="transition-colors hover:text-blue-400" aria-label="Toggle Theme" style={{ color: 'var(--nav-text)' }}>
+          <button onClick={toggleTheme} className="text-slate-300 transition-colors hover:text-accent" aria-label="Toggle Theme">
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         )}
         <MagneticButton 
           onClick={() => window.location.href="mailto:riswanmp6@gmail.com"}
-          className="hidden sm:block text-sm !px-5 !py-2 transition-all duration-300 hover:scale-105 shadow-md"
-          style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)', color: 'var(--page-text)', borderWidth: '1px' }}>
+          className="hidden sm:block text-sm !px-5 !py-2 bg-white/10 border border-white/20 text-white hover:bg-white/20">
           Contact
         </MagneticButton>
       </div>
 
       {/* Mobile Menu Toggle */}
       <button 
-        className="md:hidden transition-colors hover:text-blue-400"
-        style={{ color: 'var(--nav-text)' }}
+        className="md:hidden text-slate-300 hover:text-white"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
@@ -225,19 +211,17 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
           initial={{ opacity: 0, y: -20, x: "-50%" }}
           animate={{ opacity: 1, y: 0, x: "-50%" }}
           exit={{ opacity: 0, y: -20, x: "-50%" }}
-          className="fixed top-24 left-1/2 z-40 flex flex-col items-center gap-6 px-6 py-8 rounded-3xl backdrop-blur-xl shadow-2xl w-[90%] max-w-sm md:hidden transition-colors duration-300"
-          style={{ backgroundColor: 'var(--page-bg)', borderColor: 'var(--nav-border)' }}
+          className="fixed top-24 left-1/2 z-40 flex flex-col items-center gap-6 px-6 py-8 rounded-3xl bg-slate-900/95 border border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-sm md:hidden"
         >
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium transition-colors" style={{ color: activeSection === 'about' ? 'var(--nav-text-hover)' : 'var(--nav-text)' }}>About</a>
-          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium transition-colors" style={{ color: activeSection === 'work' ? 'var(--nav-text-hover)' : 'var(--nav-text)' }}>Work</a>
-          <a href="#tools" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium transition-colors" style={{ color: activeSection === 'tools' ? 'var(--nav-text-hover)' : 'var(--nav-text)' }}>Tools</a>
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'about' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>About</a>
+          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'work' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>Work</a>
+          <a href="#tools" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>Tools</a>
           <button 
             onClick={() => {
               window.location.href="mailto:riswanmp6@gmail.com";
               setIsMobileMenuOpen(false);
             }}
-            className="mt-2 px-8 py-3 w-full rounded-full font-medium transition-colors"
-            style={{ backgroundColor: 'var(--nav-bg)', borderColor: 'var(--nav-border)', color: 'var(--page-text)', borderWidth: '1px' }}
+            className="mt-2 px-8 py-3 w-full rounded-full font-medium bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
           >
             Contact
           </button>
@@ -251,7 +235,7 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
 // ----------------------------------------------------------------------
 // 5. Aurora / Mesh Gradient Background
 // ----------------------------------------------------------------------
-const AuroraBackground = () => {
+export const AuroraBackground = () => {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
   const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
 
@@ -269,12 +253,20 @@ const AuroraBackground = () => {
   const transformX2 = useSpring(useTransform(mouseX, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
   const transformY2 = useSpring(useTransform(mouseY, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
 
+  // State to smoothly shift the aurora colors on click
+  const [hue, setHue] = useState(0);
+  useEffect(() => {
+    const handleClick = () => setHue(h => h + 45); // Shift the color wheel by 45 degrees
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
+
   return (
-    <div className="absolute inset-0 overflow-hidden -z-10 flex items-center justify-center transition-colors duration-300" style={{ backgroundColor: 'var(--aurora-bg)' }}>
+    <div className="fixed inset-0 -z-10 flex items-center justify-center overflow-hidden bg-[var(--page-bg)] transition-colors duration-300" style={{ filter: `hue-rotate(${hue}deg)` }}>
       {/* Subtle Noise Texture Overlay */}
       <div
-        className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none mix-blend-overlay"
         style={{
+          position: "absolute", inset: 0, zIndex: 0, opacity: 0.04, pointerEvents: "none", mixBlendMode: "overlay",
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
       ></div>
@@ -284,24 +276,21 @@ const AuroraBackground = () => {
         <motion.div
           animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px]"
-          style={{ mixBlendMode: 'var(--aurora-blend)' as any, opacity: 'var(--aurora-opacity)' }}
+          className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </motion.div>
       <motion.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
         <motion.div
           animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px]"
-          style={{ mixBlendMode: 'var(--aurora-blend)' as any, opacity: 'var(--aurora-opacity)' }}
+          className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </motion.div>
       <motion.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <motion.div
           animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px]"
-          style={{ mixBlendMode: 'var(--aurora-blend)' as any, opacity: 'var(--aurora-opacity)' }}
+          className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen dark:mix-blend-color-dodge"
         />
       </motion.div>
     </div>
@@ -313,16 +302,14 @@ const AuroraBackground = () => {
 // ----------------------------------------------------------------------
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden font-sans">
-      <AuroraBackground />
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-center font-sans">
 
       <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-5xl mx-auto mt-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.1 }}
-          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl transition-colors duration-300"
-          style={{ backgroundColor: 'var(--nav-bg)', borderColor: 'var(--nav-border)', color: 'var(--page-text)' }}
+          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-black dark:text-slate-300"
         >
           ✨ Available for new opportunities
         </motion.div>
@@ -333,8 +320,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.8 }}
-          className="mt-8 mb-12 text-lg md:text-xl max-w-2xl leading-relaxed transition-colors duration-300"
-          style={{ color: 'var(--nav-text)' }}
+          className="mt-8 mb-12 text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed"
         >
           Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, 
           and network automation. Specializing in Python, Terraform, and high-performance 
@@ -348,16 +334,16 @@ export default function Hero() {
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 1 }}
           className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
         >
-          <GlowingButton onClick={() => window.location.href="#work"}>View My Work</GlowingButton>
+          <a href="#work" className="w-full sm:w-auto">
+            <GlowingButton>View My Work</GlowingButton>
+          </a>
           <MagneticButton 
-            onClick={() => window.location.href="#tools"}
-            className="w-full sm:w-auto group transition-all duration-300 hover:scale-105 active:scale-95 border shadow-lg backdrop-blur-md"
-            style={{ color: 'var(--page-text)', borderColor: 'var(--card-border)', backgroundColor: 'var(--card-bg)' }}
+            className="w-full sm:w-auto group text-black dark:text-white hover:text-blue-400"
+            onClick={() => {
+              document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
-            Explore Tools{" "}
-            <span className="ml-1 transition-transform inline-block group-hover:translate-x-1">
-              →
-            </span>
+            Explore Tools{" "}<span className="ml-1 transition-transform inline-block group-hover:translate-x-1">→</span>
           </MagneticButton>
         </motion.div>
       </div>

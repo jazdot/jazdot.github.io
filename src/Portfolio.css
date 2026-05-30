@@ -1,14 +1,5 @@
-:root {
-  --bg-color: transparent;
-  --text-main: var(--page-text);
-  --text-muted: #888888;
-  --accent: #7877c6;
-  --card-bg: var(--card-bg);
-  --card-border: var(--card-border);
-}
-
 .portfolio-content {
-  color: var(--text-main);
+  color: var(--page-text);
   line-height: 1.6;
 }
 
@@ -37,12 +28,14 @@
   height: 4px;
   background: var(--accent);
   border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .objective-text {
-  font-size: 1.1rem;
-  color: #cbd5e1;
+  font-size: 1.15rem;
+  color: var(--text);
   max-width: 800px;
+  line-height: 1.7;
 }
 
 /* Cards & Grids */
@@ -51,7 +44,16 @@
   border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 1.5rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+  border-color: var(--accent-border, var(--accent));
 }
 
 .skills-grid, .edu-grid, .tools-grid {
@@ -69,10 +71,15 @@
 
 /* Timeline / Experience */
 .experience-item {
-  border-left: 2px solid #334155;
+  border-left: 2px solid var(--card-border);
   padding-left: 2rem;
   position: relative;
   margin-bottom: 3rem;
+  transition: border-color 0.3s ease;
+}
+
+.experience-item:hover {
+  border-left-color: var(--accent);
 }
 
 .experience-item::before {
@@ -84,7 +91,13 @@
   height: 16px;
   border-radius: 50%;
   background: var(--accent);
-  border: 4px solid #0a0a0a;
+  border: 4px solid var(--page-bg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-item:hover::before {
+  transform: scale(1.3);
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .exp-header {
@@ -96,19 +109,20 @@
 }
 
 .exp-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--page-text);
 }
 
 .exp-company {
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1rem;
+  font-size: 1.05rem;
 }
 
 .exp-date {
-  color: var(--text-muted);
+  color: var(--text);
   font-size: 0.95rem;
 }
 
@@ -118,13 +132,13 @@
 
 .exp-desc li {
   margin-bottom: 0.75rem;
-  color: #cbd5e1;
+  color: var(--text);
 }
 
 /* Education */
 .edu-details {
   margin-top: 1rem;
-  color: #cbd5e1;
+  color: var(--text);
 }
 
 .publication-card {
@@ -133,5 +147,5 @@
 
 .publication-card p {
   margin-top: 0.5rem;
-  color: #cbd5e1;
+  color: var(--text);
 }
