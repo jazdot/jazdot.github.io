@@ -5,6 +5,8 @@ import { GlassNavBar, AuroraBackground } from './components/Hero';
 import Home from './pages/Home';
 import Tools from './pages/Tools';
 import Loader from './components/Loader';
+import ToolModal from './components/ToolModal';
+import ContactForm from './components/ContactForm';
 
 // Dynamically import the Profile page
 const Portfolio = lazy(() => import('./Portfolio'));
@@ -39,6 +41,9 @@ export default function App() {
   const mouseX = useMotionValue(0);
 
   const mouseY = useMotionValue(0);
+
+  // Contact Modal State
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   // Scroll Progress Tracking
   const { scrollYProgress } = useScroll();
@@ -136,7 +141,7 @@ export default function App() {
       <AuroraBackground />
 
       <Router>
-        <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
+        <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} onContactClick={() => setIsContactOpen(true)} />
         
         <AnimatedRoutes setGlowColor={setGlowColor} />
       </Router>
@@ -144,7 +149,7 @@ export default function App() {
       {/* Footer / Contact */}
       <footer style={{ position: 'relative', zIndex: 10, padding: '4rem 5vw', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
-          <a href="mailto:riswanmp6@gmail.com" aria-label="Email Me" style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#7877c6'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsContactOpen(true); }} aria-label="Email Me" style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#7877c6'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </a>
           <a href="https://linkedin.com/in/muhammedriswanmp" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile" style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#7877c6'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>
@@ -158,6 +163,11 @@ export default function App() {
           © {new Date().getFullYear()} Muhammed Riswan M. P. All rights reserved.
         </p>
       </footer>
+
+      {/* Global Contact Modal */}
+      <ToolModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} title="Get in Touch">
+        <ContactForm />
+      </ToolModal>
     </div>
     </LazyMotion>
   );

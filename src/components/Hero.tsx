@@ -123,7 +123,7 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
 // ----------------------------------------------------------------------
 // 4. Glassmorphism Navigation Bar
 // ----------------------------------------------------------------------
-export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleTheme?: () => void }) => {
+export const GlassNavBar = ({ isDark, toggleTheme, onContactClick }: { isDark?: boolean; toggleTheme?: () => void; onContactClick?: () => void }) => {
   const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -186,7 +186,7 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
           </button>
         )}
         <MagneticButton 
-          onClick={() => window.location.href="mailto:riswanmp6@gmail.com"}
+          onClick={onContactClick}
           className="hidden sm:block text-sm !px-5 !py-2 bg-slate-900 dark:bg-white/10 border border-transparent dark:border-white/20 text-white hover:bg-slate-800 dark:hover:bg-white/20">
           Contact
         </MagneticButton>
@@ -216,7 +216,7 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
           <button onClick={() => handleNav('/tools')} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>Tools</button>
           <button 
             onClick={() => {
-              window.location.href="mailto:riswanmp6@gmail.com";
+              if (onContactClick) onContactClick();
               setIsMobileMenuOpen(false);
             }}
             className="mt-2 px-8 py-3 w-full rounded-full font-medium bg-slate-900 dark:bg-white/10 border border-transparent dark:border-white/20 text-white hover:bg-slate-800 dark:hover:bg-white/20 transition-colors"
