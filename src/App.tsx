@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Cat, Gauge, Wrench } from 'lucide-react';
 import Hero, { GlassNavBar, AuroraBackground } from './components/Hero';
-import Portfolio from './Portfolio';
 import ToolModal from './components/ToolModal';
-import SpeedTestTool from './tools/SpeedTestTool';
+
+// Dynamically import components that are not immediately visible
+const Portfolio = lazy(() => import('./Portfolio'));
+const SpeedTestTool = lazy(() => import('./tools/SpeedTestTool'));
 
 export default function App() {
   // State to track the current color of the mouse glow
@@ -104,7 +106,9 @@ export default function App() {
 
       {/* Portfolio Sections */}
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <Portfolio />
+        <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh] text-slate-500">Loading portfolio...</div>}>
+          <Portfolio />
+        </Suspense>
       </div>
 
       {/* Main Content */}
@@ -214,7 +218,9 @@ export default function App() {
           activeTool === 'speedTest' ? 'Network Speed Test' : ''
         }
       >
-        {activeTool === 'speedTest' && <SpeedTestTool />}
+        <Suspense fallback={<div className="flex justify-center items-center p-8 text-slate-500">Loading tool...</div>}>
+          {activeTool === 'speedTest' && <SpeedTestTool />}
+        </Suspense>
       </ToolModal>
 
       {/* Footer / Contact */}
