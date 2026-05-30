@@ -95,7 +95,7 @@ export default function App() {
   return (
     <LazyMotion features={loadFeatures}>
     <div 
-      className="relative min-h-screen overflow-x-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300"
+      className="relative z-0 min-h-screen overflow-x-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300"
     >
       {/* Background Mouse Tracking Glow */}
       <m.div

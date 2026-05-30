@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { m, useMotionValue, useSpring, useTransform, type Variants, AnimatePresence } from "framer-motion";
+import { m, useMotionValue, useSpring, useTransform, type Variants, AnimatePresence, useMotionTemplate } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 
@@ -236,28 +236,39 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
 export const AuroraBackground = () => {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
   const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
+  const pointerX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+  const pointerY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX - window.innerWidth / 2);
       mouseY.set(e.clientY - window.innerHeight / 2);
+      pointerX.set(e.clientX);
+      pointerY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, pointerX, pointerY]);
 
   const transformX1 = useSpring(useTransform(mouseX, [-500, 500], [-50, 50]), { stiffness: 50, damping: 20 });
   const transformY1 = useSpring(useTransform(mouseY, [-500, 500], [-50, 50]), { stiffness: 50, damping: 20 });
   const transformX2 = useSpring(useTransform(mouseX, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
   const transformY2 = useSpring(useTransform(mouseY, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
 
-  // State to smoothly shift the aurora colors on click
-  const [hue, setHue] = useState(0);
+  // State to smoothly shift the aurora colors on click, explicitly skipping the red spectrum (90deg - 180deg)
+  const safeHues = [0, 45, 225, 270, 315];
+  const [hueIndex, setHueIndex] = useState(0);
+  
   useEffect(() => {
-    const handleClick = () => setHue(h => h + 45); // Shift the color wheel by 45 degrees
+    const handleClick = () => setHueIndex(prev => (prev + 1) % safeHues.length);
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
   }, []);
+
+  const hue = safeHues[hueIndex];
+
+  // Combines a static center fade with a dynamic cursor spotlight
+  const maskImage = useMotionTemplate`radial-gradient(ellipse at center, rgba(0,0,0,0.4) 30%, transparent 80%), radial-gradient(400px circle at ${pointerX}px ${pointerY}px, black 0%, transparent 100%)`;
 
   return (
     <div className="fixed inset-0 -z-10 flex items-center justify-center overflow-hidden bg-[var(--page-bg)] transition-colors duration-300" style={{ filter: `hue-rotate(${hue}deg)` }}>
@@ -267,21 +278,21 @@ export const AuroraBackground = () => {
         <m.div
           animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen dark:mix-blend-color-dodge"
+          className="w-[30vw] h-[30vw] md:w-[25vw] md:h-[25vw] rounded-full bg-blue-500/15 dark:bg-blue-600/15 blur-[100px] mix-blend-multiply dark:mix-blend-color-dodge will-change-transform transform-gpu"
         />
       </m.div>
       <m.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
         <m.div
           animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen dark:mix-blend-color-dodge"
+          className="w-[40vw] h-[40vw] md:w-[35vw] md:h-[35vw] rounded-full bg-purple-500/10 dark:bg-purple-600/10 blur-[120px] mix-blend-multiply dark:mix-blend-color-dodge will-change-transform transform-gpu"
         />
       </m.div>
       <m.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <m.div
           animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen dark:mix-blend-color-dodge"
+          className="w-[25vw] h-[25vw] md:w-[20vw] md:h-[20vw] rounded-full bg-teal-400/10 dark:bg-teal-500/10 blur-[90px] mix-blend-multiply dark:mix-blend-color-dodge will-change-transform transform-gpu"
         />
       </m.div>
 
@@ -294,13 +305,13 @@ export const AuroraBackground = () => {
       ></div>
 
       {/* Subtle Dot Pattern Overlay (Very Top) */}
-      <div 
+      <m.div 
         className="absolute inset-0 pointer-events-none bg-dot-pattern z-10"
         style={{
-          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
+          maskImage: maskImage,
+          WebkitMaskImage: maskImage
         }}
-      ></div>
+      ></m.div>
     </div>
   );
 };
