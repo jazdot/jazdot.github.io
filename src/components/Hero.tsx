@@ -285,22 +285,20 @@ export const AuroraBackground = () => {
         />
       </m.div>
 
-      {/* Subtle Dot Pattern Overlay (Moved forward, CSS fixed) */}
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none text-slate-500/20 dark:text-white/10"
-        style={{
-          backgroundImage: 'radial-gradient(circle, currentColor 2px, transparent 2px)',
-          backgroundSize: '32px 32px',
-          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)'
-        }}
-      ></div>
-
-      {/* Subtle Noise Texture Overlay (Top) */}
+      {/* Subtle Noise Texture Overlay */}
       <div
         style={{
           position: "absolute", inset: 0, zIndex: 0, opacity: 0.04, pointerEvents: "none", mixBlendMode: "overlay",
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      ></div>
+
+      {/* Subtle Dot Pattern Overlay (Very Top) */}
+      <div 
+        className="absolute inset-0 pointer-events-none bg-dot-pattern"
+        style={{
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
         }}
       ></div>
     </div>

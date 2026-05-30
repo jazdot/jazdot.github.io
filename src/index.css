@@ -58,6 +58,15 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Dot Pattern Background */
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.16) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+html.dark .bg-dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px);
+}
+
 /* Custom Text Selection Highlight */
 ::selection {
   background-color: hsl(var(--accent)); /* Uses your accent color for highlight background */
