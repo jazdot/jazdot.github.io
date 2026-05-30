@@ -295,12 +295,21 @@ export const AuroraBackground = () => {
 
       {/* Subtle Dot Pattern Overlay (Very Top) */}
       <div 
-        className="absolute inset-0 pointer-events-none bg-dot-pattern"
+        className="absolute inset-0 pointer-events-none"
         style={{
           maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
           WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
         }}
-      ></div>
+      >
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="aurora-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.5" className="fill-slate-900/15 dark:fill-white/15" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#aurora-dots)" />
+        </svg>
+      </div>
     </div>
   );
 };
