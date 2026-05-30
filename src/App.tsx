@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import Portfolio from './Portfolio';
 import ToolModal from './components/ToolModal';
 import SpeedTestTool from './tools/SpeedTestTool';
-import CatMasterTool from './tools/CatMasterTool';
 
 export default function App() {
   // State to track the current color of the mouse glow
@@ -122,7 +121,7 @@ export default function App() {
 
           {/* Cat Master Tool Card */}
           <motion.div 
-            onClick={() => setActiveTool('catMaster')}
+            onClick={() => window.open('/cat_master/index.html', '_blank')}
             whileHover={{ y: -8, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{ 
@@ -180,12 +179,10 @@ export default function App() {
         isOpen={activeTool !== null}
         onClose={() => setActiveTool(null)}
         title={
-          activeTool === 'speedTest' ? 'Network Speed Test' :
-          activeTool === 'catMaster' ? 'Cat Master' : ''
+          activeTool === 'speedTest' ? 'Network Speed Test' : ''
         }
       >
         {activeTool === 'speedTest' && <SpeedTestTool />}
-        {activeTool === 'catMaster' && <CatMasterTool />}
       </ToolModal>
 
       {/* Footer / Contact */}

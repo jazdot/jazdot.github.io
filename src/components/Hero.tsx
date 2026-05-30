@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, type Variants } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
 
 // ----------------------------------------------------------------------
 // 1. Magnetic Button (Secondary CTA)
@@ -135,7 +135,7 @@ const GlassNavBar = () => {
       initial={{ y: -100, x: "-50%", opacity: 0 }}
       animate={{ y: 0, x: "-50%", opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.4 }}
-      className="absolute top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl"
+      className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl"
     >
       <div className="font-bold text-white tracking-widest text-lg">
         JAZDOT<span className="text-blue-500">.</span>
@@ -164,6 +164,23 @@ const GlassNavBar = () => {
 // 5. Aurora / Mesh Gradient Background
 // ----------------------------------------------------------------------
 const AuroraBackground = () => {
+  const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+  const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX - window.innerWidth / 2);
+      mouseY.set(e.clientY - window.innerHeight / 2);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const transformX1 = useSpring(useTransform(mouseX, [-500, 500], [-50, 50]), { stiffness: 50, damping: 20 });
+  const transformY1 = useSpring(useTransform(mouseY, [-500, 500], [-50, 50]), { stiffness: 50, damping: 20 });
+  const transformX2 = useSpring(useTransform(mouseX, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
+  const transformY2 = useSpring(useTransform(mouseY, [-500, 500], [50, -50]), { stiffness: 50, damping: 20 });
+
   return (
     <div className="absolute inset-0 overflow-hidden bg-slate-950 -z-10 flex items-center justify-center">
       {/* Subtle Noise Texture Overlay */}
@@ -175,21 +192,27 @@ const AuroraBackground = () => {
       ></div>
 
       {/* Animated Blobs */}
-      <motion.div
-        animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen"
-      />
-      <motion.div
-        animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/4 right-1/4 w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen"
-      />
-      <motion.div
-        animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen"
-      />
+      <motion.div style={{ x: transformX1, y: transformY1 }} className="absolute top-1/4 left-1/4">
+        <motion.div
+          animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen"
+        />
+      </motion.div>
+      <motion.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
+        <motion.div
+          animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen"
+        />
+      </motion.div>
+      <motion.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <motion.div
+          animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen"
+        />
+      </motion.div>
     </div>
   );
 };
