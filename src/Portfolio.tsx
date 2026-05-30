@@ -117,15 +117,15 @@ export default function Portfolio() {
           transition={{ type: "spring", stiffness: 120, damping: 15 }} 
           className="relative shrink-0"
         >
-          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-slate-200/50 dark:border-white/10 shadow-2xl relative z-10 backdrop-blur-sm bg-white/20 dark:bg-white/5">
+          <m.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 300, damping: 15 }} className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-slate-200/50 dark:border-white/10 shadow-2xl relative z-10 backdrop-blur-sm bg-white/20 dark:bg-white/5 cursor-pointer">
             <img src="/pp.jpeg" alt="Muhammed Riswan M. P." className="w-full h-full object-cover" />
-          </div>
+          </m.div>
           {/* Subtle animated glow behind the avatar */}
           <div className="absolute inset-0 bg-blue-500 blur-[40px] opacity-40 rounded-full -z-10 scale-110"></div>
         </m.div>
 
         <div className="text-center md:text-left flex-1 mt-4 md:mt-0">
-          <m.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} style={{ fontSize: '3.5rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--page-text)' }}>
+          <m.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} style={{ fontSize: '3.5rem', margin: '0 0 1rem 0', fontWeight: 800, letterSpacing: '-0.02em' }} className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 pb-2">
             Muhammed Riswan M. P.
           </m.h2>
           <m.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} style={{ color: 'var(--nav-text)', fontSize: '1.2rem', marginBottom: '1rem', maxWidth: '600px' }} className="mx-auto md:mx-0">

@@ -157,7 +157,7 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
       className="fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-full backdrop-blur-xl shadow-2xl w-[90%] max-w-5xl bg-white/60 dark:bg-white/5 border border-slate-200/50 dark:border-white/10"
     >
       <div className="font-bold tracking-widest text-lg text-slate-900 dark:text-white cursor-pointer" onClick={() => handleNav('/')}>
-        JAZDOT<span style={{ color: "var(--accent)" }}>.</span>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">JAZDOT</span><span style={{ color: "var(--accent)" }}>.</span>
       </div>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-300">
         <button onClick={() => handleNav('/')} className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "home" ? "text-slate-900 dark:text-white" : ""}`}>
