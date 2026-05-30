@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform, type Variants, AnimatePresence } from "framer-motion";
+import { m, useMotionValue, useSpring, useTransform, type Variants, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 
 // ----------------------------------------------------------------------
@@ -43,7 +43,7 @@ const MagneticButton = ({
   };
 
   return (
-    <motion.button
+    <m.button
       ref={ref}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -52,7 +52,7 @@ const MagneticButton = ({
       className={`relative px-8 py-3 rounded-full font-medium transition-colors duration-300 ${className}`}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 };
 
@@ -95,27 +95,27 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
   };
 
   return (
-    <motion.h1
+    <m.h1
       variants={containerVariants}
       initial="hidden"
       animate="show"
       className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter flex flex-wrap justify-center items-center mt-6"
     >
       {characters.map((char, i) => (
-        <motion.span
+        <m.span
           key={i}
           variants={charVariants}
           style={{ display: "inline-block" }}
         >
           {char === " " ? "\u00A0" : char}
-        </motion.span>
+        </m.span>
       ))}
-      <motion.span
+      <m.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
         style={{ display: "inline-block", width: "4px", height: "1em", marginLeft: "12px", borderRadius: "4px", backgroundColor: "var(--accent)" }}
       />
-    </motion.h1>
+    </m.h1>
   );
 };
 
@@ -152,7 +152,7 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
 
   return (
     <>
-    <motion.nav
+    <m.nav
       initial={{ y: -100, x: "-50%", opacity: 0 }}
       animate={{ y: 0, x: "-50%", opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.4 }}
@@ -165,19 +165,19 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
         <a href="#work" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "work" ? "text-slate-900 dark:text-white" : ""}`}>
           Work
           {activeSection === "work" && (
-            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
+            <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
         <a href="#tools" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "tools" ? "text-slate-900 dark:text-white" : ""}`}>
           Tools
           {activeSection === "tools" && (
-            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
+            <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
         <a href="#about" className={`relative transition-colors hover:text-slate-900 dark:hover:text-white ${activeSection === "about" ? "text-slate-900 dark:text-white" : ""}`}>
           About
           {activeSection === "about" && (
-            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
+            <m.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full bg-accent" />
           )}
         </a>
       </div>
@@ -202,12 +202,12 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
       >
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
-    </motion.nav>
+    </m.nav>
 
     {/* Mobile Menu Dropdown */}
     <AnimatePresence>
       {isMobileMenuOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -20, x: "-50%" }}
           animate={{ opacity: 1, y: 0, x: "-50%" }}
           exit={{ opacity: 0, y: -20, x: "-50%" }}
@@ -225,7 +225,7 @@ export const GlassNavBar = ({ isDark, toggleTheme }: { isDark?: boolean; toggleT
           >
             Contact
           </button>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
     </>
@@ -272,27 +272,27 @@ export const AuroraBackground = () => {
       ></div>
 
       {/* Animated Blobs */}
-      <motion.div style={{ x: transformX1, y: transformY1 }} className="absolute top-1/4 left-1/4">
-        <motion.div
+      <m.div style={{ x: transformX1, y: transformY1 }} className="absolute top-1/4 left-1/4">
+        <m.div
           animate={{ x: ["-20%", "20%", "-20%"], y: ["-10%", "10%", "-10%"], scale: [1, 1.2, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           className="w-[50vw] h-[50vw] md:w-[40vw] md:h-[40vw] rounded-full bg-blue-600/30 blur-[100px] mix-blend-screen dark:mix-blend-color-dodge"
         />
-      </motion.div>
-      <motion.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
-        <motion.div
+      </m.div>
+      <m.div style={{ x: transformX2, y: transformY2 }} className="absolute bottom-1/4 right-1/4">
+        <m.div
           animate={{ x: ["20%", "-20%", "20%"], y: ["10%", "-10%", "10%"], scale: [1, 1.3, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           className="w-[60vw] h-[60vw] md:w-[50vw] md:h-[50vw] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen dark:mix-blend-color-dodge"
         />
-      </motion.div>
-      <motion.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <motion.div
+      </m.div>
+      <m.div style={{ x: transformX1, y: transformY2 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <m.div
           animate={{ x: ["0%", "30%", "0%"], y: ["20%", "-20%", "20%"], scale: [1, 1.1, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           className="w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] rounded-full bg-teal-500/20 blur-[90px] mix-blend-screen dark:mix-blend-color-dodge"
         />
-      </motion.div>
+      </m.div>
     </div>
   );
 };
@@ -305,18 +305,18 @@ export default function Hero() {
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center font-sans">
 
       <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-5xl mx-auto mt-20">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.1 }}
           className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-black dark:text-slate-300"
         >
           ✨ Available for new opportunities
-        </motion.div>
+        </m.div>
 
         <TypewriterHeadline text="Network Engineer & Cloud DevOps" />
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.8 }}
@@ -325,10 +325,10 @@ export default function Hero() {
           Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, 
           and network automation. Specializing in Python, Terraform, and high-performance 
           cloud infrastructures.
-        </motion.p>
+        </m.p>
 
         {/* CTAs */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", damping: 20, stiffness: 100, delay: 1 }}
@@ -345,7 +345,7 @@ export default function Hero() {
           >
             Explore Tools{" "}<span className="ml-1 transition-transform inline-block group-hover:translate-x-1">→</span>
           </MagneticButton>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

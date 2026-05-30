@@ -1,5 +1,5 @@
 import { useEffect, useState, Suspense, lazy } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { m, LazyMotion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Cat, Gauge, Wrench } from 'lucide-react';
 import Hero, { GlassNavBar, AuroraBackground } from './components/Hero';
 import ToolModal from './components/ToolModal';
@@ -7,6 +7,9 @@ import ToolModal from './components/ToolModal';
 // Dynamically import components that are not immediately visible
 const Portfolio = lazy(() => import('./Portfolio'));
 const SpeedTestTool = lazy(() => import('./tools/SpeedTestTool'));
+
+// Dynamically load Framer Motion's animation features
+const loadFeatures = () => import('framer-motion').then(res => res.domAnimation);
 
 export default function App() {
   // State to track the current color of the mouse glow
@@ -72,11 +75,12 @@ export default function App() {
   }, [mouseX, mouseY]);
 
   return (
+    <LazyMotion features={loadFeatures}>
     <div 
       className="relative min-h-screen overflow-x-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300"
     >
       {/* Background Mouse Tracking Glow */}
-      <motion.div
+      <m.div
         animate={{
           background: `radial-gradient(circle, ${glowColor} 0%, rgba(0,0,0,0) 70%)`
         }}
@@ -122,7 +126,7 @@ export default function App() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
           
           {/* Speed Test Tool Card */}
-          <motion.div
+          <m.div
             onClick={() => setActiveTool('speedTest')}
             whileHover={{ y: -8, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -153,10 +157,10 @@ export default function App() {
             <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>
               Measure your download speed with a quick and simple test.
             </p>
-          </motion.div>
+          </m.div>
 
           {/* Cat Master Tool Card */}
-          <motion.div 
+          <m.div 
             onClick={() => window.open('/cat_master/index.html', '_blank')}
             whileHover={{ y: -8, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -187,10 +191,10 @@ export default function App() {
             <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>
               The ultimate feline management toolkit. Access statistics, feeding schedules, and monitoring.
             </p>
-          </motion.div>
+          </m.div>
 
           {/* Placeholder for future tools */}
-          <motion.div 
+          <m.div 
             whileHover={{ y: -8, scale: 1.02 }}
             style={{ 
               background: 'var(--card-bg)', 
@@ -206,7 +210,7 @@ export default function App() {
           >
             <Wrench size={32} color="#888" style={{ marginBottom: '1rem' }} />
             <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#888' }}>More tools incoming...</h2>
-          </motion.div>
+          </m.div>
 
         </div>
       </div>
@@ -241,5 +245,6 @@ export default function App() {
         </p>
       </footer>
     </div>
+    </LazyMotion>
   );
 }

@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import './Portfolio.css';
 
 // Animation Variants
@@ -69,50 +69,50 @@ export default function Portfolio() {
   return (
     <div className="portfolio-content">
       {/* About Section */}
-      <motion.section 
+      <m.section 
         className="section" id="about"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.h3 variants={fadeUp} className="section-title">Objective</motion.h3>
-        <motion.p variants={fadeUp} className="objective-text">
+        <m.h3 variants={fadeUp} className="section-title">Objective</m.h3>
+        <m.p variants={fadeUp} className="objective-text">
           Results-oriented Network Engineer with hands-on experience in SDN, 5G/O-RAN, and network automation. Proven track record of managing complex topologies across OpenStack and AWS, automating infrastructure with Python and Terraform, and optimizing routing to reduce latency and ensure 99.9% availability.
-        </motion.p>
-      </motion.section>
+        </m.p>
+      </m.section>
 
       {/* Skills */}
-      <motion.section 
+      <m.section 
         className="section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.h3 variants={fadeUp} className="section-title">Technical Strengths</motion.h3>
-        <motion.div variants={staggerContainer} className="skills-grid">
+        <m.h3 variants={fadeUp} className="section-title">Technical Strengths</m.h3>
+        <m.div variants={staggerContainer} className="skills-grid">
           {skills.map((skill, index) => (
-            <motion.div key={index} variants={fadeUp} className="card skill-card" whileHover={{ scale: 1.02 }}>
+            <m.div key={index} variants={fadeUp} className="card skill-card" whileHover={{ scale: 1.02 }}>
               <h4 className="skill-category">{skill.category}</h4>
               <p>{skill.items}</p>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
-      </motion.section>
+        </m.div>
+      </m.section>
 
       {/* Experience */}
-      <motion.section 
+      <m.section 
         className="section" id="work"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.h3 variants={fadeUp} className="section-title">Work Experience</motion.h3>
+        <m.h3 variants={fadeUp} className="section-title">Work Experience</m.h3>
         <div className="timeline">
           {experience.map((exp, index) => (
-            <motion.div key={index} variants={fadeUp} className="experience-item">
+            <m.div key={index} variants={fadeUp} className="experience-item">
               <div className="exp-header">
                 <h4 className="exp-title">{exp.title}</h4>
                 <span className="exp-date">{exp.date}</span>
@@ -123,36 +123,36 @@ export default function Portfolio() {
                   <li key={idx}>{item}</li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
         </div>
-      </motion.section>
+      </m.section>
 
       {/* Education & Publications */}
-      <motion.section 
+      <m.section 
         className="section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.h3 variants={fadeUp} className="section-title">Education & Publications</motion.h3>
+        <m.h3 variants={fadeUp} className="section-title">Education & Publications</m.h3>
         <div className="edu-grid">
           {education.map((edu, index) => (
-            <motion.div key={index} variants={fadeUp} className="card edu-card" whileHover={{ scale: 1.02 }}>
+            <m.div key={index} variants={fadeUp} className="card edu-card" whileHover={{ scale: 1.02 }}>
               <h4>{edu.degree}</h4>
               <div className="exp-company">{edu.school}</div>
               <div className="exp-date">{edu.date}</div>
               <p className="edu-details">{edu.details}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
         
-        <motion.div variants={fadeUp} className="card publication-card" whileHover={{ scale: 1.02 }}>
+        <m.div variants={fadeUp} className="card publication-card" whileHover={{ scale: 1.02 }}>
           <h4>Paper Publication (ETET 2025)</h4>
           <p><em>"Scalable and Secure Mesh Communication Framework for UAV Swarm Coordination in Disaster Response"</em>. Converted from IEEE to Grenzee Journal format, highlighting robust network topology design for autonomous systems.</p>
-        </motion.div>
-      </motion.section>
+        </m.div>
+      </m.section>
 
     </div>
   );
