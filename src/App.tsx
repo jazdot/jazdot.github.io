@@ -4,6 +4,7 @@ import { m, LazyMotion, useMotionValue, useSpring, useTransform, AnimatePresence
 import { GlassNavBar, AuroraBackground } from './components/Hero';
 import Home from './pages/Home';
 import Tools from './pages/Tools';
+import Loader from './components/Loader';
 
 // Dynamically import the Profile page
 const Portfolio = lazy(() => import('./Portfolio'));
@@ -20,7 +21,7 @@ const AnimatedRoutes = ({ setGlowColor }: { setGlowColor: (color: string) => voi
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={
-          <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh] text-slate-500">Loading profile...</div>}>
+          <Suspense fallback={<Loader text="Loading profile..." className="min-h-[60vh]" />}>
             <Portfolio />
           </Suspense>
         } />

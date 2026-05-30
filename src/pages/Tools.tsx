@@ -2,6 +2,7 @@ import { useState, Suspense, lazy } from 'react';
 import { m } from 'framer-motion';
 import { Cat, Gauge, Wrench } from 'lucide-react';
 import ToolModal from '../components/ToolModal';
+import Loader from '../components/Loader';
 
 const SpeedTestTool = lazy(() => import('../tools/SpeedTestTool'));
 
@@ -80,7 +81,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
         onClose={() => setActiveTool(null)}
         title={activeTool === 'speedTest' ? 'Network Speed Test' : ''}
       >
-        <Suspense fallback={<div className="flex justify-center items-center p-8 text-slate-500">Loading tool...</div>}>
+        <Suspense fallback={<Loader text="Loading tool..." className="p-8 min-h-[30vh]" />}>
           {activeTool === 'speedTest' && <SpeedTestTool />}
         </Suspense>
       </ToolModal>
