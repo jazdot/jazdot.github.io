@@ -24,6 +24,31 @@ const staggerContainer: Variants = {
   }
 };
 
+const timelineItemVariant: Variants = {
+  hidden: { opacity: 0, x: 30, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    scale: 1, 
+    transition: { 
+      type: "spring", 
+      stiffness: 100, 
+      damping: 15,
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    } 
+  }
+};
+
+const bulletVariant: Variants = {
+  hidden: { opacity: 0, x: 10 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { type: "spring", stiffness: 120, damping: 12 } 
+  }
+};
+
 // Resume Data
 const skills = [
   { category: 'Networking & Telecom', items: 'TCP/IP, SDN, VPC, DNS, O-RAN (CU/DU), Mesh Networks, NMS' },
@@ -121,7 +146,14 @@ export default function Portfolio() {
         <m.h3 variants={fadeUp} className="section-title">Work Experience</m.h3>
         <div className="timeline">
           {experience.map((exp, index) => (
-            <m.div key={index} variants={fadeUp} className="experience-item">
+            <m.div 
+              key={index} 
+              variants={timelineItemVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="experience-item"
+            >
               <div className="exp-header">
                 <h4 className="exp-title">{exp.title}</h4>
                 <span className="exp-date">{exp.date}</span>
@@ -129,7 +161,7 @@ export default function Portfolio() {
               <div className="exp-company">{exp.company} &bull; {exp.location}</div>
               <ul className="exp-desc">
                 {exp.description.map((item, idx) => (
-                  <li key={idx}>{item}</li>
+                  <m.li key={idx} variants={bulletVariant}>{item}</m.li>
                 ))}
               </ul>
             </m.div>

@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
-// @ts-expect-error - vite-plugin-compression lacks built-in types
 import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
