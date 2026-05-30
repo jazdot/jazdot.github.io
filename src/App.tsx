@@ -7,6 +7,7 @@ import Tools from './pages/Tools';
 import Loader from './components/Loader';
 import ToolModal from './components/ToolModal';
 import ContactForm from './components/ContactForm';
+import GitHubProjects from './components/GitHubProjects';
 
 // Dynamically import the Profile page
 const Portfolio = lazy(() => import('./Portfolio'));
@@ -44,6 +45,9 @@ export default function App() {
 
   // Contact Modal State
   const [isContactOpen, setIsContactOpen] = useState(false);
+
+  // GitHub Modal State
+  const [isGitHubOpen, setIsGitHubOpen] = useState(false);
 
   // Scroll Progress Tracking
   const { scrollYProgress } = useScroll();
@@ -155,7 +159,7 @@ export default function App() {
           <a href="https://linkedin.com/in/muhammedriswanmp" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile" style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#7877c6'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           </a>
-          <a href="http://github.com/jazdot" target="_blank" rel="noreferrer" aria-label="GitHub Profile" style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#7877c6'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsGitHubOpen(true); }} aria-label="GitHub Profile" style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#7877c6'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           </a>
         </div>
@@ -167,6 +171,11 @@ export default function App() {
       {/* Global Contact Modal */}
       <ToolModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} title="Get in Touch">
         <ContactForm />
+      </ToolModal>
+
+      {/* Global GitHub Modal */}
+      <ToolModal isOpen={isGitHubOpen} onClose={() => setIsGitHubOpen(false)} title="Open Source Contributions">
+        <GitHubProjects />
       </ToolModal>
     </div>
     </LazyMotion>
