@@ -27,12 +27,33 @@ export default function PingTraceTool() {
     
     if (mode === 'ping') {
       setOutput([`PING ${target} 56(84) bytes of data.`]);
+      
+      // Attempt to use a real serverless edge backend
+      let useRealBackend = true;
+      try {
+        const check = await fetch(`https://network-tools.jazdot.workers.dev/ping?host=${target}`);
+        if (!check.ok) useRealBackend = false;
+      } catch (e) {
+        useRealBackend = false;
+        setOutput(prev => [...prev, `[WARN] Edge function unreachable. Falling back to simulated ping.`]);
+      }
+
       for (let i = 1; i <= 5; i++) {
         if (!isRunningRef.current) break;
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise(r => setTimeout(r, useRealBackend ? 200 : 1000));
         if (!isRunningRef.current) break;
-        const time = (Math.random() * 20 + 5).toFixed(1);
-        setOutput(prev => [...prev, `64 bytes from ${target}: icmp_seq=${i} ttl=117 time=${time} ms`]);
+        if (useRealBackend) {
+          try {
+            const res = await fetch(`https://network-tools.jazdot.workers.dev/ping?host=${target}`);
+            const data = await res.json();
+            setOutput(prev => [...prev, `64 bytes from ${target}: icmp_seq=${i} ttl=117 time=${data.time.toFixed(1)} ms`]);
+          } catch (e) {
+            setOutput(prev => [...prev, `Request timeout for icmp_seq=${i}`]);
+          }
+        } else {
+          const time = (Math.random() * 20 + 5).toFixed(1);
+          setOutput(prev => [...prev, `64 bytes from ${target}: icmp_seq=${i} ttl=117 time=${time} ms`]);
+        }
       }
       if (isRunningRef.current) {
         await new Promise(r => setTimeout(r, 500));

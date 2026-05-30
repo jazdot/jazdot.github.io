@@ -1,18 +1,18 @@
 import { useEffect, useState, Suspense, lazy } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { m, LazyMotion, useMotionValue, useSpring, useTransform, AnimatePresence, useScroll } from 'framer-motion';
+import { m, LazyMotion, useMotionValue, useSpring, useTransform, AnimatePresence, useScroll, MotionConfig } from 'framer-motion';
 import { GlassNavBar, AuroraBackground } from './components/Hero';
 import Home from './pages/Home';
-import Tools from './pages/Tools';
 import Loader from './components/Loader';
 import ToolModal from './components/ToolModal';
-import ContactForm from './components/ContactForm';
-import GitHubProjects from './components/GitHubProjects';
-import NotFound from './pages/NotFound';
 import PWAReloadPrompt from './components/PWAReloadPrompt';
 
-// Dynamically import the Profile page
+// Dynamically import non-critical pages and modals (Code Splitting)
 const Portfolio = lazy(() => import('./Portfolio'));
+const Tools = lazy(() => import('./pages/Tools'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const ContactForm = lazy(() => import('./components/ContactForm'));
+const GitHubProjects = lazy(() => import('./components/GitHubProjects'));
 
 // Dynamically load Framer Motion's animation features
 const loadFeatures = () => import('framer-motion').then(res => res.domAnimation);
@@ -30,8 +30,16 @@ const AnimatedRoutes = ({ setGlowColor }: { setGlowColor: (color: string) => voi
             <Portfolio />
           </Suspense>
         } />
-        <Route path="/tools" element={<Tools setGlowColor={setGlowColor} />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/tools" element={
+          <Suspense fallback={<Loader text="Loading tools..." className="min-h-[60vh]" />}>
+            <Tools setGlowColor={setGlowColor} />
+          </Suspense>
+        } />
+        <Route path="*" element={
+          <Suspense fallback={<Loader text="Loading..." className="min-h-[60vh]" />}>
+            <NotFound />
+          </Suspense>
+        } />
       </Routes>
     </AnimatePresence>
   );
@@ -148,6 +156,7 @@ export default function App() {
 
   return (
     <LazyMotion features={loadFeatures}>
+    <MotionConfig reducedMotion="user">
     <div 
       className="relative z-0 min-h-screen overflow-x-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300"
     >
@@ -212,17 +221,22 @@ export default function App() {
 
       {/* Global Contact Modal */}
       <ToolModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} title="Get in Touch">
-        <ContactForm />
+        <Suspense fallback={<Loader text="Loading form..." className="p-8" />}>
+          {isContactOpen && <ContactForm />}
+        </Suspense>
       </ToolModal>
 
       {/* Global GitHub Modal */}
       <ToolModal isOpen={isGitHubOpen} onClose={() => setIsGitHubOpen(false)} title="Open Source Contributions">
-        <GitHubProjects />
+        <Suspense fallback={<Loader text="Loading projects..." className="p-8" />}>
+          {isGitHubOpen && <GitHubProjects />}
+        </Suspense>
       </ToolModal>
 
       {/* Global PWA Update Notification */}
       <PWAReloadPrompt />
     </div>
+    </MotionConfig>
     </LazyMotion>
   );
 }
