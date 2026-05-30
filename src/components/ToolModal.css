@@ -13,13 +13,13 @@
 }
 
 .modal-content {
-  background: #111115;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--page-bg, #111115);
+  border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
   border-radius: 16px;
   padding: 2rem;
   width: 90%;
   max-width: 600px;
-  color: #fff;
+  color: var(--page-text, #fff);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -28,7 +28,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
   padding-bottom: 1rem;
 }
 
@@ -41,11 +41,11 @@
 .modal-close-btn {
   background: none;
   border: none;
-  color: #888;
+  color: var(--nav-text);
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .modal-close-btn:hover {
-  color: #fff;
+  color: var(--page-text);
 }

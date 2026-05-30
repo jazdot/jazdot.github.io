@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Cat, Gauge, Wrench } from 'lucide-react';
+import { Cat, Gauge, Wrench, Sun, Moon } from 'lucide-react';
 import Hero, { GlassNavBar } from './components/Hero';
 import Portfolio from './Portfolio';
 import ToolModal from './components/ToolModal';
@@ -16,6 +16,27 @@ export default function App() {
   // State to manage the active tool modal
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const mouseY = useMotionValue(0);
+  
+  // State for Dynamic Theme
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
 
   // 2. Wrap them in a spring for a smooth, organic trailing effect
   const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
@@ -53,10 +74,11 @@ export default function App() {
       style={{ 
         position: 'relative', 
         minHeight: '100vh', 
-        backgroundColor: '#0a0a0a', 
-        color: '#ffffff',
+        backgroundColor: 'var(--page-bg)', 
+        color: 'var(--page-text)',
         overflowX: 'hidden',
-        fontFamily: 'system-ui, sans-serif'
+        fontFamily: 'system-ui, sans-serif',
+        transition: 'background-color 0.3s ease, color 0.3s ease'
       }}
     >
       {/* Background Mouse Tracking Glow */}
@@ -80,7 +102,7 @@ export default function App() {
       />
 
       {/* Global Header */}
-      <GlassNavBar />
+      <GlassNavBar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
 
       {/* Hero Section */}
       <Hero />
@@ -106,8 +128,8 @@ export default function App() {
             whileHover={{ y: -8, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--card-bg)',
+              border: '1px solid var(--card-border)',
               borderRadius: '16px',
               padding: '2rem',
               cursor: 'pointer',
@@ -119,7 +141,7 @@ export default function App() {
               setGlowColor('rgba(56, 189, 248, 0.25)');
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--card-border)';
               setGlowColor('rgba(120, 119, 198, 0.15)');
             }}
           >
@@ -140,8 +162,8 @@ export default function App() {
             whileHover={{ y: -8, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{ 
-              background: 'rgba(255, 255, 255, 0.03)', 
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--card-bg)', 
+              border: '1px solid var(--card-border)',
               borderRadius: '16px',
               padding: '2rem',
               cursor: 'pointer',
@@ -153,7 +175,7 @@ export default function App() {
               setGlowColor('rgba(120, 119, 198, 0.5)'); // Intensify the purple glow!
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--card-border)';
               setGlowColor('rgba(120, 119, 198, 0.15)'); // Reset back to default
             }}
           >
@@ -172,8 +194,8 @@ export default function App() {
           <motion.div 
             whileHover={{ y: -8, scale: 1.02 }}
             style={{ 
-              background: 'rgba(255, 255, 255, 0.02)', 
-              border: '1px dashed rgba(255, 255, 255, 0.2)',
+              background: 'var(--card-bg)', 
+              border: '1px dashed var(--card-border)',
               borderRadius: '16px',
               padding: '2rem',
               display: 'flex',
