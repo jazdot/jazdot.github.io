@@ -31,9 +31,21 @@ export default function App() {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
+    
+    // Let the glow follow touches on mobile as well!
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        mouseX.set(e.touches[0].clientX);
+        mouseY.set(e.touches[0].clientY);
+      }
+    };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
   }, [mouseX, mouseY]);
 
   return (
@@ -83,7 +95,7 @@ export default function App() {
         </h2>
 
         {/* Tools Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
           
           {/* Speed Test Tool Card */}
           <motion.div

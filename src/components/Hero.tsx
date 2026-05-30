@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, type Variants, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 // ----------------------------------------------------------------------
 // 1. Magnetic Button (Secondary CTA)
@@ -131,6 +132,7 @@ const StaggeredHeadline = ({ text }: { text: string }) => {
 // ----------------------------------------------------------------------
 const GlassNavBar = () => {
   const [activeSection, setActiveSection] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -157,6 +159,7 @@ const GlassNavBar = () => {
   }, []);
 
   return (
+    <>
     <motion.nav
       initial={{ y: -100, x: "-50%", opacity: 0 }}
       animate={{ y: 0, x: "-50%", opacity: 1 }}
@@ -167,14 +170,23 @@ const GlassNavBar = () => {
         JAZDOT<span className="text-blue-500">.</span>
       </div>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-        <a href="#work" className={`transition-colors ${activeSection === "work" ? "text-blue-400 font-bold" : "hover:text-white"}`}>
+        <a href="#work" className={`relative transition-colors ${activeSection === "work" ? "text-white" : "hover:text-white"}`}>
           Work
+          {activeSection === "work" && (
+            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 bg-blue-500 rounded-full" />
+          )}
         </a>
-        <a href="#tools" className={`transition-colors ${activeSection === "tools" ? "text-blue-400 font-bold" : "hover:text-white"}`}>
+        <a href="#tools" className={`relative transition-colors ${activeSection === "tools" ? "text-white" : "hover:text-white"}`}>
           Tools
+          {activeSection === "tools" && (
+            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 bg-blue-500 rounded-full" />
+          )}
         </a>
-        <a href="#about" className={`transition-colors ${activeSection === "about" ? "text-blue-400 font-bold" : "hover:text-white"}`}>
+        <a href="#about" className={`relative transition-colors ${activeSection === "about" ? "text-white" : "hover:text-white"}`}>
           About
+          {activeSection === "about" && (
+            <motion.span layoutId="navIndicator" className="absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 bg-blue-500 rounded-full" />
+          )}
         </a>
       </div>
       <MagneticButton 
@@ -182,7 +194,42 @@ const GlassNavBar = () => {
         className="hidden sm:block text-sm bg-white/10 border border-white/20 text-white hover:bg-white/20 !px-5 !py-2">
         Contact
       </MagneticButton>
+
+      {/* Mobile Menu Toggle */}
+      <button 
+        className="md:hidden text-slate-300 hover:text-white transition-colors"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle mobile menu"
+      >
+        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
     </motion.nav>
+
+    {/* Mobile Menu Dropdown */}
+    <AnimatePresence>
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20, x: "-50%" }}
+          animate={{ opacity: 1, y: 0, x: "-50%" }}
+          exit={{ opacity: 0, y: -20, x: "-50%" }}
+          className="fixed top-24 left-1/2 z-40 flex flex-col items-center gap-6 px-6 py-8 rounded-3xl bg-[#0f172a]/95 border border-white/10 backdrop-blur-xl shadow-2xl w-[90%] max-w-sm md:hidden"
+        >
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'about' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>About</a>
+          <a href="#work" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'work' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>Work</a>
+          <a href="#tools" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${activeSection === 'tools' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>Tools</a>
+          <button 
+            onClick={() => {
+              window.location.href="mailto:riswanmp6@gmail.com";
+              setIsMobileMenuOpen(false);
+            }}
+            className="mt-2 px-8 py-3 w-full rounded-full font-medium bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
+          >
+            Contact
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 };
 
