@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Cat, Wrench } from 'lucide-react';
+import { Cat, Gauge, Wrench } from 'lucide-react';
 import Hero from './components/Hero';
 import Portfolio from './Portfolio';
+import ToolModal from './components/ToolModal';
+import SpeedTestTool from './tools/SpeedTestTool';
+import CatMasterTool from './tools/CatMasterTool';
 
 export default function App() {
   // State to track the current color of the mouse glow
@@ -10,6 +13,9 @@ export default function App() {
 
   // 1. Initialize motion values for X and Y coordinates
   const mouseX = useMotionValue(0);
+
+  // State to manage the active tool modal
+  const [activeTool, setActiveTool] = useState<string | null>(null);
   const mouseY = useMotionValue(0);
 
   // 2. Wrap them in a spring for a smooth, organic trailing effect
@@ -80,8 +86,43 @@ export default function App() {
         {/* Tools Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
           
+          {/* Speed Test Tool Card */}
+          <motion.div
+            onClick={() => setActiveTool('speedTest')}
+            whileHover={{ y: -8, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            style={{
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '16px',
+              padding: '2rem',
+              cursor: 'pointer',
+              backdropFilter: 'blur(10px)',
+              transition: 'border-color 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.5)';
+              setGlowColor('rgba(56, 189, 248, 0.25)');
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              setGlowColor('rgba(120, 119, 198, 0.15)');
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{ background: '#38bdf8', padding: '0.75rem', borderRadius: '12px' }}>
+                <Gauge size={24} color="#fff" />
+              </div>
+              <h2 style={{ margin: 0, fontSize: '1.5rem' }}>Network Speed Test</h2>
+            </div>
+            <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>
+              Measure your download speed with a quick and simple test.
+            </p>
+          </motion.div>
+
           {/* Cat Master Tool Card */}
           <motion.div 
+            onClick={() => setActiveTool('catMaster')}
             whileHover={{ y: -8, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{ 
@@ -134,6 +175,18 @@ export default function App() {
 
         </div>
       </div>
+
+      <ToolModal
+        isOpen={activeTool !== null}
+        onClose={() => setActiveTool(null)}
+        title={
+          activeTool === 'speedTest' ? 'Network Speed Test' :
+          activeTool === 'catMaster' ? 'Cat Master' : ''
+        }
+      >
+        {activeTool === 'speedTest' && <SpeedTestTool />}
+        {activeTool === 'catMaster' && <CatMasterTool />}
+      </ToolModal>
 
       {/* Footer / Contact */}
       <footer style={{ position: 'relative', zIndex: 10, padding: '4rem 5vw', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)' }}>

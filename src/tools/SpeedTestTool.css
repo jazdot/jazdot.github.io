@@ -1,0 +1,55 @@
+.speed-test-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.speed-display {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--text-main);
+}
+
+.speed-display h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #7877c6;
+  margin: 0;
+  line-height: 1;
+}
+
+.speed-display span {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #888;
+}
+
+.status-text {
+  min-height: 24px;
+  color: #aaa;
+}
+
+.test-button {
+  background: #7877c6;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.test-button:hover:not(:disabled) {
+  background: #6c6bc0;
+  transform: scale(1.05);
+}
+
+.test-button:disabled {
+  background: #4a4a6a;
+  cursor: not-allowed;
+}
