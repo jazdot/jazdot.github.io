@@ -341,7 +341,7 @@ export default function Hero() {
             <GlowingButton>View My Work</GlowingButton>
           </a>
           <MagneticButton 
-            className="w-full sm:w-auto group text-black dark:text-white hover:text-blue-400"
+            className="w-full sm:w-auto group flex items-center justify-center bg-slate-200/50 dark:bg-white/5 border border-slate-300/50 dark:border-white/10 text-slate-900 dark:text-white hover:bg-slate-300/50 dark:hover:bg-white/10"
             onClick={() => {
               document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
             }}
