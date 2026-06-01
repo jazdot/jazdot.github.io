@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { m } from 'framer-motion';
-import { Play, Square, Download, Upload, Server, ShieldAlert, ShieldCheck, Globe } from 'lucide-react';
+import { Play, Square, Download, Upload, Server, ShieldAlert, ShieldCheck, Globe, Activity } from 'lucide-react';
 
-type Status = 'idle' | 'testing_down' | 'testing_up' | 'done' | 'error';
+type Status = 'idle' | 'testing_ping' | 'testing_down' | 'testing_up' | 'done' | 'error';
 type Unit = 'MBps' | 'Mbps';
 
 interface NetworkInfo {
@@ -17,6 +17,7 @@ export default function SpeedTestTool() {
   const [status, setStatus] = useState<Status>('idle');
   const [unit, setUnit] = useState<Unit>('MBps');
   
+  const [pingRaw, setPingRaw] = useState<number | null>(null);
   const [downSpeedRaw, setDownSpeedRaw] = useState<number | null>(null);
   const [upSpeedRaw, setUpSpeedRaw] = useState<number | null>(null);
   const [progress, setProgress] = useState(0);
@@ -83,13 +84,23 @@ export default function SpeedTestTool() {
   };
 
   const startTest = async () => {
-    setStatus('testing_down');
+    setStatus('testing_ping');
+    setPingRaw(null)
     setDownSpeedRaw(null);
     setUpSpeedRaw(null);
     setProgress(0);
     abortController.current = new AbortController();
 
     try {
+      // 0. Ping Test
+      const pingStart = performance.now();
+      const pingRes = await fetch('https://speed.cloudflare.com/__down?bytes=0', { 
+        signal: abortController.current.signal,
+        cache: 'no-store'
+      });
+      if (!pingRes.ok) throw new Error("Ping failed");
+      setPingRaw(Math.round(performance.now() - pingStart));
+
       // 1. Downlink Test (25MB)
       const dlSize = 25_000_000; 
       const dlUrl = `https://speed.cloudflare.com/__down?bytes=${dlSize}`;
@@ -160,18 +171,19 @@ export default function SpeedTestTool() {
   return (
     <div className="flex flex-col gap-6 w-full text-slate-900 dark:text-white">
       {/* Controls & Unit Toggle */}
-      <div className="flex items-center justify-between bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
-         <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-center justify-between bg-black/5 dark:bg-white/5 p-3 md:p-4 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm gap-3 sm:gap-0">
+         <div className="flex items-center gap-2 md:gap-3 w-full sm:w-auto">
            {status === 'idle' || status === 'done' || status === 'error' ? (
-             <button onClick={startTest} className="flex items-center gap-2 px-6 py-2.5 bg-sky-500 text-white font-bold rounded-xl hover:bg-sky-600 active:scale-95 transition-all shadow-md shadow-sky-500/20">
-               <Play size={18} fill="currentColor" /> {status === 'done' ? 'Restart' : 'Start'}
+             <button onClick={startTest} className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2 md:py-2.5 bg-sky-500 text-white font-bold rounded-xl hover:bg-sky-600 active:scale-95 transition-all shadow-md shadow-sky-500/20 text-sm md:text-base">
+               <Play size={16} fill="currentColor" className="w-3 h-3 md:w-4 md:h-4" /> {status === 'done' ? 'Restart' : 'Start'}
              </button>
            ) : (
-             <button onClick={stopTest} className="flex items-center gap-2 px-6 py-2.5 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 active:scale-95 transition-all shadow-md shadow-red-500/20">
-               <Square size={18} fill="currentColor" /> Stop
+             <button onClick={stopTest} className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2 md:py-2.5 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 active:scale-95 transition-all shadow-md shadow-red-500/20 text-sm md:text-base">
+               <Square size={16} fill="currentColor" className="w-3 h-3 md:w-4 md:h-4" /> Stop
              </button>
            )}
-           <span className="text-sm font-medium opacity-70 hidden md:block">
+           <span className="text-xs md:text-sm font-medium opacity-70 ml-1 md:ml-0 whitespace-nowrap">
+             {status === 'testing_ping' && 'Testing Ping...'}
              {status === 'testing_down' && 'Testing Downlink...'}
              {status === 'testing_up' && 'Testing Uplink...'}
              {status === 'done' && 'Test Complete'}
@@ -179,39 +191,46 @@ export default function SpeedTestTool() {
            </span>
          </div>
          
-         <div className="flex bg-black/10 dark:bg-white/10 p-1 rounded-lg">
-           <button onClick={() => setUnit('MBps')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${unit === 'MBps' ? 'bg-white dark:bg-slate-800 shadow-sm text-sky-500' : 'opacity-60 hover:opacity-100'}`}>
+         <div className="flex bg-black/10 dark:bg-white/10 p-1 rounded-lg w-full sm:w-auto">
+           <button onClick={() => setUnit('MBps')} className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-md transition-all ${unit === 'MBps' ? 'bg-white dark:bg-slate-800 shadow-sm text-sky-500' : 'opacity-60 hover:opacity-100'}`}>
              MBps
            </button>
-           <button onClick={() => setUnit('Mbps')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${unit === 'Mbps' ? 'bg-white dark:bg-slate-800 shadow-sm text-sky-500' : 'opacity-60 hover:opacity-100'}`}>
+           <button onClick={() => setUnit('Mbps')} className={`flex-1 sm:flex-none px-3 py-1.5 text-xs font-bold rounded-md transition-all ${unit === 'Mbps' ? 'bg-white dark:bg-slate-800 shadow-sm text-sky-500' : 'opacity-60 hover:opacity-100'}`}>
              Mbps
            </button>
          </div>
       </div>
 
       {/* Network Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 rounded-xl flex items-center gap-4">
-          <div className="p-3 bg-purple-500/20 text-purple-500 rounded-lg"><Server size={20} /></div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-3 md:p-4 rounded-xl flex items-center gap-3">
+          <div className="p-2 md:p-3 bg-purple-500/20 text-purple-500 rounded-lg shrink-0"><Server className="w-4 h-4 md:w-5 md:h-5" /></div>
           <div className="overflow-hidden">
-            <p className="text-xs font-bold uppercase tracking-wider opacity-50">Carrier / ISP</p>
-            <p className="font-medium text-sm truncate w-full" title={networkInfo?.carrier || 'Detecting...'}>{networkInfo?.carrier || 'Detecting...'}</p>
+            <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">Carrier / ISP</p>
+            <p className="font-medium text-[11px] md:text-sm leading-tight line-clamp-2" title={networkInfo?.carrier || 'Detecting...'}>{networkInfo?.carrier || 'Detecting...'}</p>
           </div>
         </div>
-        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 rounded-xl flex items-center gap-4">
-          <div className="p-3 bg-blue-500/20 text-blue-500 rounded-lg"><Globe size={20} /></div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider opacity-50">IP Address</p>
-            <p className="font-mono text-sm">{networkInfo?.ip || 'Detecting...'}</p>
+        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-3 md:p-4 rounded-xl flex items-center gap-3">
+          <div className="p-2 md:p-3 bg-blue-500/20 text-blue-500 rounded-lg shrink-0"><Globe className="w-4 h-4 md:w-5 md:h-5" /></div>
+          <div className="overflow-hidden">
+            <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">IP Address</p>
+            <p className="font-mono text-[11px] md:text-sm truncate" title={networkInfo?.ip || 'Detecting...'}>{networkInfo?.ip || 'Detecting...'}</p>
           </div>
         </div>
-        <div className={`border p-4 rounded-xl flex items-center gap-4 transition-colors ${networkInfo?.isVpn ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
-          <div className={`p-3 rounded-lg ${networkInfo?.isVpn ? 'bg-amber-500/20 text-amber-500' : 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'}`}>
-            {networkInfo?.isVpn ? <ShieldAlert size={20} /> : <ShieldCheck size={20} />}
+        <div className={`border p-3 md:p-4 rounded-xl flex items-center gap-3 transition-colors ${networkInfo?.isVpn ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
+          <div className={`p-2 md:p-3 rounded-lg shrink-0 ${networkInfo?.isVpn ? 'bg-amber-500/20 text-amber-500' : 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'}`}>
+            {networkInfo?.isVpn ? <ShieldAlert className="w-4 h-4 md:w-5 md:h-5" /> : <ShieldCheck className="w-4 h-4 md:w-5 md:h-5" />}
           </div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider opacity-50">VPN Status</p>
-            <p className="font-medium text-sm">{networkInfo ? (networkInfo.isVpn ? 'VPN Detected' : 'No VPN Detected') : 'Detecting...'}</p>
+          <div className="overflow-hidden">
+            <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">VPN Status</p>
+            <p className="font-medium text-[11px] md:text-sm truncate">{networkInfo ? (networkInfo.isVpn ? 'VPN Detected' : 'No VPN') : 'Detecting...'}</p>
+          </div>
+        </div>
+        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-3 md:p-4 rounded-xl flex items-center gap-3">
+          <div className="p-2 md:p-3 bg-pink-500/20 text-pink-500 rounded-lg shrink-0"><Activity className="w-4 h-4 md:w-5 md:h-5" /></div>
+          <div className="overflow-hidden">
+            <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">Ping</p>
+            <p className="font-mono text-[11px] md:text-sm font-bold">{pingRaw !== null ? `${pingRaw} ms` : '--'}</p>
           </div>
         </div>
       </div>
@@ -236,21 +255,21 @@ export default function SpeedTestTool() {
       )}
 
       {/* Speed Dials */}
-      <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className={`flex flex-col items-center justify-center p-8 rounded-2xl border transition-all duration-300 ${status === 'testing_down' ? 'bg-sky-500/10 border-sky-500/50 shadow-[0_0_20px_rgba(56,189,248,0.15)]' : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10'}`}>
-          <Download size={32} className={`mb-4 ${status === 'testing_down' ? 'text-sky-500 animate-bounce' : 'opacity-40'}`} />
-          <div className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter">
+      <div className="grid grid-cols-2 gap-3 md:gap-4 mt-2">
+        <div className={`flex flex-col items-center justify-center p-4 md:p-8 rounded-2xl border transition-all duration-300 ${status === 'testing_down' ? 'bg-sky-500/10 border-sky-500/50 shadow-[0_0_20px_rgba(56,189,248,0.15)]' : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10'}`}>
+          <Download className={`mb-3 md:mb-4 w-6 h-6 md:w-8 md:h-8 ${status === 'testing_down' ? 'text-sky-500 animate-bounce' : 'opacity-40'}`} />
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter">
             {formatSpeed(downSpeedRaw)}
           </div>
-          <div className="text-sm font-bold text-slate-500 uppercase tracking-widest mt-2">Down ({unit})</div>
+          <div className="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-widest mt-1 md:mt-2">Down ({unit})</div>
         </div>
         
-        <div className={`flex flex-col items-center justify-center p-8 rounded-2xl border transition-all duration-300 ${status === 'testing_up' ? 'bg-fuchsia-500/10 border-fuchsia-500/50 shadow-[0_0_20px_rgba(217,70,239,0.15)]' : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10'}`}>
-          <Upload size={32} className={`mb-4 ${status === 'testing_up' ? 'text-fuchsia-500 animate-bounce' : 'opacity-40'}`} />
-          <div className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter">
+        <div className={`flex flex-col items-center justify-center p-4 md:p-8 rounded-2xl border transition-all duration-300 ${status === 'testing_up' ? 'bg-fuchsia-500/10 border-fuchsia-500/50 shadow-[0_0_20px_rgba(217,70,239,0.15)]' : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10'}`}>
+          <Upload className={`mb-3 md:mb-4 w-6 h-6 md:w-8 md:h-8 ${status === 'testing_up' ? 'text-fuchsia-500 animate-bounce' : 'opacity-40'}`} />
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter">
             {formatSpeed(upSpeedRaw)}
           </div>
-          <div className="text-sm font-bold text-slate-500 uppercase tracking-widest mt-2">Up ({unit})</div>
+          <div className="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-widest mt-1 md:mt-2">Up ({unit})</div>
         </div>
       </div>
 

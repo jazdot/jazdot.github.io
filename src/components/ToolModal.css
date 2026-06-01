@@ -17,9 +17,9 @@
   background: var(--page-bg, #111115);
   border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
   border-radius: 16px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 600px;
+  padding: 1.5rem;
+  width: 95%;
+  max-width: 800px;
   color: var(--page-text, #fff);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
