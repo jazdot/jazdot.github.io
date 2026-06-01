@@ -16,6 +16,7 @@ import {
   GitMerge, 
   Activity 
 } from 'lucide-react';
+import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker as MapMarker, Line } from 'react-simple-maps';
 import './Portfolio.css';
 import SEO from './components/SEO';
 
@@ -167,111 +168,97 @@ const techStack = [
   { name: "Prometheus", Icon: Activity }
 ];
 
-const TechMarquee = () => (
-  <div className="marquee-container my-12 relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw]">
-    <m.div
-      className="flex w-max"
-      animate={{ x: ["0%", "-50%"] }}
-      transition={{ ease: "linear", duration: 35, repeat: Infinity }}
-    >
-      {[...techStack, ...techStack].map((tech, index) => {
-        const Icon = tech.Icon;
-        return (
-          <div key={index} className="text-2xl md:text-3xl font-mono font-bold text-slate-400/40 dark:text-slate-500/40 whitespace-nowrap flex items-center gap-3 px-6 hover:text-[hsl(var(--accent))] transition-colors duration-300 cursor-default">
-            <Icon size={32} className="opacity-80" />
-            {tech.name}
-            <span className="text-[hsl(var(--accent))]/30 ml-12">/</span>
-          </div>
-        );
-      })}
-    </m.div>
-  </div>
-);
+const TechMarquee = () => {
+  const { scrollY } = useScroll();
+  const parallaxX = useTransform(scrollY, [0, 3000], [0, -600]);
+
+  return (
+    <div className="marquee-container my-12 relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] overflow-hidden">
+      <m.div style={{ x: parallaxX }} className="flex w-full">
+        <m.div
+          className="flex w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+        >
+          {[...techStack, ...techStack].map((tech, index) => {
+            const Icon = tech.Icon;
+            return (
+              <div key={index} className="text-2xl md:text-3xl font-mono font-bold text-slate-400/40 dark:text-slate-500/40 whitespace-nowrap flex items-center gap-3 px-6 hover:text-[hsl(var(--accent))] transition-colors duration-300 cursor-default">
+                <Icon size={32} className="opacity-80" />
+                {tech.name}
+                <span className="text-[hsl(var(--accent))]/30 ml-12">/</span>
+              </div>
+            );
+          })}
+        </m.div>
+      </m.div>
+    </div>
+  );
+};
 
 // Interactive Career Topology Map
+const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
+
 const JobLocationsMap = () => {
   return (
     <m.div 
       variants={fadeUp}
-      className="relative w-full h-[350px] md:h-[450px] rounded-3xl border border-black/10 dark:border-white/10 bg-[#f8fafc] dark:bg-[#020617] overflow-hidden shadow-2xl mt-12 group"
+      className="relative w-full h-[350px] md:h-[450px] rounded-3xl border border-black/10 dark:border-white/10 bg-[#f8fafc] dark:bg-[#020617] overflow-hidden shadow-2xl mt-12 group cursor-grab active:cursor-grabbing"
     >
       {/* Radar Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none"></div>
 
-      {/* SVG Connection Map (preserveAspectRatio="none" perfectly syncs % based HTML coords with SVG coords) */}
-      <svg viewBox="0 0 1000 500" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
-        {/* World Map Context */}
-        <g className="stroke-slate-300/60 dark:stroke-slate-700/60 fill-slate-100/50 dark:fill-slate-800/20" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round">
-          <path d="M 280 100 C 320 120, 320 180, 270 220 C 220 250, 150 200, 100 250 C 50 280, 30 150, 100 100 C 150 80, 250 80, 280 100 Z" />
-          <path d="M 120 280 C 180 320, 180 420, 120 500 C 50 600, -50 550, -50 350 C -50 250, 50 250, 120 280 Z" />
-          <path d="M 680 280 C 730 270, 800 320, 850 380 C 900 330, 950 250, 1050 250 L 1050 550 L 780 550 C 730 480, 780 380, 680 320 Z" />
-          <path d="M 800 450 C 850 440, 900 480, 850 520 C 800 510, 750 480, 800 450 Z" />
-          <path d="M 150 -50 C 350 50, 550 150, 750 180 C 900 180, 1050 150, 1150 100 L 1150 -50 Z" />
-        </g>
-        
-        {/* India Map */}
-        <g className="stroke-slate-400 dark:stroke-slate-500 fill-slate-200/80 dark:fill-slate-800/80 drop-shadow-md" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round">
-          <path d="M 470 120 C 510 100, 530 130, 550 160 C 580 180, 620 180, 650 190 C 680 200, 710 210, 690 250 C 670 280, 630 270, 610 280 C 590 310, 570 350, 540 400 C 520 440, 510 470, 490 460 C 470 450, 460 410, 440 360 C 420 310, 370 290, 380 250 C 390 210, 430 230, 450 200 C 460 170, 450 140, 470 120 Z" />
-          <path d="M 505 470 C 515 470, 520 490, 510 500 C 495 500, 495 480, 505 470 Z" />
-        </g>
+      <ComposableMap projection="geoMercator" style={{ width: "100%", height: "100%" }}>
+        <ZoomableGroup center={[77.2, 10.7]} zoom={12} minZoom={2} maxZoom={30}>
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <Geography 
+                  key={geo.rsmKey} 
+                  geography={geo} 
+                  className="fill-slate-200/80 stroke-slate-400 dark:fill-slate-800/80 dark:stroke-slate-700 transition-colors"
+                  strokeWidth={0.5} 
+                  style={{
+                    default: { outline: "none" },
+                    hover: { fill: "rgba(120, 119, 198, 0.3)", outline: "none" },
+                    pressed: { outline: "none" }
+                  }}
+                />
+              ))
+            }
+          </Geographies>
 
-        {/* Path connecting Trivandrum and Bengaluru */}
-        <m.path
-          d="M 480 445 Q 450 415 500 385"
-          fill="none"
-          stroke="hsl(var(--accent))"
-          strokeWidth="2"
-          strokeDasharray="6 6"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 0.5 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-        />
-        {/* Packet Animation */}
-        <m.circle
-          r="4"
-          fill="hsl(var(--accent))"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 1.5 }}
-        >
-          <animateMotion 
-            path="M 480 445 Q 450 415 500 385" 
-            dur="2.5s" 
-            repeatCount="indefinite" 
-            calcMode="linear" 
+          {/* Data Link */}
+          <Line
+            from={[76.9366, 8.5241]}
+            to={[77.5946, 12.9716]}
+            stroke="hsl(var(--accent))"
+            strokeWidth={0.2}
+            strokeLinecap="round"
+            className="data-link-line"
           />
-        </m.circle>
-      </svg>
 
-      {/* Trivandrum Node */}
-      <div className="absolute z-10" style={{ left: '48%', top: '89%', transform: 'translate(-50%, -50%)' }}>
-        <div className="relative group/node cursor-crosshair">
-          <m.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", delay: 0.2 }} className="w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)] relative z-10" />
-          <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-70" style={{ animationDuration: '2s' }}></div>
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max opacity-0 group-hover/node:opacity-100 transition-opacity pointer-events-none origin-bottom">
-            <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-black/10 dark:border-white/10 text-center">
-              <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 justify-center"><MapPin size={14} className="text-blue-500"/> Trivandrum</div>
-              <div className="text-xs text-slate-500 mt-1">Research Intern @ ICFOSS</div>
-            </div>
-          </div>
-        </div>
-      </div>
+          {/* Trivandrum Node */}
+          <MapMarker coordinates={[76.9366, 8.5241]}>
+            <g transform="translate(-1, -1)">
+              <circle cx="1" cy="1" r="0.5" className="fill-blue-500" />
+              <circle cx="1" cy="1" r="1.5" className="fill-blue-500 animate-ping opacity-70" style={{ animationDuration: '2s' }} />
+            </g>
+            <text x="2" y="0.5" style={{ fontSize: "1px" }} className="font-bold fill-slate-900 dark:fill-white select-none">Trivandrum</text>
+            <text x="2" y="1.5" style={{ fontSize: "0.7px" }} className="fill-slate-500 select-none">Research Intern @ ICFOSS</text>
+          </MapMarker>
 
-      {/* Bengaluru Node */}
-      <div className="absolute z-10" style={{ left: '50%', top: '77%', transform: 'translate(-50%, -50%)' }}>
-        <div className="relative group/node cursor-crosshair">
-          <m.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", delay: 1.5 }} className="w-5 h-5 rounded-full bg-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.8)] relative z-10 flex items-center justify-center"><div className="w-2 h-2 rounded-full bg-white"></div></m.div>
-          <div className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-60" style={{ animationDuration: '3s' }}></div>
-          <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-max opacity-0 group-hover/node:opacity-100 transition-opacity pointer-events-none origin-top z-20">
-            <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-black/10 dark:border-white/10 text-center">
-              <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 justify-center"><MapPin size={14} className="text-purple-500"/> Bengaluru</div>
-              <div className="text-xs text-slate-500 mt-1">Senior Engineer @ Tata Elxsi</div>
-            </div>
-          </div>
-        </div>
-      </div>
+          {/* Bengaluru Node */}
+          <MapMarker coordinates={[77.5946, 12.9716]}>
+            <g transform="translate(-1, -1)">
+              <circle cx="1" cy="1" r="0.6" className="fill-purple-500" />
+              <circle cx="1" cy="1" r="1.8" className="fill-purple-500 animate-ping opacity-60" style={{ animationDuration: '3s' }} />
+            </g>
+            <text x="2.5" y="0.5" style={{ fontSize: "1px" }} className="font-bold fill-slate-900 dark:fill-white select-none">Bengaluru</text>
+            <text x="2.5" y="1.5" style={{ fontSize: "0.7px" }} className="fill-slate-500 select-none">Senior Engineer @ Tata Elxsi</text>
+          </MapMarker>
+        </ZoomableGroup>
+      </ComposableMap>
       
       <div className="absolute bottom-6 right-6 bg-white/40 dark:bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-black/5 dark:border-white/5 text-xs font-mono font-bold text-slate-500 tracking-widest uppercase shadow-sm pointer-events-none">Career Topology</div>
     </m.div>

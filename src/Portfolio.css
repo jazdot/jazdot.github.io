@@ -201,3 +201,11 @@
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
+
+.data-link-line {
+  stroke-dasharray: 2 3;
+  animation: data-flow 1.5s linear infinite;
+}
+@keyframes data-flow {
+  to { stroke-dashoffset: -5; }
+}
