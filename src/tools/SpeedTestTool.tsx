@@ -27,13 +27,14 @@ export default function SpeedTestTool() {
   // Fetch Real IP, Carrier, and Security details
   useEffect(() => {
     const fetchNetworkInfo = async () => {
-      const controller = new AbortController();
-      // 6-second timeout so it doesn't hang forever
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
-
       try {
+        const controller1 = new AbortController();
+        const timeout1 = setTimeout(() => controller1.abort(), 4000);
+        
         // Attempt 1: ipwho.is (Provides VPN info, but sometimes blocked by adblockers)
-        const res1 = await fetch('https://ipwho.is/json/', { signal: controller.signal });
+        const res1 = await fetch('https://ipwho.is/json/', { signal: controller1.signal });
+        clearTimeout(timeout1);
+        
         const data1 = await res1.json();
         if (data1.success) {
           setNetworkInfo({
@@ -43,13 +44,18 @@ export default function SpeedTestTool() {
             lat: data1.latitude,
             lon: data1.longitude
           });
-          clearTimeout(timeoutId);
           return;
         }
+        throw new Error("ipwho.is returned unsuccessful");
       } catch (e) {
         // Attempt 2: ipinfo.io (Extremely reliable fallback)
         try {
-          const res2 = await fetch('https://ipinfo.io/json', { signal: controller.signal });
+          const controller2 = new AbortController();
+          const timeout2 = setTimeout(() => controller2.abort(), 4000);
+          
+          const res2 = await fetch('https://ipinfo.io/json', { signal: controller2.signal });
+          clearTimeout(timeout2);
+          
           const data2 = await res2.json();
           const [lat, lon] = data2.loc ? data2.loc.split(',').map(Number) : [undefined, undefined];
           setNetworkInfo({
@@ -59,14 +65,12 @@ export default function SpeedTestTool() {
             lat,
             lon
           });
-          clearTimeout(timeoutId);
           return;
         } catch (e2) {
           // Absolute Fallback
           setNetworkInfo({ ip: 'Unavailable', carrier: 'Unknown Network', isVpn: false });
         }
       }
-      clearTimeout(timeoutId);
     };
     fetchNetworkInfo();
   }, []);
