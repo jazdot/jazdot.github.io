@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { m, useInView, useMotionValue, useSpring, useTransform, type Variants, useScroll } from 'framer-motion';
 import { 
-  MapPin, 
   FileCode2, 
   Layers, 
   Wrench, 
