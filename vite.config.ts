@@ -66,9 +66,6 @@ export default defineConfig({
     })
   ],
   base: './', // Add this to ensure assets are linked with relative paths
-  esbuild: {
-    drop: ['console', 'debugger'],
-  },
   build: {
     target: 'esnext',
     rollupOptions: {

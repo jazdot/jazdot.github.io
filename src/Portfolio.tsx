@@ -257,6 +257,12 @@ const JobLocationsMap = () => {
             strokeWidth={0.2}
             strokeLinecap="round"
             className="data-link-line"
+            onMouseEnter={() => {}}
+            onMouseLeave={() => {}}
+            onMouseDown={() => {}}
+            onMouseUp={() => {}}
+            onFocus={() => {}}
+            onBlur={() => {}}
           />
 
           {/* Trivandrum Node */}
