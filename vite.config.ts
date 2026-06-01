@@ -40,6 +40,28 @@ export default defineConfig({
             purpose: 'any maskable'
           }
         ]
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/unpkg\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'unpkg-cache',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 }, // Cache map data for 1 year
+              cacheableResponse: { statuses: [0, 200] }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/api\.github\.com\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'github-cache',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 }, // Cache GitHub API for 1 day
+              cacheableResponse: { statuses: [0, 200] }
+            }
+          }
+        ]
       }
     })
   ],
@@ -66,6 +88,9 @@ export default defineConfig({
           }
           if (id.includes('node_modules/reactflow')) {
             return 'vendor-reactflow';
+          }
+          if (id.includes('node_modules/react-simple-maps') || id.includes('node_modules/d3-')) {
+            return 'vendor-maps';
           }
         }
       }
