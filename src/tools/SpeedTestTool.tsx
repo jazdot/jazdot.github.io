@@ -207,14 +207,14 @@ export default function SpeedTestTool() {
           <div className="p-2 md:p-3 bg-purple-500/20 text-purple-500 rounded-lg shrink-0"><Server className="w-4 h-4 md:w-5 md:h-5" /></div>
           <div className="overflow-hidden">
             <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">Carrier / ISP</p>
-            <p className="font-medium text-[11px] md:text-sm leading-tight line-clamp-2" title={networkInfo?.carrier || 'Detecting...'}>{networkInfo?.carrier || 'Detecting...'}</p>
+            <p className="font-medium text-[11px] md:text-sm leading-tight break-words" title={networkInfo?.carrier || 'Detecting...'}>{networkInfo?.carrier || 'Detecting...'}</p>
           </div>
         </div>
         <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-3 md:p-4 rounded-xl flex items-center gap-3">
           <div className="p-2 md:p-3 bg-blue-500/20 text-blue-500 rounded-lg shrink-0"><Globe className="w-4 h-4 md:w-5 md:h-5" /></div>
           <div className="overflow-hidden">
             <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">IP Address</p>
-            <p className="font-mono text-[11px] md:text-sm truncate" title={networkInfo?.ip || 'Detecting...'}>{networkInfo?.ip || 'Detecting...'}</p>
+            <p className="font-mono text-[11px] md:text-sm break-all" title={networkInfo?.ip || 'Detecting...'}>{networkInfo?.ip || 'Detecting...'}</p>
           </div>
         </div>
         <div className={`border p-3 md:p-4 rounded-xl flex items-center gap-3 transition-colors ${networkInfo?.isVpn ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
@@ -223,7 +223,7 @@ export default function SpeedTestTool() {
           </div>
           <div className="overflow-hidden">
             <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider opacity-50">VPN Status</p>
-            <p className="font-medium text-[11px] md:text-sm truncate">{networkInfo ? (networkInfo.isVpn ? 'VPN Detected' : 'No VPN') : 'Detecting...'}</p>
+            <p className="font-medium text-[11px] md:text-sm break-words">{networkInfo ? (networkInfo.isVpn ? 'VPN Detected' : 'No VPN') : 'Detecting...'}</p>
           </div>
         </div>
         <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-3 md:p-4 rounded-xl flex items-center gap-3">
