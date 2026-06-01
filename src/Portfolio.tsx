@@ -208,13 +208,28 @@ const JobLocationsMap = () => {
       {/* Radar Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none"></div>
 
-      <ComposableMap projection="geoMercator" style={{ width: "100%", height: "100%" }}>
-        <ZoomableGroup center={[77.2, 10.7]} zoom={12} minZoom={2} maxZoom={30}>
-          <Geographies geography={geoUrl}>
+      <ComposableMap 
+        projection="geoMercator" 
+        width={800} 
+        height={600} 
+        projectionConfig={{}} 
+        style={{ width: "100%", height: "100%" }}
+      >
+        <ZoomableGroup 
+          center={[77.2, 10.7]} 
+          zoom={12} 
+          minZoom={2} 
+          maxZoom={30} 
+          translateExtent={[[-Infinity, -Infinity], [Infinity, Infinity]]}
+          onMoveStart={() => {}}
+          onMove={() => {}}
+          onMoveEnd={() => {}}
+        >
+          <Geographies geography={geoUrl} parseGeographies={(geos) => geos || []}>
             {({ geographies }) =>
-              geographies.map((geo) => (
+              (geographies || []).map((geo, index) => (
                 <Geography 
-                  key={geo.rsmKey} 
+                  key={geo.rsmKey || index} 
                   geography={geo} 
                   className="fill-slate-200/80 stroke-slate-400 dark:fill-slate-800/80 dark:stroke-slate-700 transition-colors"
                   strokeWidth={0.5} 
@@ -223,6 +238,12 @@ const JobLocationsMap = () => {
                     hover: { fill: "rgba(120, 119, 198, 0.3)", outline: "none" },
                     pressed: { outline: "none" }
                   }}
+                  onMouseEnter={() => {}}
+                  onMouseLeave={() => {}}
+                  onMouseDown={() => {}}
+                  onMouseUp={() => {}}
+                  onFocus={() => {}}
+                  onBlur={() => {}}
                 />
               ))
             }
@@ -239,7 +260,15 @@ const JobLocationsMap = () => {
           />
 
           {/* Trivandrum Node */}
-          <MapMarker coordinates={[76.9366, 8.5241]}>
+          <MapMarker 
+            coordinates={[76.9366, 8.5241]}
+            onMouseEnter={() => {}}
+            onMouseLeave={() => {}}
+            onMouseDown={() => {}}
+            onMouseUp={() => {}}
+            onFocus={() => {}}
+            onBlur={() => {}}
+          >
             <g transform="translate(-1, -1)">
               <circle cx="1" cy="1" r="0.5" className="fill-blue-500" />
               <circle cx="1" cy="1" r="1.5" className="fill-blue-500 animate-ping opacity-70" style={{ animationDuration: '2s' }} />
@@ -249,7 +278,15 @@ const JobLocationsMap = () => {
           </MapMarker>
 
           {/* Bengaluru Node */}
-          <MapMarker coordinates={[77.5946, 12.9716]}>
+          <MapMarker 
+            coordinates={[77.5946, 12.9716]}
+            onMouseEnter={() => {}}
+            onMouseLeave={() => {}}
+            onMouseDown={() => {}}
+            onMouseUp={() => {}}
+            onFocus={() => {}}
+            onBlur={() => {}}
+          >
             <g transform="translate(-1, -1)">
               <circle cx="1" cy="1" r="0.6" className="fill-purple-500" />
               <circle cx="1" cy="1" r="1.8" className="fill-purple-500 animate-ping opacity-60" style={{ animationDuration: '3s' }} />
