@@ -13,6 +13,7 @@ const Tools = lazy(() => import('./pages/Tools'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const GitHubProjects = lazy(() => import('./components/GitHubProjects'));
+const ContextMenu = lazy(() => import('./components/ContextMenu'));
 
 // Dynamically load Framer Motion's animation features
 const loadFeatures = () => import('framer-motion').then(res => res.domAnimation);
@@ -199,6 +200,11 @@ export default function App() {
         <GlassNavBar isDark={isDark} toggleTheme={handleThemeToggle} onContactClick={() => setIsContactOpen(true)} />
         
         <AnimatedRoutes setGlowColor={setGlowColor} />
+
+        {/* Custom Application Context Menu */}
+        <Suspense fallback={null}>
+          <ContextMenu />
+        </Suspense>
       </Router>
 
       {/* Footer / Contact */}
