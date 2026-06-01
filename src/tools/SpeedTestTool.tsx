@@ -9,6 +9,8 @@ interface NetworkInfo {
   ip: string;
   carrier: string;
   isVpn: boolean;
+  lat?: number;
+  lon?: number;
 }
 
 export default function SpeedTestTool() {
@@ -25,22 +27,46 @@ export default function SpeedTestTool() {
   // Fetch Real IP, Carrier, and Security details
   useEffect(() => {
     const fetchNetworkInfo = async () => {
+      const controller = new AbortController();
+      // 6-second timeout so it doesn't hang forever
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+
       try {
-        const res = await fetch('https://ipwho.is/json/');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success) {
-            setNetworkInfo({
-              ip: data.ip,
-              carrier: data.connection.isp || data.connection.org || 'Unknown',
-              // API provides boolean flags for vpn, proxy, and tor network usage
-              isVpn: data.security.vpn || data.security.proxy || data.security.tor
-            });
-          }
+        // Attempt 1: ipwho.is (Provides VPN info, but sometimes blocked by adblockers)
+        const res1 = await fetch('https://ipwho.is/json/', { signal: controller.signal });
+        const data1 = await res1.json();
+        if (data1.success) {
+          setNetworkInfo({
+            ip: data1.ip,
+            carrier: data1.connection?.isp || data1.connection?.org || 'Unknown',
+            isVpn: data1.security?.vpn || data1.security?.proxy || data1.security?.tor || false,
+            lat: data1.latitude,
+            lon: data1.longitude
+          });
+          clearTimeout(timeoutId);
+          return;
         }
       } catch (e) {
-        console.error("Failed to fetch network info", e);
+        // Attempt 2: ipinfo.io (Extremely reliable fallback)
+        try {
+          const res2 = await fetch('https://ipinfo.io/json', { signal: controller.signal });
+          const data2 = await res2.json();
+          const [lat, lon] = data2.loc ? data2.loc.split(',').map(Number) : [undefined, undefined];
+          setNetworkInfo({
+            ip: data2.ip || 'Unavailable',
+            carrier: data2.org || 'Unknown',
+            isVpn: false, // Fallback API doesn't provide VPN flag for free
+            lat,
+            lon
+          });
+          clearTimeout(timeoutId);
+          return;
+        } catch (e2) {
+          // Absolute Fallback
+          setNetworkInfo({ ip: 'Unavailable', carrier: 'Unknown Network', isVpn: false });
+        }
       }
+      clearTimeout(timeoutId);
     };
     fetchNetworkInfo();
   }, []);
@@ -70,7 +96,7 @@ export default function SpeedTestTool() {
         cache: 'no-store'
       });
 
-      if (!dlRes.body) throw new Error("Stream not supported");
+      if (!dlRes.ok || !dlRes.body) throw new Error("Stream not supported");
       const reader = dlRes.body.getReader();
       let received = 0;
 
@@ -86,26 +112,36 @@ export default function SpeedTestTool() {
         }
       }
 
-      // 2. Uplink Test (10MB payload)
+      // 2. Uplink Test (5MB payload - isolated to prevent crashing downlink results)
       setStatus('testing_up');
-      const ulSize = 10_000_000;
-      const payload = new Uint8Array(ulSize);
-      const ulStart = performance.now();
+      try {
+        const ulSize = 5_000_000;
+        const payload = new Uint8Array(ulSize);
+        const ulStart = performance.now();
+        
+        const ulRes = await fetch('https://speed.cloudflare.com/__up', {
+          method: 'POST',
+          body: payload,
+          signal: abortController.current.signal,
+          // 'text/plain' prevents strict CORS preflight OPTIONS requests
+          headers: { 'Content-Type': 'text/plain' }
+        });
+        
+        if (!ulRes.ok) throw new Error("Upload rejected");
+        
+        const ulDuration = (performance.now() - ulStart) / 1000;
+        setUpSpeedRaw((ulSize * 8) / ulDuration); // Calculate raw bps
+      } catch (upErr: any) {
+        if (upErr.name === 'AbortError') throw upErr;
+        console.warn("Upload test failed or was blocked:", upErr);
+        // Fails gracefully; upSpeedRaw stays null but status advances to 'done'
+      }
       
-      await fetch('https://speed.cloudflare.com/__up', {
-        method: 'POST',
-        body: payload,
-        signal: abortController.current.signal,
-        headers: { 'Content-Type': 'application/octet-stream' }
-      });
-      
-      const ulDuration = (performance.now() - ulStart) / 1000;
-      setUpSpeedRaw((ulSize * 8) / ulDuration); // Calculate raw bps
       setProgress(100);
-      
       setStatus('done');
     } catch (e: any) {
       if (e.name !== 'AbortError') {
+        console.error("Speed test error:", e);
         setStatus('error');
       } else {
         setStatus('idle');
@@ -175,6 +211,25 @@ export default function SpeedTestTool() {
           </div>
         </div>
       </div>
+      
+      {/* OSM Zero-Dependency Map */}
+      {networkInfo?.lat && networkInfo?.lon && (
+        <div className="w-full h-[120px] md:h-[180px] rounded-xl overflow-hidden border border-black/10 dark:border-white/10 shadow-inner relative group">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            marginHeight={0} 
+            marginWidth={0} 
+            src={`https://www.openstreetmap.org/export/embed.html?bbox=${networkInfo.lon-0.05},${networkInfo.lat-0.05},${networkInfo.lon+0.05},${networkInfo.lat+0.05}&layer=mapnik&marker=${networkInfo.lat},${networkInfo.lon}`}
+            className="grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none group-hover:pointer-events-auto"
+          ></iframe>
+          <div className="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2 py-1 rounded md:rounded-md text-[9px] md:text-[10px] font-bold uppercase tracking-widest shadow-sm pointer-events-none text-slate-500">
+            Detected Node Location
+          </div>
+        </div>
+      )}
 
       {/* Speed Dials */}
       <div className="grid grid-cols-2 gap-4 mt-2">
