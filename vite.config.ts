@@ -18,7 +18,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['jd.png', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf'],
+      includeAssets: ['jd.png', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf', 'og-image.jpg'],
       manifest: {
         name: 'Muhammed Riswan | Network Engineer',
         short_name: 'JAZDOT',
