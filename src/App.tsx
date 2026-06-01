@@ -14,6 +14,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const GitHubProjects = lazy(() => import('./components/GitHubProjects'));
 const ContextMenu = lazy(() => import('./components/ContextMenu'));
+const CatMaster = lazy(() => import('./pages/CatMaster'));
 
 // Dynamically load Framer Motion's animation features
 const loadFeatures = () => import('framer-motion').then(res => res.domAnimation);
@@ -36,6 +37,11 @@ const AnimatedRoutes = ({ setGlowColor }: { setGlowColor: (color: string) => voi
             <Tools setGlowColor={setGlowColor} />
           </Suspense>
         } />
+      <Route path="/cat-master" element={
+        <Suspense fallback={<Loader text="Loading CAT Mastermind..." className="min-h-[100vh]" />}>
+          <CatMaster />
+        </Suspense>
+      } />
         <Route path="*" element={
           <Suspense fallback={<Loader text="Loading..." className="min-h-[60vh]" />}>
             <NotFound />

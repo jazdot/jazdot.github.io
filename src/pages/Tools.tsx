@@ -1,5 +1,6 @@
 import { useState, Suspense, lazy } from 'react';
 import { m } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { GraduationCap, Gauge, Wrench, TerminalSquare, Activity, Network, RadioTower, BrainCircuit } from 'lucide-react';
 import ToolModal from '../components/ToolModal';
 import Loader from '../components/Loader';
@@ -14,6 +15,7 @@ const MLOpsPipelineTool = lazy(() => import('../tools/MLOpsPipelineTool'));
 
 export default function Tools({ setGlowColor }: { setGlowColor: (color: string) => void }) {
   const [activeTool, setActiveTool] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   return (
     <m.div 
@@ -60,7 +62,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
 
         {/* Cat Master Tool Card */}
         <m.div 
-          onClick={() => window.open('/cat_master/index.html', '_blank')}
+          onClick={() => navigate('/cat-master')}
           whileHover={{ y: -8, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderRadius: '16px', padding: '2rem', cursor: 'pointer', backdropFilter: 'blur(10px)', transition: 'border-color 0.3s ease' }}
