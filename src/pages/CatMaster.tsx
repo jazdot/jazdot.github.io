@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, CheckCircle, BrainCircuit, UploadCloud, Trophy, Loader2, X, Edit2, Trash2 } from 'lucide-react';
-import { useCatStore } from '../store/catStore';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, UploadCloud, Trophy, Loader2, X, Edit2, Trash2, Search } from 'lucide-react';
+import { useCatStore } from './catStore';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMasterDB';
@@ -76,6 +76,21 @@ const deleteFormula = async (id: string) => {
   });
 };
 
+// --- Mock Practice Database ---
+const MOCK_PRACTICE_DB = {
+  QA: [
+    { id: 'q1', text: 'If a, b, c and d are integers such that their sum is 46, then the minimum possible value of (a-b)² + (a-c)² + (a-d)² is:', options: ['0', '2', '3', '4'], correct: 1, explanation: 'The minimum value of squares is positive. If their sum is 46 (not divisible by 4), we must distribute the values as evenly as possible: 12, 11, 11, 12. The sum of differences squared is (12-11)² + (12-11)² + (12-12)² = 2.' },
+    { id: 'q2', text: 'Let A, B, C be priced at Rs 120, 90, 150 respectively. A portfolio has 10 shares of A and 20 of B & C combined. Total value Rs 3300. Number of B shares is:', options: ['12', '15', '10', '8'], correct: 1, explanation: 'Let B shares be x, C shares be 20-x. Equation: 120(10) + 90x + 150(20-x) = 3300. Solving: 1200 + 3000 - 60x = 3300 => 60x = 900 => x = 15.' }
+  ],
+  VARC: [
+    { id: 'v1', text: 'Arrange to form a coherent paragraph: 1. Developments both technological... 2. But I believe... 3. Legalising assisted dying... 4. Many people endorse... 5. Freedom is notoriously complex...', options: ['5, 1, 2, 3', '1, 4, 2, 3', '4, 1, 5, 2', '1, 3, 2, 5'], correct: 0, explanation: 'The philosophical discussion starts with sentence 5, setting the framework of freedom. Sentence 1 focuses on freedom over death, 2 builds on it, and 3 concludes with the legal step.' },
+    { id: 'v2', text: 'Which word best captures the tone of an author who is gently mocking societal norms?', options: ['Sardonic', 'Satirical', 'Facetious', 'Derisive'], correct: 2, explanation: 'Facetious implies treating serious issues with deliberately inappropriate humor, which aligns with "gently mocking." Sardonic and Derisive are too harsh.' }
+  ],
+  DILR: [
+    { id: 'd1', text: 'Four friends take turns moving around a 7-chair round table. The chairs occupied after Turn 6 are 4, 5, 6, 7. Who sat on chair 4 at Turn 3?', options: ['Aslam', 'Bashir', 'Chhavi', 'No one'], correct: 3, explanation: 'After tracing the paths and vacant chair constraints backward from turn 6, Chair 4 must be empty at turn 3 because it is only occupied on Turn 5.' }
+  ]
+};
+
 // --- Flashcard Component ---
 const Flashcard = ({ front, back, onEdit, onDelete }: { front: string, back: string, onEdit: () => void, onDelete: () => void }) => {
   const [flipped, setFlipped] = useState(false);
@@ -123,6 +138,9 @@ export default function CatMaster() {
   const [isAddingFormula, setIsAddingFormula] = useState(false);
   const [newFormula, setNewFormula] = useState({ front: '', back: '' });
   const [editingFormulaId, setEditingFormulaId] = useState<string | null>(null);
+  const [practiceSubject, setPracticeSubject] = useState<'QA' | 'VARC' | 'DILR'>('QA');
+  const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number>>({});
+  const [formulaSearch, setFormulaSearch] = useState('');
 
   useEffect(() => {
     const loadSavedTests = async () => {
@@ -219,7 +237,8 @@ export default function CatMaster() {
 
   // Zero-dependency SVG Donut Chart Calculation
   const accuracy = progress.totalAttempted > 0 ? Math.round((progress.correct / progress.totalAttempted) * 100) : 0;
-  const dashArray = `${accuracy} ${100 - accuracy}`;
+
+  const filteredFormulas = formulas.filter(f => f.front.toLowerCase().includes(formulaSearch.toLowerCase()) || f.back.toLowerCase().includes(formulaSearch.toLowerCase()));
 
   return (
     <m.div 
@@ -417,10 +436,51 @@ export default function CatMaster() {
           )}
 
           {activeTab === 'practice' && (
-            <div className="flex flex-col items-center justify-center min-h-[400px] text-center bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl">
-              <PenTool size={48} className="text-slate-400 mb-4 opacity-50" />
-              <h3 className="text-2xl font-bold mb-2">Practice Mode</h3>
-              <p className="text-slate-500 max-w-md">Connect the Serverless Gemini API in Phase 3 to generate dynamic practice questions.</p>
+            <div className="flex flex-col flex-1">
+              <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+                {(['QA', 'VARC', 'DILR'] as const).map(subj => (
+                  <button key={subj} onClick={() => setPracticeSubject(subj)} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceSubject === subj ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>{subj} Training</button>
+                ))}
+              </div>
+              <div className="space-y-6">
+                {MOCK_PRACTICE_DB[practiceSubject].map((q, idx) => (
+                  <div key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
+                    <p className="font-medium mb-6 text-lg">{idx + 1}. {q.text}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {q.options.map((opt, oIdx) => {
+                        const isAnswered = practiceAnswers[q.id] !== undefined;
+                        const isSelected = practiceAnswers[q.id] === oIdx;
+                        const isCorrect = q.correct === oIdx;
+                        let borderClass = 'border-slate-200/50 dark:border-white/10 hover:border-[hsl(var(--accent))]/50';
+                        let bgClass = 'bg-white/40 dark:bg-white/5';
+                        
+                        if (isAnswered) {
+                          if (isCorrect) borderClass = 'border-emerald-500', bgClass = 'bg-emerald-500/10 dark:bg-emerald-500/20';
+                          else if (isSelected) borderClass = 'border-rose-500', bgClass = 'bg-rose-500/10 dark:bg-rose-500/20';
+                          else borderClass = 'border-slate-200/50 dark:border-white/10 opacity-50';
+                        }
+
+                        return (
+                          <label key={oIdx} className="relative cursor-pointer">
+                            <input type="radio" name={`pq-${q.id}`} disabled={isAnswered} className="sr-only" onChange={() => { setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx })); addResult(1, oIdx === q.correct ? 1 : 0); }} />
+                            <div className={`border-2 rounded-xl p-4 transition-colors ${borderClass} ${bgClass}`}>{opt}</div>
+                          </label>
+                        );
+                      })}
+                    </div>
+                    <AnimatePresence>
+                      {practiceAnswers[q.id] !== undefined && (
+                        <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
+                          <div className="p-5 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
+                            <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach's Explanation</div>
+                            <p className="text-sm leading-relaxed">{q.explanation}</p>
+                          </div>
+                        </m.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
@@ -431,15 +491,15 @@ export default function CatMaster() {
                   <h3 className="text-2xl font-bold mb-2">Interactive Formula Hub</h3>
                   <p className="text-slate-500">Click a card to reveal the formula, or add your own to the IndexedDB offline database.</p>
                 </div>
-                <button onClick={() => {
-                  setIsAddingFormula(!isAddingFormula);
-                  if (isAddingFormula) {
-                    setEditingFormulaId(null);
-                    setNewFormula({ front: '', back: '' });
-                  }
-                }} className="bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all whitespace-nowrap">
-                  {isAddingFormula ? 'Cancel' : '+ Add Flashcard'}
-                </button>
+                <div className="flex gap-4 w-full sm:w-auto">
+                  <div className="relative flex-1 sm:w-64">
+                    <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input type="text" placeholder="Search formulas..." value={formulaSearch} onChange={e => setFormulaSearch(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-white/60 dark:bg-slate-900/60 border border-slate-200/50 dark:border-white/10 rounded-xl focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
+                  </div>
+                  <button onClick={() => { setIsAddingFormula(!isAddingFormula); if (isAddingFormula) { setEditingFormulaId(null); setNewFormula({ front: '', back: '' }); } }} className="bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all whitespace-nowrap">
+                    {isAddingFormula ? 'Cancel' : '+ Add'}
+                  </button>
+                </div>
               </div>
 
               <AnimatePresence>
@@ -468,8 +528,14 @@ export default function CatMaster() {
                 )}
               </AnimatePresence>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-                {formulas.map((f) => (
+              {filteredFormulas.length === 0 ? (
+                <div className="text-center py-16 text-slate-500">
+                  <Book size={48} className="mx-auto mb-4 opacity-20" />
+                  <p>No formulas found matching "{formulaSearch}"</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+                  {filteredFormulas.map((f) => (
                    <Flashcard key={f.id} front={f.front} back={f.back} onEdit={() => {
                      setEditingFormulaId(f.id);
                      setNewFormula({ front: f.front, back: f.back });
@@ -480,8 +546,9 @@ export default function CatMaster() {
                        setFormulas(formulas.filter(form => form.id !== f.id));
                      }
                    }} />
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
