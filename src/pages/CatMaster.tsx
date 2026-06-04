@@ -204,6 +204,8 @@ export default function CatMaster() {
     catch { return {}; }
   });
   const [, setKatexLoaded] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
   useEffect(() => {
     if ((window as any).katex) { setKatexLoaded(true); return; }
@@ -887,7 +889,20 @@ export default function CatMaster() {
                   </div>
 
                   <div className="flex flex-1 overflow-hidden relative">
-                     <div className="flex-1 flex flex-col overflow-y-auto p-4 md:p-6" style={{ scrollbarWidth: 'thin' }}>
+                     <div 
+                       className="flex-1 flex flex-col overflow-y-auto p-4 md:p-6" 
+                       style={{ scrollbarWidth: 'thin' }}
+                       onTouchStart={(e) => { setTouchEndX(null); setTouchStartX(e.targetTouches[0].clientX); }}
+                       onTouchMove={(e) => setTouchEndX(e.targetTouches[0].clientX)}
+                       onTouchEnd={() => {
+                         if (touchStartX === null || touchEndX === null) return;
+                         const distance = touchStartX - touchEndX;
+                         const sectionQuestionsLength = currentTest.questions?.filter((q: any) => q.section === activeSection).length || 0;
+                         if (distance > 50 && activeQuestionIdx < sectionQuestionsLength - 1) setActiveQuestionIdx(prev => prev + 1);
+                         if (distance < -50 && activeQuestionIdx > 0) setActiveQuestionIdx(prev => prev - 1);
+                         setTouchStartX(null); setTouchEndX(null);
+                       }}
+                     >
                         {(() => {
                            const sectionQuestions = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
                            const q = sectionQuestions[activeQuestionIdx];
@@ -1164,7 +1179,34 @@ export default function CatMaster() {
                   </div>
 
                   <div className="flex flex-1 overflow-hidden relative">
-                     <div className="flex-1 flex flex-col overflow-y-auto p-4 md:p-6" style={{ scrollbarWidth: 'thin' }}>
+                     <div 
+                       className="flex-1 flex flex-col overflow-y-auto p-4 md:p-6" 
+                       style={{ scrollbarWidth: 'thin' }}
+                       onTouchStart={(e) => { setTouchEndX(null); setTouchStartX(e.targetTouches[0].clientX); }}
+                       onTouchMove={(e) => setTouchEndX(e.targetTouches[0].clientX)}
+                       onTouchEnd={() => {
+                         if (touchStartX === null || touchEndX === null) return;
+                         const distance = touchStartX - touchEndX;
+                         const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
+                         const sectionQuestionsLength = sectionQuestionsAll.filter((q: any) => {
+                           if (reviewFilter === 'all') return true;
+                           const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+                           if (reviewFilter === 'unanswered') return !isAnswered;
+                           if (!isAnswered) return false;
+                           let isCorrect = false;
+                           if (isAnswered) {
+                             if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
+                             else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+                           }
+                           if (reviewFilter === 'correct') return isCorrect;
+                           if (reviewFilter === 'incorrect') return !isCorrect;
+                           return true;
+                         }).length;
+                         if (distance > 50 && activeQuestionIdx < sectionQuestionsLength - 1) setActiveQuestionIdx(prev => prev + 1);
+                         if (distance < -50 && activeQuestionIdx > 0) setActiveQuestionIdx(prev => prev - 1);
+                         setTouchStartX(null); setTouchEndX(null);
+                       }}
+                     >
                         {(() => {
                            const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
                            const sectionQuestions = sectionQuestionsAll.filter((q: any) => {
