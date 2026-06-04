@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2 } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
 
@@ -174,6 +174,7 @@ export default function CatMaster() {
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
   const [sectionTimes, setSectionTimes] = useState<Record<string, number>>({});
   const [reviewFilter, setReviewFilter] = useState<'all' | 'correct' | 'incorrect' | 'unanswered'>('all');
   const [taggedQuestions, setTaggedQuestions] = useState<Record<string, string>>({});
@@ -300,7 +301,7 @@ export default function CatMaster() {
       timer = setInterval(() => {
         setTimeLeft(prev => {
           const nextTime = prev - 1;
-          if (nextTime > 0 && nextTime <= 300) playTickSound();
+          if (nextTime > 0 && nextTime <= 300 && isSoundEnabled) playTickSound();
           return nextTime;
         });
         setSectionTimes(prev => ({
@@ -313,7 +314,7 @@ export default function CatMaster() {
       handleSubmitMock();
     }
     return () => clearInterval(timer);
-  }, [mockPhase, timeLeft, activeSection, isPaused]);
+  }, [mockPhase, timeLeft, activeSection, isPaused, isSoundEnabled]);
 
   useEffect(() => {
     if (mockPhase === 'test' && currentTest) {
@@ -536,7 +537,7 @@ export default function CatMaster() {
     setMockPhase('test');
   };
 
-  const handleSubmitMock = () => {
+  const handleSubmitMock = async () => {
     let score = 0;
     let answeredCount = 0;
     if (currentTest) {
@@ -564,6 +565,7 @@ export default function CatMaster() {
       const incorrectCount = answeredCount - score;
       const unansweredCount = totalQuestions - answeredCount;
       const accuracy = answeredCount > 0 ? Math.round((score / answeredCount) * 100) : 0;
+      const timeTaken = 7200 - timeLeft;
 
       setLastTestResult({
         score,
@@ -575,10 +577,35 @@ export default function CatMaster() {
         accuracy,
         sectionTimes,
       });
+
+      setMockPhase('result');
+      addResult(answeredCount, score);
+
+      // Wire up API call for global percentiles
+      try {
+        const response = await fetch('/api/submit-test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            test_id: currentTest.id,
+            user_id: user?.name || 'Anonymous',
+            score: score,
+            total_time: timeTaken
+          })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setLastTestResult((prev: any) => prev ? {
+             ...prev, 
+             percentile: data.percentile, 
+             averagePeerTime: data.average_peer_time 
+          } : prev);
+        }
+      } catch (err) {
+        console.error("Failed to sync mock test results", err);
+      }
     }
-    
-    setMockPhase('result');
-    addResult(answeredCount, score);
   };
 
   // Zero-dependency SVG Donut Chart Calculation
@@ -859,6 +886,9 @@ export default function CatMaster() {
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
                     <div className="flex items-center gap-2 md:gap-4">
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
+                      <button onClick={() => setIsSoundEnabled(!isSoundEnabled)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isSoundEnabled ? "Mute Timer" : "Unmute Timer"}>
+                        {isSoundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
+                      </button>
                       <button onClick={() => setIsPaused(true)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm hidden lg:block">Pause</button>
                       <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-2 md:px-3 py-1.5 rounded-lg font-bold text-sm md:text-lg flex items-center gap-1 md:gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
                          <Timer size={18} /> {formatTime(timeLeft)}
@@ -1048,9 +1078,11 @@ export default function CatMaster() {
                     <h2 className="text-3xl font-black mb-2">Test Completed!</h2>
                     <p className="text-slate-500 mb-8">Here's a summary of your performance for this session.</p>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-left mb-8 text-slate-800 dark:text-slate-200">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left mb-8 text-slate-800 dark:text-slate-200">
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Score</div><div className="text-3xl font-black">{lastTestResult.score} <span className="text-lg font-bold text-slate-400">/ {lastTestResult.total}</span></div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Accuracy</div><div className="text-3xl font-black text-[hsl(var(--accent))]">{lastTestResult.accuracy}%</div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Percentile</div><div className="text-3xl font-black text-blue-500">{lastTestResult.percentile ? `${lastTestResult.percentile} PR` : <Loader2 size={24} className="animate-spin mt-1" />}</div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Avg Peer Time</div><div className="text-3xl font-black text-indigo-500">{lastTestResult.averagePeerTime ? formatTime(lastTestResult.averagePeerTime) : <Loader2 size={24} className="animate-spin mt-1" />}</div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Answered</div><div className="text-3xl font-black">{lastTestResult.answered}</div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Correct</div><div className="text-3xl font-black text-emerald-500">{lastTestResult.correct}</div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Incorrect</div><div className="text-3xl font-black text-rose-500">{lastTestResult.incorrect}</div></div>
