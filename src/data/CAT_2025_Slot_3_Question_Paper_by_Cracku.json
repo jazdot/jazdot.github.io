@@ -1,0 +1,950 @@
+{
+  "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q1",
+          "text": "Five jumbled sentences (labelled 1, 2, 3, 4, and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out and key in the number of that sentence as your answer.\n1. About half of all the oxygen we breathe is made near the surface of the ocean by phytoplankton that photosynthesize just like land-dwelling plants.\n2. A team of scientists that includes Boston University experts has discovered they also produce oxygen on the seafloor.\n3. The research team used deep-sea chambers that land on the seafloor and enclose the seawater, sediment, polymetallic nodules, and living organisms.\n4. The discovery is a surprise considering oxygen is typically created by plants and organisms with help from the sun\u2014not by rocks on the ocean floor.\n5. The deep-sea rocks, called polymetallic nodules, don\u2019t only host a surprising number of sea critters.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "The sentences focus on a new scientific discovery: oxygen is being produced on the ocean floor, challenging the common belief that oxygen is produced only through photosynthesis. We see a link between sentences 5 and 2 - with the structure \"dont only\" and \"they also\". These two together introduce the discovery. 4 continues by describing why this discovery is surprising. 1 adds to the discussion in 4 by showing that most oxygen is through photosynthesis making the oxygen production described in 4 an anamoly. Sentence 3 interrupts this flow because it talks about how the research was done instead of what was discovered, making it the odd one out."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "The return to the tailor is the juxtaposition of three key things for the mindful Indian shopper. The first is the conscious shift away from the homogeneity of fast fashion, the idea of a hundred other people owning exactly the same Zara trench coat or H&M pleated skirt. The second is an actual understanding of the waste behind the fast fashion market, and wanting not to contribute to that anymore. The last is the shift toward customisation and fit\u2014the idea of having imaginations brought to life and to have them fit exactly; without paying exorbitant rates for that bespoke tailoring. For the individual with a keen fashion sense and a genuine desire to move away from the waste and uniformity of fast fashion without paying the premium for it that indie brands would invariably demand, the tailor is the perfect crossover.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q2",
+          "text": "The passage given below is followed by four summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "The mindful Indian shoppers are returning to the tailor with a genuine desire to wear clothes which are less expensive, fit them well and are yet fashionable.",
+            "The mindful Indian shopper is shifting away from convenience and uniformity of clothing, and waste in fashion, to customisation and less exorbitantly priced clothing.",
+            "All Indian shoppers are opting for customisation and a shift away from homogeneity over expensive clothing brands like Zara and H&M.",
+            "In the Indian retail market, people believe that expensive branded clothes are wasteful and, therefore, are returning to the neighbourhood tailor."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage says people are going back to tailors for three main reasons: they dislike the alike-ness (homogeneity) of fast fashion, are aware of the waste it causes, and want custom clothes that fit well without the high prices of indie or bespoke brands. Option B best sums up these points. It shows a move away from both alike-ness and waste in fashion, and also highlights customisation and affordable clothes. These align with the passage\u2019s focus on mindfulness, \u2018fit\u2019, sustainability, and affordability without oversimplifying or exaggerating."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "In 1982, a raging controversy broke out over a forest act drafted by the Government of India. This act sought to strengthen the already extensive powers enjoyed by the forest bureaucracy in controlling the extraction, disposal and sale of forest produce. It also gave forest officials greater powers to strictly regulate the entry of any person into reserved forest areas. While forest officials justified the act on the grounds that it was necessary to stop the continuing deforestation, it was bitterly opposed by representatives of grassroots organisations, who argued that it was a major violation of the rights of peasants and tribals living in and around forest areas. . . . The debate over the draft forest act fuelled a larger controversy over the orientation of state forest policy. It was pointed out, for example, that the draft act was closely modelled on its predecessor, the Forest Act of 1878. The earlier Act rested on a usurpation of rights of ownership by the colonial state which had little precedent in precolonial history. It was further argued that the system of forestry introduced by the British\u2014and continued, with little modification, after 1947 \u2014 emphasised revenue generation and commercial exploitation, while its policing orientation excluded villagers who had the most longstanding claim on forest resources. Critics called for a complete overhaul of forest administration, pressing the government to formulate policy and legislation more appropriate to present needs. . . . That debate is not over yet. The draft act was shelved, though it has not as yet been formally withdrawn. Meanwhile, the 1878 Act (as modified by an amendment in 1927) continues to be in operation. In response to its critics, the government has made some important changes in forest policy, e.g., no longer treating forests as a source of revenue, and stopping ecologically hazardous practices such as the clearfelling of natural forests. At the same time, it has shown little inclination to meet the major demand of the critics of forest policy\u2014namely, abandoning the principle of state monopoly over forest land by handing over areas of degraded forests to individuals and communities for afforestation. . . . [The] 1878 Forest Act itself was passed only after a bitter and prolonged debate within the colonial bureaucracy, in which protagonists put forward arguments strikingly similar to those being advanced today. As is well known, the Indian Forest Department owes its origin to the requirements of railway companies. The early years of the expansion of the railway network, c. 1853 onwards, led to tremendous deforestation in peninsular India owing to the railway's requirements of fuelwood and construction timber. Huge quantities of durable timbers were also needed for use as sleepers across the newly laid tracks. Inexperienced in forestry, the British called in German experts to commence systematic forest management. The Indian Forest Department was started in 1864, with Dietrich Brandis, formerly a Lecturer at Bonn, as the first Inspector General of Forests. The new department needed legislative backing to function effectively, and in the following year, 1865, the first forest act was passed. . . .",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q3",
+          "text": "Which one of the following best encapsulates the reason for the \u201craging controversy\u201d developing into a \u201clarger controversy\u201d?",
+          "type": "MCQ",
+          "options": [
+            "The 1982 draft forest act replicated colonial measures of control and regulation of forest resources.",
+            "The 1982 draft forest act was unjustifiably defended by forest officials in the face of bitter opposition by grassroots organisations.",
+            "The 1982 draft forest act violated the rights of tribals and peasants who lived in and around forest areas.",
+            "The 1982 draft forest act further enabled the commercial exploitation of forest resources by the forest bureaucracy."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The controversy became \u201clarger\u201d because the 1982 draft act was not seen as an isolated policy mistake, but as a continuation of an older, flawed framework. The passage clearly says that \u201cthe draft act was closely modelled on its predecessor, the Forest Act of 1878.\u201d This comparison expanded the debate from the immediate provisions of the new act to the entire historical orientation of forest policy. Critics were upset because the 1878 Act was based on \u201ca usurpation of rights of ownership by the colonial state,\u201d focused on \u201crevenue generation and commercial exploitation,\u201d and left out villagers who had long claimed rights to the forests. Since the 1982 draft act followed this colonial law, it seemed to repeat the same approach of central control and strict rules."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q4",
+          "text": "All of the following, if true, would weaken the narrative presented in the passage EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "certain tribal groups in India are responsible for climate change because their sustenance has historically depended on mass scale deforestation.",
+            "before British rule, peasants and tribal groups were denied access to forest resources by Indian rulers and their administrations.",
+            "the timber requirement for railway works in nineteenth century India was met through import from China, in exchange for spices.",
+            "nineteenth century German forestry experts were infamous for violating the rights of indigenous communities that lived in forest regions."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option (d) does not weaken the passage because it actually aligns with what the author is already arguing. The passage is critical of colonial forest administration and shows how it sidelined the rights of people living in forest areas. If German forestry experts were known to violate indigenous rights, that would only support this criticism, not challenge it."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q5",
+          "text": "According to the passage, which one of the following is not common to the 1878 Forest Act and the 1982 draft forest act?",
+          "type": "MCQ",
+          "options": [
+            "Both sparked controversy and debate among the various stakeholders.",
+            "Both reflect a colonial mindset.",
+            "Both resulted in large scale deforestation.",
+            "Both sought to establish the state\u2019s monopoly over forest resources."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Option (c) is not common to both. The passage links large-scale deforestation to the nineteenth century, especially railway expansion before the 1878 Act. In contrast, forest officials said the 1982 draft act aimed to \u201cstop the continuing deforestation,\u201d not cause it."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q6",
+          "text": "According to the passage, which one of the following reforms is yet to happen in India\u2019s forest policies?",
+          "type": "MCQ",
+          "options": [
+            "Recognising the state\u2019s claim to forest land use.",
+            "A ban on deforestation.",
+            "Recognising the significance of forests to ecology.",
+            "Involving local people in cultivating forests."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "What the passage emphasises as still missing is the government\u2019s refusal to accept the main demand of critics: \u201chanding over areas of degraded forests to individuals and communities for afforestation.\u201d This directly points to the continued exclusion of local people from forest cultivation and management. Hence, the reform yet to occur is option (D), involving local people in forest cultivation."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Paragraph: The first suggested evidence of a human genetic mutation associated with aggressive behaviour came from a study in 1993. _____(1)____. Genetic and metabolic studies were conducted on a large Dutch family in which several of the males has a syndrome of borderline mental retardation and abnormal behaviour. _____(2)____. The undesirable behaviour included impulsive aggression, arson and exhibitionism. _____(3)____. A point mutation was identified in the eighth exon of the monoamine oxidase A (MAOA) structural gene which changes glutamine to a termination codon. _____(4)____.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q7",
+          "text": "The given sentence is missing in the paragraph below. Decide where it best fits among the options 1, 2, 3, or 4 indicated in the paragraph.\nSentence: In each of the affected males, the genetic defect was located to the X chromosome in the region of p11-12.",
+          "type": "MCQ",
+          "options": [
+            "Option 3",
+            "Option 4",
+            "Option 2",
+            "Option 1"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The sentence about the defect being \u201clocated to the X chromosome in the region of p11-12\u201d fits best after the description of the abnormal behaviour, i.e., at blank (3). The paragraph starts by introducing the study and its context, then says that \u201cGenetic and metabolic studies were conducted on a large Dutch family\u2026\u201d , and next describes \u201cthe undesirable behaviour\u201d like \u201cimpulsive aggression, arson and exhibitionism.\u201d After explaining these behaviours, it makes sense to mention the main genetic finding about the defect\u2019s location (the X chromosome, region p11-12), and then go into more detail that \u201ca point mutation was identified in the eighth exon of the monoamine oxidase A (MAOA) structural gene\u2026\u201d."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q8",
+          "text": "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n1. The effigy of a candidate establishes a personal link between him and the voters; the candidate does not only offer a programme for judgement, he suggests a physical climate, a set of daily choices expressed in a morphology, a way of dressing, a posture.\n2. Some candidates for Parliament adorn their electoral prospectus with a portrait; this presupposes that photography has a power to convert which must be analysed.\n3. Inasmuch as photography is an ellipse of language and a condensation of an \u2018ineffable\u2019 social whole, it constitutes an anti-intellectual weapon and tends to spirit away \u2018politics\u2019 (that is to say a body of problems and solutions) to the advantage of a 'manner of being', a socio-moral status.\n4. Photography tends to restore the paternalistic nature of elections, whose elitist essence has been disrupted by proportional representation and the rule of parties (the Right seems to use it more than the Left).",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2143",
+          "explanation": "This paragraph looks at how photography changes electoral politics. Sentence 2 works best as the opening statement because it introduces the concrete practice: candidates placing their portrait on electoral material, and states that this act \u201cpresupposes that photography has a power to convert,\u201d setting up the need for explanation. Sentence 1 should come next because it explains how this power works. It shows how the candidate\u2019s image (effigy) creates a personal connection and shifts the focus from political judgment to appearance, posture, and daily habits, which helps explain the point made in sentence 2. Sentence 4 follows by showing the political result. If elections focus on personal image, photography \u201ctends to restore the paternalistic nature of elections,\u201d which goes against party-based or proportional politics. Sentence 3 should be last because it is the most general and evaluative. It sums up the argument by saying photography replaces politics as a set of problems with a \u201cmanner of being,\u201d and calls it an anti-intellectual weapon."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Once a society accepts a secular mode of creativity, within which the creator replaces God, imaginative transactions assume a self-conscious form. The tribal imagination, on the other hand, is still to a large extent dreamlike and hallucinatory. It admits fusion between various planes of existence and levels of time in a natural and artless manner. In tribal stories, oceans fly in the sky as birds, mountains swim in water as fish, animals speak as humans and stars grow like plants. Spatial order and temporal sequence do not restrict the narrative. This is not to say that tribal creations have no conventions or rules, but simply that they admit the principle of association between emotion and the narrative motif. Thus stars, seas, mountains, trees, men and animals can be angry, sad or happy. It might be said that tribal artists work more on the basis of their racial and sensory memory than on the basis of a cultivated imagination. In order to understand this distinction, we must understand the difference between imagination and memory. In the animate world, consciousness meets two immediate material realities: space and time. We put meaning into space by perceiving it in terms of images. The image-making faculty is a genetic gift to the human mind \u2014this power of imagination helps us understand the space that envelops us. With regard to time, we make connections with the help of memory; one remembers being the same person today as one was yesterday. The tribal mind has a more acute sense of time than the sense of space. Somewhere along the history of human civilization, tribal communities seem to have realized that domination over territorial space was not their lot. Thus, they seem to have turned almost obsessively to gaining domination over time. This urge is substantiated in their ritual of conversing with their dead ancestors: year after year, tribals in many parts of India worship terracotta or carved-wood objects representing their ancestors, aspiring to enter a trance in which they can converse with the dead. Over the centuries, an amazingly sharp memory has helped tribals classify material and natural objects into a highly complex system of knowledge. . . One of the main characteristics of the tribal arts is their distinct manner of constructing space and imagery, which might be described as 'hallucinatory'. In both oral and visual forms of representation, tribal artists seem to interpret verbal or pictorial space as demarcated by an extremely flexible 'frame'. The boundaries between art and non-art become almost invisible. A tribal epic can begin its narration from a trivial everyday event; tribal paintings merge with living space as if the two were one and the same. And within the narrative itself, or within the painted imagery, there is no deliberate attempt to follow a sequence. The episodes retold and the images created take on the apparently chaotic shapes of dreams. In a way, the syntax of language and the grammar of painting are the same, as if literature were painted words and painting were a song of images.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q9",
+          "text": "Non-human living forms exhibit human emotions in tribal narratives because tribal narratives:",
+          "type": "MCQ",
+          "options": [
+            "have a self-conscious form.",
+            "accommodate existential fluidity.",
+            "abandon all rules and regulations.",
+            "are rudimentary and underdeveloped."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage explains that tribal imagination naturally blends different planes of existence. It mentions that tribal stories \u201cadmit fusion between various planes of existence and levels of time in a natural and artless manner,\u201d and that \u201cstars, seas, mountains, trees, men and animals can be angry, sad or happy.\u201d This means emotions are not limited to humans and can pass across boundaries between living forms. What explains non-human forms having human emotions is the acceptance of fluid boundaries between beings, time, and space."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q10",
+          "text": "On the basis of the passage, which one of the following explains the main difference between imagination and memory?",
+          "type": "MCQ",
+          "options": [
+            "Imagination is a genetic gift to humans whereas memory is central to human consciousness.",
+            "Tribal groups value memory over imagination when it comes to creating art and literature.",
+            "Imagination needs to be cultivated whereas memory is more intuitive because it is racial and sensory.",
+            "Imagination helps humans make sense of space while memory helps them understand time."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage explains the difference between imagination and memory by linking them to how humans deal with space and time. It says that we \u201cput meaning into space\u201d by forming images, and this image-making ability is imagination. When it comes to time, we rely on memory to make connections, such as recognising ourselves as the same person across different moments. So imagination helps us understand space, while memory helps us understand time, which leads directly to option D."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q11",
+          "text": "Which one of the following best explains why tribals in India worship their dead ancestors?",
+          "type": "MCQ",
+          "options": [
+            "For tribals, conversing with the dead becomes a way of seeking control over time.",
+            "Tribals show respect to their ancestors through terracotta and carved-wood objects.",
+            "Tribals possess a sophisticated knowledge system that is based on memory.",
+            "Tribals seek territorial domination over the spaces that they inhabit."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The passage explains ancestor worship in the context of how tribal communities relate to time rather than space, stating that the tribals realised they could not dominate territorial space, and as a result, they \u201cturned almost obsessively to gaining domination over time.\u201d This idea is directly connected to the ritual of conversing with dead ancestors, where tribals aspire to enter a trance and communicate with those from the past. Worship is therefore not just reverence, but a way of overcoming temporal limits."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q12",
+          "text": "All of the following, if true, would weaken the passage\u2019s claims about the hallucinatory tribal imagination EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "tribal art excludes the depiction of the mundane reality of everyday life and objects.",
+            "tribal narratives exhibit a chronological beginning, middle, and end.",
+            "tribal stories depict the natural world in accordance with rational scientific knowledge.",
+            "shamanic rituals involving conversing with the dead often feature in tribal stories."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option (d) does not weaken the passage. The text mentions the ritual of talking with dead ancestors as proof that tribal people engage with time and trance-like states. So, shamanic rituals actually support the idea of a hallucinatory imagination."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q13",
+          "text": "Five jumbled sentences (labelled 1, 2, 3, 4, and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out and key in the number of that sentence as your answer.\n1. The profound emotional impact of music has inspired ongoing research into its relationship with emotions.\n2. Music is a universal phenomenon that utilizes a myriad brain resources.\n3. This inherent connection to musical expression is deeply intertwined with human identity and experience.\n4. The proclivity to create and appreciate music is ubiquitous among humans, permeating daily life across diverse societies.\n5. Engaging with music is among the most cognitively demanding tasks a human can undergo, and it is identified across cultures.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "The sentences largely describe music as a universal, complex part of human life. They focus on how music appears in all cultures and is deeply connected to how people think and experience the world. Sentences 2, 5, 4, and 3 follow a logical order. Sentence 2 starts the paragraph by saying music is universal and involves brain engagement. Sentence 5 logically follows the idea presented in sentence 2 by developing the idea of brain involvement and explaining how cognitively demanding music engagement is. Sentence 4 adds to and broadens this discussion by noting that making and enjoying music are common in all societies and daily life. Sentence 3 connects this idea to human identity and experience and refers to the idea presented in sentence 4. Sentence 1 does not fit in with the others. Instead of describing what music is or how it works everywhere, it talks about research inspired by music\u2019s emotional effects. This brings in a discussion about science, not about music itself."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q14",
+          "text": "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n1. When I ask the distinguished LGBTQ activist and writer Cherie Moraga whether she uses Latinx to refer to herself, she tells me, \u2018I worked too hard for the \u201ca\u201d in Latina to give it up! I refer to myself as Xicana.\u2019\n2. Of our accumulated ethnic population, only a third use Hispanic to identify themselves, a mere 14 percent use Latino, and less than 2 percent recognize Latinx.\n3. They have done this, although gender in languages is grammatical, not sociological or sexual, and found in linguistic families throughout the world, from French to Russian to Japanese.\n4. More recently, activists seeking to render our name gender neutral, out of respect for our LGBTQ members, have devised yet another name for us: Latinx.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4312",
+          "explanation": "All four sentences discuss how labels for a community have changed over time, focusing on the shift to gender-neutral terms, the debates about language, and how people actually use these labels. The sequence starts with sentence 4, which introduces the newest change: activists created the term Latinx to make the name gender-neutral and more inclusive of LGBTQ people. Sentence 3 comes next, adding that grammatical gender exists in many languages and is different from social or sexual gender. This helps explain why the term \"Latinx\" was introduced. Sentence 1 then gives a personal response, showing Cherie Moraga\u2019s choice to use Latina and Xicana instead of Latinx, which makes the discussion more personal. Sentence 2 is best as the conclusion because it transitions from the individual example to data showing that few people use Latinx compared with other terms."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q15",
+          "text": "The given sentence is missing in the paragraph below. Decide where it best fits among the options 1, 2, 3, or 4 indicated in the paragraph.\nSentence: Productivity gains, once expected to feed through to broader living standards, now primarily serve to enhance returns to wealth.\nParagraph: Economists now argue that inequality is no longer a by-product of growth but a condition of it. ____ (1) ____. Unlike wages, wealth reflects not just income but also access to assets, favourable institutional conditions - such as low interest rates - and public policies like low taxes and housing shortages. ____ (2) ____. In other words, wealth depends on political choices in ways that income currently does not. It\u2019s not just the inequality itself that is the issue but the erosion of mechanisms that once constrained it. ____ (3) ____. Wealth and income inequality are linked, but where wages have stagnated and collective bargaining has weakened, capital income - derived from profits, rents and interest - has been boosted by design. ____ (4) ____.",
+          "type": "MCQ",
+          "options": [
+            "Option 1",
+            "Option 4",
+            "Option 3",
+            "Option 2"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The provided sentence works best at blank 4 because it summarizes the point made immediately before it. The sentence explains the result after claiming that capital income has been \"boosted by design\" and wages have stagnated: productivity gains now primarily flow to wealth rather than raising living standards. This serves as the argument's obvious conclusion."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Over the course of the twentieth century, humans built, on average, one large dam a day, hulking structures of steel and concrete designed to control flooding, facilitate irrigation, and generate electricity. Dams were also lucrative contracts, large-scale employers, and the physical instantiation of a messianic drive to conquer territories and control nature. Some of the results of that drive were charismatic mega-infrastructure\u2014the Hoover on the Colorado River or the Aswan on the Nile\u2014but most of the tens of thousands of dams that dot the Earth's landscape have drawn little attention. These are the smaller, though not inconsequential, barriers that today impede the flow of water on nearly two-thirds of the world's large waterways. Chances are, what your map calls a \u201clake\u201d is actually a reservoir, and that thin blue line that emerges from it once flowed very differently.\n\nDamming a river is always a partisan act. Even when explicit infrastructure goals\u2014 irrigation, flood control, electrification\u2014were met, other consequences were significant and often deleterious. Across the world, river control displaced millions of people, threatening livelihoods, foodways, and cultures. In the western United States, dams were often an instrument of colonialism, used to dispossess Indigenous people and subsidize settler agriculture. And as dams slowed the flow of water, inhibited the movement of nutrients, and increased the amount of toxic algae and other parasites, they snuffed out entire river ecologies. Declining fish populations are the most evident effect, but dams also threaten a host of other animals\u2014from birds and reptiles to fungi and plants\u2014with extinction. Every major dam, then, is also a sacrifice zone, a place where lives, livelihoods, and ways of life are eliminated so that new sorts of landscapes can support water-intensive agriculture and cities that sprout downstream of new reservoirs.\n\nSuch sacrifices have been justified as offerings at the temples of modernity. Justified by\u2014and for\u2014whom, though? Over the course of the twentieth century, rarely were the costs and benefits weighed thoughtfully and decided democratically. As Kader Asmal, chair of the landmark 2000 World Commission on Dams, concluded, \u201cThere have been precious few, if any, comprehensive, independent analyses as to why dams came about, how dams perform over time, and whether we are getting a fair return from our $2 trillion investment.\u201d A quarter- century later, Asmal\u2019s words ring ever truer. A litany of dams built in the mid twentieth century are approaching the end of their expected lives, with worrying prospects for their durability. Droughts, magnified and multiplied by the effects of climate change, have forced more and more to run below capacity. If ever there were a time to rethink the mania for dams, it would be now.\n\nThere is some evidence that a combination of opposition, alternative energy sources, and a lack of viable projects has slowed the construction of major dams. But a wave of recent and ongoing construction, from India and China to Ethiopia and Canada, continues to tilt the global balance firmly in favor of water impoundment.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q16",
+          "text": "16. Which one of the following sets of terms is closest to mapping the key arguments of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Partisan act - Threatened livelihoods - Toxic algae - Quarter century",
+            "Lucrative contracts - Sacrifice zone - Expected lives - Global balance",
+            "Mega-infrastructure - Sacrifice zone - Worshipping modernity - Water impoundment",
+            "Physical instantiation - Partisan act - Decided democratically - Alternative energy"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "There is a distinct argumentative arc in the passage. Using examples of well-known and pervasive mega-infrastructure, the passage begins by portraying dams as symbols of ambition and extensive control over nature. It then demonstrates how every significant dam serves as a sacrifice zone, uprooting people, devastating ecosystems, and eradicating lifestyles. These losses have been justified as offerings at the \"temples of modernity\" or in the name of progress. Lastly, the passage notes that global trends continue to favour water impoundment despite mounting evidence of harm and the aging of existing dams. Option (c), which maps motivation, consequence, justification, and the current trajectory of dam building, best captures this progression. The other options do not represent this overall argument; instead, they list isolated terms or partial effects."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q17",
+          "text": "17. What does the author wish to communicate by referring to the Hoover and Aswan dams in the first paragraph?",
+          "type": "MCQ",
+          "options": [
+            "The Colorado and Nile rivers may be seen as thin blue lines on a map.",
+            "By building dams like the Hoover and Aswan dams, large-scale employers became messianic figures.",
+            "The designers and builders of these mega-structures were highly charismatic individuals.",
+            "The drive to control nature is evident not only in mega-infrastructures like the Hoover and Aswan dams, but in smaller dams as well."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The Aswan and Hoover dams are referred to in the passage as \"charismatic mega-infrastructure,\" instances that clearly reflect the human desire to dominate land and the natural world. However, the author immediately draws a comparison between these well-known projects and the tens of thousands of smaller dams that collectively alter rivers worldwide but receive far less attention. The goal is to demonstrate that the same mindset that underlies large dams is present at all scales rather than to exalt them. This larger pattern is easier to see thanks to the identifiable symbols of the Hoover and Aswan dams. This leads to option D, which accurately conveys the idea that the desire to control nature is present in both the numerous smaller dams that currently dominate waterways worldwide and the famous mega-dams."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q18",
+          "text": "18. The word \u201cinstantiation\u201d is used in the first paragraph. Which one of the following pairs of terms would be the best substitute for it in the context of its usage in the paragraph?",
+          "type": "MCQ",
+          "options": [
+            "Exemplification and manifestation",
+            "Concreteness and viability",
+            "Durability and timeliness",
+            "Development and construction"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In the first paragraph, dams are called \u201cthe physical instantiation of a messianic drive to conquer territories and control nature.\u201d Here, instantiation means turning an abstract idea into something real. In this case, it is the idea of dominating nature, shown in the form of steel and concrete dams. The dams are more than just buildings; they make that drive real. This meaning is best captured by \u201cexemplification and manifestation,\u201d which together convey the sense of something abstract being shown or realised in a tangible form. Hence, option (A) is the correct answer."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q19",
+          "text": "19. All of the following statements may be considered valid inferences from the passage EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "despite increasing evidence of opposition to dams as well as alternatives to them, they continue to be built.",
+            "smaller, though not inconsequential, dams are safer than large dam projects.",
+            "processes of colonisation have used dam-building to make people vacate their territories.",
+            "dam-building has proved to be an extremely costly enterprise that may not be justifiable."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Option B cannot be inferred from the passage. While the author refers to \u201csmaller, though not inconsequential, barriers,\u201d this phrase is used to stress their cumulative impact on rivers, not their safety. There is no comparison anywhere in the passage suggesting that smaller dams are safer than large ones. The text discusses ecological damage and displacement caused by dams in general, without ranking them by safety."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "In investigating memory-beliefs, there are certain points which must be borne in mind. In the first place, everything constituting a memory-belief is happening now, not in that past time to which the belief is said to refer. It is not logically necessary to the existence of a memory-belief that the event remembered should have occurred, or even that the past should have existed at all. There is no logical impossibility in the hypothesis that the world sprang into being five minutes ago, exactly as it then was, with a population that \u201cremembered\u201d a wholly unreal past. There is no logically necessary connection between events at different times; therefore nothing that is happening now or will happen in the future can disprove the hypothesis that the world began five minutes ago. Hence the occurrences which are CALLED knowledge of the past are logically independent of the past; they are wholly analysable into present contents, which might, theoretically, be just what they are even if no past had existed.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q20",
+          "text": "20. The passage given below is followed by four summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "When we discuss the concept of memory-beliefs, we must understand that it is not logically impossible for the event remembered to have never happened at all; it could just be a figment of our imagination.",
+            "Memory-beliefs depend wholly on what is remembered in the present, and not on anything else; just as it is not logically impossible that the world came into being five minutes ago, and that everyone now just remembers a wholly imaginary past for it.",
+            "When investigating memory beliefs, we must keep in mind that an actual past event is not a prerequisite for a memory-belief to exist, and that what we know of the past could theoretically not need a past at all.",
+            "That which we call \u2018knowledge of the past\u2019 is logically independent of the past, since the act of remembering which forms memory-beliefs happens in the present, and does not need to be based in real past occurrences, or even need a past at all."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage explains that memory-beliefs exist only in the present and do not require an actual past. It notes that remembering takes place now, and there is no logical reason the remembered event must have happened. The example of the world starting \u201cfive minutes ago\u201d shows that our knowledge of the past cannot dismiss this idea. This means memory and knowledge of the past are logically separate from whether the past really happened. Option D addresses the entire argument. It states that knowledge of the past is logically separate from the past itself, links memory-beliefs to what happens in our minds now, and includes the idea that real past events, or even a past at all, are not logically necessary."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Imagine a world in which artificial intelligence is entrusted with the highest moral responsibilities: sentencing criminals, allocating medical resources, and even mediating conflicts between nations. This might seem like the pinnacle of human progress: an entity unburdened by emotion, prejudice or inconsistency, making ethical decisions with impeccable precision. . . .\n\nYet beneath this vision of an idealised moral arbiter lies a fundamental question: can a machine understand morality as humans do, or is it confined to a simulacrum of ethical reasoning? AI might replicate human decisions without improving on them, carrying forward the same biases, blind spots and cultural distortions from human moral judgment. In trying to emulate us, it might only reproduce our limitations, not transcend them. But there is a deeper concern. Moral judgment draws on intuition, historical awareness and context - qualities that resist formalisation. Ethics may be so embedded in lived experience that any attempt to encode it into formal structures risks flattening its most essential features. If so, AI would not merely reflect human shortcomings; it would strip morality of the very depth that makes ethical reflection possible in the first place.\n\nStill, many have tried to formalise ethics, by treating certain moral claims not as conclusions, but as starting points. A classic example comes from utilitarianism, which often takes as a foundational axiom the principle that one should act to maximise overall wellbeing. From this, more specific principles can be derived, for example, that it is right to benefit the greatest number, or that actions should be judged by their consequences for total happiness. As computational resources increase, AI becomes increasingly well-suited to the task of starting from fixed ethical assumptions and reasoning through their implications in complex situations.\n\nBut what, exactly, does it mean to formalise something like ethics? The question is easier to grasp by looking at fields in which formal systems have long played a central role. Physics, for instance, has relied on formalisation for centuries. There is no single physical theory that explains everything. Instead, we have many physical theories, each designed to describe specific aspects of the Universe: from the behaviour of quarks and electrons to the motion of galaxies. These theories often diverge. Aristotelian physics, for instance, explained falling objects in terms of natural motion toward Earth's centre; Newtonian mechanics replaced this with a universal force of gravity. These explanations are not just different; they are incompatible. Yet both share a common structure: they begin with basic postulates - assumptions about motion, force or mass - and derive increasingly complex consequences. . . .\n\nEthical theories have a similar structure. Like physical theories, they attempt to describe a domain - in this case, the moral landscape. They aim to answer questions about which actions are right or wrong, and why. These theories also diverge and, even when they recommend similar actions, such as giving to charity, they justify them in different ways. Ethical theories also often begin with a small set of foundational principles or claims, from which they reason about more complex moral problems.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q21",
+          "text": "21. Choose the one option below that comes closest to being the opposite of \u201cutilitarianism\u201d.",
+          "type": "MCQ",
+          "options": [
+            "The committee adopted a non-egoist framework, ranking policies by their contribution to overall social welfare and treating self-interest as a derivative concern within institutional evaluation.",
+            "The authors advocated an absolutist stance, following exceptionless rules regardless of outcomes and evaluating choices by broadest societal benefit.",
+            "The council followed a prioritarian approach, assigning greater moral weight to improvements for the worst-off rather than to maximising total welfare across the affected population.",
+            "The policy was cast as deontological ethics, selecting the option that delivered the highest total benefit to citizens while presenting duty as a secondary consideration in public decision-making."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The question asks which position is most opposite to utilitarianism. According to the passage, utilitarianism is about acting to maximize overall wellbeing or total welfare. The main concern is the total amount of benefit, not who receives it or if some people are worse off, as long as the total outcome is greater. Seen against that, option C moves in the opposite direction. A prioritarian approach does not aim to maximize total welfare. Instead, it gives more importance to helping those who are worst off, even if this does not lead to the highest overall well-being. This challenges the utilitarian focus on total outcomes, making it the closest opposite."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q22",
+          "text": "22. Which one of the options below best summarises the passage?",
+          "type": "MCQ",
+          "options": [
+            "The passage rejects formal methods in principle. It holds that moral judgement cannot be expressed in disciplined terms and concludes that AI should not serve in courts, medicine, or diplomacy under any conditions.",
+            "The passage weighs the appeal of an impersonal AI judge against doubts about moral grasp. It claims codified schemes retain case nuance at scale and uses a physics analogy to predict convergence on a unified framework.",
+            "The passage weighs the appeal of an impersonal AI judge against doubts about moral grasp. It warns that codification can erode case-sensitive judgement, allow axiom-led reasoning at scale, and use a physics analogy to model structured plurality.",
+            "The passage highlights administrative gains from automation. It treats reproducing human moral judgement as progress and argues that, as computational resources increase, AI can be responsible for decision-making across varied institutional settings."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage makes three main points. First, it explains why people find an impersonal AI moral judge appealing. Next, it raises a key concern: moral judgment relies on intuition, history, and context, so turning ethics into rules might remove that depth. The passage also notes that ethics has always included some formal structure, using examples like utilitarianism. It explains with a physics analogy that formal systems can exist together without merging into one final theory. The main idea is not to reject or endorse these systems, but to highlight the tension and variety among them. Option C sums this up best. It shows why an impersonal AI judge is appealing, points out the risk that making rules can \u201cerode case-sensitive judgement,\u201d and still recognizes that reasoning based on principles can be applied widely. By mentioning the physics analogy to explain structured variety, it matches the passage\u2019s idea that ethical systems, like physical theories, can be formal but still different from each other."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q23",
+          "text": "23. The passage compares ethics to physics, where different theories apply to different aspects of a domain and says AI can reason from fixed starting points in complex cases. Which one of the assumptions below must hold for that comparison to guide practice?",
+          "type": "MCQ",
+          "options": [
+            "There is a principled way to decide which ethical framework applies to which class of cases, so the system can select the relevant starting points before deriving a recommendation.",
+            "Real cases never straddle different areas, so a case always fits exactly one framework without any overlap whatsoever.",
+            "A single master framework replaces all others after translation into one code, so domain boundaries disappear in application.",
+            "Once formalised, all ethical frameworks yield the same recommendation in every case, so selection among them is unnecessary."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The passage says that, like physics, ethics has multiple formal theories, each starting from basic principles, and that AI can reason from such fixed starting points in complex cases. For this comparison to be practically useful, there has to be some way to decide which ethical starting point applies in a given situation. Option A fits the passage. If different ethical frameworks apply to different kinds of cases, then there must be a principled way to decide which framework is relevant before reasoning begins. Otherwise, AI would not know which \u201cstarting points\u201d to use. This matches the physics analogy, where different theories apply to different domains."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q24",
+          "text": "24. All of the following can reasonably be inferred from the passage EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "by analogy with physics, compact postulates can yield broad predictions across incompatible theories and ethics can likewise share structure while continuing to diverge rather than close on a single comprehensive framework.",
+            "encoding ethics into fixed structures risks stripping away intuition, history, and context and, if that occurs, the depth that enables reflective judgement disappears. So, machines would mirror our limits rather than exceed them.",
+            "the appeal of an AI judge rests on immunity to bribery, partiality, and fatigue; yet the text questions whether procedural cleanliness amounts to moral understanding without lived context and interpretive depth.",
+            "with fixed moral starting points and expanding computational resources, the argument forecasts convergence on one ethical system and treats contextual judgement as unnecessary once formal reasoning scales across domains and cultures."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option D does not follow from the passage. The author never predicts convergence on one ethical system. In fact, the physics analogy is used to show that even with formalisation, multiple theories can coexist. The passage also repeatedly insists that context remains central to ethics, not unnecessary."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "[REQUIRES IMAGE]",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q25",
+          "text": "25. Who is sitting immediately to the right of Bina?",
+          "type": "MCQ",
+          "options": [
+            "Aarav",
+            "Eshan",
+            "Farhan",
+            "Chirag"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let us place Bina at position 1 and arrange the numbers in a clockwise direction for better understanding, and then position the rest of the people on the table. Round 1: The holder of the buck is Bina. The buck is passed immediately to the left, which means it is given to position 2 from 1, and it is received by Aarav. So, Aarav's position is 2. Round 2: The holder of the buck is Aarav. The buck is passed second to the right, which means it is given to the position 7 from 2, and the person receiving it is unknown. Round 3: The holder of the buck is unknown, but it is at position 7. The buck is passed immediately to the right, which means it is given to the position 6 from 7, and the person receiving it is Diya. Therefore, Diya's position is 6. Round 4 and 5: The buck is at position 6 at the start of round 4 with Diya, and the pass types of rounds 4 and 5 are not provided to us. The only information known to us is that after round 5, the buck is with Aarav, who is at position 2. Round 6: The holder of the buck is Aarav. The buck is passed second to the left, which means it is given to the position 4 from 2, and the person receiving it is unknown. Round 7: The holder of the buck is unknown, but it is at position 4. The buck is passed immediately to the left, which means it is given to position 5 from 4, and the person receiving it is Gaurav. Therefore, Gaurav's position is 5. Round 8: The holder of the buck is Gaurav. The buck is passed immediately to the left, which means it is given to position 6 from 5, and the person receiving it is unknown. But we know that the person in position 6 is Diya. So, the buck is currently at position 6 with Diya. Round 9 and 10: The pass types of rounds 9 and 10 are unknown to us, but we are told that the buck is passed to Farhan in round 9 and to Chirag in round 10. The positions of Farhan and Chirag are currently not assigned, and they are out of 3, 4, and 7. From position 6, the only positions that Buck can reach out of the three are 4 or 7. If the buck is passed to position 7 in round 9, then it has to reach either 3 or 4 in round 10 to get to Chirag, but it is not possible to pass the buck from 7 to 3 or 4 in a single round. So, we can eliminate the case of Buck going to 7 in round 9. The only case left is for the buck to go to position 4 in round 9 and to position 3 in round 10, as from 4, the buck can only be passed to 3 out of 3 and 7 in one round. Hence, we can conclude that Farhan is placed at position 4 and Chirag is placed at position 3. This leaves out only position 7 and the only person left to be assigned is Eshan making the person at position 7 to be Eshan. This is the final arrangement. The person immediately to the right of Bina is Eshan. Hence, the correct answer is option B."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q26",
+          "text": "26. Who is sitting third to the left of Eshan?",
+          "type": "MCQ",
+          "options": [
+            "Gaurav",
+            "Divya",
+            "Chirag",
+            "Aarav"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Based on the final arrangement derived in the previous question, the person third to the left of Eshan is Chirag. Hence, the correct answer is option C."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q27",
+          "text": "27. For which of the following pass types can the total number of occurrences be uniquely determined?",
+          "type": "MCQ",
+          "options": [
+            "Immediately to the left",
+            "Second to the right",
+            "Immediately to the right",
+            "Second to the left"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In rounds 4 and 5, the possibilities were 1) Passing the buck second to the right in round 4 and second to the right in round 5. 2) Passing the buck second to the left in round 4 and to the left in round 5. 3) Passing the buck to the left in round 4 and second to the left in round 5. Here, Buck could have been passed second to the right, second to the left or immediately to the left in rounds 4 and 5, which is unknown to us. The only pass type that we are certain to have happened is immediately to the right. Hence, the correct answer is option C."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q28",
+          "text": "28. For which of the following children is it possible to determine how many times they received the Buck?",
+          "type": "MCQ",
+          "options": [
+            "Farhan",
+            "Eshan",
+            "Bina",
+            "Gaurav"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "In round 4, the buck might have gone to either Farhan, Bina or Eshan, which is not known to us. Therefore, the count of the number of times the buck was received by them cannot be determined uniquely, whereas it can be uniquely determined in the case of Gaurav, which is 1 in round 7. Hence, the correct answer is option D."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q29",
+          "text": "29. What is the sum of Travel Costs for all travelers in Zentars?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "41000",
+          "explanation": "The total Travel Cost = 7000Z + 16000Z + 18000Z = 41000Z. Hence, the correct answer is 41000."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q30",
+          "text": "30. How many Zentars did Lian spend in the two countries he visited?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "13000",
+          "explanation": "Spending Cost of Lian = 12000Z + 1000Z = 13000Z. Hence, the correct answer is 13000."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Aurevia, Brelosia, Cyrenia and Zerathania are four countries with their currencies being Aurels, Brins, Crowns, and Zentars, respectively. The currencies have different exchange values. Crown's currency exchange rate with Zentars = 0.5, i.e., 1 Crown is worth 0.5 Zentars. Three travelers, Jano, Kira, and Lian set out from Zerathania visiting exactly two of the countries. Each country is visited by exactly two travelers. Each traveler has a unique Flight Cost, which represents the total cost of airfare in traveling to both the countries and back to Zerathania. The Flight Cost of Jano was 4000 Zentars, while that of the other two travelers were 5000 and 6000 Zentars, not necessarily in that order. When visiting a country, a traveler spent either 1000, 2000 or 3000 in the country's local currency. Each traveler had different spends (in the country's local currency) in the two countries he/she visited. Across all the visits, there were exactly two spends of 1000 and exactly one spend of 3000 (in the country's local currency). The total \u201cTravel Cost\u201d for a traveler is the sum of his/her Flight Cost and the money spent in the countries visited. The citizens of the four countries with knowledge of these travels made a few observations, with spends measured in their respective local currencies: i. Aurevia citizen: Jano and Kira visited our country, and their Travel Costs were 3500 and 8000, respectively. ii. Brelosia citizen: Kira and Lian visited our country, spending 2000 and 3000, respectively. Kira's Travel Cost was 4000. iii. Cyrenia citizen: Lian visited our country and her Travel Cost was 36000.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q31",
+          "text": "What was Jano's total spend in the two countries he visited, in Aurels?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1500",
+          "explanation": "Total Spending Cost of Jano = 2000Z + 1000Z = 3000Z. We know that A = 2Z, so the above value in A can be calculated as, 3000Z = 3000*A/2 = 1500A. So, the spending of Jano in Aurels is 1500A."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q32",
+          "text": "One Brin is equivalent to how many Crowns?",
+          "type": "MCQ",
+          "options": [
+            "8",
+            "0.125",
+            "0.5",
+            "4"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "We know that B = 2A and A = 2Z, so the value of B in terms of Z is B = 2*2Z = 4Z. We also know that C = 0.5Z. Dividing (3) by (4), we get, B/C = 4Z/0.5Z = 8. So, one Brin is equivalent to 8 crowns."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q33",
+          "text": "Which of the following statements is NOT true about money spent in the local currency?",
+          "type": "MCQ",
+          "options": [
+            "Jano spent 2000 in Aurevia",
+            "Lian spent 2000 in Cyrenia",
+            "Jano spent 2000 in Cyrenia",
+            "Kira spent 1000 in Aurevia"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Statement 1) Jano spent 2000 in Aurevia. Jano spent 2000Z in Aurevia = 1000A in Aurevia. So, this option is incorrect."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "[REQUIRES IMAGE]",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q34",
+          "text": "Who had solved the largest number of puzzles by the 20-th minute from the start of the competition?",
+          "type": "MCQ",
+          "options": [
+            "Chandranath",
+            "Koushik",
+            "Suranjan",
+            "Anirbid"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Reading the four curves at t=20: The green staircase (Koushik) is at the highest horizontal level at t=20. The yellow (Chandranath) and red (Anirbid) staircases are lower than the green ones at that time. The blue (Suranjan) staircase is the lowest of the four at t=20. Since Koushik\u2019s value is greater than every other competitor\u2019s at t=20, Koushik has solved the largest number of puzzles by the 20th minute."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q35",
+          "text": "How many minutes did Suranjan take to solve the third visual puzzle in the competition?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "So, the third visual puzzle is 8, and the time taken by Suranjan(blue) to complete the 3rd visual-based puzzle, which is the 8th puzzle, can be calculated as, The time taken by Suranjan to solve the 8th puzzle from graph 1 = 28 - 26 = 2 minutes."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q36",
+          "text": "At what number in the sequence was the fourth number-based puzzle?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "We can conclude that puzzles 1, 4, 8, and 9 are visual-based, while puzzles 2, 3, 5, 6, 7, and 10 are number-based. The fourth number-based puzzle is 6th puzzle in the order."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q37",
+          "text": "Which of the following is the closest to the average time taken by Anirbid to solve the number-based puzzles in the competition?",
+          "type": "MCQ",
+          "options": [
+            "3.3 minutes",
+            "2.5 minutes",
+            "3.8 minutes",
+            "4.0 minutes"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The average time taken by Anirbid to solve the number-based puzzles can be calculated as, (5 + 2 + 5 + 3 + 5 + 4) / 6 = 24 / 6 = 4 minutes."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Three countries \u2014 Pumpland (P), Xiland (X) and Cheeseland (C) \u2014 trade among themselves and with the (other countries in) Rest of World (ROW). All trade volumes are given in IC (international currency). The following terminology is used: Trade balance = Exports - Imports; Total trade = Exports + Imports; Normalized trade balance = Trade balance / Total trade, expressed in percentage terms. The following information is known: 1. The normalized trade balances of P, X and C are 0%, 10%, and -20%, respectively. 2. 40% of exports of X are to P. 22% of imports of P are from X. 3. 90% of exports of C are to P; 4% are to ROW. 4. 12% of exports of ROW are to X, 40% are to P. 5. The export volumes of P, in IC, to X and C are 600 and 1200, respectively. P is the only country that exports to C.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q38",
+          "text": "How much is exported from C to X, in IC?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "48",
+          "explanation": "The exports from C to X = 800 - 720 - 32 = 48."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q39",
+          "text": "How much is exported from P to ROW, in IC?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "200",
+          "explanation": "Exports of P to ROW = 20b - 600 - 1200 = 2000 - 1800 = 200."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q40",
+          "text": "How much is exported from ROW to ROW, in IC?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1008",
+          "explanation": "Exports of ROW to ROW = 2100 - 840 - 252 = 1008 = Imports of ROW to ROW."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q41",
+          "text": "What is the trade balance of ROW?",
+          "type": "MCQ",
+          "options": [
+            "0",
+            "-200",
+            "100",
+            "200"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Trade balance of ROW = Exports - Imports = 2100 - 1900 = 200."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q42",
+          "text": "Which among the countries P, X, and C has/have the least total trade?",
+          "type": "MCQ",
+          "options": [
+            "Only X",
+            "Only C",
+            "Both X and C",
+            "Only P"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Total trade of P = 2000 + 2000 = 4000. Total trade of X = 900 + 1100 = 2000. Total trade of C = 1200 + 800 = 2000. So, both countries X and C have the least total trade."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Anu, Bijay, Chetan, Deepak, Eshan, and Faruq are six friends. Each of them uses a mobile number from exactly one of the two mobile operators - Xitel and Yocel. During the last month, the six friends made several calls to each other. Each call was made by one of these six friends to another. The table below summarizes the number of minutes of calls that each of the six made to (outgoing minutes) and received from (incoming minutes) these friends, grouped by the operators. Some of the entries are missing. It is known that the duration of calls from Faruq to Eshan was 200 minutes. Also, there were no calls from: i. Bijay to Eshan, ii. Chetan to Anu and Chetan to Deepak, iii. Deepak to Bijay and Deepak to Faruq, iv. Eshan to Chetan and Eshan to Deepak.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q43",
+          "text": "What was the duration of calls (in minutes) from Bijay to Anu?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "50",
+          "explanation": "The duration of calls from Bijay to Ajay is 50 minutes, which is the outgoing minutes to operator Xitel of Bijay."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q44",
+          "text": "What was the total duration of calls (in minutes) made by Anu to friends having mobile numbers from Operator Yocel?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "525",
+          "explanation": "The total duration of calls made by Anu to friends having mobile numbers from Operator Yocel is Anu's outgoing minutes to Operator Yocel, which is 525 minutes."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q45",
+          "text": "What was the total duration of calls (in minutes) made by Faruq to friends having mobile numbers from Operator Yocel?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "350",
+          "explanation": "The total duration of calls made by Faruq to friends having mobile numbers from Operator Yocel is the outgoing minutes from Faruq to Operator Yocel, which is 350 minutes."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Anu, Bijay, Chetan, Deepak, Eshan, and Faruq are six friends. Each of them uses a mobile number from exactly one of the two mobile operators - Xitel and Yocel. During the last month, the six friends made several calls to each other. Each call was made by one of these six friends to another. The table below summarizes the number of minutes of calls that each of the six made to (outgoing minutes) and received from (incoming minutes) these friends, grouped by the operators. Some of the entries are missing.\n\n| Friend | Operator | Outgoing minutes to (Operator Xitel) | Outgoing minutes to (Operator Yocel) | Incoming minutes from (Operator Xitel) | Incoming minutes from (Operator Yocel) |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| Anu | Xitel | 100 | 525 | 50 | 225 |\n| Bijay | Xitel | 50 | 200 | 100 | 125 |\n| Chetan | Yocel | 50 | 175 | 250 | 150 |\n| Deepak | Yocel | 100 | 150 | 275 | 100 |\n| Esthan | Yocel | 200 | 100 | 100 | 375 |\n| Faruq | Yocel | 0 | 350 | 100 | 150 |\n\nIt is known that the duration of calls from Faruq to Eshan was 200 minutes. Also, there were no calls from:\ni. Bijay to Eshan,\nii. Chetan to Anu and Chetan to Deepak,\niii. Deepak to Bijay and Deepak to Faruq,\niv. Eshan to Chetan and Eshan to Deepak.",
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q46",
+          "text": "What was the duration of calls (in minutes) from Deepak to Chetan?",
+          "type": "MCQ",
+          "options": [
+            "100",
+            "125",
+            "50",
+            "0"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Label the unknown value we need as x = minutes from Deepak to Chetan. Use the operator groups from the table: Xitel users: Anu, Bijay. Yocel users: Chetan, Deepak, Eshan, Faruq. Chetan\u2019s incoming from Yocel = 150 minutes. Yocel \u2192 Chetan can come only from Deepak, Eshan, or Faruq. But the problem states Eshan \u2192 Chetan = 0, so (Deepak \u2192 Chetan) + (Faruq \u2192 Chetan) = 150. Hence x + (Faruq \u2192 Chetan) = 150 (1). Faruq\u2019s outgoing to Yocel = 350 minutes (table). Those 350 minutes are split among Yocel recipients Chetan, Deepak and Eshan. We are told Faruq \u2192 Eshan = 200 (given). So (Faruq \u2192 Chetan) + (Faruq \u2192 Deepak) + 200 = 350, hence (Faruq \u2192 Chetan) + (Faruq \u2192 Deepak) = 150 (2). Consider Deepak\u2019s incoming from Yocel (table) = 100 minutes. The ones in Yocel that can call Deepak are Chetan, Eshan, and Faruq. But we are told Chetan \u2192 Deepak = 0 and Eshan \u2192 Deepak = 0, so the only Yocel caller to Deepak is Faruq. Therefore (Faruq \u2192 Deepak) = 100 (3). Substitute (3) into (2): (Faruq \u2192 Chetan) + 100 = 150 \u21d2 (Faruq \u2192 Chetan) = 50. Now use (1): x + (Faruq \u2192 Chetan) = 150. With Faruq \u2192 Chetan = 50, we get, x + 50 = 150, x = 100. Thus Deepak \u2192 Chetan = 100 minutes."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q47",
+          "text": "The monthly sales of a product from January to April were 120, 135, 150 and 165 units, respectively. The cost price of the product was Rs. 240 per unit, and a fixed marked price was used for the product in all the four months. Discounts of 20%, 10% and 5% were given on the marked price per unit in January, February and March, respectively, while no discounts were given in April. If the total profit from January to April was Rs. 138825, then the marked price per unit, in rupees, was",
+          "type": "MCQ",
+          "options": [
+            "520",
+            "525",
+            "510",
+            "515"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The total number of products is $120 + 135 + 150 + 165 = 570$. Therefore, the total cost must have been $570 \\times 240 = 136800$. Let the marked price for the products be $X$. The January, February, March, and April, selling prices would respectively be $0.8X, 0.9X, 0.95X$, and $X$; based on the discounts given on each of the months. The revenue earned from selling the products in each of the months would be: $120 \\times 0.8X + 135 \\times 0.9X + 150 \\times 0.95X + 165 \\times X = 525X$. The profit earned would be: Revenue - Cost, and therefore, $525X - 136800 = 138825$. $525X = 275625$. $X = 275625 / 525 = 525$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q48",
+          "text": "Teams A, B, and C consist of five, eight, and ten members, respectively, such that every member within a team is equally productive. Working separately, teams A, B, and C can complete a certain job in 40 hours, 50 hours, and 4 hours, respectively. Two members from team A, three members from team B, and one member from team C together start the job, and the member from team C leaves after 23 hours. The number of additional member(s) from team B, that would be required to replace the member from team C, to finish the job in the next one hour, is",
+          "type": "MCQ",
+          "options": [
+            "4",
+            "2",
+            "1",
+            "3"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let the per hour productivity of each member from teams A, B, and C, be $a, b$, and $c$ units respectively. Let $W$ be the total units of work that each of the teams does. We have: $W = 40 \\times 5 \\times a = 50 \\times 8 \\times b = 4 \\times 10 \\times c$. This gives, $a = W/200, b = W/400, c = W/40$. When two members from team A, three members from team B, and one member from team C together start the job, the total per hour productivity for the first 23 hours will be: $2W/200 + 3W/400 + W/40 = 17W/400$. In 23 hours, the work done will be $23 \\times 17W/400 = 391W/400$. The remaining work, after 23 hours, is $W - 391W/400 = 9W/400$. The current per hour efficiency of the group that comprises members from only teams A and B, is $2W/200 + 3W/400 = 7W/400$. In the next hour, the members from A and B will finish $7W/400$ units of work and $2W/400$ units of work would remain. This work has to be finished by newly added members from team B in one hour, therefore, the number of new members required from team B would be $(2W/400) \\div (W/400) = 2$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q49",
+          "text": "In a school with 1500 students, each student chooses any one of the streams out of science, arts, and commerce, by paying a fee of Rs 1100, Rs 1000, and Rs 800, respectively. The total fee paid by all the students is Rs 15,50,000. If the number of science students is not more than the number of arts students, then the maximum possible number of science students in the school is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "700",
+          "explanation": "Let the total number of students who chose science, arts, and commerce streams be $S, A$, and $C$, respectively. We have, $S + A + C = 1500$, such that, $C = 1500 - S - A$. Also, $1100S + 1000A + 800C = 15, 50, 000$, which can be simplified by dividing by 100; $11S + 10A + 8C = 15500$. Substituting the value of $C$ from equation (1) in equation (2), we have $11S + 10A + 8(1500 - S - A) = 15500 \\Rightarrow 3S + 2A = 3500$. Since $S \\le A$, the maximum value of $S$ (if possible), would occur when $S = A$, therefore, $5S = 3500$, or $S = 700$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q50",
+          "text": "In an arithmetic progression, if the sum of fourth, seventh and tenth terms is 99, and the sum of the first fourteen terms is 497, then the sum of first five terms is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "65",
+          "explanation": "Let the first term of the arithmetic progression be $a$, and the common difference be $d$. We have: $(a + 3d) + (a + 6d) + (a + 9d) = 99 \\Rightarrow 3a + 18d = 99 \\Rightarrow a + 6d = 33$. We are also told that the sum of the first fourteen terms is 497, $14/2(2a + (14 - 1)d) = 497 \\Rightarrow (2a + 13d) = 497/7 \\Rightarrow 2a + 13d = 71$. Solving equations (1) and (2), we get; $a = 3$ and $d = 5$. The first five terms would therefore be: 3, 8, 13, 18, 23, and their sum would be $3 + 8 + 13 + 18 + 23 = 65$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q51",
+          "text": "Ankita walks from A to C through B, and runs back through the same route at a speed that is 40% more than her walking speed. She takes exactly 3 hours 30 minutes to walk from B to C as well as to run from B to A. The total time, in minutes, she would take to walk from A to B and run from B to C, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "444",
+          "explanation": "Let the walking speed of Ankita be $5x$, implying that her running speed (which is 40% more than her walking speed), is $1.4 \\times 5x = 7x$. Thus, the ratio of her walking and running speeds is $5 : 7$. Therefore, the ratio of the time taken by Ankita to cover a fixed distance walking and running would be $7 : 5$. She takes 3 hours 30 minutes, or 3.5 hours to walk from B to C. Since Ankita is running from B to C in the second scenario, her time will reduce inversely to the ratio of her speed. The time taken by her to run from B to C would be $3.5 \\times 5/7 = 2.5$ hours. She takes 3 hours 30 minutes, or 3.5 hours to run from A to B. Since Ankita is walking from A to B in the second scenario, her time will increase inversely to the ratio of her speed. The time taken by her to walk from A to B would be $3.5 \\times 7/5 = 4.9$ hours. Therefore, the total time it takes for Ankita in the second scenario is $4.9 + 2.5 = 7.4$ hours. This gives $7.4 \\times 60 = 444$ minutes."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q52",
+          "text": "For a 4-digit number (greater than 1000), sum of the digits in the thousands, hundreds, and tens places is 15. Sum of the digits in the hundreds, tens, and units places is 16. Also, the digit in the tens place is 6 more than the digit in the units place. The difference between the largest and smallest possible value of the number is",
+          "type": "MCQ",
+          "options": [
+            "811",
+            "3289",
+            "735",
+            "4078"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let the thousands, hundreds, tens, and units digits of the number be $a, b, c$, and $d$, respectively. The sum of the digits in the thousands, hundreds, and tens places is 15; $a + b + c = 15$. The sum of the digits in the hundreds, tens, and units places is 16; $b + c + d = 16$. Solving equations (1) and (2), we get $d = a + 1$. The digit in the tens place is 6 more than the digit in the units place; $c = d + 6 = a + 1 + 6 = a + 7$. Substituting the value of $c$ in terms of $a$ in equation (1), we get; $a + b + a + 7 = 15 \\Rightarrow b = 8 - 2a$. Thus, the number is: $a, 8 - 2a, a + 7, a + 1$. We know that since the number is a four digit number, $a \\ge 1$. But all the four digits have to be less than or equal to 9 but greater than or equal to 0, thus, $8 - 2a \\ge 0$ gives $a \\le 4$ and $a + 7 \\le 9$ gives $a \\le 2$. Thus, $a$ can be 1 or 2. The two possible values for the number, therefore, are, 1682 and 2493, when we put $a = 1$ and $a = 2$, respectively. The difference between the only two possible values is, $2493 - 1682 = 811$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q53",
+          "text": "Rahul starts on his journey at 5 pm at a constant speed so that he reaches his destination at 11 pm the same day. However, on his way, he stops for 20 minutes, and after that, increases his speed by 3 km per hour to reach on time. If he had stopped for 10 minutes more, he would have had to increase his speed by 5 km per hour to reach on time. His initial speed, in km per hour, was",
+          "type": "MCQ",
+          "options": [
+            "12",
+            "15",
+            "18",
+            "20"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let the initial speed of Rahul be $x$ km/h. Since he travels the distance usually in 6 hours (5 pm to 11 pm), the total distance should be $6x$ km. Let the distance after which Rahul stops for some duration in both scenarios be $y$ km. In the first scenario, he stops for 20 minutes or $1/3$ hours, therefore, the travel time would be $6 - 1/3 = 17/3$ hours. We have, $k/x + (6x - k)/(x + 3) = 17/3 \\Rightarrow 18x^2 + 9k = 17x^2 + 51x \\Rightarrow x^2 = 51x - 9k$. Similarly, in the second scenario, he stops for $20 + 10 = 30$ minutes or $1/2$ hours, therefore, the travel time would be $6 - 1/2 = 11/2$ hours. We have, $k/x + (6x - k)/(x + 5) = 11/2 \\Rightarrow 12x^2 + 10k = 11x^2 + 55x \\Rightarrow x^2 = 55x - 10k$. From equations (1) and (2), we have; $55x - 10k = 51x - 9k$ or $4x = k$. Substituting the value of $k$ in equation (1), we have $x^2 = 51x - 36x$ or, since $x$ is positive, $x = 15$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q54",
+          "text": "The rate of water flow through three pipes A, B and C are in the ratio 4 : 9 : 36. An empty tank can be filled up completely by pipe A in 15 hours. If all the three pipes are used simultaneously to fill up this empty tank, the time, in minutes, required to fill up the entire tank completely is nearest to",
+          "type": "MCQ",
+          "options": [
+            "73",
+            "78",
+            "76",
+            "71"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let the rate of flow of water from pipe A be $4x$ units per hour. From the ratio of the rates of flow of water (4:9:36), we have that the rate of flow of water from pipe B should be $9x$ units per hour, and from pipe C should be $36x$ units per hour. Since pipe A fills the empty tank in 15 hours, the capacity of the tank must be $15 \\times 4x = 60x$ units. When all three pipes work together, their combined capacity would be $4x + 9x + 36x = 49x$ units per hour. Therefore, the time it would take for the three pipes to fill the empty tank working together is: $60x/49x$ hours. In minutes, this time is equivalent to $60/49 \\times 60 \\approx 73.47$ minutes."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q55",
+          "text": "If $f(x) = (x^2 + 3x)(x^2 + 3x + 2)$ then the sum of all real roots of the equation $\\sqrt{f(x) + 1} = 9701$, is",
+          "type": "MCQ",
+          "options": [
+            "-6",
+            "6",
+            "3",
+            "-3"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let $(x^2 + 3x)$ be equal to $k$. We have, $f(x) = k(k + 2) = k^2 + 2k$. Therefore, $\\sqrt{f(x) + 1} = \\sqrt{k^2 + 2k + 1} = \\sqrt{(k + 1)^2} = k + 1 = 9701$. We get $k = 9700$. Thus, $x^2 + 3x = 9700$ or $x^2 + 3x - 9700 = 0$. Since $x$ is real, the discriminant of the above quadratic has to be greater than or equal to zero. We find that $3^2 + 4 \\times 9700 \\ge 0$ and therefore the quadratic has real roots. The sum of the roots will be $-b/a = -3/1 = -3$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q56",
+          "text": "For real values of x, the range of the function $f(x) = \\frac{2x - 3}{2x^2 + 4x - 6}$ is",
+          "type": "MCQ",
+          "options": [
+            "$(-\\infty, 1/8] \\cup [1, \\infty)$",
+            "$(-\\infty, 1/4] \\cup [1, \\infty)$",
+            "$(-\\infty, 1/8] \\cup [1/2, \\infty)$",
+            "$(-\\infty, 1/4] \\cup [1/2, \\infty)$"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let $y = \\frac{2x - 3}{2x^2 + 4x - 6} \\Rightarrow 2yx^2 + 4yx - 6y = 2x - 3 \\Rightarrow 2yx^2 + (4y - 2)x - 6y + 3 = 0$. Equation (1) is a quadratic in $x$, where $x$ is real. Therefore, the discriminant of the quadratic has to be greater than or equal to zero. $(4y - 2)^2 + 4 \\times 2y \\times (6y - 3) \\ge 0 \\Rightarrow 16y^2 + 4 - 16y - 24y + 48y^2 \\ge 0 \\Rightarrow 64y^2 - 40y + 4 \\ge 0 \\Rightarrow 16y^2 - 10y + 1 \\ge 0$. The roots of the quadratic above will be $(10 \\pm 6)/32 = 1/2$ or $1/8$. Since the coefficient of $y^2$ is positive, the quadratic will be less than zero in the range $(1/8, 1/2)$. The quadratic will be greater than or equal to zero otherwise. Therefore, the domain of the quadratic, or possible values of $y$, which is the range of $f(x)$, will be, $(-\\infty, 1/8] \\cup [1/2, \\infty)$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q57",
+          "text": "The sum of all the digits of the number $(10^{50} + 10^{25} - 123)$, is",
+          "type": "MCQ",
+          "options": [
+            "212",
+            "221",
+            "324",
+            "255"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "$(10^{50} + 10^{25} - 123)$ can be written as $10^{50} + (10^{25} - 123)$. $1000 - 123$ gives 877. $10000 - 123$ gives 9877. $100000 - 123$ gives 99877. $1000000 - 123$ gives 999877. And so on. Considering $10^n - 123$, which has a total of $n$ digits; in general, of the $n$ total digits; the digit 7 is repeating 2 times, digit 8 is repeating 1 time, and digit 9 is repeating $(n - 3)$ times. Also, when added to $10^{50}$, the cumulative increase in the sum of the digits of the resultant number would be 1, which would come from the leftmost digit of the result. All other newly added digits will be zero. Thus, the sum of the digits of the result will be given by; $[7 \\times 2] + [1 \\times 8] + [(25 - 3) \\times 9] + [25 \\times 0] + [1 \\times 1] = 14 + 8 + 198 + 1 = 221$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q58",
+          "text": "A triangle ABC is formed with AB = AC = 50 cm and BC = 80 cm. Then, the sum of the lengths, in cm, of all three altitudes of the triangle ABC is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "126",
+          "explanation": "The altitudes $CM$ and $BN$ will be equal as the triangle $\\triangle ABC$ is isosceles. Further, in $\\triangle AOB$, using Pythagoras Theorem, we have $AO^2 + OB^2 = AB^2$, therefore, $AO^2 = 50^2 - 40^2$. Thus, $AO^2 = 900$ or $AO = 30$ cm. We know that the ratio of altitudes in a triangle is the inverse of the ratio of sides; therefore, the ratio of altitudes of the triangle will be; $1/50 : 1/50 : 1/80 = 8 : 8 : 5$. Therefore, $CM = BN = 8x$ and $AO = 5x$. Since $5x = 30$, we have $x = 6$, and the sum of altitudes, in centimetres, will be $8x + 8x + 5x = 21x = 21 \\times 6 = 126$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q59",
+          "text": "If $(x^2 + 1/x^2) = 25$ and $x > 0$, then the value of $(x^7 + 1/x^7)$ is",
+          "type": "MCQ",
+          "options": [
+            "44853\\sqrt{3}",
+            "44856\\sqrt{3}",
+            "44859\\sqrt{3}",
+            "44850\\sqrt{3}"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "$(x + 1/x)^2 = x^2 + 1/x^2 + 2 = 25 + 2 = 27$. Therefore, $(x + 1/x) = \\sqrt{27} = 3\\sqrt{3}$. Also, $(x + 1/x)^3 = x^3 + 1/x^3 + 3(x + 1/x)$. Therefore, $x^3 + 1/x^3 = (3\\sqrt{3})^3 - 9\\sqrt{3} = 72\\sqrt{3}$. Also, $(x^2 + 1/x^2)^2 = x^4 + 1/x^4 + 2$. Therefore, $x^4 + 1/x^4 = (25)^2 - 2 = 623$. Lastly, $(x^4 + 1/x^4)(x^3 + 1/x^3) = x^7 + 1/x^7 + x + 1/x$. Therefore, $x^7 + 1/x^7 = 623 \\times (72\\sqrt{3}) - 3\\sqrt{3} = 44853\\sqrt{3}$."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q60",
+          "text": "In a class of 150 students, 75 students chose physics, 111 students chose mathematics and 40 students chose chemistry. All students chose at least one of the three subjects and at least one student chose all three subjects. The number of students who chose both physics and chemistry is equal to the number of students who chose both chemistry and mathematics, and this is half the number of students who chose both physics and mathematics. The maximum possible number of students who chose physics but not mathematics, is",
+          "type": "MCQ",
+          "options": [
+            "30",
+            "35",
+            "40",
+            "55"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "We know that the sum of all entries in the Venn diagram should be 150. Therefore, $111 + 75 - 2k + 40 - (k - x) - k + 0 = 150$. $76 = 4k - x$, where $x \\ge 1$. We must maximise the number of students who chose Physics but not Mathematics. This number is equal to $75 - 2k$. To maximise this we must minimise $k$. We have $4k = 76 + x$ or $k = 19 + x/4$. Since $x$ and $k$ are both integers, $x$ should be divisible by 4. To minimise $k$, we will take the minimum value of $x$, which is 4. Therefore, $k = 19 + 4/4 = 20$. Thus, the maximum possible number of students who chose physics but not mathematics, is $75 - 2 \\times 20 = 35$."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q61",
+          "text": "The sum of all possible real values of x for which log_{x-3} (x^2 - 9) = log_{x-3} (x + 1) + 2, is",
+          "type": "MCQ",
+          "options": [
+            "-3",
+            "sqrt(33)",
+            "3",
+            "(3 + sqrt(33)) / 2"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Since the base of the logarithm has to be greater than zero and cannot be 1, x has to be greater than 3 and cannot be 4. Also, since x^2 - 9 > 0, x will be greater than 3. The equation can be rewritten as; log_{x-3} (x^2 - 9) - log_{x-3} (x + 1) = 2. Or, log_{x-3} ((x^2 - 9) / (x + 1)) = 2. => ((x + 3)(x - 3)) / (x + 1) = (x - 3)^2. => (x + 3) / (x + 1) = (x - 3). => (x + 3) = (x - 3)(x + 1). => x + 3 = x^2 - 3x + x - 3. => x^2 - 3x - 6 = 0. The roots of the quadratic above are (3 \u00b1 sqrt(3^2 + 24)) / 2. The negative value of x will not be possible, the positive value that satisfies is (3 + sqrt(33)) / 2."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q62",
+          "text": "The average salary of 5 managers and 25 engineers in a company is 60000 rupees. If each of the managers received 20% salary increase while the salary of the engineers remained unchanged, the average salary of all 30 employees would have increased by 5%. The average salary, in rupees, of the engineers is",
+          "type": "MCQ",
+          "options": [
+            "45000",
+            "50000",
+            "54000",
+            "40000"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let the average salary of managers be x and let the average salary of engineers be y. The total salary of all the employees will be (5 + 25) * 60000 = 1800000. We have, 5x + 25y = 1800000 .... (1). If the average salary of all the employees increases by 5%, the total salary of all the employees will also increase by 5%, because the total number of employees remains the same. The new total salary will be, 1800000 * 1.05 = 1890000. Also, the average salary of all the managers has increased by 20% and has become 1.2x, we have 5 * 1.2x + 25y = 1890000, or 6x + 25y = 1890000 .... (2). Subtracting equation (1) from equation (2), we get, x = 90000. Which gives 25y = 1800000 - 90000 * 5 or y = 1350000 / 25 = 54000."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q63",
+          "text": "ABCD is a trapezium in which AB is parallel to DC, AD is perpendicular to AB, and AB = 3DC. If a circle inscribed in the trapezium touching all the sides has a radius of 3 cm , then the area, in sq. cm, of the trapezium is",
+          "type": "MCQ",
+          "options": [
+            "48",
+            "30 * sqrt(3)",
+            "36 * sqrt(2)",
+            "54"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "We extend BC and AD to meet at E, and based on the information provided, can construct the diagram as follows: DC = AT = x and BT = 2x such that AB = 3DC. \u2220A = 90\u00b0 and triangles ABE and DCE are similar. Since AD is equal to the diameter of the circle, and AE = 3DE, we get DE = 3 cm. In right-angled triangle DCE, we have CE = sqrt(x^2 + 9). In right-angled triangle BCT, we have BC = sqrt(4x^2 + 36) = 2 * sqrt(x^2 + 9). Since BE = BC + CE, we have BE = 3 * sqrt(x^2 + 9). The radius of the incircle of a right-angled triangle is given by (s1 + s2 - hypotenuse) / 2. Therefore, 3 = (3x + 9 - 3 * sqrt(x^2 + 9)) / 2. Which gives, -x - 1 = -sqrt(x^2 + 9) or x^2 + 2x + 1 = x^2 + 9 or x = 4. Lastly, the area of the trapezium would be 1/2 * (x + 3x) * 6 = 12x = 12 * 4 = 48 square centimetres."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q64",
+          "text": "If 12^{12x} * 4^{24x+12} * 5^{2y} = 8^{4z} * 20^{12x} * 243^{3x-6}, where x, y and z are natural numbers, then x + y + z equals",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "112",
+          "explanation": "On rewriting after prime factorisation, we get, 2^{24x} * 3^{12x} * 2^{48x+24} * 5^{2y} = 2^{12z} * 2^{24x} * 5^{12x} * 3^{15x-30}. Since LHS = RHS, the corresponding powers must be equal. We have, Powers of 3: 12x = 15x - 30 => x = 10, and Powers of 2: 48x + 24 = 12z => 4x + 2 = z => z = 42. Powers of 5: 2y = 12x => y = 6x => y = 60. Therefore, x + y + z = 10 + 42 + 60 = 112."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q65",
+          "text": "In \u25b3ABC, AB = AC = 12 cm and D is a point on side BC such that AD = 8 cm. If AD is extended to a point E such that \u2220ACB = \u2220AEB, then the length, in cm, of AE is",
+          "type": "MCQ",
+          "options": [
+            "20",
+            "16",
+            "18",
+            "14"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "We have AB = AC = 12 cm, and AD = 8 cm. And \u2220ACB = \u2220AEB. Since the triangle is isosceles, \u2220ACB = \u2220AEB = \u2220ABC (or \u2220ABD). In \u25b3ABE and \u25b3ADB, \u2220BAE = \u2220DAB and \u2220AEB = \u2220ABD. Therefore, by AA similarity criterion, \u25b3ABE ~ \u25b3ADB. Hence, we get, AB/AD = AE/AB or 12/8 = AE/12 or AE = 18 cm."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q66",
+          "text": "Vessels A and B contain 60 litres of alcohol and 60 litres of water, respectively. A certain volume is taken out from A and poured into B. After stirring, the same volume is taken out from B and poured into A. If the resultant ratio of alcohol and water in A is 15 : 4, then the volume, in litres, initially taken out from A is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "16",
+          "explanation": "Vessel A contains 60 litres of pure alcohol, and Vessel B contains 60 litres of pure water. Let the amount taken out from vessel A be x litres. The contents in Vessel A now are 60 - x litres of alcohol, and in Vessel B now are 60 litres of water and x litres of alcohol. After mixing, when the same quantity x is taken out from Vessel B, the alcohol that would be taken out would be (x / (60 + x))^th of x, which is x^2 / (60 + x) litres. The initial total quantity of 60 litres has been restored in A after replacement. The total amount of alcohol in Vessel A after the process is complete is: 60 - x + x^2 / (60 + x) = (60^2 - x^2 + x^2) / (60 + x) = 3600 / (60 + x). The total quantity in vessel A is 60 litres where the ratio of alcohol to total quantity is 15/19. Therefore, 3600 / (60 + x) / 60 = 15/19 => 60 / (60 + x) = 15/19 => x = 16. Thus, the quantity taken out and replaced in the two iterations is 16 litres."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q67",
+          "text": "The ratio of the number of coins in boxes A and B was 17:7. After 108 coins were shifted from box A to box B, this ratio became 37:20. The number of coins that needs to be shifted further from A to B, to make this ratio 1:1, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "272",
+          "explanation": "Let the initial total number of coins in box A be 17x, since the ratio of the number of coins in boxes A and B is 17 : 7, the initial total number of coins in box B would be 7x. After 108 coins are shifted from box A to box B, the number of coins in box A would be 17x - 108 and in box B would be 7x + 108. We have, (17x - 108) / (7x + 108) = 37 / 20 => 340x - 2160 = 259x + 3996 => 81x = 6156 => x = 76. Therefore, the total number of coins in the two boxes combined are (17 + 7) * 76 = 1824, half of which is 912. The number of coins in box B currently is 7 * 76 + 108 = 640. The number of coins needed to make the coins equal in both the boxes is, 912 - 640 = 272. Thus, 272 coins will be transferred from box A to box B to make the number of coins equal (1:1) in both the boxes."
+        },
+        {
+          "id": "CAT_2025_Slot_3_Question_Paper_by_Cracku_q68",
+          "text": "Let p, q and r be three natural numbers such that their sum is 900, and r is a perfect square whose value lies between 150 and 500. If p is not less than 0.3q and not more than 0.7q, then the sum of the maximum and minimum possible values of p is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "397",
+          "explanation": "We have 0.3q <= p <= 0.7q, or q + 0.3q <= p + q <= q + 0.7q or 1.3q <= p + q <= 1.7q. Also, we can rewrite p + q = 900 - r. Therefore, 1.3q <= 900 - r <= 1.7q. Since the extreme values (maximum and minimum) of p depend on the value of q (0.3q and 0.7q), we can maximise or minimise r to find the extreme values of p. Since 1.3q <= 900 - r, the minimum possible value of q would be when 1.3q = 900 - r and when r is maximum. The maximum value of r is 484. We get, 1.3q = 900 - 484, or q = 320. This gives the minimum possible value of p as 0.3 * 320 = 96. Since 900 - r <= 1.7q, the maximum possible value of q would be when 900 - r = 1.7q and when r is minimum. The minimum value of r is 169. We get 1.7q = 900 - 169 or q = 430. This gives the maximum possible value of p as 0.7 * 430 = 301. The sum of the maximum and minimum values of p is 96 + 301 = 397."
+        }
+      ]
+    }
+  ]
+}

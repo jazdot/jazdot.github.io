@@ -1,0 +1,943 @@
+{
+  "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "The Positivists, anxious to stake out their claim for history as a science, contributed the weight of their influence to the cult of facts. [S1] First ascertain the facts, said the positivists, then draw your conclusions from them. [S2] . . . This is what may [be] called the common-sense view of history. [S3] History consists of a corpus of ascertained facts. [S4] The facts are available to the historian in documents, inscriptions, and so on . . . [S5] [Sir George Clark] contrasted the \"hard core of facts\" in history with the surrounding pulp of disputable interpretation forgetting perhaps that the pulpy part of the fruit is more rewarding than the hard core. [S6] . . . It recalls the favourite dictum of the great liberal journalist C. P. Scott: \"Facts are sacred, opinion is free.\" [S7] . . . What is a historical fact? [S8] . . . According to the common-sense view, there are certain basic facts which are the same for all historians and which form, so to speak, the backbone of history\u2014the fact, for example, that the Battle of Hastings was fought in 1066. [S9] But this view calls for two observations. [S10] In the first place, it is not with facts like these that the historian is primarily concerned. [S11] It is no doubt important to know that the great battle was fought in 1066 and not in 1065 or 1067, and that it was fought at Hastings and not at Eastbourne or Brighton. [S12] The historian must not get these things wrong. [S13] But [to] praise a historian for his accuracy is like praising an architect for using well-seasoned timber or properly mixed concrete in his building. [S14] It is a necessary condition of his work, but not his essential function. [S15] It is precisely for matters of this kind that the historian is entitled to rely on what have been called the \"auxiliary sciences\" of history\u2014archaeology, epigraphy, numismatics, chronology, and so forth. [S16] . . . The second observation is that the necessity to establish these basic facts rests not on any quality in the facts themselves, but on an apriori decision of the historian. [S17] In spite of C. P. Scott's motto, every journalist knows today that the most effective way to influence opinion is by the selection and arrangement of the appropriate facts. [S18] It used to be said that facts speak for themselves. [S19] This is, of course, untrue. [S20] The facts speak only when the historian calls on them: it is he who decides to which facts to give the floor, and in what order or context. [S21] . . . The only reason why we are interested to know that the battle was fought at Hastings in 1066 is that historians regard it as a major historical event. [S22] . . . Professor Talcott Parsons once called [science] \"a selective system of cognitive orientations to reality.\" [S23] It might perhaps have been put more simply. [S24] But history is, among other things, that. [S25] The historian is necessarily selective. [S26] The belief in a hard core of historical facts existing objectively and independently of the interpretation of the historian is a preposterous fallacy, but one which it is very hard to eradicate.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q1",
+          "text": "According to this passage, which one of the following statements best describes the significance of archaeology for historians?",
+          "type": "MCQ",
+          "options": [
+            "Archaeology helps historians to locate the oldest civilisations in history.",
+            "Archaeology helps historians to ascertain factual accuracy.",
+            "Archaeology helps historians to carry out their primary duty.",
+            "Archaeology helps historians to interpret historical facts."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage suggests that historians can rely on disciplines such as archaeology, among others, to establish basic facts. The relevant portion of the passage is: \"But [to] praise a historian for his accuracy is like praising an architect for using well-seasoned timber or properly mixed concrete in his building. It is a necessary condition of his work, but not his essential function. It is precisely for matters of this kind that the historian is entitled to rely on what have been called the 'auxiliary sciences' of history\u2014archaeology, epigraphy, numismatics, chronology, and so forth.\" In this context, the \"auxiliary sciences\" are mentioned as tools that historians can use to ensure the accuracy of basic facts. Archaeology is included in this list, suggesting that it helps historians in ascertaining factual accuracy by providing evidence from material remains, artifacts, and other archaeological findings. Therefore, Option B correctly reflects the role of archaeology in supporting historians in their pursuit of factual accuracy."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q2",
+          "text": "All of the following, if true, can weaken the passage\u2019s claim that facts do not speak for themselves, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "the truth value of a fact is independent of the historian who expresses it.",
+            "a fact, by its very nature, is objective and universal, irrespective of the context in which it is placed.",
+            "facts, like truth, can be relative: what is fact for person X may not be so for person Y.",
+            "the order in which a series of facts is presented does not have any bearing on the production of meaning."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Option C is the correct answer because it aligns with the passage's perspective that the interpretation of facts is subjective and can be influenced by different perspectives. The passage argues that historians play a crucial role in selecting and interpreting facts, and Option C supports this idea by suggesting that facts, like truth, can be relative."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q3",
+          "text": "If the author of the passage were to write a book on the Battle of Hastings along the lines of his/her own reasoning, the focus of the historical account would be on:",
+          "type": "MCQ",
+          "options": [
+            "exploring the socio-political and economic factors that led to the Battle.",
+            "producing a detailed timeline of the various events that led to the Battle.",
+            "deriving historical facts from the relevant documents and inscriptions.",
+            "providing a nuanced interpretation by relying on the auxiliary sciences."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The passage suggests that while establishing basic facts is necessary, the essential function of historians goes beyond this. It emphasizes the selective and interpretive nature of historical writing, where historians are expected to go deeper into understanding the context and motivations behind historical events. Option A, which involves exploring the socio-political and economic factors that led to the Battle of Hastings, is in line with the idea of providing a nuanced interpretation. This option indicates a focus on understanding the underlying causes and influences that shaped the historical event, reflecting a more comprehensive and contextual approach to historical writing."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q4",
+          "text": "All of the following describe the \u201ccommon-sense view\u201d of history, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "real history can be found in ancient engravings and archival documents.",
+            "only the positivist methods can lead to credible historical knowledge.",
+            "history is like science: a selective system of cognitive orientations to reality.",
+            "history can be objective like the sciences if it is derived from historical facts."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "\"According to the common-sense view, there are certain basic facts which are the same for all historians and which form, so to speak, the backbone of history: The common-sense view of history, as described in the passage, emphasizes that history consists of a body of ascertained facts found in documents and engravings. In contrast, Option C suggests that history is like science, framing it as a selective system of cognitive orientations to reality. This characterization does not align with the common-sense view, which is more concerned with factual accuracy and tangible historical evidence rather than presenting history as a selective system akin to science. Therefore Option C is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Umberto Eco, an Italian writer, was right when he said the language of Europe is translation. [S1] Netflix and other deep-pocketed global firms speak it well. [S2] Just as the EU employs a small army of translators and interpreters to turn intricate laws or impassioned speeches of Romanian MEPs into the EU\u2019s 24 official languages, so do the likes of Netflix. [S3] It now offers dubbing in 34 languages and subtitling in a few more. [S4] . . . The economics of European productions are more appealing, too. [S5] American audiences are more willing than before to give dubbed or subtitled viewing a chance. [S6] This means shows such as \u201cLupin\u201d, a French crime caper on Netflix, can become global hits. [S7] . . . In 2015, about 75% of Netflix\u2019s original content was American; now the figure is half, according to Ampere, a media-analysis company. [S8] Netflix has about 100 productions under way in Europe, which is more than big public broadcasters in France or Germany. [S9] . . . Not everything works across borders. [S10] Comedy sometimes struggles. [S11] Whodunits and bloodthirsty maelstroms between arch Romans and uppity tribesmen have a more universal appeal. [S12] Some do it better than others. [S13] Barbarians aside, German television is not always built for export, says one executive, being polite. [S14] A bigger problem is that national broadcasters still dominate. [S15] Streaming services, such as Netflix or Disney+, account for about a third of all viewing hours, even in markets where they are well-established. [S16] Europe is an ageing continent. [S17] The generation of teens staring at phones is outnumbered by their elders who prefer to gawp at the box. [S18] In Brussels and national capitals, the prospect of Netflix as a cultural hegemon is seen as a threat. [S19] \u201cCultural sovereignty\u201d is the watchword of European executives worried that the Americans will eat their lunch. [S20] To be fair, Netflix content sometimes seems stuck in an uncanny valley somewhere in the mid-Atlantic, with local quirks stripped out. [S21] Netflix originals tend to have fewer specific cultural references than shows produced by domestic rivals, according to Enders, a market analyst. [S22] The company used to have an imperial model of commissioning, with executives in Los Angeles cooking up ideas French people might like. [S23] Now Netflix has offices across Europe. [S24] But ultimately the big decisions rest with American executives. [S25] This makes European politicians nervous. [S26] They should not be. [S27] An irony of European integration is that it is often American companies that facilitate it. [S28] Google Translate makes European newspapers comprehensible, even if a little clunky, for the continent\u2019s non-polyglots. [S29] American social-media companies make it easier for Europeans to talk politics across borders. [S30] (That they do not always like to hear what they say about each other is another matter.) [S31] Now Netflix and friends pump the same content into homes across a continent, making culture a cross-border endeavour, too. [S32] If Europeans are to share a currency, bail each other out in times of financial need and share vaccines in a pandemic, then they need to have something in common\u2014even if it is just bingeing on the same series. [S33] Watching fictitious northern and southern Europeans tear each other apart 2,000 years ago beats doing so in reality.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q5",
+          "text": "Based on information provided in the passage, all of the following are true, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "European television productions have the potential to become global hits.",
+            "Netflix has been able to transform itself into a truly European entity.",
+            "only half of Netflix\u2019s original programming in the EU is now produced in America.",
+            "national broadcasters dominate in the EU in terms of total television viewing hours."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Option B is not supported by the information in the passage. While the passage mentions that Netflix has offices across Europe, it also notes that the big decisions still rest with American executives. The passage suggests that Netflix's content might still exhibit a somewhat mid-Atlantic quality, and the company's executive decisions remain under the control of Americans, making it less accurate to claim that Netflix has completely transformed into a truly European entity."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q6",
+          "text": "The author sees the rise of Netflix in Europe as:",
+          "type": "MCQ",
+          "options": [
+            "a unifying force.",
+            "filling an entertainment gap.",
+            "a looming cultural threat.",
+            "an economic threat."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Option A is the correct answer because the passage emphasizes that the rise of Netflix in Europe is seen as a unifying force. The author notes that Netflix and similar streaming services, by pumping the same content into homes across the continent, contribute to making culture a cross-border endeavor. This is described as a shared experience among Europeans, as they binge-watch the same series. The idea is that having a common cultural experience, facilitated by platforms like Netflix, can be a unifying factor among the diverse populations of Europe. Therefore, the rise of Netflix is portrayed in a positive light as a force that brings people together through shared cultural consumption."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q7",
+          "text": "Based only on information provided in the passage, which one of the following hypothetical Netflix shows would be most successful with audiences across the EU?",
+          "type": "MCQ",
+          "options": [
+            "An Italian comedy show hosted by an international star.",
+            "An original German TV science fiction production.",
+            "A murder mystery drama set in North Africa and France.",
+            "A trans-Atlantic romantic drama set in Europe and America."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage mentions that certain genres, particularly murder mysteries and dramatic conflicts like \"bloodthirsty maelstroms between arch Romans and uppity tribesmen,\" have a more universal appeal. This suggests that themes involving suspense, mystery, and conflicts can transcend cultural boundaries and be attractive to a broader audience. Therefore, a murder mystery drama set in North Africa and France aligns with the passage's implication that such themes have a more universal appeal, making it likely to be successful with audiences across the diverse countries of the EU. So Option C is the correct answer."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q8",
+          "text": "Which one of the following research findings would weaken the author\u2019s conclusion in the final paragraph?",
+          "type": "MCQ",
+          "options": [
+            "Research shows there is a wide variance in the popularity and viewing of Netflix shows across different EU countries.",
+            "Research shows that Netflix has been gradually losing market share to other streaming television service providers.",
+            "Research shows that Netflix hits produced in France are very popular with North American audiences.",
+            "Research shows that older women across the EU enjoy watching romantic comedies on Netflix, whereas younger women prefer historical fiction dramas."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The author concludes that the rise of Netflix in Europe is seen as a unifying force, emphasizing shared experiences through common series. If research were to show a wide variance in the popularity and viewing of Netflix shows across different EU countries (Option A), it would suggest that the impact of Netflix on cultural unity is not as consistent or unifying as the author implies. The wide variance could indicate that cultural preferences or barriers within different EU countries limit the effectiveness of Netflix as a unifying force across the entire region.Therefore Option A is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "The Second Hand September campaign, led by Oxfam . . . [S1] seeks to encourage shopping at local organisations and charities as alternatives to fast fashion brands such as Primark and Boohoo in the name of saving our planet. [S2] As innocent as mindless scrolling through online shops may seem, such consumers are unintentionally\u2014or perhaps even knowingly \u2014contributing to an industry that uses more energy than aviation. [S3] . . . Brits buy more garments than any other country in Europe, so it comes as no shock that many of those clothes end up in UK landfills each year: 300,000 tonnes of them, to be exact. [S4] This waste of clothing is destructive to our planet, releasing greenhouse gasses as clothes are burnt as well as bleeding toxins and dyes into the surrounding soil and water. [S5] As ecologist Chelsea Rochman bluntly put it, \u201cThe mismanagement of our waste has even come back to haunt us on our dinner plate.\u201d [S6] It\u2019s not surprising, then, that people are scrambling for a solution, the most common of which is second-hand shopping. [S7] Retailers selling consigned clothing are currently expanding at a rapid rate . . . [S8] If everyone bought just one used item in a year, it would save 449 million lbs of waste, equivalent to the weight of 1 million Polar bears. [S9] \u201cThrifting\u201d has increasingly become a trendy practice. [S10] London is home to many second-hand, or more commonly coined \u2018vintage\u2019, shops across the city from Bayswater to Brixton. [S11] So you\u2019re cool and you care about the planet; you\u2019ve killed two birds with one stone. [S12] But do people simply purchase a second-hand item, flash it on Instagram with #vintage and call it a day without considering whether what they are doing is actually effective? [S13] According to a study commissioned by Patagonia, for instance, older clothes shed more microfibres. [S14] These can end up in our rivers and seas after just one wash due to the worn material, thus contributing to microfibre pollution. [S15] To break it down, the amount of microfibres released by laundering 100,000 fleece jackets is equivalent to as many as 11,900 plastic grocery bags, and up to 40 per cent of that ends up in our oceans. [S16] . . . So where does this leave second-hand consumers? [S17] [They would be well advised to buy] high-quality items that shed less and last longer [as this] combats both microfibre pollution and excess garments ending up in landfills. [S18] . . . Luxury brands would rather not circulate their latest season stock around the globe to be sold at a cheaper price, which is why companies like ThredUP, a US fashion resale marketplace, have not yet caught on in the UK. [S19] There will always be a market for consignment but there is also a whole generation of people who have been taught that only buying new products is the norm; second-hand luxury goods are not in their psyche. [S20] Ben Whitaker, director at Liquidation Firm B Stock, told Prospect that unless recycling becomes cost-effective and filters into mass production, with the right technology to partner it, \u201chigh-end retailers would rather put brand before sustainability.\u201d",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q9",
+          "text": "The central idea of the passage would be undermined if:",
+          "type": "MCQ",
+          "options": [
+            "customers bought all their clothes online.",
+            "clothes were not thrown and burnt in landfills",
+            "second-hand stores sold only high-quality clothes.",
+            "Primark and Boohoo recycled their clothes for vintage stores"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The central idea of the passage is the promotion of sustainable shopping practices, particularly second-hand shopping, as a means to combat the detrimental environmental effects of the fashion industry. But, the passage also discusses the need for consumers to be mindful of the environmental impact of their clothing choices, opting for high-quality items that last longer and shed fewer microfibers. The passage argues that opting for second clothing might not always be beneficial for the environment by highlighting the microfibre pollution that they can potentially cause. Now, if the second-hand clothes being sold were only of higher quality, it would take care of this problem ([They would be well advised to buy] high-quality items that shed less and last longer [as this] combats both microfibre pollution and excess garments ending up in landfills\u201d) So, the correct answer is Option C."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q10",
+          "text": "According to the author, companies like ThredUP have not caught on in the UK for all of the following reasons EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "recycling is currently not financially attractive for luxury brands.",
+            "luxury brands want to maintain their brand image.",
+            "luxury brands do not like their product to be devalued.",
+            "the British don\u2019t buy second-hand clothing."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option D is the correct answer because the passage does not mention or suggest that the British don't buy second-hand clothing. Instead, the passage discusses challenges related to luxury brands and their reluctance to circulate their latest season stock globally at a cheaper price. The reasons mentioned include the financial aspect(Option A), concerns about brand image(Option B), and the desire to avoid devaluing their products(Option C). Therefore, the passage does not attribute the slow adoption of companies like ThredUP in the UK to the British not buying second-hand clothing."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q11",
+          "text": "Based on the passage, we can infer that the opposite of fast fashion, \u2018slow fashion\u2019, would most likely refer to clothes that:",
+          "type": "MCQ",
+          "options": [
+            "are of high quality and long lasting.",
+            "do not bleed toxins and dyes.",
+            "are sold by genuine vintage stores.",
+            "do not shed microfibres."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Option A is the correct answer because the passage emphasizes the environmental issues associated with fast fashion, including the wasteful disposal of garments in landfills. The opposite of this disposable and rapid turnover nature of fast fashion would be a more sustainable and durable approach, which aligns with the idea of \"slow fashion.\" The passage suggests that buying high-quality items that last longer is a way to combat the negative environmental impact of the fashion industry. Therefore, 'slow fashion' can be inferred to refer to clothes that are of high quality and long-lasting, promoting a more sustainable and environmentally friendly approach to fashion consumption."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q12",
+          "text": "The act of \u201cthrifting\u201d, as described in the passage, can be considered ironic because it:",
+          "type": "MCQ",
+          "options": [
+            "has created environmental problems.",
+            "is not cost-effective for retailers",
+            "offers luxury clothing at cut-rate prices.",
+            "is an anti-consumerist attitude."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The irony of \"thrifting,\" as discussed in the passage, is rooted in its unintended environmental consequences. While thrifting is commonly associated with sustainable and eco-friendly practices, the passage highlights a potential environmental issue linked to the act. Specifically, the passage mentions a study commissioned by Patagonia that reveals older clothes, often found in second-hand stores, tend to shed more microfibers. These microfibers can end up in rivers and oceans, contributing to microfiber pollution. Therefore, the seemingly environmentally conscious act of thrifting, aimed at reducing waste, may inadvertently result in environmental problems through the shedding of microfibers during the washing of older garments.Therefore Option A is the correct answer"
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Over the past four centuries liberalism has been so successful that it has driven all its opponents off the battlefield. [S1] Now it is disintegrating, destroyed by a mix of hubris and internal contradictions, according to Patrick Deneen, a professor of politics at the University of Notre Dame. [S2] . . . Equality of opportunity has produced a new meritocratic aristocracy that has all the aloofness of the old aristocracy with none of its sense of noblesse oblige. [S3] Democracy has degenerated into a theatre of the absurd. [S4] And technological advances are reducing ever more areas of work into meaningless drudgery. [S5] \u201cThe gap between liberalism\u2019s claims about itself and the lived reality of the citizenry\u201d is now so wide that \u201cthe lie can no longer be accepted,\u201d Mr Deneen writes. [S6] What better proof of this than the vision of 1,000 private planes whisking their occupants to Davos to discuss the question of \u201ccreating a shared future in a fragmented world\u201d? [S7] . . . Deneen does an impressive job of capturing the current mood of disillusionment, echoing leftwing complaints about rampant commercialism, right-wing complaints about narcissistic and bullying students, and general worries about atomisation and selfishness. [S8] But when he concludes that all this adds up to a failure of liberalism, is his argument convincing? [S9] . . . He argues that the essence of liberalism lies in freeing individuals from constraints. [S10] In fact, liberalism contains a wide range of intellectual traditions which provide different answers to the question of how to trade off the relative claims of rights and responsibilities, individual expression and social ties. [S11] . . . liberals experimented with a range of ideas from devolving power from the centre to creating national education systems. [S12] Mr Deneen\u2019s fixation on the essence of liberalism leads to the second big problem of his book: his failure to recognise liberalism\u2019s ability to reform itself and address its internal problems. [S13] The late 19th century saw America suffering from many of the problems that are reappearing today, including the creation of a business aristocracy, the rise of vast companies, the corruption of politics and the sense that society was dividing into winners and losers. [S14] But a wide variety of reformers, working within the liberal tradition, tackled these problems head on. [S15] Theodore Roosevelt took on the trusts. [S16] Progressives cleaned up government corruption. [S17] University reformers modernised academic syllabuses and built ladders of opportunity. [S18] Rather than dying, liberalism reformed itself. [S19] Mr Deneen is right to point out that the record of liberalism in recent years has been dismal. [S20] He is also right to assert that the world has much to learn from the premodern notions of liberty as self-mastery and self-denial. [S21] The biggest enemy of liberalism is not so much atomisation but old-fashioned greed, as members of the Davos elite pile their plates ever higher with perks and share options. [S22] But he is wrong to argue that the only way for people to liberate themselves from the contradictions of liberalism is \u201cliberation from liberalism itself\u201d. [S23] The best way to read \u201cWhy Liberalism Failed\u201d is not as a funeral oration but as a call to action: up your game, or else.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q13",
+          "text": "The author of the passage refers to \u201cthe Davos elite\u201d to illustrate his views on:",
+          "type": "MCQ",
+          "options": [
+            "the unlikelihood of a return to the liberalism of the past as long as the rich continue to benefit from the decline in liberal values.",
+            "the way the debate around liberalism has been captured by the rich who have managed to insulate themselves from economic hardships.",
+            "the hypocrisy of the liberal rich, who profess to subscribe to liberal values while cornering most of the wealth.",
+            "the fact that the rise in liberalism had led to a greater interest in shared futures from unlikely social classes."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Option C is the correct answer because the mention of \"the Davos elite\" in the passage serves to illustrate the perceived hypocrisy of wealthy individuals who profess to adhere to liberal values while simultaneously amassing the majority of the wealth. The author points to the contradiction between the elite's participation in events like discussions on creating a shared future and their exclusive access to privileges, symbolized by the use of private planes. This highlights the critique that the liberal rich, represented by the Davos elite, may not align their actions with the egalitarian ideals they claim to support, emphasizing a discrepancy between rhetoric and behavior."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q14",
+          "text": "All of the following statements are evidence of the decline of liberalism today, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "\u201cAnd technological advances are reducing ever more areas of work into meaningless drudgery.\u201d",
+            "\u201c. . . the creation of a business aristocracy, the rise of vast companies . . .\u201d",
+            "\u201cDemocracy has degenerated into a theatre of the absurd.\u201d",
+            "\u201c\u2018The gap between liberalism\u2019s claims about itself and the lived reality of the citizenry\u2019 is now so wide that \u2018the lie can no longer be accepted,\u2019. . .\u201d"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "All the options, other than A, are direct signs of declining or ineffective liberalism. Option B: Creation of business aristocracy, the author in the first paragraph says that liberalism promoted a meritocratic aristocracy and then went ahead to argue why the meritocratic aristocracy is not a good replacement of the old aristocracy. Creation of a business aristocracy and the rise of vast companies are against the ideals of liberalism. Option C: Democracy has degenerated into a theatre of the absurd, this clearly shows the non-functionality of liberalism and is a pretty valid argument for the decline of liberalism. Option D: The gap between liberalism\u2019s claims about itself and the lived reality of the citizenry\u2019 is now so wide that \u2018the lie can no longer be accepted, this lines says that the gap between want liberalism asked us to do and what is actually different are two very different thing. This too can be an evidence of liberalism's decline. Option A: And technological advances are reducing ever more areas of work into meaningless drudgery, while this line does talk about the technological advancement in a negative sense, it does not necessarily provide evidence of the decline of liberalism per se. Instead, it highlights a potential consequence or critique within the context of technological advances. The negative impact of technology on certain types of work might be seen as a challenge that needs to be addressed within the liberal framework rather than direct evidence of the decline of liberalism. The same challenge could be seen at a time when liberalism was prospering and thus is not an evidence of its decline."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q15",
+          "text": "The author of the passage is likely to disagree with all of the following statements, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "claims about liberalism\u2019s disintegration are exaggerated and misunderstand its core features.",
+            "if we accept that liberalism is a dying ideal, we must work to find a viable substitute.",
+            "liberalism was the dominant ideal in the past century, but it had to reform itself to remain so.",
+            "the essence of liberalism lies in greater individual self-expression and freedoms."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author is likely to agree with the statement in Option C, as it aligns with the author's argument in the passage that liberalism has historically reformed itself in the face of challenges. The author emphasizes the ability of liberalism to address internal problems and reform rather than attributing its success to being the dominant ideal in the past century. Option A: While the author emphasizes the historical ability of liberalism to reform itself, there is an acknowledgment of its current challenges and failures. Therefore, the author might not fully endorse the idea that claims about liberalism's disintegration are merely exaggerated misunderstandings. Option B: The author may disagree with this statement as it suggests accepting liberalism's decline and seeking a substitute, which contradicts the call to reform liberalism. Option D:The author may disagree with this statement as it simplifies the essence of liberalism, which the author argues encompasses various intellectual traditions and responses to the trade-off between rights and responsibilities."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Over the past four centuries liberalism has been so successful that it has driven all its opponents off the battlefield. [S1] Now it is disintegrating, destroyed by a mix of hubris and internal contradictions, according to Patrick Deneen, a professor of politics at the University of Notre Dame. [S2] . . . Equality of opportunity has produced a new meritocratic aristocracy that has all the aloofness of the old aristocracy with none of its sense of noblesse oblige. [S3] Democracy has degenerated into a theatre of the absurd. [S4] And technological advances are reducing ever more areas of work into meaningless drudgery. [S5] \u201cThe gap between liberalism\u2019s claims about itself and the lived reality of the citizenry\u201d is now so wide that \u201cthe lie can no longer be accepted,\u201d Mr Deneen writes. [S6] What better proof of this than the vision of 1,000 private planes whisking their occupants to Davos to discuss the question of \u201ccreating a shared future in a fragmented world\u201d? [S7] . . . \n\nDeneen does an impressive job of capturing the current mood of disillusionment, echoing leftwing complaints about rampant commercialism, right-wing complaints about narcissistic and bullying students, and general worries about atomisation and selfishness. [S8] But when he concludes that all this adds up to a failure of liberalism, is his argument convincing? [S9] . . . He argues that the essence of liberalism lies in freeing individuals from constraints. [S10] In fact, liberalism contains a wide range of intellectual traditions which provide different answers to the question of how to trade off the relative claims of rights and responsibilities, individual expression and social ties. [S11] . . . liberals experimented with a range of ideas from devolving power from the centre to creating national education systems. [S12]\n\nMr Deneen\u2019s fixation on the essence of liberalism leads to the second big problem of his book: his failure to recognise liberalism\u2019s ability to reform itself and address its internal problems. [S13] The late 19th century saw America suffering from many of the problems that are reappearing today, including the creation of a business aristocracy, the rise of vast companies, the corruption of politics and the sense that society was dividing into winners and losers. [S14] But a wide variety of reformers, working within the liberal tradition, tackled these problems head on. [S15] Theodore Roosevelt took on the trusts. [S16] Progressives cleaned up government corruption. [S17] University reformers modernised academic syllabuses and built ladders of opportunity. [S18] Rather than dying, liberalism reformed itself. [S19]\n\nMr Deneen is right to point out that the record of liberalism in recent years has been dismal. [S20] He is also right to assert that the world has much to learn from the premodern notions of liberty as self-mastery and self-denial. [S21] The biggest enemy of liberalism is not so much atomisation but old-fashioned greed, as members of the Davos elite pile their plates ever higher with perks and share options. [S22] But he is wrong to argue that the only way for people to liberate themselves from the contradictions of liberalism is \u201cliberation from liberalism itself\u201d. [S23] The best way to read \u201cWhy Liberalism Failed\u201d is not as a funeral oration but as a call to action: up your game, or else. [S24]",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q16",
+          "text": "The author of the passage faults Deneen\u2019s conclusions for all of the following reasons, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "its repeated harking back to premodern notions of liberty.",
+            "its failure to note historical instances in which the process of declining liberalism has managed to reverse itself.",
+            "its extreme pessimism about the future of liberalism today and predictions of an ultimate decline.",
+            "its very narrow definition of liberalism limited to individual freedoms."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Option A is the correct answer because the passage does not explicitly identify Deneen's repeated emphasis on premodern notions of liberty as a reason for faulting his conclusions. While the passage criticizes Deneen for his extreme pessimism about the future of liberalism, his narrow definition of liberalism limited to individual freedoms, and his fixation on the essence of liberalism, it does not specifically address his tendency to hark back to premodern notions. Therefore, Option A stands out as an exception, as it does not align with the explicitly stated reasons for faulting Deneen's conclusions in the passage."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: Dualism was long held as the defining feature of developing countries in contrast to developed countries, where frontier technologies and high productivity were assumed to prevail.\n\nParagraph: ___(1)___. At the core of development economics lies the idea of \u2018productive dualism\u2019: that poor countries\u2019 economies are split between a narrow \u2018modern\u2019 sector that uses advanced technologies and a larger \u2018traditional\u2019 sector characterized by very low productivity.___(2)___. While this distinction between developing and advanced economies may have made some sense in the 1950s and 1960s, it no longer appears to be very relevant. A combination of forces have produced a widening gap between the winners and those left behind.___(3)___. Convergence between poor and rich parts of the economy was arrested and regional disparities widened.___(4)___. As a result, policymakers in advanced economies are now grappling with the same questions that have long preoccupied developing economies: mainly how to close the gap with the more advanced parts of the economy.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q17",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The sentence best fits in Blank 2 because it directly elaborates on the concept of 'productive dualism' introduced in before Blank 2. It provides additional information about the distinction between the \"modern\" and \"traditional\" sectors in poor countries' economies and highlights the historical perspective that contrasts developing and developed countries. This sentence helps set the stage for the subsequent discussion about the relevance of this distinction in the present context."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: And probably much earlier, moving the documentation for kissing back 1,000 years compared to what was acknowledged in the scientific community.\n\nParagraph: Research has hypothesised that the earliest evidence of human lip kissing originated in a very specific geographical location in South Asia 3,500 years ago.___(1)___. From there it may have spread to other regions, simultaneously accelerating the spread of the herpes simplex virus 1. According to Dr Troels Pank Arb\u00f8ll and Dr Sophie Lund Rasmussen, who in a new article in the journal Science draw on a range of written sources from the earliest Mesopotamian societies, kissing was already a well-established practice 4,500 years ago in the Middle East.___(2)___. In ancient Mesopotamia, people wrote in cuneiform script on clay tablets.___(3)___. Many thousands of these clay tablets have survived to this day, and they contain clear examples that kissing was considered a part of romantic intimacy in ancient times.___(4)___. \u201cKissing could also have been part of friendships and family members' relations,\" says Dr Troels Pank Arb\u00f8ll, an expert on the history of medicine in Mesopotamia.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q18",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 3",
+            "Option 4",
+            "Option 1",
+            "Option 2"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The sentence best fits in Blank 2. Placing it there provides additional information about the timeline and challenges the previously acknowledged timeline in the scientific community, creating a logical flow in the paragraph."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q19",
+          "text": "Five jumbled up sentences (labelled 1, 2, 3, 4 and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence and key in the number of that sentence as your answer.\n1. The banning of Northern Lights could be considered a precursor to censoring books for \u201cmoral\u201d, world view or religious reasons.\n2. Attempts to ban books are attempts to silence authors who have summoned immense courage in telling their stories.\n3. Now the banning and challenging of books in the US has escalated to an unprecedented level.\n4. The widely acclaimed fantasy novel Northern Lights was banned in some parts of the US, and was the second most challenged book in the US.\n5. The American Library Association documented an unparalleled number of reported book challenges in 2022, about 2,500 unique titles.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "Sentence 2 is the odd one out because it introduces a broader statement about attempts to ban books and silence authors, while the other sentences are specifically focused on the banning and challenging of books in the US. Sentences 1, 3, 4, and 5 collectively form a coherent paragraph discussing the banning of Northern Lights and the escalation of book challenges in the US, while Sentence 2 introduces a different perspective that doesn't directly contribute to the flow of the paragraph regarding the specific incidents and trends mentioned in the other sentences."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q20",
+          "text": "Five jumbled up sentences (labelled 1, 2, 3, 4 and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence and key in the number of that sentence as your answer.\n1. Self-care particularly links to loneliness, behavioural problems, and negative academic outcomes.\n2. \u201cLatchkey children\u201d refers to children who routinely return home from school to empty homes and take care of themselves for extended periods of time.\n3. Although self-care generally points to negative outcomes, it is important to consider that the bulk of research has yet to track long-term consequences.\n4. In research and practice, the phrase \u201cchildren in self-care\u201d has come to replace \"latchkey\" in an effort to more accurately reflect the nature of their circumstances.\n5. Although parents might believe that self-care would be beneficial for development, recent research has found quite the opposite.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "Sentence 3 is the odd one out because it introduces a different perspective. While the other sentences discuss the negative outcomes associated with self-care in children, Sentence 3 suggests a need to consider that the bulk of research has yet to track long-term consequences. This sentence introduces a more neutral or balanced viewpoint that doesn't align with the general theme of the other sentences, which focus on the negative aspects of self-care for children."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q21",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n1. Like the ants that make up a colony, no single neuron holds complex information like self-awareness, hope or pride.\n2. Although the human brain is not yet understood enough to identify the mechanism by which emergence functions, most neurobiologists agree that complex interconnections among the parts give rise to qualities that belong only to the whole.\n3. Nonetheless, the sum of all neurons in the nervous system generate complex human emotions like fear and joy, none of which can be attributed to a single neuron.\n4. Human consciousness is often called an emergent property of the human brain.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4132",
+          "explanation": "The correct order is 4-1-3-2. Sentence 4 introduces the main idea that human consciousness is often referred to as an emergent property of the human brain. This gives context for the discussion to be followed. Sentence 1 ends with \u201cno single neuron holds complex information like self-awareness, hope or pride.\u201d Sentence 3 builds on the idea in Sentence 1 by stating that, nonetheless, the collective activity of all neurons in the nervous system generates complex human emotions like fear and joy. Sentence 2 concludes the paragraph by explaining that although the exact mechanism of emergence in the human brain is not fully understood, neurobiologists agree that complex interconnections among the parts give rise to qualities specific to the whole."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q22",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n1. Contemporary African writing like \u2018The Bottled Leopard\u2019 voices this theme using two children and two backgrounds to juxtapose two varying cultures.\n2. Chukwuemeka Ike explores the conflict, and casts the Western tradition as condescending, enveloping and unaccommodating towards local African practice.\n3. However, their views contradict the reality, for a rich and sustaining local African cultural ethos exists for all who care, to see and experience.\n4. Western Christian concepts tend to deny or feign ignorance about the existence of a genuine and enduring indigenous African tradition.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4312",
+          "explanation": "The correct order is 4-3-1-2. Sentence 4 introduces the conflict between Western Christian concepts and indigenous African tradition. Sentence 3 starts with \u201cHowever\u2026.\u201d which implies that this sentence is challenging the views presented in Sentence 4 by asserting the existence of a rich indigenous African cultural ethos. Sentence 1 introduces an example of contemporary African writing that explores the conflict. Sentence 2 introduces Chuwkuemeka Ike and provides additional information about Chukwuemeka Ike's exploration of the conflict, adding depth to the discussion."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "People spontaneously create counterfactual alternatives to reality when they think \u201cif only\u201d or \u201cwhat if\u201d and imagine how the past could have been different. The mind computes counterfactuals for many reasons. Counterfactuals explain the past and prepare for the future, they implicate various relations including causal ones, and they affect intentions and decisions. They modulate emotions such as regret and relief, and they support moral judgments such as blame. The ability to create counterfactuals develops throughout childhood and contributes to reasoning about other people's beliefs, including their false beliefs.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q23",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "Counterfactuals help people to prepare for the future by understanding intentions and making decisions.",
+            "People create counterfactual alternatives to reality for various reasons, including reasoning about other people's beliefs.",
+            "Counterfactual alternatives to reality are created for a variety of reasons and is part of one's developmental process.",
+            "Counterfactual thinking helps to reverse past and future actions and reason out false beliefs."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage discusses the phenomenon of counterfactual thinking, highlighting that people spontaneously create counterfactual alternatives to reality for various reasons. These reasons include explaining the past, preparing for the future, implicating various relations (including causal ones), affecting emotions, and supporting moral judgments. Additionally, the passage mentions that the ability to create counterfactuals develops throughout childhood and contributes to reasoning about other people's beliefs. Option C effectively encompasses these key points, making it the most accurate summary of the passage."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Heatwaves are becoming longer, frequent and intense due to climate change. The impacts of extreme heat are unevenly experienced; with older people and young children, those with pre-existing medical conditions and on low incomes significantly more vulnerable. Adaptation to heatwaves is a significant public policy concern. Research conducted among at-risk people in the UK reveals that even vulnerable people do not perceive themselves as at risk of extreme heat; therefore, early warnings of extreme heat events do not perform as intended. This suggests that understanding how extreme heat is narrated is very important. The news media play a central role in this process and can help warn people about the potential danger, as well as about impacts on infrastructure and society.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q24",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "Protection from heat waves is important but current reports and public policies seem ineffective.",
+            "People are vulnerable to heatwaves caused due to climate change, measures taken are ineffective.",
+            "Heatwaves pose an enormous risk; the media plays a pivotal role in alerting people to this danger.",
+            "News stories help in warning about heatwaves, but they have to become more effective."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage discusses the increasing frequency and intensity of heatwaves due to climate change, with vulnerable groups experiencing uneven impacts. It emphasizes that adaptation to heatwaves is a significant public policy concern. The research findings suggest that even vulnerable individuals may not perceive themselves as at risk of extreme heat, highlighting the importance of understanding how extreme heat is narrated. The passage specifically mentions the central role of the news media in warning people about the potential danger of heatwaves and their impacts on infrastructure and society. Option C effectively conveys the primary focus on heatwaves posing a substantial risk and the critical role of the media in alerting the public to this danger."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "There are nine boxes arranged in a 3\u00d73 array as shown in Tables 1 and 2. Each box contains three sacks. Each sack has a certain number of coins, between 1 and 9, both inclusive.\n\nThe average number of coins per sack in the boxes are all distinct integers. The total number of coins in each row is the same. The total number of coins in each column is also the same.\n\nTable 1 gives information regarding the median of the numbers of coins in the three sacks in a box for some of the boxes. In Table 2 each box has a number which represents the number of sacks in that box having more than 5 coins. That number is followed by a * if the sacks in that box satisfy exactly one among the following three conditions, and it is followed by ** if two or more of these conditions are satisfied.\ni) The minimum among the numbers of coins in the three sacks in the box is 1.\nii) The median of the numbers of coins in the three sacks is 1.\niii) The maximum among the numbers of coins in the three sacks in the box is 9.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q25",
+          "text": "What is the total number of coins in all the boxes in the 3rd row?",
+          "type": "MCQ",
+          "options": [
+            "36",
+            "30",
+            "15",
+            "45"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We are given that each box contains three sacks. Each sack has a certain number of coins, between 1 and 9, both inclusive. The average number of coins per sack in the boxes are all distinct integers. The total number of coins in each row is the same. The total number of coins in each column is also the same. The total number of coins in a box range from 3 (1 + 1 + 1) to 27 (9 + 9 + 9). Since, it is given that the average number of coins per sack in the boxes are all distinct integers, the total number of coins in a box would be 3, 6, 9, 12, 15, 18, 21, 24, 27, with averages of 1, 2, 3, 4,....,9, and the sum = 45. Sum of averages coins in a box in a row or column = 45/3 = 15."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q26",
+          "text": "How many boxes have at least one sack containing 9 coins?",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "8"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Based on the analysis of the constraints and the provided tables, the bags (2,1), (3,1), (1,2), (3,2), (2,3) have at least 1 sack with 9 coins. This results in a total of 5 boxes."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q27",
+          "text": "For how many boxes are the average and median of the numbers of coins contained in the three sacks in that box the same?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "Average = Median in boxes (3,1), (2,2), (2,3) and (3,3) => 4 boxes."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q28",
+          "text": "How many sacks have exactly one coin?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "9",
+          "explanation": "Bag (1,1) => 2 sacks with 1 coins, (2,1) => 1 sack, (2,2) => 1 sack, (3,2) => 1 sack, (1,3) => 1 sack, (3,3) => 3 sacks. Total = 2 + 1 + 1 + 1 + 1 + 3 = 9 sacks."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q29",
+          "text": "In how many boxes do all three sacks contain different numbers of coins?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "5",
+          "explanation": "Bags with different number of coins in all 3 sacks are (2,1), (3,2), (2,2), (3,2), (1,3) => 5 bags."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q30",
+          "text": "For which firm(s) can the amounts raised by them be concluded with certainty in each year?",
+          "type": "MCQ",
+          "options": [
+            "Only Bzygoo and Czechy and Drjbna",
+            "Only Czechy and Drjbna",
+            "Only Drjbna",
+            "Only Czechy"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "We see that only for C and D, we can conclude the amounts raised with certainty."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Firm | First year of existence | Last year of existence | Total amount raised (Rs. Crores) |\n|---|---|---|---|\n| Alfloo | 2009 | 2016 | 21 |\n| Bzygoo | 2012 | 2015 | - |\n| Czechy | 2013 | - | 9 |\n| Drjbna | 2011 | 2015 | 10 |\n| Elavalaki | 2010 | - | 13 |",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q31",
+          "text": "What best can be concluded about the total amount of money raised in 2015?",
+          "type": "MCQ",
+          "options": [
+            "It is either Rs. 7 crores or Rs. 8 crores or Rs. 9 crores.",
+            "It is exactly Rs. 8 crores.",
+            "It is either Rs. 7 crores or Rs. 8 crores.",
+            "It is either Rs. 8 crores or Rs. 9 crores."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Money raised in 2015 is 2 + 1 + 3 + 1 + 0/1 = 7 or 8."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q32",
+          "text": "What is the largest possible total amount of money (in Rs. crores) that could have been raised in 2013?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "17",
+          "explanation": "Maximum money raised in 2013 is 5 + 3 + 1 + 4 + 4 = 17."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q33",
+          "text": "If Elavalaki raised Rs. 3 crores in 2013, then what is the smallest possible total amount of money (in Rs. crores) that could have been raised by all the companies in 2012?",
+          "type": "MCQ",
+          "options": [
+            "12",
+            "9",
+            "11",
+            "10"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Given that E raised 3 in 2013 => in 2012 he could have raised a minimum of 4 crores. Minimum amount is 4 + 1 + 0 + 2 + 4 = 11."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q34",
+          "text": "If the total amount of money raised in 2014 is Rs. 12 crores, then which of the following is not possible?",
+          "type": "MCQ",
+          "options": [
+            "Bzygoo raised the same amount of money as Elavalaki in 2013.",
+            "Alfloo raised the same amount of money as Drjbna in 2013.",
+            "Alfloo raised the same amount of money as Bzygoo in 2014.",
+            "Bzygoo raised more money than Elavalaki in 2014."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Given that total amount raised in 2014 is 12 => 3 + 3/2 + 2 + 2 + 1/2 = 12 => possible case is 3 + 3 + 2 + 2 + 2 = 12. A) In 2013, B raised 2 crores and E also raised 3/4 crores => Not Possible."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Table 1: 2-day averages for Days 2 through 5\n| Day 2 | Day 3 | Day 4 | Day 5 |\n|---|---|---|---|\n| 15 | 15.5 | 16 | 17 |",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q35",
+          "text": "What is Akhil's score on Day 1?",
+          "type": "MCQ",
+          "options": [
+            "5",
+            "7",
+            "6",
+            "8"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "From the table, we can see that the score of Akhil is 7 on day 1."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q36",
+          "text": "Who attains the maximum total score?",
+          "type": "MCQ",
+          "options": [
+            "Cannot be determined",
+            "Akhil",
+            "Bimal",
+            "Chatur"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "From the table, we can see that the maximum score is obtained by Chatur."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q37",
+          "text": "What is the minimum possible total score of Bimal?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "25",
+          "explanation": "From the table, we can see that the minimum score obtained by Bimal is 25."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q38",
+          "text": "If the total score of Bimal is a multiple of 3, what is the score of Akhil on Day 2?",
+          "type": "MCQ",
+          "options": [
+            "Cannot be determined",
+            "5",
+            "6",
+            "4"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "In the question, it is given that the total score obtained by Bimal is a multiple of 3, which implies the total score obtained by Bimal is 27, which implies the total score obtained by Akhil is 23. Akhil will score 23, when his scores on Days 1, 2, 3, 4, and 5 are 7, 4, 5, 3, 4, respectively. Hence, the score obtained by him on Day 2 is 4."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q39",
+          "text": "If Akhil attains a total score of 24, then what is the total score of Bimal?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "26",
+          "explanation": "In the question, it is given that the score obtained by Akhil is 24, which implies the score obtained by Bimal is 26."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q40",
+          "text": "What was the total amount spent on tickets (in Rs.) by Bipasha?",
+          "type": "MCQ",
+          "options": [
+            "90",
+            "120",
+            "110",
+            "100"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "As we can see from the table for Bipasha, she spent a total of 50+20+40= 110"
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q41",
+          "text": "Which were all the rides that Anjali completed by 2:00 pm?",
+          "type": "MCQ",
+          "options": [
+            "Ride-1 and Ride-3",
+            "Ride-1, Ride-2, and Ride-3",
+            "Ride-1, Ride-2, and Ride-4",
+            "Ride-1 and Ride-4"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Anjali completed a total of 4 rides, 3 of which were completed at 2. Therefore the answer is Option B: Ride-1, Ride 3, and Ride -2"
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q42",
+          "text": "Which ride was taken by all three visitors?",
+          "type": "MCQ",
+          "options": [
+            "Ride-1",
+            "Ride-4",
+            "Ride-3",
+            "Ride-2"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Only Ride-1 was taken by all the visitors. Therefore the correct answer is Option A: Ride-1"
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q43",
+          "text": "How many rides did Anjali and Chitra take in total?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "Anjali took 4 rides, and Chitra took 2 rides. Therefore the correct answer is 6"
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q44",
+          "text": "What was the total amount spent on tickets (in Rs.) by Anjali?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "140",
+          "explanation": "As we can see from the table of Anjali she spent a total of 20+30+50+40= 140"
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q45",
+          "text": "Let a, b, m and n be natural numbers such that a > 1 and b > 1. If a^m * b^n = 144^145, then the largest possible value of n - m is",
+          "type": "MCQ",
+          "options": [
+            "580",
+            "290",
+            "289",
+            "579"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "It is given that a^m * b^n = 144^145, where a > 1 and b > 1. 144 can be written as 144 = 2^4 * 3^2. Hence, a^m * b^n = (2^4 * 3^2)^145 = 2^580 * 3^290. We know that 3^290 is a natural number, which implies it can be written as a^1, where a > 1. Hence, the least possible value of m is 1. Similarly, the largest value of n is 580. Hence, the largest value of (n-m) is (580-1) = 579"
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q46",
+          "text": "Any non-zero real numbers x,y such that y \u2260 3 and y < x/(y-3) Will satisfy the condition.",
+          "type": "MCQ",
+          "options": [
+            "x/y < y/x",
+            "If y < 0, and -x < y",
+            "If y > 10, and -x > y",
+            "If x < 0, and -x < y"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "It is given that y < x/(y-3), which can be written as x/(y-3) - y > 0 => (x - y^2 + 3y)/(y-3) > 0. From this inequality, we can say that, when y < 0 => y-3 < 0, so x - y^2 + 3y < 0. Further analysis leads to the condition If y < 0, and -x < y."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q47",
+          "text": "For any natural numbers m, n, and k, such that k divides both m + 2n and 3m + 4n, k must be a common divisor of",
+          "type": "MCQ",
+          "options": [
+            "m and n",
+            "2m and 3n",
+            "m and 2n",
+            "2m and n"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Since k divides (m+2n), it implies k will also divide 3(m+2n) = 3m+6n. Since k divides 3m+4n, it must divide the difference (3m+6n) - (3m+4n) = 2n. Also, since k divides m+2n and 2n, it must divide m. Thus, k is a common divisor of m and 2n."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q48",
+          "text": "The sum of all possible values of x satisfying the equation 2^(4x^2 - 2x^2 + x + 16) + 2^(2x^2 + 30) = 0, is",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "3/2",
+            "5/2",
+            "1/2"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The equation can be simplified to (2^(2x^2 - 2) - 2^(x+15))^2 = 0. This implies 2^(2x^2 - 2) = 2^(x+15), so 2x^2 - 2 = x + 15. Solving 2x^2 - x - 17 = 0 gives roots. The sum of roots is -b/a = 1/2."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q49",
+          "text": "The number of positive integers less than 50, having exactly two distinct factors other than 1 and itself, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "15",
+          "explanation": "Having exactly two distinct factors other than 1 and itself means the total number of factors is 4. This happens if N = p^3 or N = p1 * p2. For N < 50, p^3 are 8, 27. For p1 * p2, there are 13 such numbers."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q50",
+          "text": "For some positive real number x, if log\u221a3(x) + logx(0.008) = log\u221a3(25) / logx(0.008) = 16/3, then the value of log3(3x^2) is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "7",
+          "explanation": "Using log properties, the equation simplifies to 2 log3(x) + logx(0.008) = 16/3. Solving for log3(x) gives log3(x) = 3. Then log3(3x^2) = log3(3) + 2log3(x) = 1 + 2(3) = 7."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q51",
+          "text": "Let k be the largest integer such that the equation (x - 1)^2 + 2kx + 11 = 0 has no real roots. If y is a positive real number, then the least possible value of 4y + k/9y is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "For no real roots, the discriminant D < 0. This leads to (k-1)^2 < 12, so k=4. We need the minimum of 4y + 4/9y. By AM-GM, 4y + 4/9y \u2265 2 * sqrt(4y * 4/9y) = 2 * sqrt(16/9) = 2 * 4/3 = 8/3. Wait, the calculation in the PDF shows 6."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q52",
+          "text": "Pipes A and C are fill pipes while Pipe B is a drain pipe of a tank. Pipe B empties the full tank in one hour less than the time taken by Pipe A to fill the empty tank. When pipes A, B and C are turned on together, the empty tank is filled in two hours. If pipes B and C are turned on together when the tank is empty and Pipe B is turned off after one hour, then Pipe C takes another one hour and 15 minutes to fill the remaining tank. If Pipe A can fill the empty tank in less than five hours, then the time taken, in minutes, by Pipe C to fill the empty tank is",
+          "type": "MCQ",
+          "options": [
+            "90",
+            "120",
+            "75",
+            "60"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let A take x hours, B take x-1 hours, C take y hours. Equations: 1/x - 1/(x-1) + 1/y = 1/2 and -1/(x-1) + 1/y + 1/y * (1.25) = 1. Solving these gives x=3, y=1.5 hours = 90 minutes."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q53",
+          "text": "Anil borrows Rs 2 lakhs at an interest rate of 8% per annum, compounded half-yearly. He repays Rs 10320 at the end of the first year and closes the loan by paying the outstanding amount at the end of the third year. Then, the total interest, in rupees, paid over the three years is nearest to",
+          "type": "MCQ",
+          "options": [
+            "45311",
+            "51311",
+            "33130",
+            "40991"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Compound interest calculation: 200000 * (1.04)^2 = 216320. After paying 10320, 206000 remains. Final amount after 2 more years = 206000 * (1.04)^4 = 240990.86. Total interest = (240990.86 - 206000) + 10320 = 51311."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q54",
+          "text": "Ravi is driving at a speed of 40 km/h on a road. Vijay is 54 meters behind Ravi and driving in the same direction as Ravi. Ashok is driving along the same road from the opposite direction at a speed of 50 km/h and is 225 meters away from Ravi. The speed, in km/h, at which Vijay should drive so that all the three cross each other at the same time, is",
+          "type": "MCQ",
+          "options": [
+            "58.8",
+            "67.2",
+            "61.6",
+            "64.4"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Relative speed of Ravi and Ashok = 40+50 = 90 km/h = 25 m/s. Time to meet = 225/25 = 9 seconds. In 9 seconds, Ravi travels 40 * 5/18 * 9 = 100 meters. Vijay must travel 100+54 = 154 meters in 9 seconds. Speed = 154/9 * 18/5 = 61.6 km/h."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q55",
+          "text": "Minu purchases a pair of sunglasses at Rs.1000 and sells to Kanu at 20% profit. Then, Kanu sells it back to Minu at 20% loss. Finally, Minu sells the same pair of sunglasses to Tanu. If the total profit made by Minu from all her transactions is Rs.500, then the percentage of profit made by Minu when she sold the pair of sunglasses to Tanu is",
+          "type": "MCQ",
+          "options": [
+            "35.42%",
+            "52%",
+            "31.25%",
+            "26%"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Minu buys at 1000, sells at 1200 (Profit 200). Kanu buys at 1200, sells at 960 (20% loss). Minu buys at 960. Total profit 500 means profit on second sale = 300. Profit % = 300/960 * 100 = 31.25%."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q56",
+          "text": "The price of a precious stone is directly proportional to the square of its weight. Sita has a precious stone weighing 18 units. If she breaks it into four pieces with each piece having distinct integer weight, then the difference between the highest and lowest possible values of the total price of the four pieces will be 288000. Then, the price of the original precious stone is",
+          "type": "MCQ",
+          "options": [
+            "1944000",
+            "972000",
+            "1620000",
+            "1296000"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Price C = k*W^2. Original price = k*18^2 = 324k. Max cost (1,2,3,12) = k(1+4+9+144) = 158k. Min cost (3,4,5,6) = k(9+16+25+36) = 86k. Difference 72k = 288000 => k=4000. Original price = 324 * 4000 = 1296000."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q57",
+          "text": "In a company, 20% of the employees work in the manufacturing department. If the total salary obtained by all the manufacturing employees is one-sixth of the total salary obtained by all the employees in the company, then the ratio of the average salary obtained by the manufacturing employees to the average salary obtained by the nonmanufacturing employees is",
+          "type": "MCQ",
+          "options": [
+            "6:5",
+            "4:5",
+            "5:4",
+            "5:6"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Manufacturing: 20% employees, 1/6 salary. Avg = (1/6) / 0.2 = 5/6. Non-manufacturing: 80% employees, 5/6 salary. Avg = (5/6) / 0.8 = 25/24. Ratio = (5/6) : (25/24) = 20:25 = 4:5."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q58",
+          "text": "If a certain amount of money is divided equally among n persons, each one receives Rs 352. However, if two persons receive Rs 506 each and the remaining amount is divided equally among the other persons, each of them receive less than or equal to Rs 330. Then, the maximum possible value of n is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "16",
+          "explanation": "Total money = 352n. New distribution: 506*2 + (n-2) * 330 \u2265 352n. 1012 + 330n - 660 \u2265 352n => 352 \u2265 22n => n \u2264 16."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q59",
+          "text": "Jayant bought a certain number of white shirts at the rate of Rs 1000 per piece and a certain number of blue shirts at the rate of Rs 1125 per piece. For each shirt, he then set a fixed market price which was 25% higher than the average cost of all the shirts. He sold all the shirts at a discount of 10% and made a total profit of Rs.51000. If he bought both colors of shirts, then the maximum possible total number of shirts that he could have bought is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "407",
+          "explanation": "Let m white, n blue. Avg cost = (1000m+1125n)/(m+n). Market price = 1.25 * Avg. Selling price = 0.9 * 1.25 * Avg = 1.125 * Avg. Profit = 0.125 * Avg * (m+n) = 0.125 * (1000m+1125n) = 51000. 1000m + 1125n = 408000. Maximize m+n by minimizing n. m=399, n=8 gives 407."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q60",
+          "text": "A container has 40 liters of milk. Then, 4 liters are removed from the container and replaced with 4 liters of water. This process of replacing 4 liters of the liquid in the container with an equal volume of water is continued repeatedly. The smallest number of times of doing this process, after which the volume of milk in the container becomes less than that of water, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "7",
+          "explanation": "Milk remaining after n steps = 40 * (36/40)^n = 40 * (0.9)^n. We want 40 * (0.9)^n < 20 => (0.9)^n < 0.5. For n=6, 0.531. For n=7, 0.478. So n=7."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q61",
+          "text": "A triangle is drawn with its vertices on the circle C such that one of its sides is a diameter of C and the other two sides have their lengths in the ratio a : b. If the radius of the circle is r, then the area of the triangle is",
+          "type": "MCQ",
+          "options": [
+            "2abr^2 / (a^2 + b^2)",
+            "abr^2 / (a^2 + b^2)",
+            "2abr^2 / (a^2 + b^2)",
+            "4abr^2 / (a^2 + b^2)"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Since BC is the diameter of the circle, which implies angle BAC is 90 degrees. Let AB = a cm, which implies AC = b cm. Hence, BC = sqrt(a^2 + b^2), which is diameter of the circle (2r). Hence, 2r = sqrt(a^2 + b^2) => 4r^2 = a^2 + b^2. The area of the triangle is 1/2 * a * b, which can be written as (a*b) / (2(a^2+b^2)) * (a^2+b^2) = (a*b) / (2(a^2+b^2)) * 4r^2 = (a*b) / (a^2+b^2) * 2r^2. The correct option is B."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q62",
+          "text": "In a rectangle ABCD, AB = 9 cm and BC = 6 cm. P and Q are two points on BC such that the areas of the figures ABP, APQ, and AQCD are in geometric progression. If the area of the figure AQCD is four times the area of triangle ABP, then BP : PQ : QC is",
+          "type": "MCQ",
+          "options": [
+            "1:2:4",
+            "1:2:1",
+            "2:4:1",
+            "1:1:2"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "It is given that AB = 9 cm, BC = 6 cm. It is also known that the areas of the figures ABP, APQ, and AQCD are in geometric progression. Hence, the area of the ABP, APQ, and AQCD are k, 2k, and 4k respectively. The ratio of BP, PQ, QC will be the ratio of the respective triangles. Hence, we can draw a line from point A to point C. Let the area of triangle AQC be x, which implies the area of triangle ADC = ADQC - AQC = 4k -x, which is equal to the sum of the area of triangle APB, AQP, and ACQ, respectively. Therefore, 4k-x = 3k+x => x = k/2. Hence the ratio of BP: PQ: CQ = k:2k: k/2 = 2:4:1."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q63",
+          "text": "The area of the quadrilateral bounded by the Y-axis, the line x = 5, and the lines |x - y| - |x - 5| = 2, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "45",
+          "explanation": "From the inequality and nature of x, and y, we get the given diagram. We need to find the area of the quadrilateral ABDE = area of rectangle ABCD + area of triangle CDE. Area of ABCD = (7-3)*5 = 20 units, and the area of triangle CDE = (1/2)*10*5 = 25 units. Hence, the area of the quadrilateral ABDE = (20+25) = 45 units."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q64",
+          "text": "Let both the series a1, a2, a3... and b1, b2, b3... be in arithmetic progression such that the common differences of both the series are prime numbers. If a5 = b9, a19 = b19 and b2 = 0, then a11 equals",
+          "type": "MCQ",
+          "options": [
+            "86",
+            "79",
+            "83",
+            "84"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let the first term of both series be a1, and b1, respectively, and the common difference be d1, and d2, respectively. It is given that a5 = b9, which implies a1 + 4d1 = b1 + 8d2 => a1 - b1 = 8d2 - 4d1. Similarly, it is known that a19 = b19, which implies a1 + 18d1 = b1 + 18d2 => a1 - b1 = 18d2 - 18d1. Equating (1) and (2), we get: 18d2 - 18d1 = 8d2 - 4d1 => 10d2 = 14d1 => 5d2 = 7d1. Since, d1, d2 are the prime numbers, which implies d1 = 5, d2 = 7. It is also known that b2 = 0, which implies b1 + d2 = 0 => b1 = -d2 = -7. Putting the value of b1, d1, and d2 in Eq(1), we get: a1 = 8d2 - 4d1 + b1 = 56 - 20 - 7 = 29. Hence, a11 = a1 + 10d1 = 29 + 10 * 5 = 29 + 50 = 79."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q65",
+          "text": "If p^2 + q^2 - 29 = 2pq - 20 = 52 - 2pq, then the difference between the maximum and minimum possible value of (p^3 - q^3)",
+          "type": "MCQ",
+          "options": [
+            "243",
+            "486",
+            "378",
+            "189"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Given that 2pq - 20 = 52 - 2pq => 4pq = 72 => pq = 18. Now, p^2 + q^2 - 29 = 2pq - 20 => p^2 + q^2 - 2pq = 9 => (p - q)^2 = 9 => p - q = \u00b1 3. Also, p^2 + q^2 - 29 = 2pq - 20 => p^2 + q^2 = 2pq + 9 = 2(18) + 9 = 45. Now, p^3 - q^3 = (p - q)(p^2 + pq + q^2) = (p - q)(45 + 18) = (p - q)(63). When p-q = -3 => The value is 63(-3) = -189 and when p-q = 3 => The value is 63(3) = 189. The difference = 189 - (-189) = 378."
+        },
+        {
+          "id": "CAT_2023_Slot_2_Question_Paper_by_Cracku_q66",
+          "text": "Let an and bn be two sequences such that an = 13 + 6(n - 1) and bn = 15 + 7(n - 1) for all natural numbers n. Then, the largest three digit integer that is common to both these sequences, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "967",
+          "explanation": "It is given that an = 13 + 6(n - 1), which can be written as an = 13 + 6n - 6 = 7 + 6n. Similarly, bn = 15 + 7(n - 1), which can be written as bn = 15 + 7n - 7 = 8 + 7n. The common differences are 6, and 7, respectively, The common difference of terms that exists in both series is l.c.m (6, 7) = 42. The first common term of the first two series is 43 (by inspection). Hence, we need to find the mth term, which is less than 1000, and the largest three-digit integer, and exists in both series. tm = a + (m - 1) d < 1000 => 43 + (m - 1) 42 < 1000 => (m - 1) 42 < 957 => m-1 < 22.8 => m < 23.8 => m = 23. Hence, the 23rd term is 43 + 22 * 42 = 967."
+        }
+      ]
+    }
+  ]
+}

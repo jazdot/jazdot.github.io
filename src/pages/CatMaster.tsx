@@ -139,6 +139,7 @@ export default function CatMaster() {
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
+  const [qotd, setQotd] = useState<Question | null>(null);
 
   useEffect(() => {
     // Try to resume an unfinished test from localStorage
@@ -229,6 +230,38 @@ export default function CatMaster() {
     }
     setPracticeAnswers({});
   }, [practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions]);
+
+  useEffect(() => {
+    let allQs: Question[] = [];
+    CAT_PAST_PAPERS.forEach(paper => {
+      allQs = [...allQs, ...(paper.questions || [])];
+    });
+    if (allQs.length > 0) {
+      const today = new Date();
+      const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+      const randomIdx = seed % allQs.length;
+      setQotd(allQs[randomIdx]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeTab === 'practice') {
+        const activeTag = document.activeElement?.tagName.toLowerCase();
+        if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+        
+        if (e.key === '1') {
+          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false);
+        } else if (e.key === '2') {
+          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false);
+        } else if (e.key === '3') {
+          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeTab]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -474,6 +507,26 @@ export default function CatMaster() {
                   </div>
                 </div>
               </div>
+
+              {qotd && (
+                <div className="mt-6 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-[hsl(var(--accent))]/30 shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[hsl(var(--accent))]/10 rounded-bl-full pointer-events-none"></div>
+                  <h3 className="text-lg font-bold mb-4 flex items-center gap-2"><BrainCircuit className="text-[hsl(var(--accent))]" size={20} /> Question of the Day</h3>
+                  <div className="mb-4 flex gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{qotd.section}</span>
+                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{qotd.type}</span>
+                  </div>
+                  <p className="font-medium text-lg mb-6 max-w-4xl">{qotd.text}</p>
+                  <button onClick={() => {
+                    setPracticeSubject((qotd.section as 'QA' | 'VARC' | 'DILR') || 'QA');
+                    setPracticeFilterTopic(null);
+                    setPracticeFilterBookmark(false);
+                    setActiveTab('practice');
+                  }} className="text-sm font-bold bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-lg shadow-md hover:opacity-90 transition-all">
+                    Solve in Practice Mode
+                  </button>
+                </div>
+              )}
 
               <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
@@ -1022,8 +1075,10 @@ export default function CatMaster() {
           {activeTab === 'practice' && (
             <div className="flex flex-col flex-1">
               <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
-                {(['QA', 'VARC', 'DILR'] as const).map(subj => (
-                  <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>{subj} Training</button>
+                {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
+                  <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                    {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
+                  </button>
                 ))}
                 {practiceFilterTopic && (
                   <button className="px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))]">

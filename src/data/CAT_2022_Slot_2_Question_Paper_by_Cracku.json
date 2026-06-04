@@ -1,0 +1,958 @@
+{
+  "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "[S1] [Octopuses are] misfits in their own extended families . . . [S2] They belong to the Mollusca class Cephalopoda. [S3] But they don\u2019t look like their cousins at all. [S4] Other molluscs include sea snails, sea slugs, bivalves - most are shelled invertebrates with a dorsal foot. [S5] Cephalopods are all arms, and can be as tiny as 1 centimetre and as large at 30 feet. [S6] Some of them have brains the size of a walnut, which is large for an invertebrate. . . . [S7] It makes sense for these molluscs to have added protection in the form of a higher cognition; they don\u2019t have a shell covering them, and pretty much everything feeds on cephalopods, including humans. [S8] But how did cephalopods manage to secure their own invisibility cloak? [S9] Cephalopods fire from multiple cylinders to achieve this in varying degrees from species to species. [S10] There are four main catalysts - chromatophores, iridophores, papillae and leucophores. . . . [S11] [Chromatophores] are organs on their bodies that contain pigment sacs, which have red, yellow and brown pigment granules. [S12] These sacs have a network of radial muscles, meaning muscles arranged in a circle radiating outwards. [S13] These are connected to the brain by a nerve. [S14] When the cephalopod wants to change colour, the brain carries an electrical impulse through the nerve to the muscles that expand outwards, pulling open the sacs to display the colours on the skin. [S15] Why these three colours? [S16] Because these are the colours the light reflects at the depths they live in (the rest is absorbed before it reaches those depths). . . . [S17] Well, what about other colours? [S18] Cue the iridophores. [S19] Think of a second level of skin that has thin stacks of cells. [S20] These can reflect light back at different wavelengths. . . . [S21] It\u2019s using the same properties that we\u2019ve seen in hologram stickers, or rainbows on puddles of oil. [S22] You move your head and you see a different colour. [S23] The sticker isn\u2019t doing anything but reflecting light - it\u2019s your movement that\u2019s changing the appearance of the colour. [S24] This property of holograms, oil and other such surfaces is called \u201ciridescence\u201d. . . . [S25] Papillae are sections of the skin that can be deformed to make a texture bumpy. [S26] Even humans possess them (goosebumps) but cannot use them in the manner that cephalopods can. [S27] For instance, the use of these cells is how an octopus can wrap itself over a rock and appear jagged or how a squid or cuttlefish can imitate the look of a coral reef by growing miniature towers on its skin. [S28] It actually matches the texture of the substrate it chooses. [S29] Finally, the leucophores: According to a paper, published in Nature, cuttlefish and octopuses possess an additional type of reflector cell called a leucophore. [S30] They are cells that scatter full spectrum light so that they appear white in a similar way that a polar bear\u2019s fur appears white. [S31] Leucophores will also reflect any filtered light shown on them . . . [S32] If the water appears blue at a certain depth, the octopuses and cuttlefish can appear blue; if the water appears green, they appear green, and so on and so forth.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q1",
+          "text": "Based on the passage, it can be inferred that camouflaging techniques in an octopus are most dissimilar to those in:",
+          "type": "MCQ",
+          "options": [
+            "sea snails",
+            "cuttlefish",
+            "polar bears",
+            "squids"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The author discusses camouflaging techniques in an octopus vis-a-vis other organisms such as cuttlefish, squids and polar bears. However, note that no such discussion on sea snails is presented; hence, Option A is the correct choice."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q2",
+          "text": "All of the following are reasons for octopuses being \u201cmisfits\u201d EXCEPT that they:",
+          "type": "MCQ",
+          "options": [
+            "are consumed by humans and other animals.",
+            "do not possess an outer protective shell.",
+            "exhibit higher intelligence than other molluscs.",
+            "have several arms"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "We can understand that B, C and D are true - they are points of dissimilarities between octopuses and other molluscs. However, there is no information on whether humans consume molluscs like sea snails or not. Hence, Option A is the correct choice."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q3",
+          "text": "Which one of the following statements is not true about the camouflaging ability of Cephalopods?",
+          "type": "MCQ",
+          "options": [
+            "Cephalopods can blend into the colour of their surroundings.",
+            "Cephalopods can change their texture.",
+            "Cephalopods can change their colour.",
+            "Cephalopods can take on the colour of their predator."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Options A and C: The discussion on Chromatophores, iridophores and leucophores sufficiently supports the statements here. Option B: We can infer this from the excerpt about papillae. Option D is not discussed anywhere in the passage."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q4",
+          "text": "Based on the passage, we can infer that all of the following statements, if true, would weaken the camouflaging adeptness of Cephalopods EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "the number of chromatophores in Cephalopods is half the number of iridophores and leucophores.",
+            "the temperature of water at the depths at which Cephalopods reside renders the transmission of neural signals difficult.",
+            "light reflects the colours red, green, and yellow at the depths at which Cephalopods reside.",
+            "the hydrostatic pressure at the depths at which Cephalopods reside renders radial muscle movements difficult."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "If the number of chromatophores is half the number of iridophores and leucophores, this does not undermine the camouflaging adeptness of Cephalopods primarily because each has specific roles to play and it is unclear how their quantity would directly impact the camouflaging capacity."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] When we teach engineering problems now, we ask students to come to a single \u201cbest\u201d solution defined by technical ideals like low cost, speed to build, and ability to scale. [S2] This way of teaching primes students to believe that their decision-making is purely objective, as it is grounded in math and science. [S3] This is known as technical-social dualism, the idea that the technical and social dimensions of engineering problems are readily separable and remain distinct throughout the problem-definition and solution process. [S4] Nontechnical parameters such as access to a technology, cultural relevancy or potential harms are deemed political and invalid in this way of learning. [S5] But those technical ideals are at their core social and political choices determined by a dominant culture focused on economic growth for the most privileged segments of society. [S6] By choosing to downplay public welfare as a critical parameter for engineering design, we risk creating a culture of disengagement from societal concerns amongst engineers that is antithetical to the ethical code of engineering. [S7] In my field of medical devices, ignoring social dimensions has real consequences. . . [S8] Most FDA-approved drugs are incorrectly dosed for people assigned female at birth, leading to unexpected adverse reactions. [S9] This is because they have been inadequately represented in clinical trials. [S10] Beyond physical failings, subjective beliefs treated as facts by those in decision-making roles can encode social inequities. [S11] For example, spirometers, routinely used devices that measure lung capacity, still have correction factors that automatically assume smaller lung capacity in Black and Asian individuals. [S12] These racially based adjustments are derived from research done by eugenicists who thought these racial differences were biologically determined and who considered nonwhite people as inferior. [S13] These machines ignore the influence of social and environmental factors on lung capacity. [S14] Many technologies for systemically marginalized people have not been built because they were not deemed important such as better early diagnostics and treatment for diseases like endometriosis, a disease that afflicts 10 percent of people with uteruses. [S15] And we hardly question whether devices are built sustainably, which has led to a crisis of medical waste and health care accounting for 10 percent of U.S. greenhouse gas emissions. [S16] Social justice must be made core to the way engineers are trained. [S17] Some universities are working on this. . . [S18] Engineers taught this way will be prepared to think critically about what problems we choose to solve, how we do so responsibly and how we build teams that challenge our ways of thinking. [S19] Individual engineering professors are also working to embed societal needs in their pedagogy. [S20] Darshan Karwat at the University of Arizona developed activist engineering to challenge engineers to acknowledge their full moral and social responsibility through practical self-reflection. [S21] Khalid Kadir at the University of California, Berkeley, created the popular course Engineering, Environment, and Society that teaches engineers how to engage in place-based knowledge, an understanding of the people, context and history, to design better technical approaches in collaboration with communities. [S22] When we design and build with equity and justice in mind, we craft better solutions that respond to the complexities of entrenched systemic problems.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q5",
+          "text": "We can infer that the author would approve of a more evolved engineering pedagogy that includes all of the following EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "making considerations of environmental sustainability intrinsic to the development of technological solutions.",
+            "a more responsible approach to technical design and problem-solving than a focus on speed in developing and bringing to scale.",
+            "design that is based on the needs of communities using local knowledge and responding to local priorities.",
+            "moving towards technical-social dualism where social community needs are incorporated in problem-definition and solutions."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Technical-social dualism is described in the passage as the idea that the technical and social dimensions of engineering problems are readily separable and remain distinct. The passage criticizes this approach, so it is unlikely the author would approve of moving towards it."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q6",
+          "text": "All of the following are examples of the negative outcomes of focusing on technical ideals in the medical sphere EXCEPT the:",
+          "type": "MCQ",
+          "options": [
+            "neglect of research and development of medical technologies for the diagnosis and treatment of diseases that typically afflict marginalised communities.",
+            "continuing calibration of medical devices based on past racial biases that have remained unadjusted for changes.",
+            "exclusion of non-privileged groups in clinical trials which leads to incorrect drug dosages.",
+            "incorrect assignment of people as female at birth which has resulted in faulty drug interventions."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option D is not mentioned in the passage as a negative outcome of focusing on technical ideals. The passage mentions incorrect dosing for people assigned female at birth due to inadequate representation in clinical trials, not incorrect assignment of sex at birth."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q7",
+          "text": "In this passage, the author is making the claim that:",
+          "type": "MCQ",
+          "options": [
+            "the objective of best solutions in engineering has shifted the focus of pedagogy from humanism and social obligations to technological perfection.",
+            "engineering students today are taught to focus on objective technical outcomes, independent of the social dimensions of their work.",
+            "engineering students today are trained to be non-subjective in their reasoning as this best enables them to develop much-needed universal solutions.",
+            "technical-social dualism has emerged as a technique for engineering students to incorporate social considerations into their technical problem-solving processes."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage discusses how engineering education primes students to believe decision-making is purely objective, separating technical and social dimensions. Option B best captures this understanding."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q8",
+          "text": "The author gives all of the following reasons for why marginalised people are systematically discriminated against in technology-related interventions EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "\u201cBut those technical ideals are at their core social and political choices determined by a dominant culture focused on economic growth for the most privileged segments of society.\u201d",
+            "\u201cAnd we hardly question whether devices are built sustainably, which has led to a crisis of medical waste and health care accounting for 10 percent of U.S. greenhouse gas emissions.\u201d",
+            "\u201cThese racially based adjustments are derived from research done by eugenicists who thought these racial differences were biologically determined and who considered nonwhite people as inferior.\u201d",
+            "\u201cBeyond physical failings, subjective beliefs treated as facts by those in decision-making roles can encode social inequities.\u201d"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage does not mention sustainability or medical waste contributing to greenhouse gas emissions as a reason for the systematic discrimination of marginalized people."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] We begin with the emergence of the philosophy of the social sciences as an arena of thought and as a set of social institutions. [S2] The two characterisations overlap but are not congruent. [S3] Academic disciplines are social institutions. . . [S4] My view is that institutions are all those social entities that organise action: they link acting individuals into social structures. [S5] There are various kinds of institutions. [S6] Hegelians and Marxists emphasise universal institutions such as the family, rituals, governance, economy and the military. [S7] These are mostly institutions that just grew. [S8] Perhaps in some imaginary beginning of time they spontaneously appeared. [S9] In their present incarnations, however, they are very much the product of conscious attempts to mould and plan them. [S10] We have family law, established and disestablished churches, constitutions and laws, including those governing the economy and the military. [S11] Institutions deriving from statute, like joint-stock companies are formal by contrast with informal ones such as friendships. [S12] There are some institutions that come in both informal and formal variants, as well as in mixed ones. [S13] Consider the fact that the stock exchange and the black market are both market institutions, one formal one not. [S14] Consider further that there are many features of the work of the stock exchange that rely on informal, noncodifiable agreements, not least the language used for communication. [S15] To be precise, mixtures are the norm . . [S16] From constitutions at the top to by-laws near the bottom we are always adding to, or tinkering with, earlier institutions, the grown and the designed are intertwined. [S17] It is usual in social thought to treat culture and tradition as different from, although alongside, institutions. [S18] The view taken here is different. [S19] Culture and tradition are sub-sets of institutions analytically isolated for explanatory or expository purposes. [S20] Some social scientists have taken all institutions, even purely local ones, to be entities that satisfy basic human needs - under local conditions . . [S21] Others differed and declared any structure of reciprocal roles and norms an institution. [S22] Most of these differences are differences of emphasis rather than disagreements. [S23] Let us straddle all these versions and present institutions very generally . . as structures that serve to coordinate the actions of individuals. . . [S24] Institutions themselves then have no aims or purpose other than those given to them by actors or used by actors to explain them . . [S25] Language is the formative institution for social life and for science . . [S26] Both formal and informal language is involved, naturally grown or designed. [S27] (Language is all of these to varying degrees.) [S28] Languages are paradigms of institutions or, from another perspective, nested sets of institutions. [S29] Syntax, semantics, lexicon and alphabet/character-set are all institutions within the larger institutional framework of a written language. [S30] Natural languages are typical examples of what Ferguson called \u2018the result of human action, but not the execution of any human design\u2019[;] reformed natural languages and artificial languages introduce design into their modifications or refinements of natural language. [S31] Above all, languages are paradigms of institutional tools that function to coordinate.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q9",
+          "text": "\u201cConsider the fact that the stock exchange and the black market are both market institutions, one formal one not.\u201d Which one of the following statements best explains this quote, in the context of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Market instruments can be formally traded in the stock exchange and informally traded in the black market.",
+            "The stock exchange and the black market are both organised to function by rules.",
+            "The stock exchange and the black market are examples of how, even within the same domain, different kinds of institutions can co-exist.",
+            "The stock exchange and the black market are both dependent on the market to survive."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author states that the stock exchange and the black market are both market institutions, but notes that the stock exchange is formal, while the black market is not. This suggests that the two institutions differ in terms of how they are structured and operate, and the author suggests that this difference is an example of how different kinds of institutions can co-exist within the same domain."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q10",
+          "text": "All of the following inferences from the passage are false, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "as concepts, \u201cculture\u201d and \u201ctradition\u201d have no analytical, explanatory or expository power, especially when they are treated in isolation.",
+            "the institution of friendship cannot be found in the institution of joint-stock companies because the first is an informal institution, while the second is a formal one.",
+            "institutions like the family, rituals, governance, economy, and the military are natural and cannot be consciously modified.",
+            "\u201cnatural language\u201d refers to that stage of language development where no conscious human intent is evident in the formation of language."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Based on the passage, the correct inference is: Option D - \"natural language\" refers to that stage of language development where no conscious human intent is evident in the formation of language."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q11",
+          "text": "In the first paragraph of the passage, what are the two \u201ccharacterisations\u201d that are seen as overlapping but not congruent?",
+          "type": "MCQ",
+          "options": [
+            "\u201can arena of thought\u201d and \u201cacademic disciplines\".",
+            "\u201cindividuals\u201d and \u201csocial structures\u201d.",
+            "\u201cthe philosophy of the social sciences\u201d and \u201ca set of social institutions\u201d.",
+            "\u201cacademic disciplines\u201d and \u201cinstitutions\u201d."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "In the first paragraph of the passage, the two \"characterisations\" that are seen as overlapping but not congruent are the philosophy of the social sciences as an arena of thought [academic discipline] and as a set of social institutions."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q12",
+          "text": "Which of the following statements best represents the essence of the passage?",
+          "type": "MCQ",
+          "options": [
+            "It is usual in social thought to treat culture and tradition as different from institutions.",
+            "Language is the fundamental formal institution for social life and for science.",
+            "The stock exchange and the black market are both market institutions.",
+            "Institutions are structures that serve to coordinate the actions of individuals."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage discusses the concept of institutions within the philosophy of the social sciences. Primarily, the passage underlines that these institutions are structures that coordinate the actions of individuals."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q13",
+          "text": "Which one of the following sets of terms best serves as keywords to the passage?",
+          "type": "MCQ",
+          "options": [
+            "Musicking; Cognitive psychology; Antique; Symbol-makers; Modernity.",
+            "Humans; Capacities; Language; Symbols; Modernity.",
+            "Humans; Musicking; Linguistic capacities; Symbol-making; Modern humanity.",
+            "Humans; Psychological vantage; Musicking; Cassirer; Emergence of music."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage is about the idea that making music is a fundamental and universal aspect of the human experience. Option C includes all the keywords central to the discussion."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q14",
+          "text": "\u201cThink beyond all the qualifications that might trail after this bald statement . . .\u201d In the context of the passage, what is the author trying to communicate in this quoted extract?",
+          "type": "MCQ",
+          "options": [
+            "A bald statement is one that is trailed by a series of qualifying clarifications and caveats.",
+            "A bald statement is one that requires no qualifications to infer its meaning.",
+            "Although there may be many caveats and other considerations, the statement is essentially true.",
+            "Thinking beyond qualifications allows us to give free reign to musical expressions."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In this context, the author is trying to communicate that although there may be various qualifications and considerations that might trail after the statement that \"humans today make music,\" the statement is fundamentally true."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q15",
+          "text": "Based on the passage, which one of the following statements is a valid argument about the emergence of music/musicking?",
+          "type": "MCQ",
+          "options": [
+            "Anyone who can perceive and experience music must be considered capable of musicking.",
+            "Although musicking is not language-like, it shares the quality of being a form of expression.",
+            "20,000 years ago, human musical capacities were not very different from what they are today.",
+            "All musical work is located in the overlap between linguistic capacity and music production."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage states - {\"...if we look back 20,000 years, a small portion of this long period, we reach the lives of humans whose musical capacities were probably little different from our own...\"} This suggests that the musical capacities of humans 20,000 years ago were not significantly different from those of humans today."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Humans today make music. [S2] Think beyond all the qualifications that might trail after this bald statement: that only certain humans make music, that extensive training is involved, that many societies distinguish musical specialists from nonmusicians, that in today\u2019s societies most listen to music rather than making it, and so forth. [S3] These qualifications, whatever their local merit, are moot in the face of the overarching truth that making music, considered from a cognitive and psychological vantage, is the province of all those who perceive and experience what is made. [S4] We are, almost all of us, musicians \u2014 everyone who can entrain (not necessarily dance) to a beat, who can recognize a repeated tune (not necessarily sing it), who can distinguish one instrument or one singing voice from another. [S5] I will often use an antique word, recently revived, to name this broader musical experience. [S6] Humans are musicking creatures. . . . [S7] The set of capacities that enables musicking is a principal marker of modern humanity. [S8] There is nothing polemical in this assertion except a certain insistence, which will figure often in what follows, that musicking be included in our thinking about fundamental human commonalities. [S9] Capacities involved in musicking are many and take shape in complicated ways, arising from innate dispositions . . . [S10] Most of these capacities overlap with nonmusical ones, though a few may be distinct and dedicated to musical perception and production. [S11] In the area of overlap, linguistic capacities seem to be particularly important, and humans are (in principle) language-makers in addition to music-makers \u2014 speaking creatures as well as musicking ones. [S12] Humans are symbol-makers too, a feature tightly bound up with language, not so tightly with music. [S13] The species Cassirer dubbed Homo symbolicus cannot help but tangle musicking in webs of symbolic thought and expression, habitually making it a component of behavioral complexes that form such expression. [S14] But in fundamental features musicking is neither language-like nor symbol-like, and from these differences come many clues to its ancient emergence. [S15] If musicking is a primary, shared trait of modern humans, then to describe its emergence must be to detail the coalescing of that modernity. [S16] This took place, archaeologists are clear, over a very long dur\u00e9e: at least 50,000 years or so, more likely something closer to 200,000, depending in part on what that coalescence is taken to comprise. [S17] If we look back 20,000 years, a small portion of this long period, we reach the lives of humans whose musical capacities were probably little different from our own. [S18] As we look farther back we reach horizons where this similarity can no longer hold \u2014 perhaps 40,000 years ago, perhaps 70,000, perhaps 100,000. [S19] But we never cross a line before which all the cognitive capacities recruited in modern musicking abruptly disappear. [S20] Unless we embrace the incredible notion that music sprang forth in full-blown glory, its emergence will have to be tracked in gradualist terms across a long period. [S21] This is one general feature of a history of music\u2019s emergence . . . [S22] The history was at once sociocultural and biological . . . [S23] The capacities recruited in musicking are many, so describing its emergence involves following several or many separate strands.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q16",
+          "text": "Which one of the following statements, if true, would weaken the author\u2019s claim that humans are musicking creatures?",
+          "type": "MCQ",
+          "options": [
+            "Nonmusical capacities are of far greater consequence to human survival than the capacity for music.",
+            "From a cognitive and psychological vantage, musicking arises from unconscious dispositions, not conscious ones.",
+            "As musicking is neither language-like nor symbol-like, it is a much older form of expression.",
+            "Musical capacities are primarily socio-cultural, which explains the wide diversity of musical forms."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "If true, this directly contradicts the author's claim that musicking is a universal aspect of the human experience. The author argues that the capacity for musicking is innate in all humans and that it has a long history that is both sociocultural and biological in nature. However, if musical capacities are primarily socio-cultural, as suggested in Option D, this would mean that musicking is largely shaped by cultural and social factors rather than being a fundamental aspect of the human experience. This would greatly weaken the author's overall argument that all humans are musicking creatures."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q17",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer: 1. The trajectory of cheerfulness through the self is linked to the history of the word \u2018cheer\u2019 which comes from an Old French meaning \u2018face\u2019. 2. Translations of the Bible into vernacular languages, expanded the noun \u2018cheer\u2019 into the more abstract \u2018cheerful-ness\u2019, something that circulates as an emotional and social quality defining the self and a moral community. 3. When you take on a cheerful expression, no matter what the state of your soul, your cheerfulness moves into the self: the interior of the self is changed by the power of cheer. 4. People in the medieval \u2018Canterbury Tales\u2019 have a \u2018piteous\u2019 or a \u2018sober\u2019 cheer; \u2018cheer\u2019 is an expression and a body part, lying at the intersection of emotions and physiognomy.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3142",
+          "explanation": "The given set of sentences talks about the concept of cheerfulness and how it can affect a person's internal state. It discusses the history of the word \"cheer,\" which originally referred to a person's facial expression, and how it came to be associated with an abstract concept of positive emotion. The passage also notes that translations of the Bible into vernacular languages helped to expand the meaning of \"cheer\" to include a sense of cheerfulness or positivity as a quality of the self and a moral community. We note that sentences 1, 2 and 4 are part of the timeline the author traces, while statement 3 is a broad claim that would serve as an apt introduction. The idea of cheerfulness and self that is mentioned in 3 is linked to the \" trajectory of cheerfulness through the self\" highlighted in statement 1, allowing us to form the pair [3-1]. Note that 4 discusses how cheer came to be perceived as a trait at the intersection of emotion and a physical feature [as highlighted in 1 - where it has been categorised as a facial feature]. Sentence 2 then extends on this idea by how cheerfulness, over time, came to be considered as \"an emotional and social quality.\" Hence, the correct arrangement is 3142."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Paragraph: Aage Badhein\u2019s USP lies in the ethnographic research that constituted the foundation of its development process. Customizations based on learning directly from potential users were critical to making this self-paced app suitable for both a literate and non-literate audience. ___(1)___ The user interface caters to a Hindi-speaking audience who have minimal to no experience with digital services and devices. ___(2)___ The content and functionality of the app are suitable for a wide audience. This includes youth preparing for an independent role in life or a student ready to create a strong foundation of financial management early in her life. ___(3)___ Household members desirous of improving their family\u2019s financial strength to reach their aspirations can also benefit. We piloted Aage Badhein in early 2021 with over 400 women from rural areas. ___(4)___ The digital solution generated a large amount of interest in the communities.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q18",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide in which blank (option 1, 2, 3, or 4) the following sentence would best fit. Sentence: Most were first-time users of a tablet and a digital app.",
+          "type": "MCQ",
+          "options": [
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The sentence \"Most were first-time users of a tablet and a digital app\" would fit best in blank 4 because it provides information about the specific group of people who were involved in the pilot study for the app. The preceding sentence mentions that the app was piloted in early 2021 with over 400 women from rural areas, and the added sentence provides further detail about the specific experiences that these users had with technology. This information helps to clarify that the pilot study for the app involved a group of people who may be unfamiliar with digital devices and services, and it also helps to emphasize the potential impact that the app may have had on these users."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q19",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer: 1. Women may prioritize cooking because they feel they alone are responsible for mediating a toxic and unhealthy food system. 2. Food is commonly framed through the lens of individual choice: you can choose to eat healthily. 3. This is particularly so in a neoliberal context where the state has transferred the responsibility for food onto individual consumers. 4. The individualized framing of choice appeals to a popular desire to experience agency, but draws away from the structural obstacles that stratify individual food choices.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2431",
+          "explanation": "The statements here discuss how the way we think about food often centres around individual choice, rather than acknowledging the larger societal and structural factors that influence food choices. It also mentions the role of neoliberalism in shifting the responsibility for food onto individual consumers and how this may disproportionately impact women, who may feel a sense of responsibility to navigate and \"mediate\" an unhealthy food system. Sentences 2 and 4 create a logical block since 2 highlights the framing of food through the \"lens of individual choice\", and 4 extends on the impact of such a framing [\"appeals to a popular desire to experience agency, but draws away from the structural obstacles that stratify individual food choices\"]. \"This\" in statement 3 refers to the particular outcome of framing underlined in 4, allowing us to create a logical block: [2-4-3]. Statement 1 can be placed at the end of this arrangement to emphasise how women are perhaps disproportionately impacted by the elements discussed in 2-4-3. Hence, the correct answer is 2431."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q20",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer: 1. From chemical pollutants in the environment to the damming of rivers to invasive species transported through global trade and travel, every environmental issue is different and there is no single tech solution that can solve this crisis. 2. Discourse on the threat of environmental collapse revolves around cutting down emissions, but biodiversity loss and ecosystem collapse are caused by myriad and diverse reasons. 3. This would require legislation that recognises the rights of future generations and other species that allows the judiciary to uphold a much higher standard of environmental protection than currently possible. 4. Clearly, our environmental crisis requires large political solutions, not minor technological ones, so, instead of focusing on infinite growth, we could consider a path of stable-state economies, while preserving markets and healthy competition.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2143",
+          "explanation": "The statements discuss the complexity of environmental issues and the need for political solutions rather than technological ones to address the threat of environmental collapse. The discussion focuses on the various causes of biodiversity loss and ecosystem collapse, such as chemical pollutants, damming of rivers, and invasive species, and highlights that there is no single technological solution to address these issues. The suggestion is that we should consider moving towards stable-state economies, which preserve markets and competition while also recognizing the rights of future generations and other species and allowing for stronger environmental protections. Statements 1 and 2 both address the complexity and diverse nature of environmental issues. Statement 2 notes that while discourse often focuses on emissions, there are many other factors contributing to environmental collapse, including biodiversity loss and ecosystem collapse. Statement 1 then adds to this by outlining specific examples of diverse causes of environmental problems, including chemical pollutants, damming of rivers, and invasive species. Statements 4 and 3 offer suggestions to combat the issues highlighted in 2 and 1. Hence, the correct arrangement is 2143."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q21",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage. There's a common idea that museum artworks are somehow timeless objects available to admire for generations to come. But many are objects of decay. Even the most venerable Old Master paintings don't escape: pigments discolour, varnishes crack, canvases warp. This challenging fact of art-world life is down to something that sounds more like a thread from a morality tale: inherent vice. Damien Hirst's iconic shark floating in a tank - entitled The Physical Impossibility of Death in the Mind of Someone Living - is a work that put a spotlight on inherent vice. When he made it in 1991, Hirst got himself in a pickle by not using the right kind of pickle to preserve the giant fish. The result was that the shark began to decompose quite quickly - its preserving liquid clouding, the skin wrinkling, and an unpleasant smell wafting from the tank.",
+          "type": "MCQ",
+          "options": [
+            "Museums are left with the moral responsibility of restoring and preserving the artworks since artists cannot preserve their works beyond their life.",
+            "Museums have to guard timeless art treasures from intrinsic defects such as the deterioration of paint, polish and canvas.",
+            "The role of museums has evolved to ensure that the artworks are preserved forever in addition to guarding and displaying them.",
+            "Artworks may not last forever; they may deteriorate with time, and the challenge is to slow down their degeneration."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage is about the 'inherent vice' or the natural tendency of certain artworks to deteriorate over time due to various factors such as discolouration of pigments, cracking of varnishes, and warping of canvases. The passage also mentions an example of Damien Hirst's artwork, The Physical Impossibility of Death in the Mind of Someone Living, which began to decompose quickly due to the use of the wrong preserving liquid. In this regard, Option D offers an apt summary of the passage because it accurately captures the main idea of the passage, which is that artworks may not last forever and may deteriorate with time. Option A is incorrect because the passage does not mention any moral responsibility of museums to restore and preserve artworks. Similarly, Option B can be eliminated since the passage does not specifically mention museums guarding art treasures from intrinsic defects. Option C is also inaccurate because the discussion does not present the evolution of the role of museums in preserving artworks forever."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q22",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage. Today, many of the debates about behavioural control in the age of big data echo Cold War-era anxieties about brainwashing, insidious manipulation and repression in the \u2018technological society\u2019. In his book Psychopolitics, Han warns of the sophisticated use of targeted online content, enabling \u2018influence to take place on a pre-reflexive level\u2019. On our current trajectory, \u201cfreedom will prove to have been merely an interlude.\u201d The fear is that the digital age has not liberated us but exposed us, by offering up our private lives to machine-learning algorithms that can process masses of personal and behavioural data. In a world of influencers and digital entrepreneurs, it\u2019s not easy to imagine the resurgence of a culture engendered through disconnect and disaffiliation, but concerns over the threat of online targeting, polarisation and big data have inspired recent polemics about the need to rediscover solitude and disconnect.",
+          "type": "MCQ",
+          "options": [
+            "Rather than freeing us, digital technology is enslaving us by collecting personal information and influencing our online behaviour.",
+            "With big data making personal information freely available, the debate on the nature of freedom and the need for privacy has resurfaced.",
+            "The role of technology in influencing public behaviour is reminiscent of the manner in which behaviour was manipulated during the Cold War.",
+            "The notion of freedom and privacy is at stake in a world where artificial intelligence is capable of influencing behaviour through data gathered online."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage discusses the ways in which big data and targeted online content can potentially influence and manipulate behaviour, leading to concerns over freedom and privacy in the digital age. This is reflected in the statements that \"behavioural control\" in the age of big data echoes Cold War-era anxieties about \"brainwashing\" and \"repression,\" and that the use of targeted online content can enable \"influence to take place on a pre-reflexive level.\" The passage also mentions the fear that the digital age has not liberated us, but rather exposed us by making personal and behavioural data available to machine-learning algorithms. Option B accurately reflects this central theme of the passage by stating that the debate on the nature of freedom and privacy has resurfaced due to the availability of personal information through big data. Option A is incorrect because it goes beyond the scope of the passage by stating that digital technology is \"enslaving\" us, which is not explicitly stated in the text. Similarly, Option C is inaccurate since the author only mentions the Cold War as a reference point for similar debates on behavioural control, but does not focus on the Cold War itself. Option D is wrong because the passage does not mention artificial intelligence specifically, but rather machine-learning algorithms."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q23",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage. Several of the world\u2019s earliest cities were organised along egalitarian lines. In some regions, urban populations governed themselves for centuries without any indication of the temples and palaces that would later emerge; in others, temples and palaces never emerged at all, and there is simply no evidence of a class of administrators or any other sort of ruling stratum. It would seem that the mere fact of urban life does not, necessarily, imply any particular form of political organization, and never did. Far from resigning us to inequality, the picture that is now emerging of humanity\u2019s past may open our eyes to egalitarian possibilities we otherwise would have never considered.",
+          "type": "MCQ",
+          "options": [
+            "The lack of hierarchical administration in ancient cities can be deduced by the absence of religious and regal structures such as temples and palaces.",
+            "Contrary to our assumption that urban settlements have always involved hierarchical political and administrative structures, ancient cities were not organised in this way.",
+            "The emergence of a class of administrators and ruling stratum transformed the egalitarian urban life of ancient cities to the hierarchical civic organisations of today.",
+            "We now have the evidence in support of the existence of an egalitarian urban life in some ancient cities, where political and civic organisation was far less hierarchical."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage is about the political and civic organization of ancient cities. It states that some ancient cities were organized along egalitarian lines, without any indication of temples or palaces (which suggests a lack of a ruling class or administrators), and that in other cities, temples and palaces never emerged at all. Option D correctly summarizes this information by stating that there was evidence of an egalitarian urban life in some ancient cities, where the political and civic organization was less hierarchical. Option A is incorrect because it only mentions the absence of temples and palaces, but does not mention the fact that some ancient cities were organized along egalitarian lines. On a similar note, Option B presents an exaggeration by suggesting that 'all' ancient cities were organized along egalitarian lines, which is not stated in the passage. Option C is also inaccurate since it asserts that ancient cities were transformed from egalitarian to hierarchical, but the passage only states that some ancient cities were egalitarian and does not mention any transformation."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Paragraph: For millennia, ghee has been a venerated staple of the subcontinental diet, but it fell out of favour a few decades ago when saturated fats were largely considered to be unhealthy. ___(1)___ But more recently, as the thinking around saturated fats is shifting globally, Indians are finding their own way back to this ingredient that is so integral to their cuisine. ___(2)___ For Karmakar, a renewed interest in ghee is emblematic of a return-to-basics movement in India. ___(3)___ This movement is also part of an overall trend towards \"slow food\". In keeping with the movement's philosophy, ghee can be produced locally (even at home) and has inextricable cultural ties. ___(4)___ At a basic level, ghee is a type of clarified butter believed to have originated in India as a way to preserve butter from going rancid in the hot climate.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q24",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide in which blank (option 1, 2, 3, or 4) the following sentence would best fit. Sentence: This was years in the making but fast-tracked during the pandemic, when \"people started being more mindful about their food\", he explained.",
+          "type": "MCQ",
+          "options": [
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "We can easily eliminate Options A and B since the given sentence \"This was years in the making but fast-tracked during the pandemic, when \"people started being more mindful about their food\", he explained\" uses the pronoun \"he,\" which must refer to \"Karmakar.\" The sentence should take the spot of blank 3 since it fits in well with the idea that ghee is part of a \"return-to-basics movement in India\", as it mentions that the renewed interest in ghee has been developing for a while but was accelerated during the pandemic when people became more conscious about their food choices. Additionally, the idea that this movement is part of an overall trend towards \"slow food\" is also mentioned in the sentence, as it talks about people being mindful of their food. By contrast, placing the sentence in any of the other blanks would be less logical because it would be introducing information that is not directly related to the main topic being discussed in those parts of the paragraph."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "A few salesmen are employed to sell a product called TRICCEK among households in various housing complexes. On each day, a salesman is assigned to visit one housing complex. Once a salesman enters a housing complex, he can meet any number of households in the time available. However, if a household makes a complaint against the salesman, then he must leave the housing complex immediately and cannot meet any other household on that day. A household may buy any number of TRICCEK items or may not buy any item. The salesman needs to record the total number of TRICCEK items sold as well as the number of households met in each day. The success rate of a salesman for a day is defined as the ratio of the number of items sold to the number of households met on that day. Some details about the performances of three salesmen - Tohri, Hokli and Lahur, on two particular days are given below.\n\n1. Over the two days, all three of them met the same total number of households, and each of them sold a total of 100 items.\n2. On both days, Lahur met the same number of households and sold the same number of items.\n3. Hokli could not sell any item on the second day because the first household he met on that day complained against him.\n4. Tohri met 30 more households on the second day than on the first day.\n5. Tohri\u2019s success rate was twice that of Lahur\u2019s on the first day, and it was 75% of Lahur\u2019s on the second day.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q25",
+          "text": "What was the total number of households met by Tohri, Hokli and Lahur on the first day?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "84",
+          "explanation": "The total number of households met by Tohri, Hokli and Lahur on the first day is 10 + 49 + 25, i.e. 84."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q26",
+          "text": "How many TRICCEK items were sold by Tohri on the first day?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "40",
+          "explanation": "The number of items sold by Tohri on the first day is 40."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q27",
+          "text": "How many households did Lahur meet on the second day?",
+          "type": "MCQ",
+          "options": [
+            "between 21 and 29",
+            "20 or less",
+            "more than 35",
+            "between 30 and 35"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Lahur met 25 households on day 2. The answer is option A."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q28",
+          "text": "How many households did Tohri meet on the first day?",
+          "type": "MCQ",
+          "options": [
+            "between 21 and 40",
+            "between 11 and 20",
+            "more than 40",
+            "10 or less"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Tohri met 10 households on day 1. The answer is option D."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q29",
+          "text": "Which of the following statements is FALSE?",
+          "type": "MCQ",
+          "options": [
+            "Among the three, Tohri had the highest success rate on the second day.",
+            "Tohri had a higher success rate on the first day compared to the second day.",
+            "Among the three, Tohri had the highest success rate on the first day.",
+            "Among the three, Lahur had the lowest success rate on the first day."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Among the three, Tohri had the highest success rate on the second day - this statement is incorrect. On day 2, Lahur had the highest success rate, i.e. 2 whereas Tohri's success rate is 1.5. Tohri had a higher success rate on the first day compared to the second day - this statement is correct. Tohri's day 1 success rate is 4 and day 2 success rate is 1.5. Among the three, Tohri had the highest success rate on the first day - this statement is correct. Tohri's success rate on day 1 is 4. Hokli's success rate on day 1 is 2.04. Lahur's success rate on day 1 is 2. Among the three, Lahur had the lowest success rate on the first day - this statement is correct. Tohri's success rate on day 1 is 4. Hokli's success rate on day 1 is 2.04. Lahur's success rate on day 1 is 2. The answer is option A."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q30",
+          "text": "If the last location visited is Ahmednagar, then what is the total distance covered in the route (in km)?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "35",
+          "explanation": "Points to be noted: 1. Starts from the warehouse and ends at a location after visiting all the locations exactly once. 2. While making the route plan, the supplier goes to the locations in decreasing order of demand. If equal demand, goes to the nearest ones first. 3. While creating the route, the supplier can either follow the direct path (if available) from one location to another or can take the path via the warehouse(Prefers minimum distance). In the question, it is given that last location is A. The demand in the remaining places should be greater than A. This implies A demand cannot be 70 units. Therefore, it is 50 units. The demand of the location D is 30 or 50 units. This implies this should be placed before D. The demand of the location placed before D should be greater than or equal to 50 units. Location supplier visited before D is B(60 units of demand). It cannot be C because values of C is greater than the values of B. Therefore, order is C - B - D - A. From warehouse to C - 12 km C to B - 4 km B to D - 12 km D to A - 7 km (through warehouse) Total distance covered = 12 + 4 + 12 + 7 = 35 km This question is removed from the paper because if the order is CBDA, the supplier will go to A from B (and hence the last city visited will be D)."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Every day a widget supplier supplies widgets from the warehouse (W) to four locations - Ahmednagar (A), Bikrampore (B), Chitrachak (C), and Deccan Park (D). The daily demand for widgets in each location is uncertain and independent of each other. Demands and corresponding probability values (in parenthesis) are given against each location (A, B, C, and D) in the figure below. The lines in the figure connecting the locations and warehouse represent two-way roads connecting those places with the distances (in km) shown beside the line. The distances in both the directions along a road are equal. Every day the supplier gets the information about the demand values of the four locations and creates the travel route that starts from the warehouse and ends at a location after visiting all the locations exactly once. While making the route plan, the supplier goes to the locations in decreasing order of demand. If there is a tie for the choice of the next location, the supplier will go to the location closest to the current location. Also, while creating the route, the supplier can either follow the direct path (if available) from one location to another or can take the path via the warehouse. If both paths are available (direct and via warehouse), the supplier will choose the path with minimum distance.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q31",
+          "text": "If the total number of widgets delivered in a day is 250 units, then what is the total distance covered in the route (in km)?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "38",
+          "explanation": "Maximum number of widgets that can be delivered is 70 units(A) + 50 units(D) + 60 units(B) + 100 units(C) = 280 units. From this 30 units should be decreased. 30 units can be decreased only when C's demand decreases to 70 units. Therefore, the only possibility is 70 units(A) + 50 units(D) + 60 units(B) + 70 units(C). From statement 1, the order should be A - C - B - D. Distance from Warehouse to A is 5 km, A to C is 17 km, C to B is 4 km, B to D is 12 km. Total distance covered = 5 + 17 + 4 + 12 = 38 km."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q32",
+          "text": "What is the chance that the total number of widgets delivered in a day is 260 units and the route ends at Bikrampore?",
+          "type": "MCQ",
+          "options": [
+            "33.33%",
+            "10.80%",
+            "17.64%",
+            "7.56%"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Given, total number of widgets delivered is 260 units. This implies 20 units must be decreased from any one of the locations. Demand at location C will be 100 units and supplier first visits C. In the question, it is also given that the route ends at B. Order will be C(100 units) - A(70 units) - D(50 units) - B(40 units). Required value = 0.7*0.6*0.6*0.3 = 0.0756 = 7.56%."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q33",
+          "text": "If the first location visited from the warehouse is Ahmednagar, then what is the chance that the total distance covered in the route is 40 km?",
+          "type": "MCQ",
+          "options": [
+            "18%",
+            "5.4%",
+            "3.24%",
+            "30%"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "It is given that the first location visited from the warehouse is A. If A's demand is 50 units, C's demand should be less than 50 units which is not possible. This implies demand of locations A and C is 70 units. A(70 units) -> C(70 units). Warehouse to A - 5km, A to C - 17 km. Distance covered = 5 + 17 = 22 km. Remaining distance = 40 - 22 = 18 km. C to D - 6 km, D to B - 12 km. Distance covered = 6 + 12 = 18 km. Therefore, supplier can cover distance 18 km if he visits D before B, i.e. demand of D should be more than demand of B. This is only possible when D's demand is 50 units and B's demand is 40 units. Required value = 0.6*0.3 = 0.18 = 18%."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q34",
+          "text": "If Ahmednagar is not the first location to be visited in a route and the total route distance is 29 km, then which of the following is a possible number of widgets delivered on that day?",
+          "type": "MCQ",
+          "options": [
+            "210",
+            "220",
+            "200",
+            "250"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Demand in all other locations should be less than or equal to the demand in first location. In the question, it is given that A is not first location. B and D cannot be first location. This implies C should be the first location. It is given, total route distance is 29 km. Warehouse to C is 12 km. This implies remaining distance should be 29-12, i.e. 17km. This is only possible when C visits B, A and D later(4 + 6 + 7). The order should be C - B - A - D. The possible number of widgets delivered can be 70 + 60 + 50 + 30 = 210."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "The two plots below show data for four companies code-named A, B, C, and D over three years - 2019, 2020, and 2021. The first plot shows the revenues and costs incurred by the companies during these years. The second plot shows the number of employees employed by the company (employee strength) at the start of each of these three years, as well as the number of new employees hired each year (new hires).",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q35",
+          "text": "Considering all three years, which company had the highest annual profit?",
+          "type": "MCQ",
+          "options": [
+            "Company A",
+            "Company D",
+            "Company B",
+            "Company C"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Company A: Revenue = 240 and cost incurred = 180, Profit = 60. Company B: Revenue = 220 and cost incurred = 145, Profit = 75. Company C: Revenue = 195 and cost incurred = 110, Profit = 85. Company D: Revenue = 140 and cost incurred = 160, No profit. Company C had the highest annual profit."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q36",
+          "text": "Which of the four companies experienced the highest annual loss in any of the years?",
+          "type": "MCQ",
+          "options": [
+            "Company C",
+            "Company A",
+            "Company B",
+            "Company D"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "For all the companies in all three years, cost incurred is less than Revenue except for D in 2020. Revenue is 20 and cost incurred is 50. Company D experienced the highest annual loss in 2020."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q37",
+          "text": "The ratio of a company's annual profit to its annual costs is a measure of its performance. Which of the four companies had the lowest value of this ratio in 2019?",
+          "type": "MCQ",
+          "options": [
+            "Company A",
+            "Company D",
+            "Company B",
+            "Company C"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Measure of A's performance in 2019 = (90-85)/85 = 5/85 = 0.06. Measure of B's performance in 2019 = (100-75)/75 = 25/75 = 0.33. Measure of C's performance in 2019 = (25-20)/25 = 5/25 = 0.2. Measure of D's performance in 2019 = (50-40)/40 = 10/40 = 0.25. Company A had the lowest value."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q38",
+          "text": "The total number of employees lost in 2019 and 2020 was the least for:",
+          "type": "MCQ",
+          "options": [
+            "Company B",
+            "Company D",
+            "Company A",
+            "Company C"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Company A: Employees lost in 2019 and 2020 = 30 + 25 = 55. Company B: Employees lost in 2019 and 2020 = 5 + 35 = 40. Company C: Employees lost in 2019 and 2020 = 45 + 40 = 85. Company D: Employees lost in 2019 and 2020 = 20 + 45 = 65. The total number of employees lost in 2019 and 2020 is least for company B."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q39",
+          "text": "Profit per employee is the ratio of a company's profit to its employee strength. For this purpose, the employee strength in a year is the average of the employee strength at the beginning of that year and the beginning of the next year. In 2020, which of the four companies had the highest profit per employee?",
+          "type": "MCQ",
+          "options": [
+            "Company D",
+            "Company C",
+            "Company B",
+            "Company A"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Company A = (90-65)/145 = 25/290. Company B = (90-40)/245 = 50/245. Company C = (70-60)/320 = 10/320. Company B had the highest profit per employee."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "A speciality supermarket sells 320 products. Each of these products was either a cosmetic product or a nutrition product. Each of these products was also either a foreign product or a domestic product. Each of these products had at least one of the two approvals - FDA or EU. The following facts are also known: 1. There were equal numbers of domestic and foreign products. 2. Half of the domestic products were FDA approved cosmetic products. 3. None of the foreign products had both the approvals, while 60 domestic products had both the approvals. 4. There were 140 nutrition products, half of them were foreign products. 5. There were 200 FDA approved products. 70 of them were foreign products and 120 of them were cosmetic products.",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q40",
+          "text": "How many foreign products were FDA approved cosmetic products?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "40",
+          "explanation": "There are 120 FDA approved cosmetic products. Domestic, cosmetic and FDA approved = 80. This implies, Foreign, cosmetic and FDA approved is 120-80, i.e. 40."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q41",
+          "text": "How many cosmetic products did not have FDA approval?",
+          "type": "MCQ",
+          "options": [
+            "10",
+            "Cannot be determined",
+            "50",
+            "60"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The number of cosmetic products which do not have FDA approval = domestic only EU + foreign EU = 10 + 50 = 60."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q42",
+          "text": "Which among the following options best represents the number of domestic cosmetic products that had both the approvals?",
+          "type": "MCQ",
+          "options": [
+            "At least 10 and at most 60",
+            "At least 10 and at most 80",
+            "At least 20 and at most 70",
+            "At least 20 and at most 50"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In statement 3, it is given that the number of domestic products which have both the approvals = 60. The number of domestic cosmetic products that had both the approvals is at least 10 and at most 60."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q43",
+          "text": "If 70 cosmetic products did not have EU approval, then how many nutrition products had both the approvals?",
+          "type": "MCQ",
+          "options": [
+            "50",
+            "30",
+            "10",
+            "20"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In foreign, 40 cosmetic products did not have EU approval. This implies 30 cosmetic products should have only FDA approval in domestic products. Therefore, the number of nutrition products which had both the approvals is 10."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q44",
+          "text": "If 50 nutrition products did not have EU approval, then how many domestic cosmetic products did not have EU approval?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "50",
+          "explanation": "In Foreign products, there are 30 nutrition products which do not have EU approval. This implies 20 nutrition products do not have EU(have only FDA) approval in domestic products. Therefore, the number of domestic cosmetic products did not have EU(only FDA) approval is 50."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q45",
+          "text": "Mr. Pinto invests one-fifth of his capital at 6%, one-third at 10% and the remaining at 1%, each rate being simple interest per annum. Then, the minimum number of years required for the cumulative interest income from these investments to equal or exceed his initial capital is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "20",
+          "explanation": "Let the total investment be 15x and the no. of years required be T years. (3x*6*T)/100 + (5x*10*T)/100 + (7x*1*T)/100 >= 15x. 75xT/100 >= 15x. T >= 20. So minimum value of T is 20 years."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q46",
+          "text": "The average of a non-decreasing sequence of N numbers $a_1, a_2, ..., a_N$ is 300. If $a_1$ is replaced by $6a_1$, the new average becomes 400. Then, the number of possible values of $a_1$ is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "14",
+          "explanation": "As the given sequence of numbers is non-decreasing sequence, N can take values from 2 to 15. N is not equal to 1, if N = 1, then average of N numbers is 300 wouldn't satisfy. Therefore, N can take values from 2 to 15, i.e. 14 values."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q47",
+          "text": "The number of integer solutions of the equation $(x^2 - 10)^{(x^2 - 3x - 10)} = 1$ is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "Case 1: When $x^2 - 3x - 10 = 0$ and $x^2 - 10 \\neq 0$. $x^2 - 3x - 10 = 0$ or, $(x - 5)(x + 2) = 0$ or, x= 5 or -2. Case 2: $x^2 - 10 = 1$. $x^2 - 11 = 0$. No integer solutions. Case 3: $x^2 - 10 = -1$ and $x^2 - 3x - 10$ is even. $x^2 - 9 = 0$ or, (x+3)(x-3)=0 or, x= -3 and 3. For x= -3 and +3 $x^2 - 3x - 10$ is even. In total 4 values of x satisfy the equations."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q48",
+          "text": "Manu earns \u20b94000 per month and wants to save an average of \u20b9550 per month in a year. In the first nine months, his monthly expense was \u20b93500, and he foresees that, tenth month onward, his monthly expense will increase to \u20b93700. In order to meet his yearly savings target, his monthly earnings, in rupees, from the tenth month onward should be",
+          "type": "MCQ",
+          "options": [
+            "4400",
+            "4200",
+            "4300",
+            "4350"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Savings target in a year = 550*12 = Rs 6600. Saving in first 9 months = 9(4000-3500) = Rs 4500. Saving for remaining 3 months should be 6600-4500, i.e. Rs 2100. Savings for each month in last 3 months = 2100/3 = Rs 700. It is given, monthly expenses in last 3 months = Rs 3700. This implies, his monthly earnings from 10th month should be 3700+700, i.e. Rs 4400."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q49",
+          "text": "In triangle ABC, altitudes AD and BE are drawn to the corresponding bases. If $\\angle BAC = 45^\\circ$ and $\\angle ABC = \\theta$, then $\\frac{AD}{BE}$ equals",
+          "type": "MCQ",
+          "options": [
+            "$\\sqrt{2} \\cos \\theta$",
+            "$\\frac{(\\sin \\theta + \\cos \\theta)}{\\sqrt{2}}$",
+            "1",
+            "$\\sqrt{2} \\sin \\theta$"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "It is given, Angle BAE = 45 degrees. This implies AE = BE. Let AE = BE = x. In right-angled triangle ABD, it is given $\\angle ABC = \\theta$. $\\sin \\theta = \\frac{AD}{AB}$. $\\sin \\theta = \\frac{AD}{x\\sqrt{2}}$. $\\sqrt{2} \\sin \\theta = \\frac{AD}{BE}$."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q50",
+          "text": "Let $f(x)$ be a quadratic polynomial in $x$ such that $f(x) \\geq 0$ for all real numbers $x$. If $f(2) = 0$ and $f(4) = 6$, then $f(-2)$ is equal to",
+          "type": "MCQ",
+          "options": [
+            "12",
+            "24",
+            "6",
+            "36"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "$f(x) \\geq 0$ for all real numbers $x$, so $D \\leq 0$. Since $f(2)=0$ therefore $x=2$ is a root of $f(x)$. Since the discriminant of $f(x)$ is less than equal to 0 and 2 is a root so we can conclude that $D=0$. Therefore $f(x) = a(x - 2)^2$. $f(4)=6$, or, $6 = a(4 - 2)^2$, $a= 3/2$. $f(-2) = \\frac{3}{2}(-2 - 2)^2 = 24$."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q51",
+          "text": "Let r and c be real numbers. If r and -r are roots of $5x^3 + cx^2 - 10x + 9 = 0$, then c equals",
+          "type": "MCQ",
+          "options": [
+            "-9/2",
+            "9/2",
+            "-4",
+            "4"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let the roots of the given equation be r, -r and p. $r - r + p = -c/5$. $p = -c/5$ (1). $-r^2 - pr + pr = -10/5 = -2$. $r^2 = 2$ (2). $-r^2p = -9/5$. $p = 9/10$ (3). Substituting p in (1), we get $9/10 = -c/5$. $c = -9/2$."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q52",
+          "text": "Two ships meet mid-ocean, and then, one ship goes south and the other ship goes west, both travelling at constant speeds. Two hours later, they are 60 km apart. If the speed of one of the ships is 6 km per hour more than the other one, then the speed, in km per hour, of the slower ship is",
+          "type": "MCQ",
+          "options": [
+            "20",
+            "12",
+            "18",
+            "24"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let the speeds of two ships be 'x' and 'x+6' km per hour. Distance covered in 2 hours will be 2x and 2x+12. It is given, $(2x)^2 + (2x + 12)^2 = 60^2$. $(x)^2 + (x + 6)^2 = 30^2$. $2x^2 + 12x + 36 = 900$. $x^2 + 6x + 18 = 450$. $x^2 + 6x - 432 = 0$. Solving, we get x = 18. The speed of slower ship is 18 kmph."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q53",
+          "text": "Suppose for all integers x, there are two functions f and g such that $f(x) + f(x - 1) - 1 = 0$ and $g(x) = x^2$. If $f(x^2 - x) = 5$, then the value of the sum $f(g(5)) + g(f(5))$ is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "12",
+          "explanation": "Given, $f(x) + f(x - 1) = 1$ (1), $f(x^2 - x) = 5$ (2), $g(x) = x^2$. Substituting x = 1 in (1) and (2), we get $f(0) = 5$. $f(1) + f(0) = 1$, $f(1) = 1 - 5 = -4$. $f(2) + f(1) = 1$, $f(2) = 1 + 4 = 5$. $f(n) = 5$ if n is even and $f(n) = -4$ if n is odd. $f(g(5)) + g(f(5)) = f(25) + g(-4) = -4 + 16 = 12$."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q54",
+          "text": "In an examination, there were 75 questions. 3 marks were awarded for each correct answer, 1 mark was deducted for each wrong answer and 1 mark was awarded for each unattempted question. Rayan scored a total of 97 marks in the examination. If the number of unattempted questions was higher than the number of attempted questions, then the maximum number of correct answers that Rayan could have given in the examination is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "24",
+          "explanation": "Let the number of questions attempted be x+y out of which x are correct and y are incorrect and the number of questions unattempted be z. It is given, x + y + z = 75 (1), 3x - y + z = 97 (2). (2)-(1) -> x - y = 11. (1)+(2) -> 2x + z = 86. z > x + y. z > 75 - z. z > 37.5. Minimum possible value of z is 38. 2x + 38 = 86. 2x = 48. x = 24. The maximum number of correct answers is 24."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q55",
+          "text": "Regular polygons A and B have number of sides in the ratio 1 : 2 and interior angles in the ratio 3 : 4. Then the number of sides of B equals",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "10",
+          "explanation": "Let the number of sides of polygons A and B be n and 2n, respectively. $\\frac{(n-2)180/n}{(2n-2)180/2n} = 3/4$. $\\frac{n-1}{n-2} = 4/3$. 4n - 8 = 3n - 3. n = 5. The number of sides of polygon B is 2*5, i.e. 10."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q56",
+          "text": "In an election, there were four candidates and 80% of the registered voters casted their votes. One of the candidates received 30% of the casted votes while the other three candidates received the remaining casted votes in the proportion 1 : 2 : 3. If the winner of the election received 2512 votes more than the candidate with the second highest votes, then the number of registered voters was",
+          "type": "MCQ",
+          "options": [
+            "50240",
+            "40192",
+            "60288",
+            "62800"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let the number of registered votes be 100x. The number of votes casted = 80x. Votes received by one of the candidates = 30/100 * 80x = 24x. Remaining votes = 80x - 24x = 56x. Votes received by other three candidates is 56x/6, 2*56x/6, 3*56x/6. It is given, 28x - 24x = 2512. 4x = 2512. x = 628. The number of registered votes = 100x = 62800."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q57",
+          "text": "On day one, there are 100 particles in a laboratory experiment. On day n, where $n \\geq 2$, one out of every n articles produces another particle. If the total number of particles in the laboratory experiment increases to 1000 on day m, then m equals",
+          "type": "MCQ",
+          "options": [
+            "19",
+            "16",
+            "18",
+            "17"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Given, the number of particles on day 1 = 100. On day 2, one out of every 2 articles produces another particle. The number of particles on day 2 will be 100/2, i.e. 50 particles. On day 3, one out of every 3 articles produces another particle. The number of particles on day 3 will be 100+50/3, i.e. 50 particles. On day 4, one out of every 4 articles produces another particle. The number of particles on day 4 will be 100+50+50/4, i.e. 50 particles. Series will be 100, 50, 50, 50,.... It is given, 100 + (m-1)50 = 1000. m = 19."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q58",
+          "text": "The number of integers greater than 2000 that can be formed with the digits 0, 1, 2, 3, 4, 5, using each digit at most once, is",
+          "type": "MCQ",
+          "options": [
+            "1440",
+            "1200",
+            "1480",
+            "1420"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Case 1: 4-digit numbers. Given digits - 0, 1, 2, 3, 4, 5. As the numbers should be greater than 2000, first digit can be 2, 3, 4 and 5. For remaining digits, we need to arrange 3 digits from the remaining 5 digits, i.e. 5*4*3 = 60 ways. Total number of possible 4-digit numbers = 4*60 = 240. Case 2: 5-digit numbers. First digit cannot be zero. Therefore, total number of cases = 5*5*4*3*2 = 600. Case 3: 6-digit numbers. First digit cannot be zero. Therefore, total number of cases = 5*5*4*3*2*1 = 600. Total number of integers possible = 600 + 600 + 240 = 1440."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q59",
+          "text": "For some natural number n, assume that (15,000)! is divisible by (n!)!. The largest possible value of n is",
+          "type": "MCQ",
+          "options": [
+            "4",
+            "7",
+            "6",
+            "5"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "To find the largest possible value of n, we need to find the value of n such that n! is less than 15000. 7! = 5040. 8! = 40320 > 15000. This implies 15000! is not divisible by 40320!. Therefore, maximum value n can take is 7."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q60",
+          "text": "Working alone, the times taken by Anu, Tanu and Manu to complete any job are in the ratio 5 : 8 : 10. They accept a job which they can finish in 4 days if they all work together for 8 hours per day. However, Anu and Tanu work together for the first 6 days, working 6 hours 40 minutes per day. Then, the number of hours that Manu will take to complete the remaining job working alone is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "Let the time taken by Anu, Tanu and Manu be 5x, 8x and 10x hours. Total work = LCM(5x, 8x, 10x) = 40x. Anu can complete 8 units in one hour. Tanu can complete 5 units in one hour. Manu can complete 4 units in one hour. It is given, three of them together can complete in 32 hours. 32(8 + 5 + 4) = 40x. x = 68/5. It is given, Anu and Tanu work together for the first 6 days, working 6 hours 40 minutes per day, i.e. 36 + 4 = 40 hours. 40(8 + 5) + y(4) = 40x. 4y = 24. y = 6. Manu alone will complete the remaining work in 6 hours."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": "| Initially | 1st-Sugar syrup-100L | 2nd - Milk - 100L |\n|---|---|---|\n| After step 1 | Sugar Syrup - 50L | SS- 50L, Milk - 100L |\n| After step 2 | SS - 50+25 = 75L Milk - 50L | SS - 25L, Milk - 50L |\n| After step 3 | Milk - 25L SS - 37.5L | Milk - 50 + 25 = 75L SS - 25 + 37.5 = 62.5L |",
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q61",
+          "text": "There are two containers of the same volume, first container half-filled with sugar syrup and the second container half-filled with milk. Half the content of the first container is transferred to the second container, and then the half of this mixture is transferred back to the first container. Next, half the content of the first container is transferred back to the second container. Then the ratio of sugar syrup and milk in the second container is",
+          "type": "MCQ",
+          "options": [
+            "4 : 5",
+            "6 : 5",
+            "5 : 4",
+            "5 : 6"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Step 1: Half the content of the first container is transferred to the second container. Step 2: Half of the mixture of second container is transferred back to the first container. Step 3: Half the content of the first container is transferred back to the second container. Sugar syrup : Milk in second container = 62.5 : 75 = 5 : 6. The answer is option D."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q62",
+          "text": "Consider the arithmetic progression 3, 7, 11, ... and let $A_n$ denote the sum of the first n terms of this progression. Then the value of $\\frac{1}{25} \\sum_{n=1}^{25} A_n$ is",
+          "type": "MCQ",
+          "options": [
+            "455",
+            "442",
+            "415",
+            "404"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Sum of n terms in an A.P = $\\frac{n}{2} (2a + (n - 1) d)$. $A_n = \\frac{n}{2} (6 + (n - 1) 4) = n(2n + 1)$. $\\sum A_n = \\sum n(2n + 1) = 2\\sum n^2 + \\sum n = \\frac{2n(n + 1)(2n + 1)}{6} + \\frac{n(n + 1)}{2}$. Substituting n = 25, we get $\\frac{1}{25} \\sum_{n=1}^{25} A_n = \\frac{1}{25} (\\frac{2(25)(26)(51)}{6} + \\frac{25(26)}{2}) = 26(17) + 13 = 455$. The answer is option A."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q63",
+          "text": "The number of distinct integer values of n satisfying $\\frac{4-\\log_2 n}{3-\\log_2 n} < 0$, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "47",
+          "explanation": "Let $\\log_2 n = y$. $\\frac{4-y}{3-y} < 0$. $(4-y)(3-y) < 0$. $(y-4)(y-3) < 0$. $3 < y < 4$. $3 < \\log_2 n < 4$. $2^3 < n < 2^4$. $8 < n < 16$. Wait, the OCR says $\\frac{4-\\log_2 n}{3-\\log_2 n} < 0$. The solution says $4 < y < 6$ leading to $16 < n < 64$. The number of values is 47."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q64",
+          "text": "If a and b are non-negative real numbers such that a+ 2b = 6, then the average of the maximum and minimum possible values of (a+ b) is",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "4",
+            "3.5",
+            "4.5"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "a + 2b = 6. From the above equation, we can say that maximum value b can take is 3 and minimum value b can take is 0. a + b + b = 6. a + b = 6 - b. a + b is maximum when b is minimum, i.e. b = 0. Maximum value of a + b = 6 - 0 = 6. a + b is minimum when b is maximum, i.e. b = 3. Minimum value of a + b = 6 - 3 = 3. Average = $\\frac{6+3}{2} = 4.5$. The answer is option D."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q65",
+          "text": "Five students, including Amit, appear for an examination in which possible marks are integers between 0 and 50, both inclusive. The average marks for all the students is 38 and exactly three students got more than 32. If no two students got the same marks and Amit got the least marks among the five students, then the difference between the highest and lowest possible marks of Amit is",
+          "type": "MCQ",
+          "options": [
+            "22",
+            "21",
+            "24",
+            "20"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The average marks for all the students is 38. Sum = 5*38 = 190. To find the minimum marks scored by Amit, we need to maximise the score of remaining students. Maximum scores sum of remaining students = 50 + 49 + 48 + 32 = 179. Minimum possible score of Amit = 190 - 179 = 11. It is given, Amit scored least. This implies maximum possible score of Amit is 31. Difference = 31 - 11 = 20. The answer is option D."
+        },
+        {
+          "id": "CAT_2022_Slot_2_Question_Paper_by_Cracku_q66",
+          "text": "The length of each side of an equilateral triangle ABC is 3 cm. Let D be a point on BC such that the area of triangle ADC is half the area of triangle ABD. Then the length of AD, in cm, is",
+          "type": "MCQ",
+          "options": [
+            "\\sqrt{8}",
+            "\\sqrt{6}",
+            "\\sqrt{7}",
+            "\\sqrt{5}"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Area of triangle ABD is twice the area of triangle ACD. Therefore, BD = 2 and CD = 1. Applying cosine rule in triangle ADC, we get $\\cos \\angle ACD = \\frac{AC^2 + CD^2 - AD^2}{2(AC)(CD)}$. $\\frac{1}{2} = \\frac{9 + 1 - AD^2}{6}$. $AD^2 = 7$. $AD = \\sqrt{7}$. The answer is option C."
+        }
+      ]
+    }
+  ]
+}

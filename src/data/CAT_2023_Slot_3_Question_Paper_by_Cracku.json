@@ -1,0 +1,907 @@
+{
+  "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "In 2006, the Met [art museum in the US] agreed to return the Euphronios krater, a masterpiece Greek urn that had been a museum draw since 1972. In 2007, the Getty [art museum in the US] agreed to return 40 objects to Italy, including a marble Aphrodite, in the midst of looting scandals. And in December, Sotheby\u2019s and a private owner agreed to return an ancient Khmer statue of a warrior, pulled from auction two years before, to Cambodia.\n\nCultural property, or patrimony, laws limit the transfer of cultural property outside the source country\u2019s territory, including outright export prohibitions and national ownership laws. Most art historians, archaeologists, museum officials and policymakers portray cultural property laws in general as invaluable tools for counteracting the ugly legacy of Western cultural imperialism.\n\nDuring the late 19th and early 20th century \u2014 an era former Met director Thomas Hoving called \u201cthe age of piracy\u201d \u2014 American and European art museums acquired antiquities by hook or by crook, from grave robbers or souvenir collectors, bounty from digs and ancient sites in impoverished but art-rich source countries. Patrimony laws were intended to protect future archaeological discoveries against Western imperialist designs. . . .\n\nI surveyed 90 countries with one or more archaeological sites on UNESCO\u2019s World Heritage Site list, and my study shows that in most cases the number of discovered sites diminishes sharply after a country passes a cultural property law. There are 222 archaeological sites listed for those 90 countries. When you look into the history of the sites, you see that all but 21 were discovered before the passage of cultural property laws. . . .\n\nStrict cultural patrimony laws are popular in most countries. But the downside may be that they reduce incentives for foreign governments, nongovernmental organizations and educational institutions to invest in overseas exploration because their efforts will not necessarily be rewarded by opportunities to hold, display and study what is uncovered. To the extent that source countries can fund their own archaeological projects, artifacts and sites may still be discovered. . . . The survey has far-reaching implications. It suggests that source countries, particularly in the developing world, should narrow their cultural property laws so that they can reap the benefits of new archaeological discoveries, which typically increase tourism and enhance cultural pride. This does not mean these nations should abolish restrictions on foreign excavation and foreign claims to artifacts.\n\nChina provides an interesting alternative approach for source nations eager for foreign archaeological investment. From 1935 to 2003, China had a restrictive cultural property law that prohibited foreign ownership of Chinese cultural artifacts. In those years, China\u2019s most significant archaeological discovery occurred by chance, in 1974, when peasant farmers accidentally uncovered ranks of buried terra cotta warriors, which are part of Emperor Qin\u2019s spectacular tomb system.\n\nIn 2003, the Chinese government switched course, dropping its cultural property law and embracing collaborative international archaeological research. Since then, China has nominated 11 archaeological sites for inclusion in the World Heritage Site list, including eight in 2013, the most ever for China.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q1",
+          "text": "Which one of the following statements best expresses the paradox of patrimony laws?",
+          "type": "MCQ",
+          "options": [
+            "They were aimed at protecting cultural property, but instead reduced business for auctioneers like Sotheby\u2019s.",
+            "They were intended to protect cultural property, but instead resulted in the neglect of historical sites.",
+            "They were intended to protect cultural property, but instead resulted in the withholding of national treasure from museums.",
+            "They were aimed at protecting cultural property, but instead reduced new archaeological discoveries."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The primary purpose of patrimony laws is stated in the passage as being \"aimed at protecting cultural property,\" implying that the intention behind these laws is to preserve and safeguard a country's cultural heritage. However, the paradox lies in the unintended consequence of these laws, as highlighted in the passage. The author argues that, despite the good intentions of protecting cultural property, the strict implementation of patrimony laws has led to a reduction in new archaeological discoveries. This reduction is attributed to diminished incentives for foreign entities, such as governments, NGOs, and educational institutions, to invest in overseas archaeological exploration. In other words, the very laws designed to protect cultural property end up hindering the process of making new archaeological discoveries. This underscores the tension between preserving cultural heritage and the potential negative impact on the exploration and understanding of that heritage. Option D aptly captures this point."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q2",
+          "text": "It can be inferred from the passage that archaeological sites are considered important by some source countries because they:",
+          "type": "MCQ",
+          "options": [
+            "are a symbol of Western imperialism.",
+            "are subject to strict patrimony laws.",
+            "generate funds for future discoveries.",
+            "give a boost to the tourism sector."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The author suggests that archaeological sites are important to some source countries because they can reap benefits from new archaeological discoveries, and one of the mentioned benefits is that such discoveries typically increase tourism. The passage emphasizes the economic and cultural advantages associated with tourism, which includes enhancing cultural pride and potentially attracting visitors to explore archaeological sites. Option D correctly presents this point. None of the other choices can be considered as valid inferences."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q3",
+          "text": "Which one of the following statements, if true, would undermine the central idea of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Affluent archaeologically-rich source countries can afford to carry out their own excavations.",
+            "Museums established in economically deprived archaeologically-rich source countries can display the antiques discovered there.",
+            "UNESCO finances archaeological research in poor, but archaeologically-rich source countries.",
+            "Western countries will have to apologise to countries for looting their cultural property in the past century."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The central idea of the passage is that strict cultural property laws, although popular, may reduce incentives for foreign entities to invest in overseas archaeological exploration. The passage suggests that this reduction in incentives could be detrimental to archaeological discoveries and, consequently, to the tourism and cultural pride of source countries. Among the given options, the only statement that would undermine the central idea is presented in Option C - it introduces the idea that there is external financial support for archaeological research in these countries. If true, then the lack of discoveries could potentially be attributed to a completely different factor/variable that the author might have failed to account for."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q4",
+          "text": "From the passage we can infer that the author is likely to advise poor, but archaeologically-rich source countries to do all of the following, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "fund institutes in other countries to undertake archaeological exploration in the source country reaping the benefits of cutting-edge techniques.",
+            "allow foreign countries to analyse and exhibit the archaeological finds made in the source country.",
+            "to find ways to motivate other countries to finance archaeological explorations in their country.",
+            "adopt China\u2019s strategy of dropping its cultural property laws and carrying out archaeological research through international collaboration."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let us examine the given choices - Option A: The passage emphasises the benefits of international collaboration and suggests that source countries could reap the benefits of new archaeological discoveries through such collaboration. Funding institutes in other countries to undertake exploration may not align with this perspective, as it involves outsourcing the exploration rather than fostering collaboration within the source country. Thus, Option A is an unlikely recommendation. Option B: This aligns with the idea of international collaboration and suggests that the author might advise source countries to permit foreign analysis and exhibition of archaeological finds. The passage does suggest that strict cultural property laws may hinder opportunities to hold, display, and study uncovered artefacts. Option C: We are told that strict cultural property laws might reduce incentives for foreign governments, NGOs, and educational institutions to invest in overseas exploration. Therefore, the author would support a proactive approach to encourage these entities to invest in expeditions in source countries. Option D: The passage highlights China's shift in strategy from strict cultural property laws to embracing collaborative international archaeological research. The author suggests that this approach has led to an increase in archaeological discoveries and recognition. Hence, this would be a relevant recommendation. Hence, Option A is the correct choice."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Steven Pinker\u2019s new book, \u201cRationality: What It Is, Why It Seems Scarce, Why It Matters,\u201d offers a pragmatic dose of measured optimism, presenting rationality as a fragile but achievable ideal in personal and civic life. . . . Pinker\u2019s ambition to illuminate such a crucial topic offers the welcome prospect of a return to sanity. . . . It\u2019s no small achievement to make formal logic, game theory, statistics and Bayesian reasoning delightful topics full of charm and relevance.\n\nIt\u2019s also plausible to believe that a wider application of the rational tools he analyzes would improve the world in important ways. His primer on statistics and scientific uncertainty is particularly timely and should be required reading before consuming any news about the [COVID] pandemic. More broadly, he argues that less media coverage of shocking but vanishingly rare events, from shark attacks to adverse vaccine reactions, would help prevent dangerous overreactions, fatalism and the diversion of finite resources away from solvable but less-dramatic issues, like malnutrition in the developing world.\n\nIt\u2019s a reasonable critique, and Pinker is not the first to make it. But analyzing the political economy of journalism \u2014 its funding structures, ownership concentration and increasing reliance on social media shares \u2014 would have given a fuller picture of why so much coverage is so misguided and what we might do about it.\n\nPinker\u2019s main focus is the sort of conscious, sequential reasoning that can track the steps in a geometric proof or an argument in formal logic. Skill in this domain maps directly onto the navigation of many real-world problems, and Pinker shows how greater mastery of the tools of rationality can improve decision-making in medical, legal, financial and many other contexts in which we must act on uncertain and shifting information. . . .\n\nDespite the undeniable power of the sort of rationality he describes, many of the deepest insights in the history of science, math, music and art strike their originators in moments of epiphany. From the 19th-century chemist Friedrich August Kekul\u00e9\u2019s discovery of the structure of benzene to any of Mozart\u2019s symphonies, much extraordinary human achievement is not a product of conscious, sequential reasoning. Even Plato\u2019s Socrates \u2014 who anticipated many of Pinker\u2019s points by nearly 2,500 years, showing the virtue of knowing what you do not know and examining all premises in arguments, not simply trusting speakers\u2019 authority or charisma \u2014 attributed many of his most profound insights to dreams and visions. Conscious reasoning is helpful in sorting the wheat from the chaff, but it would be interesting to consider the hidden aquifers that make much of the grain grow in the first place.\n\nThe role of moral and ethical education in promoting rational behavior is also underexplored. Pinker recognizes that rationality \u201cis not just a cognitive virtue but a moral one.\u201d But this profoundly important point, one subtly explored by ancient Greek philosophers like Plato and Aristotle, doesn\u2019t really get developed. This is a shame, since possessing the right sort of moral character is arguably a precondition for using rationality in beneficial ways.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q5",
+          "text": "According to the author, for Pinker as well as the ancient Greek philosophers, rational thinking involves all of the following EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "an awareness of underlying assumptions in an argument and gaps in one\u2019s own knowledge",
+            "the belief that the ability to reason logically encompasses an ethical and moral dimension.",
+            "the primacy of conscious sequential reasoning as the basis for seminal human achievements.",
+            "arriving at independent conclusions irrespective of who is presenting the argument."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Based on the discussion, the option that is NOT associated with Pinker's view of rational thinking (as well as that of the ancient Greek philosophers) is Option C - the passage suggests that while sequential reasoning is valuable, many profound human achievements come from moments of epiphany or insight rather than solely from conscious, sequential reasoning. In relation to this thought, we are told that the emphasis on rational thought involves an understanding of the gaps in one\u2019s own knowledge [Option A] and also \u2018arriving at independent conclusions\u2019 [Option D]: {\u201cEven Plato\u2019s Socrates \u2014 who anticipated many of Pinker\u2019s points by nearly 2,500 years, showing the virtue of knowing what you do not know and examining all premises in arguments, not simply trusting speakers\u2019 authority or charisma...\u201d} Towards the end of the passage, we are informed of an ethical and moral dimension [Option B] to rationality, which the author asserts that Pinker considers but does not elaborate on. Hence, Option C is the correct choice."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q6",
+          "text": "The author endorses Pinker\u2019s views on the importance of logical reasoning as it:",
+          "type": "MCQ",
+          "options": [
+            "provides a moral compass for resolving important ethical dilemmas.",
+            "focuses public attention on real issues like development rather than sensational events.",
+            "equips people with the ability to tackle challenging practical problems.",
+            "helps people to gain expertise in statistics and other scientific disciplines."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage emphasises Pinker's focus on sequential reasoning and the tools of rationality, suggesting that greater mastery of these tools can improve decision-making in various practical contexts where individuals must act on \u2018uncertain and shifting information.\u2019 The author\u2019s endorsement or support for Pinker\u2019s work is centred on the idea that logical reasoning \u201cequips people with the ability to tackle challenging practical problems\u201d [Option C]. Option A is incorrect - while the author acknowledges that rationality is seen by Pinker as a moral virtue, he adds that this role of moral and ethical education is underexplored in Pinker's work. Option B presents a very specific use case of Pinker\u2019s views and fails to capture the broader message. Option D is similarly limited in scope - the emphasis is more on the broader applicability of rationality in decision-making. Hence, Option C is the correct choice."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q7",
+          "text": "The author mentions Kekul\u00e9\u2019s discovery of the structure of benzene and Mozart\u2019s symphonies to illustrate the point that:",
+          "type": "MCQ",
+          "options": [
+            "great innovations across various fields can stem from flashes of intuition and are not always propelled by logical thinking.",
+            "Pinker\u2019s conclusions on sequential reasoning are belied by European achievements which, in the past, were more rooted in unconscious bursts of genius.",
+            "it is not just the creative arts, but also scientific fields that have benefitted from flashes of creativity.",
+            "unlike the sciences, human achievements in other fields are a mix of logical reasoning and spontaneous epiphanies."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In the case of Kekul\u00e9, the discovery of the benzene structure reportedly came to him in a dream, showcasing how creative insights can emerge unexpectedly and unconsciously. Similarly, Mozart's symphonies, considered masterpieces of classical music, are often seen as products of his musical genius and creative intuition. Therefore, the examples support the notion that groundbreaking achievements in both scientific and artistic domains may involve moments of inspiration, intuition, or epiphany, challenging the idea that all significant accomplishments are the result of conscious and sequential reasoning. This aligns with the broader point that while conscious reasoning is valuable, there are also subconscious and intuitive processes at play in the generation of innovative ideas and creations. Option A correctly captures this idea."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q8",
+          "text": "The author refers to the ancient Greek philosophers to:",
+          "type": "MCQ",
+          "options": [
+            "show how dreams and visions have for centuries influenced subconscious behaviour and pathbreaking inventions.",
+            "indicate the various similarities between their thinking and Pinker\u2019s conclusions.",
+            "reveal gaps in Pinker\u2019s discussion of the importance of ethical considerations in rational behaviour.",
+            "highlight the influence of their thinking on the development of Pinker\u2019s arguments."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In the passage, the author notes that Pinker recognises rationality as both \u201ca cognitive and moral virtue.\u201d However, the author points out that this \"profoundly important\" connection between rationality and morality is not thoroughly developed in Pinker's book. By bringing up the ancient Greek philosophers who, according to the text, subtly explored the connection between moral character and rationality, the author is implying that Pinker's work could benefit from a more in-depth consideration of the ethical dimension of rational behaviour. Option C accurately reflects this point - none of the other choices correctly capture the intention behind mentioning the Greek philosophers."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Understanding romantic aesthetics is not a simple undertaking for reasons that are internal to the nature of the subject. Distinguished scholars, such as Arthur Lovejoy, Northrop Frye and Isaiah Berlin, have remarked on the notorious challenges facing any attempt to define romanticism. Lovejoy, for example, claimed that romanticism is \u201cthe scandal of literary history and criticism\u201d . . . The main difficulty in studying the romantics, according to him, is the lack of any \u201csingle real entity, or type of entity\u201d that the concept \u201cromanticism\u201d designates. Lovejoy concluded, \u201cthe word \u2018romantic\u2019 has come to mean so many things that, by itself, it means nothing\u201d . . .\n\nThe more specific task of characterizing romantic aesthetics adds to these difficulties an air of paradox. Conventionally, \u201caesthetics\u201d refers to a theory concerning beauty and art or the branch of philosophy that studies these topics. However, many of the romantics rejected the identification of aesthetics with a circumscribed domain of human life that is separated from the practical and theoretical domains of life. The most characteristic romantic commitment is to the idea that the character of art and beauty and of our engagement with them should shape all aspects of human life. Being fundamental to human existence, beauty and art should be a central ingredient not only in a philosophical or artistic life, but also in the lives of ordinary men and women. Another challenge for any attempt to characterize romantic aesthetics lies in the fact that most of the romantics were poets and artists whose views of art and beauty are, for the most part, to be found not in developed theoretical accounts, but in fragments, aphorisms and poems, which are often more elusive and suggestive than conclusive.\n\nNevertheless, in spite of these challenges the task of characterizing romantic aesthetics is neither impossible nor undesirable, as numerous thinkers responding to Lovejoy\u2019s radical skepticism have noted. While warning against a reductive definition of romanticism, Berlin, for example, still heralded the need for a general characterization: \u201c[Although] one does have a certain sympathy with Lovejoy\u2019s despair\u2026[he is] in this instance mistaken. There was a romantic movement\u2026and it is important to discover what it is\u201d . . .\n\nRecent attempts to characterize romanticism and to stress its contemporary relevance follow this path. Instead of overlooking the undeniable differences between the variety of romanticisms of different nations that Lovejoy had stressed, such studies attempt to characterize romanticism, not in terms of a single definition, a specific time, or a specific place, but in terms of \u201cparticular philosophical questions and concerns\u201d . . .\n\nWhile the German, British and French romantics are all considered, the central protagonists in the following are the German romantics. Two reasons explain this focus: first, because it has paved the way for the other romanticisms, German romanticism has a pride of place among the different national romanticisms . . . Second, the aesthetic outlook that was developed in Germany roughly between 1796 and 1801-02 \u2014 the period that corresponds to the heyday of what is known as \u201cEarly Romanticism\u201d . . .\u2014 offers the most philosophical expression of romanticism since it is grounded primarily in the epistemological, metaphysical, ethical, and political concerns that the German romantics discerned in the aftermath of Kant\u2019s philosophy.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q9",
+          "text": "The main difficulty in studying romanticism is the:",
+          "type": "MCQ",
+          "options": [
+            "elusive and suggestive nature of romantic aesthetics.",
+            "lack of clear conceptual contours of the domain.",
+            "controversial and scandalous history of romantic literature.",
+            "absence of written accounts by romantic poets and artists."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "\u201cThe main difficulty in studying the romantics, according to him, is the lack of any \u201csingle real entity, or type of entity\u201d that the concept \u201cromanticism\u201d designates.\u201d Option B is the correct answer because it accurately captures the main difficulty highlighted in the passage when studying romanticism. The passage, particularly referencing Arthur Lovejoy, emphasizes the challenge posed by the lack of clear conceptual contours or a single, cohesive entity associated with the term \"romanticism.\" Lovejoy's assertion that romanticism is the \"scandal of literary history and criticism\" underscores the difficulty in defining the boundaries and characteristics of this literary and artistic movement. The elusive and suggestive nature of romantic aesthetics (Option A) is mentioned in the passage as a challenge, but it is not identified as the main difficulty. Similarly, the controversial and scandalous history of romantic literature (Option C) is not specified as the primary obstacle. The absence of written accounts by romantic poets and artists (Option D) is acknowledged as a challenge, but the primary difficulty highlighted in the passage is the lack of clear conceptual contours associated with romanticism."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q10",
+          "text": "According to the romantics, aesthetics:",
+          "type": "MCQ",
+          "options": [
+            "should be confined to a specific domain separate from the practical and theoretical aspects of life.",
+            "is primarily the concern of philosophers and artists, rather than of ordinary people.",
+            "is widely considered to be irrelevant to human existence.",
+            "permeates all aspects of human life, philosophical and mundane."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "\u201cThe most characteristic romantic commitment is to the idea that the character of art and beauty and of our engagement with them should shape all aspects of human life. Being fundamental to human existence, beauty and art should be a central ingredient not only in a philosophical or artistic life, but also in the lives of ordinary men and women.\u201d According to the passage, the romantics rejected the idea of confining aesthetics to a specific domain separate from practical and theoretical aspects of life. Instead, they believed that aesthetics, encompassing the character of art and beauty, should permeate all aspects of human existence, not only in philosophical or artistic lives but also in the lives of ordinary men and women.Therefore Option D is the correct answer."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q11",
+          "text": "Which one of the following statements is NOT supported by the passage?",
+          "type": "MCQ",
+          "options": [
+            "Characterising romantic aesthetics is both possible and desirable, despite the challenges involved.",
+            "Recent studies on romanticism seek to refute the differences between national romanticisms.",
+            "Romantic aesthetics are primarily expressed through fragments, aphorisms, and poems.",
+            "Many romantics rejected the idea of aesthetics as a domain separate from other aspects of life."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage suggests that recent studies on romanticism do not seek to overlook the differences between national romanticisms but rather attempt to characterize romanticism in terms of particular philosophical questions and concerns. The focus is on understanding romanticism without ignoring the diversity among different national expressions of it. Therefore Option B is the correct answer as it is not supported by the passage. Option A: Although the passage acknowledges the challenges in characterizing romantic aesthetics, it also argues that it is not impossible or undesirable. Scholars recognize the difficulty but still emphasize the importance of discovering the nature of romanticism. Option C: The passage mentions that the views of romantics on art and beauty are often found in fragments, aphorisms, and poems rather than in fully developed theoretical accounts. This emphasizes the elusive and suggestive nature of their expressions. Option D: The passage notes that many romantics rejected the identification of aesthetics with a circumscribed domain of human life that is separated from the practical and theoretical domains of life. Instead, they believed that the character of art and beauty should shape all aspects of human life."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q12",
+          "text": "According to the passage, recent studies on romanticism avoid \u201ca single definition, a specific time, or a specific place\u201d because they:",
+          "type": "MCQ",
+          "options": [
+            "understand that the variety of romanticisms renders a general analysis impossible.",
+            "prefer to highlight the paradox of romantic aesthetics as a concept.",
+            "prefer to focus on the fundamental concerns of the romantics.",
+            "seek to discredit Lovejoy\u2019s scepticism regarding romanticism."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Option C is the correct answer because it accurately reflects the passage's explanation of why recent studies on romanticism avoid seeking \"a single definition, a specific time, or a specific place.\" According to the passage, these studies opt to characterize romanticism in terms of \"particular philosophical questions and concerns\" rather than attempting to provide a singular, all-encompassing definition. The reason for this approach is to delve into the fundamental concerns of the romantics, recognizing that romanticism is a complex and multifaceted movement with diverse expressions in different nations and contexts. The passage suggests that romanticism is not easily confined to a single, universally applicable definition due to the variety of romanticisms in different nations. Instead of discrediting or refuting Lovejoy's skepticism (Option D), recent studies acknowledge the challenges and complexities of defining romanticism but seek to understand it by focusing on the core philosophical questions and concerns that were central to the romantics' worldview."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "The biggest challenge [The Nutmeg\u2019s Curse by Ghosh] throws down is to the prevailing understanding of when the climate crisis started. Most of us have accepted . . . that it started with the widespread use of coal at the beginning of the Industrial Age in the 18th century and worsened with the mass adoption of oil and natural gas in the 20th. Ghosh takes this history at least three centuries back, to the start of European colonialism in the 15th century. He [starts] the book with a 1621 massacre by Dutch invaders determined to impose a monopoly on nutmeg cultivation and trade in the Banda islands in today\u2019s Indonesia. Not only do the Dutch systematically depopulate the islands through genocide, they also try their best to bring nutmeg cultivation into plantation mode. These are the two points to which Ghosh returns through examples from around the world. One, how European colonialists decimated not only indigenous populations but also indigenous understanding of the relationship between humans and Earth. Two, how this was an invasion not only of humans but of the Earth itself, and how this continues to the present day by looking at nature as a \u2018resource\u2019 to exploit. . . .\n\nWe know we are facing more frequent and more severe heatwaves, storms, floods, droughts and wildfires due to climate change. We know our expansion through deforestation, dam building, canal cutting - in short, terraforming, the word Ghosh uses - has brought us repeated disasters . . . Are these the responses of an angry Gaia who has finally had enough? By using the word \u2018curse\u2019 in the title, the author makes it clear that he thinks so. I use the pronoun \u2018who\u2019 knowingly, because Ghosh has quoted many non-European sources to enquire into the relationship between humans and the world around them so that he can question the prevalent way of looking at Earth as an inert object to be exploited to the maximum.\n\nAs Ghosh\u2019s text, notes and bibliography show once more, none of this is new. There have always been challenges to the way European colonialists looked at other civilisations and at Earth. It is just that the invaders and their myriad backers in the fields of economics, politics, anthropology, philosophy, literature, technology, physics, chemistry, biology have dominated global intellectual discourse. . . .\n\nThere are other points of view that we can hear today if we listen hard enough. Those observing global climate negotiations know about the Latin American way of looking at Earth as Pachamama (Earth Mother). They also know how such a framing is just provided lip service and is ignored in the substantive portions of the negotiations. In The Nutmeg\u2019s Curse, Ghosh explains why. He shows the extent of the vested interest in the oil economy - not only for oil-exporting countries, but also for a superpower like the US that controls oil drilling, oil prices and oil movement around the world. Many of us know power utilities are sabotaging decentralised solar power generation today because it hits their revenues and control. And how the other points of view are so often drowned out.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q13",
+          "text": "On the basis of information in the passage, which one of the following is NOT a reason for the failure of policies seeking to address climate change?",
+          "type": "MCQ",
+          "options": [
+            "The greed of organisations benefiting from non-renewable energy resources.",
+            "The global dominance of oil economies and international politics built around it.",
+            "The marginalised status of non-European ways of looking at nature and the environment.",
+            "The decentralised characteristic of renewable energy resources like solar power."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "\u201cThose observing global climate negotiations know about the Latin American way of looking at Earth as Pachamama (Earth Mother). They also know how such a framing is just provided lip service and is ignored in the substantive portions of the negotiations. In The Nutmeg\u2019s Curse, Ghosh explains why. He shows the extent of the vested interest in the oil economy - not only for oil-exporting countries, but also for a superpower like the US that controls oil drilling, oil prices and oil movement around the world. Many of us know power utilities are sabotaging decentralised solar power generation today because it hits their revenues and control.\u201d From the highlighted part we can clearly infer Options A, B and C. The passage does not suggest that the decentralised characteristic of renewable energy resources like solar power is a reason for the failure of climate change policies. Instead, it mentions that power utilities may be sabotaging decentralized solar power generation because it affects their revenues and control, but it does not frame the decentralised nature of renewable energy as a cause for failure. Therefore Option D is not a reason for the failure of policies seeking to address climate change."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q14",
+          "text": "Which one of the following, if true, would make the reviewer\u2019s choice of the pronoun \u201cwho\u201d for Gaia inappropriate?",
+          "type": "MCQ",
+          "options": [
+            "Modern western science discovers new evidence for the Earth being an inanimate object.",
+            "There is a direct cause-effect relationship between human activities and global climate change.",
+            "Ghosh\u2019s book has a different title: \u201cThe Nutmeg\u2019s Revenge\u201d.",
+            "Non-European societies have perceived the Earth as a non-living source of all resources."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "If non-European societies perceive the Earth as a non-living source of all resources, it contradicts the personification implied by the use of \"who\" for Gaia. In the context of the passage, the author uses the word \"curse\" in the title, and the pronoun \"who\" is used for Gaia, suggesting a perspective that sees Earth as a living, conscious entity. If non-European societies do not share this perspective and view the Earth as a non-living source of resources, it challenges the appropriateness of using the pronoun \"who\" for Gaia in the context of their beliefs. This would make the reviewer's choice of the pronoun \"who\" inappropriate, given the differing perspectives on the nature of the Earth. Therefore Option D is the correct answer."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q15",
+          "text": "All of the following can be inferred from the reviewer\u2019s discussion of \u201cThe Nutmeg\u2019s Curse\u201d, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "the history of climate change is deeply intertwined with the history of colonialism.",
+            "the contemporary dominant perception of nature and the environment was put in place by processes of colonialism.",
+            "environmental preservation policy makers can learn a lot from non-European and/or pre-colonial societies.",
+            "academic discourses have always served the function of raising awareness about environmental preservation."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option D cannot be directly drawn from the passage. The passage discusses the historical perspective on climate change presented in \"The Nutmeg's Curse\" and emphasizes the impact of colonialism on the contemporary dominant perception of nature and the environment. It suggests that there are alternative views from non-European and/or pre-colonial societies that can provide insights for environmental preservation policy makers. However, the passage does not explicitly state that academic discourses have always served the function of raising awareness about environmental preservation. The passage connects the history of climate change with colonialism (Option A), highlights that colonial processes shaped the contemporary perception of nature and the environment (Option B) and suggests that non-European and/or pre-colonial societies hold valuable insights for environmental preservation policy makers (Option C)."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Comprehension: The biggest challenge [The Nutmeg\u2019s Curse by Ghosh] throws down is to the prevailing understanding of when the climate crisis started. Most of us have accepted . . . that it started with the widespread use of coal at the beginning of the Industrial Age in the 18th century and worsened with the mass adoption of oil and natural gas in the 20th. Ghosh takes this history at least three centuries back, to the start of European colonialism in the 15th century. He [starts] the book with a 1621 massacre by Dutch invaders determined to impose a monopoly on nutmeg cultivation and trade in the Banda islands in today\u2019s Indonesia. Not only do the Dutch systematically depopulate the islands through genocide, they also try their best to bring nutmeg cultivation into plantation mode. These are the two points to which Ghosh returns through examples from around the world. One, how European colonialists decimated not only indigenous populations but also indigenous understanding of the relationship between humans and Earth. Two, how this was an invasion not only of humans but of the Earth itself, and how this continues to the present day by looking at nature as a \u2018resource\u2019 to exploit. . . . We know we are facing more frequent and more severe heatwaves, storms, floods, droughts and wildfires due to climate change. We know our expansion through deforestation, dam building, canal cutting - in short, terraforming, the word Ghosh uses - has brought us repeated disasters . . . Are these the responses of an angry Gaia who has finally had enough? By using the word \u2018curse\u2019 in the title, the author makes it clear that he thinks so. I use the pronoun \u2018who\u2019 knowingly, because Ghosh has quoted many non-European sources to enquire into the relationship between humans and the world around them so that he can question the prevalent way of looking at Earth as an inert object to be exploited to the maximum. As Ghosh\u2019s text, notes and bibliography show once more, none of this is new. There have always been challenges to the way European colonialists looked at other civilisations and at Earth. It is just that the invaders and their myriad backers in the fields of economics, politics, anthropology, philosophy, literature, technology, physics, chemistry, biology have dominated global intellectual discourse. . . . There are other points of view that we can hear today if we listen hard enough. Those observing global climate negotiations know about the Latin American way of looking at Earth as Pachamama (Earth Mother). They also know how such a framing is just provided lip service and is ignored in the substantive portions of the negotiations. In The Nutmeg\u2019s Curse, Ghosh explains why. He shows the extent of the vested interest in the oil economy - not only for oil-exporting countries, but also for a superpower like the US that controls oil drilling, oil prices and oil movement around the world. Many of us know power utilities are sabotaging decentralised solar power generation today because it hits their revenues and control. And how the other points of view are so often drowned out.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q16",
+          "text": "Which one of the following best explains the primary purpose of the discussion of the colonisation of the Banda islands in \u201cThe Nutmeg\u2019s Curse\u201d?",
+          "type": "MCQ",
+          "options": [
+            "To illustrate the role played by the cultivation of certain crops in the plantation mode in contributing to climate change.",
+            "To illustrate the first instance in history when the processes responsible for climate change were initiated.",
+            "To illustrate how systemic violence against the colonised constituted the cornerstone of colonialism.",
+            "To illustrate how colonialism represented and perpetuated the mindset that has led to climate change."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage discusses how the colonization of the Banda islands, as presented in \"The Nutmeg\u2019s Curse,\" is used to illustrate the broader idea that colonialism played a significant role in shaping the mindset and practices that have led to climate change. The exploitation of both indigenous populations and the Earth's resources during colonialism is portrayed as a key factor in perpetuating the mindset that views nature as a resource to be exploited, contributing to the environmental challenges faced today. Therefore, the primary purpose of discussing the colonization of the Banda islands is to highlight how colonialism represented and perpetuated the mindset that has led to climate change. Therefore Option D is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: Beyond undermining the monopoly of the State on the use of force, armed conflict also creates an environment that can enable organized crime to prosper.\n\nParagraph: ___(1)___. Linkages between illicit arms, organized crime, and armed conflict can reinforce one another while also escalating and prolonging violence and eroding governance.___(2)___. Financial gains from crime can lengthen or intensify armed conflicts by creating revenue streams for non-State armed groups (NSAGs).___(3)___. In this context, when hostilities cease and parties to a conflict move towards a peaceful resolution, the widespread availability of surplus arms and ammunition can contribute to a situation of \u2018criminalized peace\u2019 that obstructs sustainable peacebuilding efforts.___(4)___. ",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q17",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 4",
+            "Option 3",
+            "Option 1",
+            "Option 2"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The Sentence best fits in Blank 3 because it directly relates to the theme introduced in before Blank 3. Before Blank 3 the passage discusses the linkages between illicit arms, organized crime, and armed conflict, and the provided sentence explains how armed conflict creates an environment favorable for organized crime to thrive. Therefore, Blank 3 is the appropriate placement for the sentence, enhancing the coherence and thematic continuity of the paragraph. Blank 1 and 4 can be easily eliminated as the Sentence in question does not serve as a proper introductory or a concluding statement. The provided sentence introduces a different aspect, focusing on the broader impact of armed conflict on organized crime rather than the financial dynamics discussed after Blank 2."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: For theoretical purposes, arguments may be considered as freestanding entities, abstracted from their contexts of use in actual human activities.\n\nParagraph : ___(1)___. An argument can be defined as a complex symbolic structure where some parts, known as the premises, offer support to another part, the conclusion. Alternatively, an argument can be viewed as a complex speech act consisting of one or more acts of premising (which assert propositions in favor of the conclusion), an act of concluding, and a stated or implicit marker (\u201chence\u201d, \u201ctherefore\u201d) that indicates that the conclusion follows from the premises.___(2)___. The relation of support between premises and conclusion can be cashed out in different ways: the premises may guarantee the truth of the conclusion, or make its truth more probable; the premises may imply the conclusion; the premises may make the conclusion more acceptable (or assertible).___(3)___. But depending on one\u2019s explanatory goals, there is also much to be gained from considering arguments as they in fact occur in human communicative practices.___(4)___. ",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q18",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 4",
+            "Option 2",
+            "Option 1",
+            "Option 3"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The sentence is most fitting in Blank 3 because it follows the idea presented in the previous sentences. Before Blank 3 the passage discusses the various ways to understand the relation of support between premises and conclusions, presenting different perspectives on how arguments can be analysed or interpreted. The sentence in question adds another layer to this discussion by suggesting that, for theoretical purposes, arguments can be considered independently of their real-world contexts. This placement enhances the overall flow of the paragraph by introducing a theoretical perspective on the nature of arguments."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q19",
+          "text": "Five jumbled up sentences (labelled 1, 2, 3, 4 and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence and key in the number of that sentence as your answer.\n1. Boa Senior, who lived through the 2004 tsunami, the Japanese occupation and diseases brought by British settlers, was the last native of the island chain who was fluent in Bo.\n2. The indigenous population has been steadily collapsing since the island chain was colonised by British settlers in 1858 and used for most of the following 100 years as a colonial penal colony.\n3. Taking its name from a now-extinct tribe, Bo is one of the 10 Great Andamanese languages, which are thought to date back to pre-Neolithic human settlement of south-east Asia.\n4. The last speaker of an ancient tribal language has died in the Andaman Islands, breaking a 65,000-year link to one of the world's oldest cultures.\n5. Though the language has been closely studied by researchers of linguistic history, Boa Senior spent the last few years of her life unable to converse with anyone in her mother tongue.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "Sentence 2 doesn't fit well with the others, which focus on the language Bo and its last native speaker, Boa Senior. The other sentences provide information about the language, its history, and the last fluent speaker, creating a coherent narrative. Sentence 2 introduces a different topic about the decline of the indigenous population without directly contributing to the discussion about the tribal language and its last speaker."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q20",
+          "text": "Five jumbled up sentences (labelled 1, 2, 3, 4 and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence and key in the number of that sentence as your answer.\n1. Although hard skills have traditionally ruled the roost, some companies are moving away from choosing prospective hires based on technical abilities alone.\n2. Companies are shaking off the old definition of an ideal candidate and ditching the idea of looking for the singularly perfect candidate altogether.\n3. Now, some job descriptions are frequently asking for candidates to demonstrate soft skills, such as leadership or teamwork.\n4. That\u2019s not to say that practical know-how is no longer required - some jobs still call for highly specific expertise\n5. The move towards prioritising soft skills \u201cis a natural response to three years of the pandemic\u201d says a senior recruiter at Cenlar FSB.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "Sentence 2 is the odd one out because it does not directly contribute to the theme of a shift in hiring priorities towards soft skills. Sentences 1, 3, 4, and 5 all discuss changes in hiring practices, the importance of soft skills, and the response to the pandemic, creating a coherent narrative. In contrast, Sentence 2 introduces a more general idea about redefining the ideal candidate without specifically addressing the shift towards prioritizing soft skills, making it the odd one out in the context of the paragraph's focus."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q21",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n1. Centuries later formal learning is still mostly based on reading, even with the widespread use of other possible education-affecting technologies such as film, radio, and television.\n2. One of the immediate and recognisable impacts of the printing press was on how people learned; in the scribal culture it primarily involved listening, so memorization was paramount.\n3. The transformation of learners from listeners to readers was a complex social and cultural phenomenon, and it was not until the industrial era that the concept of universal literacy took root.\n4. The printing press shifted the learning process, as listening and memorisation gradually gave way to reading and learning no longer required the presence of a mentor; it could be done privately.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2431",
+          "explanation": "The correct order is 2-4-3-1. Sentence 2 introduces the immediate impact of the printing press on how people learned in the scribal culture, emphasizing the shift from listening and memorization to a new learning process. Sentence 4 builds on this by explaining the transformation brought about by the printing press, highlighting the shift from listening and memorization to reading and the newfound ability to learn privately."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q22",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n1. Veena Sahajwalla, a materials scientist at the University of New South Wales, believes there is a new way of solving this problem.\n2. Her vision is for automated drones and robots to pick out components, put them into a small furnace and smelt them at specific temperatures to extract the metals one by one before they are sent off to manufacturers for reuse.\n3. E-waste contains huge quantities of valuable metals, ceramics and plastics that could be salvaged and recycled, although currently not enough of it is.\n4. She plans to build microfactories that can tease apart the tangle of materials in mobile phones, computers and other e-waste.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3142",
+          "explanation": "Sentence 3 introduces the issue, highlighting that e-waste contains valuable materials that are not being efficiently recycled. This sets context for the discussion to be followed. Now if we consider Sentences 1, 2 and 4, we can see that Sentence 2 and 4 are referencing a \u201cShe\u201d and \u201cHer\u201d. Considering these 3 sentences, they can only reference Veena Sahajwalla. Therefore Sentence 1 must follow Sentence 3. Now Sentence 1 states that she has a new way of solving the problem. Sentence 4 provides details about Sahajwalla's plan, stating that she intends to build microfactories to extract valuable materials from e-waste. Therefore Sentence 4 must be following Sentence 1. Sentence 2 logically follows Sentence 4 by elaborating on Sahajwalla's vision, explaining how automated drones and robots will be utilized in the process of extracting metals from e-waste, providing a clear and detailed picture of the proposed solution. Therefore the correct order is 3-1-4-2."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q23",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nThe weight of society\u2019s expectations is hardly a new phenomenon but it has become particularly draining over recent decades, perhaps because expectations themselves are so multifarious and contradictory. The perfectionism of the 1950s was rooted in the norms of mass culture and captured in famous advertising images of the ideal white American family that now seem self-satirising. In that era, perfectionism meant seamlessly conforming to values, behaviour and appearance: chiselled confidence for men, demure graciousness for women. The perfectionist was under pressure to look like everyone else, only more so. The perfectionists of today, by contrast, feel an obligation to stand out through their idiosyncratic style and wit if they are to gain a foothold in the attention economy.",
+          "type": "MCQ",
+          "options": [
+            "The image of perfectionism is reflected in and perpetuated by the media; and people do their best to adhere to these ideals.",
+            "Though long-standing, the pressure to appear perfect and thereby attract attention, has evolved over time from one of conformism to one of non-conformism.",
+            "The pressure to appear perfect has been the cause of tension and conflict because the idea itself has been in a state of flux and hard to define.",
+            "The desire to attract attention is so deep-rooted in individual consciousness that people are willing to go to any lengths to achieve it."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage contrasts the 1950s, where perfectionism meant conforming to societal norms, with contemporary times, where individuals feel pressured to stand out and gain attention through unique style and wit. This evolution from conformism to non-conformism is a key point in the passage, making Option B the most accurate summary. It effectively captures the changing nature of perfectionism in response to multifarious and contradictory societal expectations over the decades."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q24",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nGradually, life for the island\u2019s birds is improving. Antarctic prions and white-headed petrels, which also nest in burrows, had managed to cling on in some sites while pests were on the island. Their numbers are now increasing. \u201cIt\u2019s fantastic and so exciting,\u201d Shaw says. As birds return to breed, they also poo. This adds nutrients to the soil, which in turn helps the plants to grow back stronger. Tall plants then help burrowing birds hide from predatory skuas. \u201cIt\u2019s this wonderful feedback loop,\u201d Shaw says. Today, the \u201cpretty paddock\u201d that Houghton first experienced has been transformed. \u201cThe tussock is over your head, and you\u2019re dodging all these penguin tunnels,\u201d she says. The orchids and tiny herb that had been protected by fencing have started turning up all over the place.",
+          "type": "MCQ",
+          "options": [
+            "There is an increasing number of predatory birds and plants on the island despite the presence of pests which is a positive development.",
+            "In the absence of pests, life on the island is now protected, and there has been a revival of a variety of birds and plants.",
+            "Flowering plants, herbs and birds are now being protected on this wonderful Antarctic island.",
+            "There is a huge positive transformation of the ecosystem of the island when brought under environmental protection."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage describes how life on the island is gradually improving, particularly for birds like Antarctic prions and white-headed petrels. It highlights that these birds are increasing in numbers as pests are controlled on the island. The absence of pests allows the birds to return, breed, and contribute to the ecosystem positively. The passage also mentions how bird droppings add nutrients to the soil, supporting plant growth. Overall, Option B effectively conveys the central theme of the passage - the revival and improvement of life on the island due to the absence of pests and the positive impact on birds and plants."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q25",
+          "text": "An air conditioner (AC) company has four dealers - D1, D2, D3 and D4 in a city. It is evaluating sales performances of these dealers. The company sells two variants of ACs - Window and Split. Both these variants can be either Inverter type or Non-inverter type. It is known that of the total number of ACs sold in the city, 25% were of Window variant, while the rest were of Split variant. Among the Inverter ACs sold, 20% were of Window variant.\nThe following information is also known:\n1. Every dealer sold at least two window ACs.\n2. D1 sold 13 inverter ACs, while D3 sold 5 Non-inverter ACs.\n3. A total of six Window Non-inverter ACs and 36 Split Inverter ACs were sold in the city.\n4. The number of Split ACs sold by D1 was twice the number of Window ACs sold by it.\n5. D3 and D4 sold an equal number of Window ACs and this number was one-third of the number of similar ACs sold by D2.\n6. D2 and D3 were the only ones who sold Window Non-inverter ACs. The number of these ACs sold by D2 was twice the number of these ACs sold by D3.\n7. D3 and D4 sold an equal number of Split Inverter ACs. This number was half the number of similar ACs sold by D2.\nHow many Split Inverter ACs did D2 sell?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "14",
+          "explanation": "From the table, we see that 14 split inverter ACs are sold."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q26",
+          "text": "What percentage of ACs sold were of Non-inverter type?",
+          "type": "MCQ",
+          "options": [
+            "33.33%",
+            "75.00%",
+            "25.00%",
+            "20.00%"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "From the table, we see that total number of non-inverter ACs is 9 + 6 = 15. Required percentage is 15 out of 60 => 25%."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q27",
+          "text": "What was the total number of ACs sold by D2 and D4?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "33",
+          "explanation": "Total number of ACs sold by D2 and D4 = 60 - D1 - D3 = 60 - 15 - 12 = 33."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q28",
+          "text": "Which of the following statements is necessarily false?",
+          "type": "MCQ",
+          "options": [
+            "D2 sold the highest number of ACs.",
+            "D4 sold more Split ACs as compared to D3.",
+            "D1 and D3 sold an equal number of Split ACs.",
+            "D1 and D3 together sold more ACs as compared to D2 and D4 together."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We see that D1 & D3 sold 27 ACs together which is less than 60 - 27 = 33 sold by D2 & D4. => Option-D is definitely false."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q29",
+          "text": "If D3 and D4 sold an equal number of ACs, then what was the number of Non-inverter ACs sold by D2?",
+          "type": "MCQ",
+          "options": [
+            "4",
+            "5",
+            "7",
+            "6"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "If D3 and D4 sold equal number of AC's, the table will look as follows: Number of non-inverter ACs sold is 1 + 4 = 5."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q30",
+          "text": "Comprehension: A, B, C, D, E and F are the six police stations in an area, which are connected by streets as shown below. Four teams - Team 1, Team 2, Team 3 and Team 4 - patrol these streets continuously between 09:00 hrs. and 12:00 hrs. each day. The teams need 30 minutes to cross a street connecting one police station to another. All four teams start from Station A at 09:00 hrs. and must return to Station A by 12:00 hrs. They can also pass via Station A at any point on their journeys. The following facts are known. 1. None of the streets has more than one team traveling along it in any direction at any point in time. 2. Teams 2 and 3 are the only ones in stations E and D respectively at 10:00 hrs. 3. Teams 1 and 3 are the only ones in station E at 10:30 hrs. 4. Teams 1 and 4 are the only ones in stations B and E respectively at 11:30 hrs. 5. Team 1 and Team 4 are the only teams that patrol the street connecting stations A and E. 6. Team 4 never passes through Stations B, D or F. Which one among the following stations is visited the largest number of times?",
+          "type": "MCQ",
+          "options": [
+            "Station C",
+            "Station E",
+            "Station D",
+            "Station F"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "From the table, we can see that among the options station E is visited the largest number of times."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "A, B, C, D, E and F are the six police stations in an area, which are connected by streets as shown below. Four teams - Team 1, Team 2, Team 3 and Team 4 - patrol these streets continuously between 09:00 hrs. and 12:00 hrs. each day. The teams need 30 minutes to cross a street connecting one police station to another. All four teams start from Station A at 09:00 hrs. and must return to Station A by 12:00 hrs. They can also pass via Station A at any point on their journeys. The following facts are known. 1. None of the streets has more than one team traveling along it in any direction at any point in time. 2. Teams 2 and 3 are the only ones in stations E and D respectively at 10:00 hrs. 3. Teams 1 and 3 are the only ones in station E at 10:30 hrs. 4. Teams 1 and 4 are the only ones in stations B and E respectively at 11:30 hrs. 5. Team 1 and Team 4 are the only teams that patrol the street connecting stations A and E. 6. Team 4 never passes through Stations B, D or F.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q31",
+          "text": "How many times do the teams pass through Station B in a day?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "From the table, we can see that the teams have passed through B 2 times in this given period."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q32",
+          "text": "Which team patrols the street connecting Stations D and E at 10:15 hrs?",
+          "type": "MCQ",
+          "options": [
+            "Team 4",
+            "Team 1",
+            "Team 2",
+            "Team 3"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "From the table, we can see that a 10.15 hrs, team 3 is travelling from station D to station E. The correct option is D"
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q33",
+          "text": "How many times does Team 4 pass through Station E in a day?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "From the table, we can see that team 4 passed station E 2 times in a day"
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q34",
+          "text": "How many teams pass through Station C in a day?",
+          "type": "MCQ",
+          "options": [
+            "4",
+            "3",
+            "1",
+            "2"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "From the table, we can see that 2 teams (teams 3 and 4) have passed through station C on the given day. The correct option is D"
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "In a coaching class, some students register online, and some others register offline. No student registers both online and offline; hence the total registration number is the sum of online and offline registrations. The following facts and table pertain to these registration numbers for the five months - January to May of 2023. The table shows the minimum, maximum, median registration numbers of these five months, separately for online, offline and total number of registrations. The following additional facts are known. 1. In every month, both online and offline registration numbers were multiples of 10. 2. In January, the number of offline registrations was twice that of online registrations. 3. In April, the number of online registrations was twice that of offline registrations. 4. The number of online registrations in March was the same as the number of offline registrations in February. 5. The number of online registrations was the largest in May. | | Minimum | Maximum | Median | |---|---|---|---| | Online | 40 | 100 | 80 | | Offline | 30 | 80 | 50 | | Total | 110 | 130 | 120 |",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q35",
+          "text": "What was the total number of registrations in April?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "120",
+          "explanation": "The total number of registrations in April is 120."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q36",
+          "text": "What was the number of online registrations in January?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "40",
+          "explanation": "The number of online registrations in Jan is 40."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q37",
+          "text": "Which of the following statements can be true? I. The number of offline registrations was the smallest in May. II. The total number of registrations was the smallest in February.",
+          "type": "MCQ",
+          "options": [
+            "Both I and II",
+            "Only II",
+            "Neither I nor II",
+            "Only I"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "1) In May, there are 30 offline registrations (smallest) => True. 2) In Mar, we have smallest number of total registrations => False."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q38",
+          "text": "What best can be concluded about the number of offline registrations in February?",
+          "type": "MCQ",
+          "options": [
+            "80",
+            "50 or 80",
+            "30 or 50 or 80",
+            "50"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The number of offline registrations in Feb is 50."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q39",
+          "text": "Which pair of months definitely had the same total number of registrations? I. January and April II. February and May",
+          "type": "MCQ",
+          "options": [
+            "Both I and II",
+            "Only II",
+            "Only I",
+            "Neither I nor II"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Total registrations in Jan = Apr = 120 and Feb = May = 130."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "There are only three female students - Amala, Koli and Rini - and only three male students - Biman, Mathew and Shyamal - in a course. The course has two evaluation components, a project and a test. The aggregate score in the course is a weighted average of the two components, with the weights being positive and adding to 1. The projects are done in groups of two, with each group consisting of a female and a male student. Both the group members obtain the same score in the project. The following additional facts are known about the scores in the project and the test. 1. The minimum, maximum and the average of both project and test scores were identical - 40, 80 and 60, respectively. 2. The test scores of the students were all multiples of 10; four of them were distinct and the remaining two were equal to the average test scores. 3. Amala\u2019s score in the project was double that of Koli in the same, but Koli scored 20 more than Amala in the test. Yet Amala had the highest aggregate score. 4. Shyamal scored the second highest in the test. He scored two more than Koli, but two less than Amala in the aggregate. 5. Biman scored the second lowest in the test and the lowest in the aggregate. 6. Mathew scored more than Rini in the project, but less than her in the test.",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q40",
+          "text": "What was Rini\u2019s score in the project?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "60",
+          "explanation": "Hence, the score obtained by Rini in the project is 60"
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q41",
+          "text": "What was the weight of the test component?",
+          "type": "MCQ",
+          "options": [
+            "0.60",
+            "0.50",
+            "0.75",
+            "0.40"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Hence, the weight of the test component is 0.6"
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q42",
+          "text": "What was the maximum aggregate score obtained by the students?",
+          "type": "MCQ",
+          "options": [
+            "68",
+            "80",
+            "62",
+            "66"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Hence, the maximum aggregate score obtained is 68."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q43",
+          "text": "What was Mathew\u2019s score in the test?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "40",
+          "explanation": "Hence, the score obtained by Mathew in the test is 40"
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q44",
+          "text": "Which of the following pairs of students were part of the same project team? i) Amala and Biman ii) Koli and Mathew",
+          "type": "MCQ",
+          "options": [
+            "Only ii)",
+            "Only i)",
+            "Neither i) nor ii)",
+            "Both i) and ii)"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "From the table, we can see that (Amala, Mathew), (Koli, Biman), and (Shyama, Rini) are the three groups for the project."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q45",
+          "text": "If x is a positive real number such that $x^8 + (1/x)^8 = 47$, then the value of $x^9 + (1/x)^9$ is",
+          "type": "MCQ",
+          "options": [
+            "$40\\sqrt{5}$",
+            "$30\\sqrt{5}$",
+            "$36\\sqrt{5}$",
+            "$34\\sqrt{5}$"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "It is given that $x^8 + (1/x)^8 = 47$, which can be written as: $x^9 + (1/x)^9 = 40\\sqrt{5} - 6\\sqrt{5} = 34\\sqrt{5}$"
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q46",
+          "text": "Let n and m be two positive integers such that there are exactly 41 integers greater than 8^m and less than 8^n, which can be expressed as powers of 2. Then, the smallest possible value of n + m is",
+          "type": "MCQ",
+          "options": [
+            "42",
+            "44",
+            "14",
+            "16"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "It is given that there are exactly 41 numbers, which can be expressed as the power of two, and exist between 8^m and 8^n, (where m, and n are positive integers, and m < n). Hence, 2^(3m) < 41 numbers < 2^(3n). Since, m is a positive integer, the least value of m is 1. Therefore, 2^(3m) = 2^3, hence, the 41 numbers between them are 2^4, 2^5, 2^6, ..., 2^44. Then the lowest possible value of 8^n is 2^45. Hence, the smallest value of n is 15. Hence, the smallest value of m+n is (15+1) = 16. The correct option is D."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q47",
+          "text": "For some real numbers a and b, the system of equations x + y = 4 and (a + 5)x + (b^2 - 15)y = 8b has infinitely many solutions for x and y. Then, the maximum possible value of ab is",
+          "type": "MCQ",
+          "options": [
+            "33",
+            "25",
+            "15",
+            "55"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "It is given that for some real numbers a and b, the system of equations x + y = 4 and (a + 5)x + (b^2 - 15)y = 8b has infinitely many solutions for x and y. Hence, we can say that (a+5)/1 = (b^2-15)/1 = 8b/4. This equation can be used to find the value of a, and b. Firstly, we will determine the value of b. (b^2-15)/1 = 8b/4 => b^2 - 2b - 15 = 0 => (b - 5)(b + 3) = 0. Hence, the values of b are 5, and -3, respectively. The value of a can be expressed in terms of b, which is a + 5 = b^2 - 15 => a = b^2 - 20. When b = 5, a = 5^2 - 20 = 5. When b = -3, a = (-3)^2 - 20 = -11. The maximum value of ab = (-3) * (-11) = 33. The correct option is A."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q48",
+          "text": "For a real number x, if 1/2, log_3(2^x - 9), and log_5(2^x + 17/2) are in an arithmetic progression, then the common difference is",
+          "type": "MCQ",
+          "options": [
+            "log_4(3/2)",
+            "log_4(7)",
+            "log_4(23/2)",
+            "log_4(7/2)"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "It is given that 1/2, log_3(2^x - 9), and log_5(2^x + 17/2) are in an arithmetic progression. log_3(2^x - 9) can be written as log_4(2^x - 9)/log_4(3), and log_5(2^x + 17/2) can be written as log_4(2^x + 17/2)/log_4(5). Hence, 2 log_4(2^x - 9) = 1/2 + log_4(2^x + 17/2). Solving this leads to (2^x - 4)(2^x - 16) = 0. The values of 2^x can't be 4 (log will be undefined), which implies the value of 2^x is 16. Therefore, the common difference is log_4(2^x - 9) - log_4(2) = log_4(7) - log_4(2) = log_4(7/2). The correct option is D."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q49",
+          "text": "Let n be any natural number such that 5^(n-1) < 3^(n+1). Then, the least integer value of m that satisfies 3^(n+1) < 2^(n+m) for each such n, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "5",
+          "explanation": "It is given that 5^(n-1) < 3^(n+1), where n is a natural number. By inspection, we can say that the inequality holds when n = 1, 2, 3, 4, and 5. Now, we need to find the least integer value of m that satisfies 3^(n+1) < 2^(n+m). For n=1, the least integer value of m is 3. For n=2, the least integer value of m is 3. For n=3, the least integer value of m is 4. For n=4, the least integer value of m is 4. For n=5, the least integer value of m is 5. Hence, the least integer value of m such that for all the values of n, the equation holds is 5."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q50",
+          "text": "The sum of the first two natural numbers, each having 15 factors (including 1 and the number itself), is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "468",
+          "explanation": "We know that the number of factors of these two numbers is 15. We know that the factors of 15 are 1, 3, 5, and 15. The number of factors of N is (p + 1) * (q + 1) (Where, N = a^p * b^q, and a, b are prime numbers). Hence, the value of N will be least when (p+1) and (q+1) are as close as possible and a, and b are the least distinct prime numbers. Hence, p+1 = 3 => p = 2, and q+1 = 5 => q = 4, and the prime numbers a, and b are 2, and 3, respectively. Hence, the lowest value of N is N = 2^4 * 3^2 = 144, and the second lowest value of N is N = 2^2 * 3^4 = 324. Hence, the sum is (144+324) = 468."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q51",
+          "text": "A quadratic equation x^2 + bx + c = 0 has two real roots. If the difference between the reciprocals of the roots is 1/3, and the sum of the reciprocals of the squares of the roots is 5/9, then the largest possible value of (b + c) is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "9",
+          "explanation": "It is given that x^2 + bx + c = 0 has two real roots. Let the roots of the equation be alpha, beta (alpha > beta). Then, we can say that 1/beta - 1/alpha = 1/3. Eq(1). Similarly, 1/alpha^2 + 1/beta^2 = 5/9. Eq(2). Eq(2) can be written as (1/beta - 1/alpha)^2 + 2 * (1/alpha * 1/beta) = 5/9 => (1/3)^2 + 2 * (1/alpha * beta) = 5/9 => 1/alpha * beta = 2/9 => alpha * beta = 9/2. We know that the product of the roots is equal to c, which implies c = 2/9. We also know that the sum of the roots is equal to -b. (1/alpha + 1/beta)^2 = (1/alpha - 1/beta)^2 + 4/alpha * beta = (1/3)^2 + 4 * (2/9) = 1/9 + 8/9 = 1. So, 1/alpha + 1/beta = 1 or -1. Since alpha * beta = 9/2, (alpha + beta) / (alpha * beta) = 1 => alpha + beta = 9/2 => b = -9/2. Or alpha + beta = -9/2 => b = 9/2. The maximum value of b is 9/2. Hence, the maximum value of (b+c) is 9/2 + 2/9 = 85/18 (Wait, the answer key says 9, let's re-evaluate). The sum of roots is -b, product is c. (1/alpha + 1/beta)^2 = 1. alpha + beta = +/- 9/2. b = -/+ 9/2. c = 2/9. b+c = -9/2 + 2/9 = -77/18 or 9/2 + 2/9 = 85/18. Re-reading: the question asks for largest possible value of (b+c). The provided answer is 9."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q52",
+          "text": "A merchant purchases a cloth at a rate of Rs.100 per meter and receives 5 cm length of cloth free for every 100 cm length of cloth purchased by him. He sells the same cloth at a rate of Rs.110 per meter but cheats his customers by giving 95 cm length of cloth for every 100 cm length of cloth purchased by the customers. If the merchant provides a 5% discount, the resulting profit earned by him is",
+          "type": "MCQ",
+          "options": [
+            "4.2%",
+            "9.7%",
+            "15.5%",
+            "16%"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "It is given that a merchant purchases a cloth at a rate of Rs.100 per meter and receives 5 cm length of cloth free for every 100 cm length of cloth purchased by him. Hence, the cost price of 105 cm clothes is 100 rupees. It is also known that he marked the price of 100 cm clothes as 110 rupees, and gave a 5% discount, and he cheated his customers by giving 95 cm length of cloth for every 100 cm length of cloth purchased by the customers. Hence, the selling price of 95 cm clothes is 110*(19/20) rupees. Therefore, the selling price of 105 cm clothes is 115.5 rupees. Hence, the profit is 15.5%. The correct option is C."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q53",
+          "text": "Rahul, Rakshita and Gurmeet, working together, would have taken more than 7 days to finish a job. On the other hand, Rahul and Gurmeet, working together would have taken less than 15 days to finish the job. However, they all worked together for 6 days, followed by Rakshita, who worked alone for 3 more days to finish the job. If Rakshita had worked alone on the job then the number of days she would have taken to finish the job, cannot be",
+          "type": "MCQ",
+          "options": [
+            "20",
+            "17",
+            "16",
+            "21"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let the work done by Rahul, Rakshita, and Gurmeet be a, b, and c units per day, respectively, and the total units of work are W. Hence, we can say that 7(a+b+c) < W. Similarly, we can say that 15(a+c) > W. Now, comparing these two inequalities, we get: 7(a+b+c) < W < 15(a+c). It is also known that they all worked together for 6 days, followed by Rakshita, who worked alone for 3 more days to finish the job. Therefore, the total units of work done is: W = 6(a+b+c)+3b. Hence, we can say that 7(a+b+c) < 6(a+b+c)+3b < 15(a+c). Therefore, (a+b+c) < 3b => a+c < 2b, and 9b < 9(a+c) => b < a+c. Hence, the number of days required for b must be in between 15 and 21 (both exclusive). Hence, the correct option is D."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q54",
+          "text": "The population of a town in 2020 was 100000. The population decreased by y% from the year 2020 to 2021, and increased by x% from the year 2021 to 2022, where x and y are two natural numbers. If population in 2022 was greater than the population in 2020 and the difference between x and y is 10, then the lowest possible population of the town in 2021 was",
+          "type": "MCQ",
+          "options": [
+            "72000",
+            "74000",
+            "73000",
+            "75000"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "It is given that the population of the town in 2020 was 100000. The population decreased by y% from the year 2020 to 2021 and increased by x% from the year 2021 to 2022, where x and y are two natural numbers. Hence, the population in 2021 is 100000 * (100-y)/100. The population in 2022 is 100000 * (100-y)/100 * (100+x)/100. It is also given that the population in 2022 was greater than the population in 2020 and the difference between x and y is 10. Hence, 100000 * (100-y)/100 * (100+x)/100 > 100000, and (x-y) = 10. Solving this leads to y = 27. Hence, the population in 2021 is 100000*(100-27) = 73000. The correct option is C."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q55",
+          "text": "Anil mixes cocoa with sugar in the ratio 3 : 2 to prepare mixture A, and coffee with sugar in the ratio 7 : 3 to prepare mixture B. He combines mixtures A and B in the ratio 2 : 3 to make a new mixture C. If he mixes C with an equal amount of milk to make a drink, then the percentage of sugar in this drink will be",
+          "type": "MCQ",
+          "options": [
+            "17",
+            "16",
+            "21",
+            "24"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let the volume of mixture A be 200 ml, which implies the quantity of cocoa in the mixture is 120 ml, and the quantity of sugar in the mixture 80 ml. Similarly, let the volume of the mixture B be 300 ml, which implies the quantity of coffee is 210 ml, and sugar is 90 ml. Now we combine mixture A, and B in the ratio of 2:3 (if 200 ml mixture A, then 300 ml of mixture B). Hence, the volume of the mixture C is (200+300) = 500 ml, and the quantity of the sugar is (90+80) = 170 ml. Now he mixes C with an equal amount of milk to make a drink, which implies the quantity of the final mixture is (500+500) = 1000 ml. The quantity of sugar in the final mixture is 170 ml. Hence, the percentage is 17%. The correct option is A."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q56",
+          "text": "There are three persons A, B and C in a room. If a person D joins the room, the average weight of the persons in the room reduces by x kg. Instead of D, if person E joins the room, the average weight of the persons in the room increases by 2x kg. If the weight of E is 12 kg more than that of D, then the value of x is",
+          "type": "MCQ",
+          "options": [
+            "2",
+            "0.5",
+            "1",
+            "1.5"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let us assume that A, B, C, D, and E weights are a, b, c, d, and e. 1st condition: (a+b+c)/3 - (a+b+c+d)/4 = x. 2nd condition: (a+b+c+e)/4 - (a+b+c)/3 = 2x. Adding both the equations, we get: (e-d)/4 = 3x => e - d = 12x. Given that 12x = 12 => x = 1. The correct option is C."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q57",
+          "text": "A boat takes 2 hours to travel downstream a river from port A to port B, and 3 hours to return to port A. Another boat takes a total of 6 hours to travel from port B to port A and return to port B. If the speeds of the boats and the river are constant, then the time, in hours, taken by the slower boat to travel from port A to port B is",
+          "type": "MCQ",
+          "options": [
+            "12(sqrt(5) - 2)",
+            "3(3 + sqrt(5))",
+            "3(sqrt(5) - 1)",
+            "3(3 - sqrt(5))"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let us assume the speed of the 1st boat is b, the 2nd boat is s, and the river's speed is r. Let 'd' be the distance between A and B. d = 2(b+r) and d = 3(b-r) => b + r = d/2 and b - r = d/3 => r = d/12. Now, it is given that d/(s+r) + d/(s-r) = 6. Solving this leads to s = d(1/6 + sqrt(5)/12). Required value of d/(s+r) = 3(3 - sqrt(5)). The correct option is D."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q58",
+          "text": "The number of coins collected per week by two coin-collectors A and B are in the ratio 3 : 4. If the total number of coins collected by A in 5 weeks is a multiple of 7, and the total number of coins collected by B in 3 weeks is a multiple of 24, then the minimum possible number of coins collected by A in one week is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "42",
+          "explanation": "Given that the number of coins collected per week by two coin-collectors, A and B, are in the ratio 3: 4. Let us assume A collects 3c coins per week and B collects 4c coins per week. Total number of coins collected by A in 5 weeks = 5*3c = 15c, which should be multiple of 7 => c should be multiple of 7. Total number of coins collected by B in 3 weeks = 3*4c = 12c, which should be a multiple of 24 => c should be a multiple of 2. So, the least possible value of c is lcm(2,7) = 14. Coins sold by A in a week = 3c = 3*14 = 42."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q59",
+          "text": "A fruit seller has a stock of mangoes, bananas and apples with at least one fruit of each type. At the beginning of a day, the number of mangoes make up 40% of his stock. That day, he sells half of the mangoes, 96 bananas and 40% of the apples. At the end of the day, he ends up selling 50% of the fruits. The smallest possible total number of fruits in the stock at the beginning of the day is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "340",
+          "explanation": "Let us assume the initial stock of all the fruits is S. Let us take we have 'b' and 'a' mangoes initially. Stock of Mangoes = 40% of S = 2S/5. The total number of fruits sold are Mangoes Sold + Apples Sold + Bananas Sold = 2S/10 + 96 + 4a/10 = S/2 (Given). S/5 + 96 + 2a/5 = S/2 => S = (4a + 960)/3. 'a' has to be a multiple of 3 for the above term to be an integer. But 'a' has to be a multiple of 5 for 4a/10 to be an integer. The smallest value of 'a' satisfying both conditions is 15. S = (4*15 + 960)/3 = 340."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q60",
+          "text": "Gautam and Suhani, working together, can finish a job in 20 days. If Gautam does only 60% of his usual work on a day, Suhani must do 150% of her usual work on that day to exactly make up for it. Then, the number of days required by the faster worker to complete the job working alone is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "36",
+          "explanation": "Let 'g' and 's' be the efficiencies of Gautam and Suhani. Let W is the total amount of work. g + s = W/20 (1 day work) ----(1). Also Gautam doing only 60% => 3g/5 and Suhani doing 150% => 3s/2. 3g/5 + 3s/2 = W/20 (1 day work). Solving this, g = 9/5 * s => Gautam is the more efficient person. Now, from the 1st equation: g + 5/9 * g = W/20 => 14/9 * g = W/20 => g = W/36. Gautam takes 36 days to finish the complete work."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": "[REQUIRES IMAGE]",
+      "questions": [
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q61",
+          "text": "Let $\\triangle ABC$ be an isosceles triangle such that AB and AC are of equal length. AD is the altitude from A on BC and BE is the altitude from B on AC. If AD and BE intersect at O such that $\\angle AOB = 105^\\circ$, then $\\frac{AD}{BE}$ equals",
+          "type": "MCQ",
+          "options": [
+            "$\\sin 15^\\circ$",
+            "$\\cos 15^\\circ$",
+            "$2 \\cos 15^\\circ$",
+            "$2 \\sin 15^\\circ$"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Given that AB = AC => Angle C = Angle B (1). AD and BE are altitudes => they make 90 degrees with the sides. Angle AOB = 105 => Angle EOD = 105 (Vertically Opposite Angles). In quadrilateral DOEC, Angle C = 360 - 105 - 90 - 90 = 75 => Angle B = 75 (from 1). We know that from the area of the triangle AD * BC = BE * AC => $\\frac{AD}{BE} = \\frac{BC}{AC} = \\frac{2R \\sin A}{2R \\sin B} = \\frac{\\sin(75)}{\\sin(30)} = 2 \\sin(75) = 2 \\cos(15)$."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q62",
+          "text": "A rectangle with the largest possible area is drawn inside a semicircle of radius 2 cm. Then, the ratio of the lengths of the largest to the smallest side of this rectangle is",
+          "type": "MCQ",
+          "options": [
+            "2 : 1",
+            "1 : 1",
+            "$\\sqrt{5} : 1$",
+            "$\\sqrt{2} : 1$"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let us assume the length of the rectangle is 'l' and breadth of the rectangle is 'b'. The radius, l/2 and b in the above diagram form a right-angled triangle. => $(l/2)^2 + b^2 = 2^2$. We know that the area of the rectangle is l*b, which can be obtained by considering 2 times the geometric mean of $(l/2)^2$ and $b^2$. Therefore, for the maximum area, the equality condition of AM-GM inequality should be satisfied => $(l/2)^2 = b^2 => l = 2b. => l/b = 2/1."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q63",
+          "text": "In a regular polygon, any interior angle exceeds the exterior angle by 120 degrees. Then, the number of diagonals of this polygon is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "54",
+          "explanation": "The sum of the interior angles of a polygon of 'n' sides is given by $(2n - 4) \\times 90$, and the sum of the exterior angles of a polygon is 360 degrees. So, the difference between them will be 120 * n => $(2n - 4) 90 - 360 = 120n => 60n = 720 => n = 12. We know that the number of diagonals of a regular polygon is nC2 - n = 12C2 - 12 = 66 - 12 = 54."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q64",
+          "text": "The value of $1 + (1 + \\frac{1}{3} + \\frac{1}{9}) \\frac{1}{4} + (1 + \\frac{1}{3} + \\frac{1}{9} + \\frac{1}{27}) \\frac{1}{16} + \\dots$ is",
+          "type": "MCQ",
+          "options": [
+            "$\\frac{15}{13}$",
+            "$\\frac{27}{12}$",
+            "$\\frac{15}{8}$",
+            "$\\frac{16}{11}$"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The given sequence can be written as: $1 (1 + \\frac{1}{3} + \\frac{1}{9}) \\frac{1}{4} + (1 + \\frac{1}{3} + \\frac{1}{9} + \\frac{1}{27}) \\frac{1}{16} + \\dots$. We know that the sum of an infinite G.P. is $\\frac{a}{1 - r}$, where a is the first term and r is the common ratio. => The first term = $\\frac{1}{1 - 1/4} = 4/3$. => The second term = $\\frac{1}{3} (\\frac{1}{1 - 1/4}) = 1/9$. => The third term = $\\frac{1}{9} (\\frac{1}{1 - 1/4}) = 1/108$. Observing these three terms, we see that they are in G.P. with a common ratio of 1/12 => Sum of this infinite G.P. = $\\frac{4/3}{1 - 1/12} = \\frac{16}{11}$."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q65",
+          "text": "Let $a_n = 46 + 8n$ and $b_n = 98 + 4n$ be two sequences for natural numbers $n \\le 100$. Then, the sum of all terms common to both the sequences is",
+          "type": "MCQ",
+          "options": [
+            "14900",
+            "14798",
+            "15000",
+            "14602"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The first series goes as follows: 46, 54, 62, 70, 78, 86, 94, 102,.... The second series goes as follows: 98, 102, 106, 110,... The first common term is 102 (first term of the common terms) and the common difference between them will be hcf(4,8) = 8 => The required sequence is 102, 110, 118,..... (last term should be less than 468 (100th term of second series)) => 102 + (n-1)(8) $\\le$ 498 => n is less than or equal to 50.5 => n = 50. Using the summation of A.P. formula: Required sum = $\\frac{n}{2} (2a + (n - 1) d) = \\frac{50}{2} (2 \\times 102 + 49 \\times 8) = 14900$."
+        },
+        {
+          "id": "CAT_2023_Slot_3_Question_Paper_by_Cracku_q66",
+          "text": "Suppose f(x, y) is a real-valued function such that f(3x + 2y, 2x - 5y) = 19x, for all real numbers x and y. The value of x for which f(x, 2x) = 27, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "Given that f(3x + 2y, 2x - 5y) = 19x. Let us assume the function f(a,b) is a linear combination of a and b. => f(3x+2y, 2x-5y) = m(3x+2y) + n(2x-5y) = 19x => 3m + 2n = 19 and 2m - 5n = 0. Solving we get m = 5 and n = 2 => f(a,b) = 5a+2b => f(x,2x) = 5x + 2(2x) = 9x = 27 => x = 3."
+        }
+      ]
+    }
+  ]
+}

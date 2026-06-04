@@ -1,0 +1,1449 @@
+{
+  "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "Understanding where you are in the world is a basic survival skill, which is why we, like most species come hard-wired with specialised brain areas to create cognitive maps of our surroundings. Where humans are unique, though, with the possible exception of honeybees, is that we try to communicate this understanding of the world with others. We have a long history of doing this by drawing maps \u2014 the earliest versions yet discovered were scrawled on cave walls 14,000 years ago. Human cultures have been drawing them on stone tablets, papyrus, paper and now computer screens ever since.\n\nGiven such a long history of human map-making, it is perhaps surprising that it is only within the last few hundred years that north has been consistently considered to be at the top. In fact, for much of human history, north almost never appeared at the top, according to Jerry Brotton, a map historian... \"North was rarely put at the top for the simple fact that north is where darkness comes from,\" he says. \"West is also very unlikely to be put at the top because west is where the sun disappears.\"\n\nConfusingly, early Chinese maps seem to buck this trend. But, Brotton, says, even though they did have compasses at the time, that isn't the reason that they placed north at the top. Early Chinese compasses were actually oriented to point south, which was considered to be more desirable than deepest darkest north. But in Chinese maps, the Emperor, who lived in the north of the country was always put at the top of the map, with everyone else, his loyal subjects, looking up towards him. \"In Chinese culture the Emperor looks south because it's where the winds come from, it's a good direction. North is not very good but you are in a position of subjection to the emperor, so you look up to him,\" says Brotton.\n\nGiven that each culture has a very different idea of who, or what, they should look up to it's perhaps not surprising that there is very little consistency in which way early maps pointed. In ancient Egyptian times the top of the world was east, the position of sunrise. Early Islamic maps favoured south at the top because most of the early Muslim cultures were north of Mecca, so they imagined looking up (south) towards it. Christian maps from the same era (called Mappa Mundi) put east at the top, towards the Garden of Eden and with Jerusalem in the centre.\n\nSo when did everyone get together and decide that north was the top? It's tempting to put it down to European explorers like Christopher Columbus and Ferdinand Megellan, who were navigating by the North Star. But Brotton argues that these early explorers didn't think of the world like that at all. \"When Columbus describes the world it is in accordance with east being at the top, he says. \"Columbus says he is going towards paradise, so his mentality is from a medieval mappa mundi.\" We've got to remember, adds Brotton, that at the time, \"no one knows what they are doing and where they are going.\"",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q1",
+          "text": "1. Which one of the following best describes what the passage is trying to do?",
+          "type": "MCQ",
+          "options": [
+            "It questions an explanation about how maps are designed.",
+            "It corrects the misconception about the way maps are designed.",
+            "It critiques a methodology used to create maps.",
+            "It explores some myths about maps."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The author starts the passage by talking about the history of map making. The author then mentions how north was never put at the top in ancient times. He implicitly means that people have a preemptive notion of maps facing the north. He goes on to mention that it was considered a bad direction. He says that north being put at the top is a fairly recent phenomenon. He then goes on to discuss why different people started putting north at the top. He mentions that the reasons for different people putting north at the top were different from what people think now. He cites various examples to show that north's presence in top is more recent and due to varied factors. Hence, he is trying to clear certain misconceptions about why north is put at the top in the maps. Thus, option B is the most suitable answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q2",
+          "text": "2. Early maps did NOT put north at the top for all the following reasons EXCEPT",
+          "type": "MCQ",
+          "options": [
+            "North was the source of darkness.",
+            "South was favoured by some emperors.",
+            "East and south were more important for religious reasons for some civilisations.",
+            "East was considered by some civilisations to be a more positive direction."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage mentions that the Chinese put North at the top of the map because the emperor would live in the North and he preferred to look towards South. Hence, the fact that South was preferred by some emperors is not a reason why North was put at the top. Hence, option B is false. All other options are mentioned in the passage."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q3",
+          "text": "3. According to the passage, early Chinese maps placed north at the top because",
+          "type": "MCQ",
+          "options": [
+            "the Chinese invented the compass and were aware of magnetic north.",
+            "they wanted to show respect to the emperor.",
+            "the Chinese emperor appreciated the winds from the south.",
+            "north was considered the most desirable direction."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "We can straightaway eliminate options A and D. The passage states that the Chinese compasses pointed to magnetic south and that south was considered a more desirable direction. While option C is true, that is not the reason why North was placed at the top. The passage states that the emperor lived in the north and hence maps depicted him as above his subjects. Thus, north was placed at the top of the map to show respect for the emperor. Thus, option B is correct."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q4",
+          "text": "4. It can be inferred from the passage that European explorers like Columbus and Megellan",
+          "type": "MCQ",
+          "options": [
+            "set the precedent for north-up maps",
+            "navigated by the compass",
+            "used an eastward orientation for religious reasons",
+            "navigated with the help of early maps"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "We can straightaway eliminate option A. The author says that though one might think that the trend of north-up maps was set by these explorers, this is in fact not true. Options B and D are also incorrect. The passage says that the explorers navigated with the help of the North Star. In the passage, it is given that \"When Columbus describes the world it is in accordance with east being at the top, he says. \"Columbus says he is going towards paradise, so his mentality is from a medieval mappa mundi.\" Hence, we can infer that statement C is true."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q5",
+          "text": "5. Which one of the following about the northern orientation of modern maps is asserted in the passage?",
+          "type": "MCQ",
+          "options": [
+            "The biggest contributory factor was the understanding of magnetic north.",
+            "The biggest contributory factor was the role of European explorers.",
+            "The biggest contributory factor was the influence of Christian maps.",
+            "The biggest contributory factor is not stated in the passage."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "In the passage, the author discusses how North was traditionally not put on the top of early maps. The author explicitly refutes the role of the compass and of European explorers in placing North at the top of maps. Hence, we can eliminate options A and B. The author says that East was placed at the top of Christian maps. Hence, option C is also incorrect. Thought the author counters all known explanations as to why North was placed on the top, he does not offer any explanation of his own. Hence, option D is correct."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q6",
+          "text": "6. The role of natural phenomena in influencing map-making conventions is seen most clearly in",
+          "type": "MCQ",
+          "options": [
+            "early Egyptian maps",
+            "early Islamic maps",
+            "early Chinese maps",
+            "early Christian maps"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "According to the passage, early Egyptian maps placed the East at the top because that was the position of sunrise. Hence, we can say that natural phenomena dictated the map-making convention in this case. Thus, option A is correct. Options B and D are incorrect as the conventions were decided by religious factors and not natural phenomena. Option C also can be eliminated as the orientation was a result of their desire to honour their emperor. Hence, the answer is option A."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "I used a smartphone GPS to find my way through the cobblestoned maze of Geneva's Old Town, in search of a handmade machine that changed the world more than any other invention. Near a 13th-century cathedral in this Swiss city on the shores of a lovely lake, I found what I was looking for: a Gutenberg printing press. \"This was the Internet of its day \u2014 at least as influential as the iPhone,\" said Gabriel de Montmollin, the director of the Museum of the Reformation, toying with the replica of Johann Gutenberg's great invention.\n\nBefore the invention of the printing press, it used to take four monks up to a year to produce a single book. With the advance in movable type in 15th-century Europe, one press could crank out 3,000 pages a day. Before long, average people could travel to places that used to be unknown to them \u2014 with maps! Medical information passed more freely and quickly, diminishing the sway of quacks. The printing press offered the prospect that tyrants would never be able to kill a book or suppress an idea. Gutenberg's brainchild broke the monopoly that clerics had on scripture. And later, stirred by pamphlets from a version of that same press, the American colonies rose up against a king and gave birth to a nation.\n\nSo, a question in the summer of this 10th anniversary of the iPhone: has the device that is perhaps the most revolutionary of all time given us a single magnificent idea? Nearly every advancement of the written word through new technology has also advanced humankind. Sure, you can say the iPhone changed everything. By putting the world's recorded knowledge in the palm of a hand, it revolutionized work, dining, travel and socializing. It made us more narcissistic \u2014 here's more of me doing cool stuff! \u2014 and it unleashed an army of awful trolls. We no longer have the patience to sit through a baseball game without that reach to the pocket. And one more casualty of Apple selling more than a billion phones in a decade's time: daydreaming has become a lost art.\n\nFor all of that, I'm still waiting to see if the iPhone can do what the printing press did for religion and democracy...the Geneva museum makes a strong case that the printing press opened more minds than anything else...it's hard to imagine the French or American revolutions without those enlightened voices in print...\n\nNot long after Steve Jobs introduced his iPhone, he said the bound book was probably headed for history's attic. Not so fast. After a period of rapid growth in e-books, something closer to the medium for Chaucer's volumes has made a great comeback\n\nThe hope of the iPhone, and the Internet in general, was that it would free people in closed societies. But the failure of the Arab Spring, and the continued suppression of ideas in North Korea, China and Iran, has not borne that out. The iPhone is still young. It has certainly been \"one of the most important, world-changing and successful products in history,\" as Apple C.E.O. Tim Cook said. But I'm not sure if the world changed for the better with the iPhone \u2014 as it did with the printing press \u2014 or merely changed.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q7",
+          "text": "7. The printing press has been likened to the Internet for which one of the following reasons?",
+          "type": "MCQ",
+          "options": [
+            "It enabled rapid access to new information and the sharing of new ideas.",
+            "It represented new and revolutionary technology compared to the past.",
+            "It encouraged reading among people by giving them access to thousands of books.",
+            "It gave people access to pamphlets and literature in several languages."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In the first passage, the author mentions printing press as the internet of its day. Immediately, in the next paragraph he elucidates how printing press helped in spreading ideas and information. Thus, the author likened the printing press to the internet because it enabled access to new information and sharing of ideas. Hence, option A is the correct answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q8",
+          "text": "8. According to the passage, the invention of the printing press did all of the following EXCEPT",
+          "type": "MCQ",
+          "options": [
+            "promoted the spread of enlightened political views across countries.",
+            "gave people direct access to authentic medical information and religious texts.",
+            "shortened the time taken to produce books and pamphlets.",
+            "enabled people to perform various tasks simultaneously."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "From the lines \"Medical information passed more freely and quickly, diminishing the sway of quacks\" and \"Gutenberg's brainchild broke the monopoly that clerics had on scripture\", we can infer that option B is true. From the lines \"And later, stirred by pamphlets from a version of that same press, the American colonies rose up against a king and gave birth to a nation\" and \"it's hard to imagine the French or American revolutions without those enlightened voices in print\", we can infer option A is true. From the lines \"Before the invention of the printing press, it used to take four monks up to a year to produce a single book. With the advance in movable type in 15th-century Europe, one press could crank out 3,000 pages a day\", we can infer that option C is true. Option D has not been stated nor implied anywhere in the passage."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q9",
+          "text": "9. Steve Jobs predicted which one of the following with the introduction of the iPhone?",
+          "type": "MCQ",
+          "options": [
+            "People would switch from reading on the Internet to reading on their iPhones.",
+            "People would lose interest in historical and traditional classics.",
+            "Reading printed books would become a thing of the past.",
+            "The production of e-books would eventually fall."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Refer to the following lines - \"Not long after Steve Jobs introduced his iPhone, he said the bound book was probably headed for history's attic\". Thus, we can infer that Steve Jobs predicted that reading printed books would become a thing of the past. Hence, option C is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q10",
+          "text": "10. \"I'm still waiting to see if the iPhone can do what the printing press did for religion and democracy.\" The author uses which one of the following to indicate his uncertainty?",
+          "type": "MCQ",
+          "options": [
+            "The rise of religious groups in many parts of the world.",
+            "The expansion in trolling and narcissism among users of the Internet.",
+            "The continued suppression of free speech in closed societies.",
+            "The decline in reading habits among those who use the device."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author says that the iPhone has not fulfilled its potential as a piece of revolutionary technology. He goes on to say that the hope was that the iPhone could help in liberating people in closed societies. However, the failure of the Arab spring and continued suppression in places like North Korea shows that this has not happened. Hence, the author uses the continued suppression of free speech in closed societies to indicate why he is still uncertain about the potential of the iPhone. Hence, option C is correct."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q11",
+          "text": "11. The author attributes the French and American revolutions to the invention of the printing press because",
+          "type": "MCQ",
+          "options": [
+            "maps enabled large numbers of Europeans to travel and settle in the American continent.",
+            "the rapid spread of information exposed people to new ideas on freedom and democracy.",
+            "it encouraged religious freedom among the people by destroying the monopoly of religious leaders on the scriptures.",
+            "it made available revolutionary strategies and opinions to the people."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Refer to the line \"it's hard to imagine the French or American revolutions without those enlightened voices in print\". Hence, from this we can straightaway eliminate options A and C. Between options B and D, B correctly captures the point made by the author. The printing press allowed the spread of enlightened voices and as a result people were exposed to new ideas on freedom and democracy. Option D slightly distorts what is given in the passage. The passage does not mention any revolutionary \"strategies\". Hence, we can eliminate this option. Thus, the answer is option B."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q12",
+          "text": "12. The main conclusion of the passage is that the new technology has",
+          "type": "MCQ",
+          "options": [
+            "some advantages, but these are outweighed by its disadvantages.",
+            "so far not proved as successful as the printing press in opening people's minds.",
+            "been disappointing because it has changed society too rapidly.",
+            "been more wasteful than the printing press because people spend more time daydreaming or surfing."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The main point of the passage is that unlike the Gutenberg printing press, the iPhone has in comparison done nothing to make the society more liberated or enlightened. This point has been accurately captured by option B. The author is not weighing the advantages or disadvantages of new technology. Hence, we can eliminate option A. The author does not say that the society has rapidly changed as a result of new technology. In fact, he says that nothing really has changed as a result of it. The author says that people are no longer daydreaming as a result of new technology. Hence, option D, which contradicts what is given in the passage, can be eliminated."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "This year alone, more than 8,600 stores could close, according to industry estimates, many of them the brand-name anchor outlets that real estate developers once stumbled over themselves to court. Already there have been 5,300 retail closings this year... Sears Holdings \u2014 which owns Kmart \u2014 said in March that there's \"substantial doubt\" it can stay in business altogether, and will close 300 stores this year. So far this year, nine national retail chains have filed for bankruptcy.\n\nLocal jobs are a major casualty of what analysts are calling, with only a hint of hyperbole, the retail apocalypse. Since 2002, department stores have lost 448,000 jobs, a 25% decline, while the number of store closures this year is on pace to surpass the worst depths of the Great Recession. The growth of online retailers, meanwhile, has failed to offset those losses, with the e-commerce sector adding just 178,000 jobs over the past 15 years. Some of those jobs can be found in the massive distribution centers Amazon has opened across the country, often not too far from malls the company helped shutter.\n\nBut those are workplaces, not gathering places. The mall is both. And in the 61 years since the first enclosed one opened in suburban Minneapolis, the shopping mall has been where a huge swath of middle-class America went for far more than shopping. It was the home of first jobs and blind dates, the place for family photos and ear piercings, where goths and grandmothers could somehow walk through the same doors and find something they all liked. Sure, the food was lousy for you and the oceans of parking lots encouraged car-heavy development, something now scorned by contemporary planners. But for better or worse, the mall has been America's public square for the last 60 years.\n\nSo what happens when it disappears?\n\nThink of your mall. Or think of the one you went to as a kid. Think of the perfume clouds in the department stores. The fountains splashing below the skylights. The cinnamon wafting from the food court. As far back as ancient Greece, societies have congregated around a central marketplace. In medieval Europe, they were outside cathedrals. For half of the 20th century and almost 20 years into the new one, much of America has found their agora on the terrazzo between Orange Julius and Sbarro, Waldenbooks and the Gap, Sunglass Hut and Hot Topic.\n\nThat mall was an ecosystem unto itself, a combination of community and commercialism peddling everything you needed and everything you didn't: Magic Eye posters, wind catchers, Air Jordans....\n\nA growing number of Americans, however, don't see the need to go to any Macy's at all. Our digital lives are frictionless and ruthlessly efficient, with retail and romance available at a click. Malls were designed for leisure, abundance, ambling. You parked and planned to spend some time. Today, much of that time has been given over to busier lives and second jobs and apps that let you swipe right instead of haunt the food court. Malls, says Harvard business professor Leonard Schlesinger, \"were built for patterns of social interaction that increasingly don't exist.\"",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q13",
+          "text": "13. The central idea of this passage is that:",
+          "type": "MCQ",
+          "options": [
+            "the closure of malls has affected the economic and social life of middle-class America.",
+            "Is the advantages of malls outweigh their disadvantages.",
+            "malls used to perform a social function that has been lost.",
+            "malls are closing down because people have found alternate ways to shop."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author argues that malls were more than just shopping places. Towards the end of the passage, the author tries to invoke a sense of nostalgia by stating how malls used to play an important role in everyone's life and how that function is getting lost. Let us evaluate the options. Option B states that the advantages of the malls outweigh the disadvantages. The author has not mentioned anything about the disadvantages of the malls. Therefore, we can easily eliminate option B. Option D states that malls are closing down since people have found an alternate way to shop. Though the option is true, the main point of the author is not that malls are closing down. The author is concerned about the fact that malls were places of congregation and the closure of malls takes a social function away with them. Therefore, we can eliminate option D as well. Options A and C are close. Option A states that the closure of malls has affected the social and economic life of America. However, the author states that the closure of malls is reflective of the changing social structure of America. Option A gets the relationship backwards and hence, option A can be eliminated. Option C states that malls used to perform a social function that has been lost. This seems to be the main point that the author is trying to emphasize through the paragraph. The author states how malls used to be places of congregation and how the new generation finds no need to go to malls. Therefore, option C is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q14",
+          "text": "14. Why does the author say in paragraph 2, 'the massive distribution centers Amazon has opened across the country, often not too far from malls the company helped shutter'?",
+          "type": "MCQ",
+          "options": [
+            "To highlight the irony of the situation.",
+            "To indicate that malls and distribution centres are located in the same area.",
+            "To show that Amazon is helping certain brands go online.",
+            "To indicate that the shopping habits of the American middle class have changed."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "No where has it been mentioned that Amazon is helping brands go online. Therefore, we can eliminate option C. Option D states that the purpose of the line is to indicate that the shopping habits of the middle class America has changed. However, the author talks about shopping habits towards the end of the passage. The author has not introduced the topic of 'shopping habits' when the given line has been mentioned. Therefore, we can eliminate option D as well. Option B states that the author uses the line to indicate that the malls and distribution centres are located in the same area. However, the author states that the distribution centres are replacing the malls. He does not intend to convey that they co-exist. Therefore, we can eliminate option B as well. Option A states that the author uses the line to indicate the irony of the situation. Option A captures the fact that the author finds it ironic that distribution centres are springing up near the places where the malls once existed. Therefore, option A is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q15",
+          "text": "15. In the first paragraph, the phrase \"real estate developers once stumbled over themselves to court...\" suggests that they",
+          "type": "MCQ",
+          "options": [
+            "took brand-name anchor outlets to court.",
+            "no longer pursue brand-name anchor outlets.",
+            "collaborated with one another to get brand-name anchor outlets.",
+            "were eager to get brand-name anchor outlets to set up shop in their mall."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "In the first paragraph, the author states that \"many of them the brand-name anchor outlets that real estate developers once stumbled over themselves to court\", indicating that the brand outlets used to be sought after once but are no longer in demand. The author states that the real estate developers used to fight each other over these outlets earlier. Therefore, we can infer that the real estate developers no longer show the kind of enthusiasm they did (since the outlets are closing down) and hence, option B is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "This year alone, more than 8,600 stores could close, according to industry estimates, many of them the brand-name anchor outlets that real estate developers once stumbled over themselves to court. Already there have been 5,300 retail closings this year... Sears Holdings \u2014 which owns Kmart \u2014 said in March that there's \"substantial doubt\" it can stay in business altogether, and will close 300 stores this year. So far this year, nine national retail chains have filed for bankruptcy.\n\nLocal jobs are a major casualty of what analysts are calling, with only a hint of hyperbole, the retail apocalypse. Since 2002, department stores have lost 448,000 jobs, a 25% decline, while the number of store closures this year is on pace to surpass the worst depths of the Great Recession. The growth of online retailers, meanwhile, has failed to offset those losses, with the e-commerce sector adding just 178,000 jobs over the past 15 years. Some of those jobs can be found in the massive distribution centers Amazon has opened across the country, often not too far from malls the company helped shutter.\n\nBut those are workplaces, not gathering places. The mall is both. And in the 61 years since the first enclosed one opened in suburban Minneapolis, the shopping mall has been where a huge swath of middle-class America went for far more than shopping. It was the home of first jobs and blind dates, the place for family photos and ear piercings, where goths and grandmothers could somehow walk through the same doors and find something they all liked. Sure, the food was lousy for you and the oceans of parking lots encouraged car- heavy development, something now scorned by contemporary planners. But for better or worse, the mall has been America's public square for the last 60 years.\n\nSo what happens when it disappears?\n\nThink of your mall. Or think of the one you went to as a kid. Think of the perfume clouds in the department stores. The fountains splashing below the skylights. The cinnamon wafting from the food court. As far back as ancient Greece, societies have congregated around a central marketplace. In medieval Europe, they were outside cathedrals. For half of the 20th century and almost 20 years into the new one, much of America has found their agora on the terrazzo between Orange Julius and Sbarro, Waldenbooks and the Gap, Sunglass Hut and Hot Topic.\n\nThat mall was an ecosystem unto itself, a combination of community and commercialism peddling everything you needed and everything you didn' t: Magic Eye posters, wind catchers, Air Jordans....\n\nA growing number of Americans, however, don't see the need to go to any Macy's at all. Our digital lives are frictionless and ruthlessly efficient, with retail and romance available at a click. Malls were designed for leisure, abundance, ambling. You parked and planned to spend some time. Today, much of that time has been given over to busier lives and second jobs and apps that let you swipe right instead of haunt the food court. Malls, says Harvard business professor Leonard Schlesinger, \"were built for patterns of social interaction that increasingly don't exist.\"",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q16",
+          "text": "16. The author calls the mall an ecosystem unto itself because",
+          "type": "MCQ",
+          "options": [
+            "people of all ages and from all walks of life went there.",
+            "people could shop as well as eat in one place.",
+            "it was a commercial space as well as a gathering place.",
+            "it sold things that were needed as well as those that were not."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author calls malls an ecosystem since they served as places of congregation. The author compares the market places from ancient Greece to emphasize how malls, just like the market places through out the history, served as the places of social interaction as well. Only option C captures the fact that malls serves both as commercial and social centres and hence, option C is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q17",
+          "text": "17. Why does the author say that the mall has been America's public square?",
+          "type": "MCQ",
+          "options": [
+            "Malls did not bar anybody from entering the space.",
+            "Malls were a great place to shop for a huge section of the middle class.",
+            "Malls were a hangout place where families grew close to each other.",
+            "Malls were a great place for everyone to gather and interact."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The main point that the author places is that malls served as places of social interaction and cannot be reduced to merely places of commercial activity. Therefore, the author compares the malls as America's public square to show the bustling social life that the malls hosted. Therefore, option D is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q18",
+          "text": "18. The author describes 'Perfume clouds in the department stores' in order to",
+          "type": "MCQ",
+          "options": [
+            "evoke memories by painting a picture of malls.",
+            "describe the smells and sights of malls.",
+            "emphasise that all brands were available under one roof.",
+            "show that malls smelt good because of the various stores and food court."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In the last 2 paragraphs, the author tries to invoke a sense of nostalgia by describing the malls. He tries to make the readers feel the ambiance and vibrance of the malls by taking us down the memory lane. Option B adopts an objective tone. The author does not merely describe a mall. He tries to invoke our memories of the malls. Options C and D can be eliminated since the purpose of the author is not to emphasize that all brands were available at one place or to establish the reason for the sweet smell that the malls carried. The author tries to make an emotional appeal and only option A captures this point. Therefore, option A is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Scientists have long recognised the incredible diversity within a species. But they thought it reflected evolutionary changes that unfolded imperceptibly, over millions of years. That divergence between populations within a species was enforced, according to Ernst Mayr, the great evolutionary biologist of the 1940s, when a population was separated from the rest of the species by a mountain range or a desert, preventing breeding across the divide over geologic scales of time. Without the separation, gene flow was relentless. But as the separation persisted, the isolated population grew apart and speciation occurred.\n\nIn the mid-1960s, the biologist Paul Ehrlich \u2014 author of The Population Bomb (1968) \u2014 and his Stanford University colleague Peter Raven challenged Mayr's ideas about speciation. They had studied checkerspot butterflies living in the Jasper Ridge Biological Preserve in California, and it soon became clear that they were not examining a single population. Through years of capturing, marking and then recapturing the butterflies, they were able to prove that within the population, spread over just 50 acres of suitable checkerspot habitat, there were three groups that rarely interacted despite their very close proximity.\n\nAmong other ideas, Ehrlich and Raven argued in a now classic paper from 1969 that gene flow was not as predictable and ubiquitous as Mayr and his cohort maintained, and thus evolutionary divergence between neighbouring groups in a population was probably common. They also asserted that isolation and gene flow were less important to evolutionary divergence than natural selection (when factors such as mate choice, weather, disease or predation cause better adapted individuals to survive and pass on their successful genetic traits). For example, Ehrlich and Raven suggested that, without the force of natural selection, an isolated population would remain unchanged and that, in other scenarios, natural selection could be strong enough to overpower gene flow...",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q19",
+          "text": "19. Which of the following best sums up Ehrlich and Raven's argument in their classic 1969 paper?",
+          "type": "MCQ",
+          "options": [
+            "Ernst Mayr was wrong in identifying physical separation as the cause of species diversity.",
+            "Checkerspot butterflies in the 50-acre Jasper Ridge Preserve formed three groups that rarely interacted with each other.",
+            "While a factor, isolation was not as important to speciation as natural selection.",
+            "Gene flow is less common and more erratic than Mayr and his colleagues claimed."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In the last paragraph, the author uses the line \"They also asserted that isolation and gene flow were less important to evolutionary divergence than natural selection\". Also, through the example of checkerspot butterflies, the author brings to light the fact that isolation, though a factor, is not very dominant in influencing speciation. Therefore, option C is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q20",
+          "text": "20. All of the following statements are true according to the passage EXCEPT",
+          "type": "MCQ",
+          "options": [
+            "Gene flow contributes to evolutionary divergence.",
+            "The Population Bomb questioned dominant ideas about species diversity.",
+            "Evolutionary changes unfold imperceptibly over time.",
+            "Checkerspot butterflies are known to exhibit speciation while living in close proximity."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "In the second line of the first paragraph, the author mentions that evolutionary changes evolve imperceptibly over time. In the third paragraph, the author mentions that \"Isolation and gene flow were less important to evolutionary divergence than natural selection\". Therefore, we can infer that gene flow contributes to evolutionary divergence. The author explains that 3 species of checkerspot butterflies living within 50 acres hardly interact with each other. Therefore, we can infer option D. The author mentioned the book \"the population bomb\" as an introduction to the biologist Paul Ehrlich. Option B cannot be inferred from the passage and hence, it is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "The author discusses Mayr, Ehrlich and Raven to demonstrate that...",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q21",
+          "text": "21. The author discusses Mayr, Ehrlich and Raven to demonstrate that",
+          "type": "MCQ",
+          "options": [
+            "evolution is a sensitive and controversial topic.",
+            "Ehrlich and Raven's ideas about evolutionary divergence are widely accepted by scientists.",
+            "the causes of speciation are debated by scientists.",
+            "checkerspot butterflies offer the best example of Ehrlich and Raven's ideas about speciation."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author provides 'Checkerspot butterflies' as an example to drive home his point. The primary intention of the author is not to discuss checkerspot butterflies. Therefore, we can eliminate option D. Option B can be eliminated as well since the author has not mentioned that the theories are widely accepted. The author explains the contrasting views of the scientists to show that speciation is a debated topic. Option A states that evolution is a controversial topic. The passage deals with speciation. We cannot generalize speciation to evolution. Also, the intention of the author is to show the differing views among the scientists rather than to establish that the topic is controversial. Therefore, option C is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Do sports mega events like the summer Olympic Games benefit the host city economically? It depends, but the prospects are less than rosy. The trick is converting...several billion dollars in operating costs during the 17-day fiesta of the Games into a basis for long-term economic returns. These days, the summer Olympic Games themselves generate total revenue of $4 billion to $5 billion, but the lion's share of this goes to the International Olympics Committee, the National Olympics Committees and the International Sports Federations. Any economic benefit would have to flow from the value of the Games as an advertisement for the city, the new transportation and communications infrastructure that was created for the Games, or the ongoing use of the new facilities.\n\nEvidence suggests that the advertising effect is far from certain. The infrastructure benefit depends on the initial condition of the city and the effectiveness of the planning. The facilities benefit is dubious at best for buildings such as velodromes or natatoriums and problematic for 100,000-seat Olympic stadiums. The latter require a conversion plan for future use, the former are usually doomed to near vacancy. Hosting the summer Games generally requires 30-plus sports venues and dozens of training centers. Today, the Bird's Nest in Beijing sits virtually empty, while the Olympic Stadium in Sydney costs some $30 million a year to operate.\n\nPart of the problem is that Olympics planning takes place in a frenzied and time-pressured atmosphere of intense competition with the other prospective host cities \u2014 not optimal conditions for contemplating the future shape of an urban landscape. Another part of the problem is that urban land is generally scarce and growing scarcer. The new facilities often stand for decades or longer. Even if they have future use, are they the best use of precious urban real estate?\n\nFurther, cities must consider the human cost. Residential areas often are razed and citizens relocated (without adequate preparation or compensation). Life is made more hectic and congested. There are, after all, other productive uses that can be made of vanishing fiscal resources.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q22",
+          "text": "22. The central point in the first paragraph is that the economic benefits of the Olympic Games",
+          "type": "MCQ",
+          "options": [
+            "are shared equally among the three organising committees.",
+            "accrue mostly through revenue from advertisements and ticket sales.",
+            "accrue to host cities, if at all, only in the long term.",
+            "are usually eroded by expenditure incurred by the host city."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author expresses his views that hosting Olympics cost a lot and the financial prospects are not that good. Towards the end of the first paragraph, he uses the line \"Any economic benefit would have to flow from the value of the Games as an advertisement for the city, the new transportation and communications infrastructure that was created for the Games, or the ongoing use of the new facilities\". From this line, we can infer that the author states that there are any benefits, it should be from advertisements and the use of the facilities (implying that the other streams are unlikely to yield any revenue). It has not been mentioned that the 3 committees share the profit equally. Even if they do, it is not the main point that the author intends to convey through the first paragraph. Therefore, we can eliminate option A. Option B states that the revenue accrues through advertisement and ticket sales. No information has been provided about 'ticket sales' and hence, option B can be eliminated. Option D states that the revenues are usually eroded by the expenditure incurred by host city. The second paragraph builds on revenue from 'advertising and infrastructure' implying that the primary purpose of the first paragraph was to introduce these topics rather than to lament that the expenditure of the host city erodes the revenue. Therefore, option C is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q23",
+          "text": "23. Sports facilities built for the Olympics are not fully utilised after the Games are over because",
+          "type": "MCQ",
+          "options": [
+            "their scale and the costs of operating them are large.",
+            "their location away from the city centre usually limits easy access.",
+            "the authorities do not adapt them to local conditions.",
+            "they become outdated having being built with little planning and under time pressure."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In the second paragraph, the author mentions that the facilities are not fully utilized due to their sheer capacity. 'The facilities benefit is dubious at best for buildings such as velodromes or natatoriums and problematic for 100,000-seat Olympic stadiums. The latter require a conversion plan for future use, the former are usually doomed to near vacancy'. Nowhere has it been mentioned that the facilities become outdated or that they are located far from the city. The author mentions in the second paragraph that the structures are expensive to maintain. Therefore, option A is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q24",
+          "text": "24. The author feels that the Games place a burden on the host city for all of the following reasons EXCEPT that",
+          "type": "MCQ",
+          "options": [
+            "they divert scarce urban land from more productive uses.",
+            "they involve the demolition of residential structures to accommodate sports facilities and infrastructure.",
+            "the finances used to fund the Games could be better used for other purposes.",
+            "the influx of visitors during the Games places a huge strain on the urban infrastructure."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We can infer option A from the line 'Even if they have future use, are they the best use of precious urban real estate?'. The author feels that the urban real estate can be put to better use than hosting Olympics. The author mentions that the fiscal resources can be used for more productive pursuits than hosting Olympics in the last line of the passage. We can infer option B from the line \"Residential areas often are razed and citizens relocated \". Option D cannot be inferred from the passage and hence, it is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "To me, a \"classic\" means precisely the opposite of what my predecessors understood: a work is classical by reason of its resistance to contemporaneity and supposed universality, by reason of its capacity to indicate human particularity and difference in that past epoch. The classic is not what tells me about shared humanity \u2014 or, more truthfully put, what lets me recognize myself as already present in the past, what nourishes in me the illusion that everything has been like me and has existed only to prepare the way for me. Instead, the classic is what gives access to radically different forms of human consciousness for any given generation of readers, and thereby expands for them the range of possibilities of what it means to be a human being.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q25",
+          "text": "25. The passage given below is followed by four summaries. Choose the option that best captures the author' s position.",
+          "type": "MCQ",
+          "options": [
+            "A classic is able to focus on the contemporary human condition and a unified experience of human consciousness.",
+            "A classical work seeks to resist particularity and temporal difference even as it focuses on a common humanity.",
+            "A classic is a work exploring the new, going beyond the universal, the contemporary, and the notion of a unified human consciousness.",
+            "A classic is a work that provides access to a universal experience of the human race as opposed to radically different forms of human consciousness."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author states that a classic is not which puts him at the centre of the universe but one which gives access to radically different forms of human consciousness. Let us evaluate the options. Option A states that a classic should focus on unified human experience. The author mentions the exact opposite in the paragraph. Therefore, we can eliminate option A. We can eliminate option D too since it mentions the polar opposite of what that is mentioned in the paragraph. The author is of the view that a classic should go beyond providing a unified human experience and expose one to radically different forms of human consciousness. We can eliminate option B since it states that a classic focuses on common humanity. Only option C captures the essence of the given paragraph and hence, option C is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "A translator of literary works needs a secure hold upon the two languages involved, supported by a good measure of familiarity with the two cultures. For an Indian translating works in an Indian language into English, finding satisfactory equivalents in a generalized western culture of practices and symbols in the original would be less difficult than gaining fluent control of contemporary English. When a westerner works on texts in Indian languages the interpretation of cultural elements will be the major challenge, rather than control over the grammar and essential vocabulary of the language concerned. It is much easier to remedy lapses in language in a text translated into English, than flaws of content. Since it is easier for an Indian to learn the English language than it is for a Briton or American to comprehend Indian culture, translations of Indian texts is better left to Indians.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q26",
+          "text": "26. The passage given below is followed by four summaries. Choose the option that best captures the author' s position.",
+          "type": "MCQ",
+          "options": [
+            "While translating, the Indian and the westerner face the same challenges but they have different skill profiles and the former has the advantage.",
+            "As preserving cultural meanings is the essence of literary translation Indians' knowledge of the local culture outweighs the initial disadvantage of lower fluency in English.",
+            "Indian translators should translate Indian texts into English as their work is less likely to pose cultural problems which are harder to address than the quality of language.",
+            "Westerners might be good at gaining reasonable fluency in new languages, but as understanding the culture reflected in literature is crucial, Indians remain better placed."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let us note down the important points put down by the author. Indians have better knowledge of their culture. A westerner might be fluent in the language but will find it hard to relate to the culture. Indians, on the other hand, might be less fluent in the language but will be able to preserve the culture when a text is translated. Therefore, Indians should translate Indian texts. Let us evaluate the options now. Option A states that Indians and Westerners face the same challenges but they have different skill sets. Indians and Westerners face different challenges while translating the text. Indians face difficulty in the language and westerners face difficulty in relating to the culture. Therefore, we can eliminate option A. Option D fails to capture the fact that the primary intention of the paragraph is not to pit Indians against westerners but to suggest that Indians should translate Indian texts. Also, it does not capture the fact that Indians will retain the advantage only when translating the Indian texts. Therefore, we can eliminate option D. Option B, though true, fails to capture the India-centric angle that the paragraph adopts. The paragraph places huge emphasis on the term 'Indian texts' and only option C manages to capture this fact. Also, only option C captures the fact that it is easier to remedy errors in the language than to fix errors in the interpretation of culture. Therefore, option C is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "For each of the past three years, temperatures have hit peaks not seen since the birth of meteorology, and probably not for more than 110,000 years. The amount of carbon dioxide in the air is at its highest level in 4 million years. This does not cause storms like Harvey \u2014 there have always been storms and hurricanes along the Gulf of Mexico \u2014 but it makes them wetter and more powerful. As the seas warm, they evaporate more easily and provide energy to storm fronts. As the air above them warms, it holds more water vapour. For every half a degree Celsius in warming, there is about a 3% increase in atmospheric moisture content. Scientists call this the Clausius-Clapeyron equation. This means the skies fill more quickly and have more to dump. The storm surge was greater because sea levels have risen 20 cm as a result of more than 100 years of human- related global warming which has melted glaciers and thermally expanded the volume of seawater.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q27",
+          "text": "27. The passage given below is followed by four summaries. Choose the option that best captures the author' s position.",
+          "type": "MCQ",
+          "options": [
+            "The storm Harvey is one of the regular, annual ones from the Gulf of Mexico; global warming and Harvey are unrelated phenomena.",
+            "Global warming does not breed storms but makes them more destructive; the Clausius-Clapeyron equation, though it predicts potential increase in atmospheric moisture content, cannot predict the scale of damage storms might wreck.",
+            "Global warming melts glaciers, resulting in seawater volume expansion; this enables more water vapour to fill the air above faster. Thus, modern storms contain more destructive energy.",
+            "It is naive to think that rising sea levels and the force of tropical storms are unrelated; Harvey was destructive as global warming has armed it with more moisture content, but this may not be true of all storms."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let us note down the important points in the given paragraph. Global warming does not cause storms but make them more powerful. Due to the increase in the temperature, the air can absorb more moisture. This relationship (the change in the ability to absorb water with the increase in the temperature) is given by the Clausius-Clapeyron equation. Let us evaluate the options. The author provides storm Harvey as an example to illustrate how increased temperatures can arm the storms with more power. Harvey is not the central theme of the given paragraph. We can eliminate options A and D since option D places much emphasis on storm Harvey and option A states that there is no relationship between the increase in temperature and the power of storms. Option B states that the Clausius-Clapeyron equation cannot predict the quantum of destruction that a storm might cause. This point is totally out of context with respect to what that is being discussed in the paragraph. Therefore, we can eliminate option B as well. Option C precisely explains the mechanism through which global warming makes the modern storms more destructive. Therefore, option C is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q28",
+          "text": "28. The five sentences labelled 1, 2, 3, 4, 5) given in this question, when properly sequenced, form a coherent paragraph. Each sentence is labelled with a number. Decide on the proper order for the sentences and key in this sequence of five numbers as your answer.\n1. The process of handing down implies not a passive transfer, but some contestation in defining what exactly is to be handed down.\n2. Wherever Western scholars have worked on the Indian past, the selection is even more apparent and the inventing of a tradition much more recognizable.\n3. Every generation selects what it requires from the past and makes its innovations, some more than others.\n4. It is now a truism to say that traditions are not handed down unchanged, but are invented.\n5. Just as life has death as its opposite, so is tradition by default the opposite of innovation.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "54132",
+          "explanation": "A quick glance at all the five questions suggest that the passage is discussing tradition and innovation. Hence, 5 is the best opening sentence as it sets the context for the discussion. 4 and 1 form a pair as both of them talk about handing down. Similarly, 3, 2 also form a pair as both talk about selections. Hence, the correct logical order of the given sentences will be 54132."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q29",
+          "text": "29. The five sentences labelled (1, 2, 3, 4, 5) given in this question, when properly sequenced, form a coherent paragraph. Each sentence is labelled with a number. Decide on the proper order for the sentences and key in this sequence of five numbers as your answer.\n1. Scientists have for the first time managed to edit genes in a human embryo to repair a genetic mutation, fuelling hopes that such procedures may one day be available outside laboratory conditions.\n2. The cardiac disease causes sudden death in otherwise healthy young athletes and affects about one in 500 people overall.\n3. Correcting the mutation in the gene would not only ensure that the child is healthy but also prevents transmission of the mutation to future generations.\n4. It is caused by a mutation in a particular gene and a child will suffer from the condition even if it inherits only one copy of the mutated gene.\n5. In results announced in Nature this week, scientists fixed a mutation that thickens the heart muscle, a condition called hypertrophic cardiomyopathy.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "15243",
+          "explanation": "After reading all the given sentences, we know that the paragraph is about the gene editing and a specific disease where the process has been used effectively. Statement 1 is the opening sentences introducing the topic that how for the first time scientists have managed to edit gene. Statement 5 provides the specifics of the case where the gene editing has taken place. 'The cardiac disease' mentioned in statement 2 refers to hypertrophic cardiomyopathy discussed in statement 5. So, statement 2 must follow statement 5. Statement 4 explains the causes of the of the disease mentioned in statement 2. Statement 3 is a conclusion about the result of the process explained earlier. Thus, the correct order is 1 - 5 - 2 - 4 - 3. Hence, 15243 is the correct answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q30",
+          "text": "30. The five sentences labelled (1, 2, 3, 4, 5) given in this question, when properly sequenced, form a coherent paragraph. Each sentence is labelled with a number. Decide on the proper order for the sentences and key in this sequence of five numbers as your answer.\n1. The study suggests that the disease did not spread with such intensity, but that it may have driven human migrations across Europe and Asia.\n2. The oldest sample came from an individual who lived in southeast Russia about 5,000 years ago.\n3. The ages of the skeletons correspond to a time of mass exodus from today's Russia and Ukraine into western Europe and central Asia, suggesting that a pandemic could have driven these migrations.\n4. In the analysis of fragments of DNA from 101 Bronze Age skeletons for sequences from Yersinia pestis, the bacterium that causes the disease, seven tested positive.\n5. DNA from Bronze Age human skeletons indicate that the black plague could have emerged as early as 3,000 BCE, long before the epidemic that swept through Europe in the mid-1300s.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "54123",
+          "explanation": "On carefully reading the sentences, we see that the paragraph is about the disease - black plaque and its impact on migration. Sentence 5 introduces the subject. Hence, it should be the opening sentence of the paragraph. Sentence 4 should follow 5 as 4 talks about the bronze age skeletons, which are mentioned in 5. Sentence 1 should follow 4 as 'the study' refers to the analysis of skeletons mentioned in 4. Sentences 2 and 3 form a pair as 2 mentions that the oldest sample was found in Russia and 3 mentions that this could have been the reason for mass exodus. 54123 forms a coherent paragraph."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q31",
+          "text": "The five sentences labelled (1, 2, 3, 4, 5) given in this question, when properly sequenced, form a coherent paragraph. Each sentence is labelled with a number. Decide on the proper order for the sentences and key in this sequence of five numbers as your answer.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "32145",
+          "explanation": "3 is the starting sentence of the given paragraph as it introduces us the topic. 2 follows 3 as it further talks about what's given in 3 as can be understood by \"There is absolutely nothing new about us framing the vision\" and this vision talked about in 3. 1 follows 2 as \"This visual turn\" has it's precedent is in 2. The visual turn in 1 is explained in 2. 5 concludes the summary and it also follows 4 as \"What is unprecedented is not the desire to put out newsfeeds related to the self\" given in 5 is explained in 4. Hence, the correct order is 32145."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q32",
+          "text": "Five sentences related to a topic are given below. Four of them can be put together to form a meaningful and coherent short paragraph. Identify the odd one out.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "After reading all the sentences, we know that the paragraph is about the children's language and the signs that they show. Statement 1 is the opening sentence as it introduces us to the method adopted to study children's language. Statement 2 further explains the method how people study the signs given by children. Statements 4 and 5 are about the signs mentioned in statement 2. Thus, all the four statements are related to the methodology adopted by people to study children's language. Therefore, these 4 sentences form a paragraph. Statement 3 is about the reaction of children to a certain language. So, statement 3 is about a different topic and does not fit in the paragraph. Hence, 3 is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q33",
+          "text": "Five sentences related to a topic are given below. Four of them can be put together to form a meaningful and coherent short paragraph. Identify the odd one out.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "After reading all the sentences, we know that the passage is about the study of the effect of exercise on the mind by the neuroscientists. Statement 1 is the opening sentence as it introduces the main idea and suggests that neuroscientists have started studying the effect of exercise on the mind. Statement 2 discusses the findings of the study mentioned in statement 1. Statement 3 further elaborates the finding and explains the reasons behind the effect of exercise on brain cells. Statement 5 is a conclusion sentence based on the study mentioned in the three sentences mentioned earlier. Thus, 1235 forms a meaningful paragraph. Statement 4 focuses on our ignorance of movements due to the widespread use of technology. Other four sentences are about the relationship between exercise and brain cells. However, statement 4 is about a different topic. Therefore, statement 4 is an odd sentence which does not fit in the paragraph. Hence, 4 is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q34",
+          "text": "Five sentences related to a topic are given below. Four of them can be put together to form a meaningful and coherent short paragraph. Identify the odd one out.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "On reading the sentences, we can infer that the paragraph is about how Mars lost most of its water. Sentence 5 states that Mars has lost much of its water according to one study but some liquid water remains according to another. Therefore, the rest of the paragraph should explain about these 2 findings. Sentences 4 and 2 together substantiate the first study. They try to explain how a solar storm swept away Mar's water content. Both the sentences talk about the solar storm. Sentence 3 talks about the water that is remaining on the planet. Sentences 5423 can be put together into a coherent paragraph. Therefore, sentence 1 is the odd one out."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "| Client no. | Time | Order |\n|---|---|---|\n| 1 | 10:00 | 1 burger, 3 portions of fries, 1 order of ice cream |\n| 2 | 10:05 | 2 portions of fries, 1 order of ice cream |\n| 3 | 10:07 | 1 burger, 1 portion of fries |",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q35",
+          "text": "Assume that only one client's order can be processed at any given point of time. So, Anish or Bani cannot start preparing a new order while a previous order is being prepared. At what time is the order placed by Client 1 completely served?",
+          "type": "MCQ",
+          "options": [
+            "10:17",
+            "10:10",
+            "10:15",
+            "10:20"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "It is given that 1 burger takes 10 minutes, 1 ice cream takes 2 minutes and 3 portions of fries take 5 min by the machine (operator is not required). Client 1 ordered 1 burger, 3 portions of fries and 1 ice cream. The burger will take 10 minutes to finish. Meantime, rest of the order can be completed. The first order will be completely done at 10:10."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q36",
+          "text": "Assume that only one client's order can be processed at any given point of time. So, Anish or Bani cannot start preparing a new order while a previous order is being prepared. At what time is the order placed by Client 3 completely served?",
+          "type": "MCQ",
+          "options": [
+            "10:35",
+            "10:22",
+            "10:25",
+            "10:17"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "It is given that 1 burger takes 10 minutes, 1 ice cream takes 2 minutes and 3 portions of fries take 5 min by the machine (operator is not required). Anish or Bani cannot start preparing a new order while a previous order is being prepared. The first order will be completely done at 10:10. The second order is two fries and one ice cream, which will be done by 10:15. The third order is one 1 burger and 1 portion of fries. The burger will take 10 minutes, by which fries will be ready. Thus, the third order will be completed by 10:25."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q37",
+          "text": "Suppose the employees are allowed to process multiple orders at a time, but the preference would be to finish orders of clients who placed their orders earlier. At what time is the order placed by Client 2 completely served?",
+          "type": "MCQ",
+          "options": [
+            "10:10",
+            "10:12",
+            "10:15",
+            "10:17"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "It is given that 1 burger takes 10 minutes, 1 ice cream takes 2 minutes and 3 portions of fries take 5 min by the machine (operator is not required). The employees are allowed to process multiple orders at a time, but the preference would be to finish orders of clients who placed their orders earlier. The first order is 1 burger, 1 ice cream and 3 portions of fries. Anish can start working on the burger and Bani can start working on the ice cream for the first client at 10:00. The burger will be done at 10:10, ice - cream at 10:02 and fries at 10:05. The second order is placed at 10:05. (ice cream and fries). Bani can work on the ice cream for the second client at 10:05 and also put the fries. The ice cream will be done by 10:07 but the fries will be done by 10:10. Thus, order will be completed by 10:10."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q38",
+          "text": "Suppose the employees are allowed to process multiple orders at a time, but the preference would be to finish orders of clients who placed their orders earlier. Also assume that the fourth client came in only at 10:35. Between 10:00 and 10:30, for how many minutes is exactly one of the employees idle?",
+          "type": "MCQ",
+          "options": [
+            "7",
+            "10",
+            "15",
+            "23"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "It is given that 1 burger takes 10 minutes, 1 ice cream takes 2 minutes and 3 portions of fries take 5 min by the machine (operator is not required). The employees are allowed to process multiple orders at a time, but the preference would be to finish orders of clients who placed their orders earlier. The first order is 1 burger, 1 ice cream and 3 portions of fries. Anish can start working on the burger and Bani can start working on the ice cream. The burger will be done at 10:10, ice - cream at 10:02 and fries at 10:05. The second order is placed at 10:05. (ice cream and fries). Bani can work on the ice cream from 10:05 and also put the fries. Only Bani will be free from 10:02 to 10:05 - 3 minutes. Third order of 1 burger and 1 fries is placed at 10:07. Bani will immediately start working on the burger. He will finish it by 10:17. Anish would have finished the first burger at 10:10. Only he is free till 10:17 - 7 minutes. Thus exactly one person is free for 10 minutes."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "| | G | P | O | Total |\n|---|---|---|---|---|\n| NE | 4200 | 500 | 300 | 5000 |\n| W | 4200 | 1900 | 1200 | 7300 |\n| S | 5100 | 300 | 300 | 5700 |\n| TOTAL | 13500 | 2700 | 1800 | 18000 |",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q39",
+          "text": "What percentage of kids from S were studying in P?",
+          "type": "MCQ",
+          "options": [
+            "37%",
+            "6%",
+            "79%",
+            "56%"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "As we can see from the table, 3700 kids out of the 10,000 kids from S are studying in P. 37% of the total number of students from S were studying in P. Therefore, option A is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q40",
+          "text": "Among the kids in W whose mothers had completed primary education, how many were not in school?",
+          "type": "MCQ",
+          "options": [
+            "300",
+            "1200",
+            "1050",
+            "1500"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "There are 300 students who are not in school in W whose mothers have completed primary education. Therefore, option A is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q41",
+          "text": "In a follow up survey of the same kids two years later, it was found that all the kids were now in school. Of the kids who were not in school earlier, in one region, 25% were in G now, whereas the rest were enrolled in P; in the second region, all such kids were in G now; while in the third region, 50% of such kids had now joined G while the rest had joined P. As a result, in all three regions put together, 50% of the kids who were earlier out of school had joined G. It was also seen that no surveyed kid had changed schools. What number of the surveyed kids now were in G in W?",
+          "type": "MCQ",
+          "options": [
+            "6000",
+            "5250",
+            "6750",
+            "6300"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "If 50% of the kids from W (750), 25% of the kids from NE (150) and 100% of the kids from S (300) are transferred, then the total number of kids transferred to G would have been 750 + 150 + 300 = 1200. Therefore, this must have been the case. Number of students transferred to G in W = 750. Number of students present in G in W earlier = 5250. Total = 6000. Therefore, option A is the right answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q42",
+          "text": "In a follow up survey of the same kids two years later, it was found that all the kids were now in school. Of the kids who were not in school earlier, in on.e region, 25% were in G now, whereas the rest were enrolled in P; in the second region, all such kids were in G now; while in the third region, 50% of such kids had now joined G while the rest had joined P. As a result, in all three regions put together, 50% of the kids who were earlier out of school had joined G. It was also seen that no surveyed kid had changed schools. What percentage of the surveyed kids in S, whose mothers had dropped out before completing primary education, were in G now?",
+          "type": "MCQ",
+          "options": [
+            "94.7%",
+            "89.5%",
+            "93.4%",
+            "Cannot be determined from the given information"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Already, 5100 kids whose mothers had dropped out were in G in S. After the transfer, 300 more students will be added to the count. Therefore, 5400 students whose mothers had dropped out will be in G in S. Total number of kids whose mothers had dropped out in S = 5700. Percentage = 5400/5700 = 94.73%. Therefore, option A is the right answer."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "[REQUIRES IMAGE]",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q43",
+          "text": "What best can be concluded about the number of candidates sitting for the separate test for BIE who were at or above the 90th percentile overall in CET?",
+          "type": "MCQ",
+          "options": [
+            "3 or 10",
+            "10",
+            "5",
+            "7 or 10"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "a can be 3 or 10. Hence, Option A is the correct answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q44",
+          "text": "If the number of candidates who are at or above the 90th percentile overall and also at or above the 80th percentile in all three sections in CET is actually a multiple of 5, what is the number of candidates who are at or above the 90th percentile overall and at or above the 80th percentile in both P and M in CET?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "60",
+          "explanation": "From the given condition, g is a multiple of 5. So, g = 20. The number of candidates at or above 90 percentile overall and at or above 80th percentile in both P and M = d + g = 60. Hence, 60 is the correct answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q45",
+          "text": "If the number of candidates who are at or above the 90th percentile overall and also at or above the 80th percentile in all three sections in CET is actually a multiple of 5, then how many candidates were shortlisted for the AET for AIE?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "170",
+          "explanation": "In this question, g = 20. Number of candidates shortlisted for AET = d + e + f + g = 40 + 10 + 100 + 20 = 170. Hence, 170 is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "BIE uses a different process for selection. If any candidate is appearing in the AET by AIE, BIE considers their AET score for final selection provided the candidate is at or above the 80th percentile in P. Any other candidate at or above the 80th percentile in P in CET, but who is not eligible for the AET, is required to appear in a separate test to be conducted by BIE for being considered for final selection. Altogether, there are 400 candidates this year who are at or above the 80th percentile in P.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q46",
+          "text": "If the number of candidates who are at or above the 90th percentile overall and also are at or above the 80th percentile in P in CET, is more than 100, how many candidates had to sit for the separate test for BIE?",
+          "type": "MCQ",
+          "options": [
+            "299",
+            "310",
+            "321",
+            "330"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "From the given condition, the number of candidates at or above 90th percentile overall and at or above 80th percentile in P in CET = (3 + 18 + 42 + 41) = 104. The number of candidates who have to sit for separate test = (400 - 104 + 3) = 296 + 3 = 299 (we have added 3 for those who have scored more than 80th percentile only in P which is 'a'). Hence, option A is the correct answer."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "Simple Happiness index (SHI) of a country is computed on the basis of three, parameters: social support (S), freedom to life choices (F) and corruption perception (C). Each of these three parameters is measured on a scale of 0 to 8 (integers only). A country is then categorised based on the total score obtained by summing the scores of all the three parameters, as shown in the following table:\n\n| Total Score | 0-4 | 5-8 | 9-13 | 14-19 | 20-24 |\n|---|---|---|---|---|---|\n| Category | Very Unhappy | Unhappy | Neutral | Happy | Very Happy |\n\nFollowing diagram depicts the frequency distribution of the scores in S, F and C of 10 countries - Amda, Benga, Calla, Delma, Eppa, Varsa, Wanna, Xanda, Yanga and Zooma:\n\n[REQUIRES IMAGE]\n\nFurther, the following are known.\n1. Amda and Calla jointly have the lowest total score, 7, with identical scores in all the three parameters.\n2. Zooma has a total score of 17.\n3. All the 3 countries, which are categorised as happy, have the highest score in exactly one parameter.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q47",
+          "text": "What is Amda's score in F?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "Given Amda and Cadella score is 7 each with identical in all parameters. So it can score either 3,1,3 in S,F,C respectively or 4,1,2 in S,F,C respectively. In both the cases, its score in F is 1."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q48",
+          "text": "What is Zooma's score in S?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "Zooma(Z) has a total score of 17 (comes under happy category), and other 2 countries, which are categorized as happy, have the highest score in exactly one parameter. Z have two possibilities for S, F, C : (6,7,4) & (6,5,6). All the other cases are negated because \"All the 3 countries, which are categorised as happy, have the highest score in exactly one parameter.\" For Example : 7,7,3 is not possible because 7 being the highest score is there in two parameters. So, it scored 6 in S in both the cases."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q49",
+          "text": "Benga and Delma, two countries categorized as happy, are tied with the same total score. What is the maximum score they can have?",
+          "type": "MCQ",
+          "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Benga and Delma, two countries categorized as happy, are tied with the same total score. The best numbers remaining are 7,5,6 which adds upto 18, If Benga scores 18, then Delma can't score 18. Similarly both can't score 17 and 16. Both can score 15 and their distribution will be: Benga: 7,5,3; Delma: 4,5,6 or 5,4,6."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q50",
+          "text": "If Benga scores 16 and Delma scores 15, then what is the maximum number of countries with a score of 13?",
+          "type": "MCQ",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Given that Benga scores 16, and Delma scores 15. The possibility is Benga: 5,5,6 and Delma: 7,5,3. If Benga's distribution is 7,3,6 then Delma can't score 15. Strike off those numbers. We have to maximum number of countries with score 13. This score does not comes under the category of happy. So to score 13, the distribution can be 5,5,3. Hence, maximum 1 country is possible."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "There are 21 employees working in a division, out of whom 10 are special-skilled employees (SE) and the remaining are regular-skilled employees (RE). During the next five months, the division has to complete five projects every month. Out of the 25 projects, 5 projects are \"challenging\", while the remaining ones are \"standard\". Each of the challenging projects has to be completed in different months. Every month, five teams \u2014 T1, T2, T3, T4 and T5, work on one project each. T1, T2, T3, T4 and T5 are allotted the challenging project in the first, second, third, fourth and fifth month, respectively. The team assigned the challenging project has one more employee than the rest.\n\nIn the first month, T1 has one more SE than T2, T2 has one more SE than T3, T3 has one more SE than T4, and T4 has one more SE than T5. Between two successive months, the composition of the teams changes as follows:\na. The team allotted the challenging project, gets two SE from the team which was allotted the challenging project in the previous month. In exchange, one RE is shifted from the former team to the latter team.\nb. After the above exchange, if T1 has any SE and T5 has any RE, then one SE is shifted from T1 to T5, and one RE is shifted from T5 to T1. Also, if T2 has any SE and T4 has any RE, then one SE is shifted from T2 to T4, and one RE is shifted from T4 to T2.\nEach standard project has a total of 100 credit points, while each challenging project has 200 credit points. The credit points are equally shared between the employees included in that team.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q51",
+          "text": "The number of times in which the composition of team T2 and the number of times in which composition of team T4 remained unchanged in two successive months are:",
+          "type": "MCQ",
+          "options": [
+            "(2,1)",
+            "(1,0)",
+            "(0,0)",
+            "(1,1)"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "T2 remained unchanged in Month 3 and Month 4, and composition of T4 was never unchanged. Hence (1,0)"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q52",
+          "text": "The number of SE in T1 and T5 for the projects in the third month are, respectively:",
+          "type": "MCQ",
+          "options": [
+            "(0,2)",
+            "(0,3)",
+            "(1,2)",
+            "(1,3)"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Refer to table of Month 3, the number of SE employees in T1 and T5 are respectively (0,2)"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q53",
+          "text": "Which of the following CANNOT be the total credit points earned by any employee from the projects?",
+          "type": "MCQ",
+          "options": [
+            "140",
+            "150",
+            "170",
+            "200"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "When challenging project is given, each employee gets 40 points. When standard project is given, each employee gets 25 points. Suppose: If a particular employee is involved in all standard projects then his credit points will be: 125. If a particular employee is involved in 4 standard projects and 1 challenging project then his credit points will be: 140. If a particular employee is involved in 3 standard projects and 2 challenging projects then his credit points will be: 155. If a particular employee is involved in 2 standard projects and 3 challenging projects then his credit points will be: 170. If a particular employee is involved in 1 standard project and 4 challenging projects then his credit points will be: 185. Hence, an employee cannot earn 150 points."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q54",
+          "text": "One of the employees named Aneek scored 185 points. Which of the following CANNOT be true?",
+          "type": "MCQ",
+          "options": [
+            "Aneek worked only in teams T1, T2, T3, and T4.",
+            "Aneek worked only in teams T1,T2, T4, and T5.",
+            "Aneek worked only in teams T2,T3, T4, and T5.",
+            "Aneek worked only in teams T1,T3, T4, and T5."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "If Aneek is there in T1 for the first month, then he will shift to T2, T5 or remain in T1 in the subsequent month. Consider he remained in T1, then he will either move to T5 or remain in T1. So, if this happens the sequence given in option can never follow. Suppose he has shifted to T2, but T2 is not mentioned in option, so ruled out. And if he moved to T5, in the next month then he will remain there only. Hence option D is not correct."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "In a square layout of site 5m x 5m 25 equal-sized square platforms of different heights are built. The heights (in metre) of individual platforms are as shown below:\n\n| 6 | 1 | 2 | 4 | 3 |\n|---|---|---|---|---|\n| 9 | 5 | 3 | 2 | 8 |\n| 7 | 8 | 4 | 6 | 5 |\n| 3 | 9 | 5 | 1 | 2 |\n| 1 | 7 | 6 | 3 | 9 |\n\nIndividuals (all of same height) are seated on these platforms. We say an individual A can reach individual B, if all the three following conditions are met;\n(i) A and B are in the same row or column\n(ii) A is at a lower height than B\n(iii) If there is/are any individuals (s) between A and B, such individual(s) must be at a height lower than that of A.\n\nRows in the layout are numbered from top to bottom and columns are numbered from left to right.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q55",
+          "text": "How many individuals in this layout can be reached by just one individual?",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "5",
+            "7",
+            "8"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The table represent the platforms and by how many platforms can it be reached. Hence, there are a total of 7 people."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q56",
+          "text": "Which of the following is true for any individual at a platform of height 1 m in this layout?",
+          "type": "MCQ",
+          "options": [
+            "They can be reached by all the individuals in their own row and column.",
+            "They can be reached by at least 4 individuals.",
+            "They can be reached by at least one individual.",
+            "They cannot be reached by anyone."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Since, we have been given that a person can be reached only by those who are smaller than him. Hence, 1 cannot be reached by anyone. Thus, option D is the correct answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q57",
+          "text": "We can find two individuals who cannot be reached by anyone in",
+          "type": "MCQ",
+          "options": [
+            "the last row.",
+            "the fourth row.",
+            "the fourth column.",
+            "the middle column."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In the fourth column, both 1 and 2 cannot be reached by any person. Hence, fourth column is the correct answer."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q58",
+          "text": "Which of the following statements is true about this layout?",
+          "type": "MCQ",
+          "options": [
+            "Each row has an individual who can be reached by 5 or more individuals.",
+            "Each row has an individual who cannot be reached by anyone.",
+            "Each row has at least two individuals who can be reached by an equal number of individuals.",
+            "All individuals at the height of 9 m can be reached by at least 5 individuals."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let us go by options. Option C is correct."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "A new airlines company is planning to start operations in a country. The company has identified ten different cities which they plan to connect through their network to start with. The flight duration between any pair of cities will be less than one hour. To start operations, the company has to decide on a daily schedule. The underlying principle that they are working on is the following: Any person staying in any of these 10 cities should be able to make a trip to any other city in the morning and should be able to return by the evening of the same day.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q59",
+          "text": "If the underlying principle is to be satisfied in such a way that the journey between any two cities can be performed using only direct (non-stop) flights, then the minimum number of direct flights to be scheduled is:",
+          "type": "MCQ",
+          "options": [
+            "45",
+            "90",
+            "180",
+            "135"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "There are ten cities. We need to find the minimum number of flights required to travel from any city to any city. Any two cities can be selected in 10C2 ways. Now for these two cities, a person will need minimum 4 flights. (1 to go from A to B, 1 to go from B to A. Similarly, 1 to return to A and 1 to return to B) Thus, minimum number of required flights = 45*4 = 180."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q60",
+          "text": "Suppose three of the ten cities are to be developed as hubs. A hub is a city which is connected with every other city by direct flights each way, both in the morning as well as in the evening. The only direct flights which will be scheduled are originating and/or terminating in one of the hubs. Then the minimum number of direct flights that need to be scheduled so that the underlying principle of the airline to serve all the ten cities is met without visiting more than one hub during one trip is:",
+          "type": "MCQ",
+          "options": [
+            "54",
+            "120",
+            "96",
+            "60"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "From each hub, there will be flights to 7 cities. So total total number of flights originating or terminating at each hub = 7*4 = 28. For all three hubs, it would be 28*3 = 84. There are three hubs in total. Each hub must also be interconnected. The total number of flights between any two hubs will be 4. For three hubs it will be 12. Hence, the required number will be 84 + 12 = 96."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "Suppose the 10 cities are divided into 4 distinct groups G1, G2, G3, G4 having 3, 3, 2 and 2 cities respectively and that G1 consists of cities named A, B and C. Further, suppose that direct flights are allowed only between two cities satisfying one of the following:\n1. Both cities are in G1\n2. Between A and any city in G2\n3. Between B and any city in G3\n4. Between C and any city in G4",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q61",
+          "text": "Then the minimum number of direct flights that satisfies the underlying principle of the airline is:",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "40",
+          "explanation": "In G1, we have three cities namely A, B, C. Person living in any of these three cities should be able to travel to other city once in the morning and one in the night. Therefore, a total of 4 flights are required between a pair of cities. A ---> B (Morning flight), A ---> B (Evening flight), B ---> A (Morning flight), B ---> A (Evening flight). Number of flights between the cities of G1 = 3C2*4 = 12. Between cities in A and any city in G2 = 3*4 = 12. Between B and any city in G3 = 2*4 = 8. Between C and any city in G4 = 2*4 = 8. Total = 12*2 + 8*2 = 40."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q62",
+          "text": "However, due to operational difficulties at A, it was later decided that the only flights that would operate at A would be those to and from B. Cities in G2 would have to be assigned to G3 or to G4. What would be the maximum reduction in the number of direct flights as compared to the situation before the operational difficulties arose?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "The cities those were a part of G2 will be shifted to either G3 or G4 but that will not have any impact on the number of the total flights from G1. The only reduction which will take place due to the number of flights shutting down from A to C. Hence, the maximum reduction in the number of direct flights as compared to the situation before the operational difficulties arose = 4."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "Four cars need to travel from Akala (A) to Bakala (B). Two routes are available, one via Mamur (M) and the other via Nanur (N). The roads from A to M, and from N to B, are both short and narrow. In each case, one car takes 6 minutes to cover the distance, and each additional car increases the travel time per car by 3 minutes because of congestion. (For example, if only two cars drive from A to M, each car takes 9 minutes.) On the road from A to N, one car takes 20 minutes, and each additional car increases the travel time per car by 1 minute. On the road from M to B, one car takes 20 minutes, and each additional car increases the travel time per car by 0.9 minute.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q63",
+          "text": "How many cars would be asked to take the route A-N-B, that is Akala-Nanur-Bakala route, by the police department?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "Since there are two routes i.e A-M-B and A-N-B and four cars, then 2 cars must be allowed to take each route. In case if one car tried to break rule, then its travel time will increase. Now assume that on route A-M-B three cars are allowed and on route A-N-B one car is allowed, then one car running on A-M-B can break the rule and reduce its travel time. Hence, two cars must be allowed on each route."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q64",
+          "text": "If all the cars follow the police order, what is the difference in travel time (in minutes) between a car which takes the route A-N-B and a car that takes the route A-M-B?",
+          "type": "MCQ",
+          "options": [
+            "1",
+            "0.1",
+            "0.2",
+            "0.9"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Since, two cars are allowed on each route, The A-M part and N-B will take same time. The difference will be in travelling M-B part and A-N part, and that difference is 0.1 minute. In route M-B car will take 20+0.9 = 20.9 min and in route A-N car will take 20+1 = 21 min. So difference = 0.1 min."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q65",
+          "text": "A new one-way road is built from M to N. Each car now has three possible routes to travel from A to B: A-M-B, A-N-B and A-M-N-B. On the road from M to N, one car takes 7 minutes and each additional car increases the travel time per car by 1 minute. Assume that any car taking the A-M-N-B route travels the A-M portion at the same time as other cars taking the A-M-B route, and the N-B portion at the same time as other cars taking the A-N-B route. How many cars would the police department order to take the A-M-N-B route so that it is not possible for any car to reduce its travel time by not following the order while the other cars follow the order? (Assume that the police department would never order all the cars to take the same route.)",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "It is clear that the car D reduced its time from 32.9 min to 32 min if it broke the rule. Hence, case 4 is invalid. In this arrangement of case 5, no car can improve their travel time by changing their path. Hence, the optimal allocation will be to order 2 cars on A-M-N-B route."
+        }
+      ]
+    },
+    {
+      "section": "DILR",
+      "context": "A new one-way road is built from M to N. Each car now has three possible routes to travel from A to B: A-M-B, A-N-B and A-M-N-B. On the road from M to N, one car takes 7 minutes and each additional car increases the travel time per car by j. minute. Assume that any car taking the A-M-N-B route travels the A-M portion at the same time as other cars taking the A-M-B route, and the N-B portion at the same time as other cars taking the A-N-B route.",
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q66",
+          "text": "If all the cars follow the police order, what is the minimum travel time (in minutes) from A to B? (Assume that the police department would never order all the cars to take the same route.)",
+          "type": "MCQ",
+          "options": [
+            "26",
+            "32",
+            "29.9",
+            "30"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "From the previous question we have found that 1 car take AMB route, 2 cars take AMNB route and other take ANB route. Then the portion A-M will be travelled by 3 cars, M-B by one car, M-N by 2 cars, A-N by 1 car and N-B by 3 cars. Then travel time of AMB will be A-M + M-B = (6+3*2) + (20) = 32. Then travel time of AMNB will be A-M + M-N + N-B = (6+3*2) + (7+1) + (6+3*2) = 32. Then travel time of ANB will be A-N + N-B = (20) + (6+3*2) = 32. The minimum travel time from A to B is 32 min."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q67",
+          "text": "Arun's present age in years is 40% of Barun's. In another few years, Arun's age will be half of Barun's. By what percentage will Barun's age increase during this period?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "20",
+          "explanation": "Let Arun's current age be A. Hence, Barun's current age is 2.5A. Let Arun's age be half of Barun's age after X years. Therefore, 2*(X+A) = 2.5A + X. Or, X = 0.5A. Hence, Barun's age increased by 0.5A/2.5A = 20%."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q68",
+          "text": "A person can complete a job in 120 days. He works alone on Day 1. On Day 2, he is joined by another person who also can complete the job in exactly 120 days. On Day 3, they are joined by another person of equal efficiency. Like this, everyday a new person with the same efficiency joins the work. How many days are required to complete the job?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "15",
+          "explanation": "Let the rate of work of a person be x units/day. Hence, the total work = 120x. It is given that one first day, one person works, on the second day two people work and so on. Hence, the work done on day 1, day 2,... will be x, 2x, 3x, ... respectively. The sum should be equal to 120x. n(n+1)/2 = 120. n^2 + n - 240 = 0. n = 15 is the only positive solution. Hence, it takes 15 days to complete the work."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q69",
+          "text": "An elevator has a weight limit of 630 kg. It is carrying a group of people of whom the heaviest weighs 57 kg and the lightest weighs 53 kg. What is the maximum possible number of people in the group?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "11",
+          "explanation": "It is given that the maximum weight limit is 630. The lightest person's weight is 53 Kg and the heaviest person's weight is 57 Kg. In order to have maximum people in the lift, all the remaining people should be of the lightest weight possible, which is 53 Kg. Let there be n people. 53 + n(53) + 57 = 630. n is approximately equal to 9.8. Hence, 9 people are possible. Therefore, a total of 9 + 2 = 11 people can use the elevator."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q70",
+          "text": "A man leaves his home and walks at a speed of 12 km per hour, reaching the railway station 10 minutes after the train had departed. If instead he had walked at a speed of 15 km per hour, he would have reached the station 10 minutes before the train's departure. The distance (in km) from his home to the railway station is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "20",
+          "explanation": "We see that the man saves 20 minutes by changing his speed from 12 Km/hr to 15 Km/hr. Let d be the distance. Hence, d/12 - d/15 = 1/3. d/60 = 1/3. d = 20 Km."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q71",
+          "text": "Ravi invests 50% of his monthly savings in fixed deposits. Thirty percent of the rest of his savings is invested in stocks and the rest goes into Ravi's savings bank account. If the total amount deposited by him in the bank (for savings account and fixed deposits) is Rs 59500, then Ravi's total monthly savings (in Rs) is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "70000",
+          "explanation": "Let his total savings be 100x. He invests 50x in fixed deposits. 30% of 50x, which is 15x is invested in stocks and 35x goes to savings bank. It is given 85x = 59500. x = 700. Hence, 100x = 70000."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q72",
+          "text": "If a seller gives a discount of 15% on retail price, she still makes a profit of 2%. Which of the following ensures that she makes a profit of 20%?",
+          "type": "MCQ",
+          "options": [
+            "Give a discount of 5% on retail price.",
+            "Give a discount of 2% on retail price.",
+            "Increase the retail price by 2%.",
+            "Sell at retail price."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let the retail price be M and cost price be C. Given, 0.85 M = 1.02 C. M = 1.2 C. If he wants 20% profit he has to sell at 1.2C, which is nothing but the retail price."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q73",
+          "text": "A man travels by a motor boat down a river to his office and back. With the speed of the river unchanged, if he doubles the speed of his motor boat, then his total travel time gets reduced by 75%. The ratio of the original speed of the motor boat to the speed of the river is",
+          "type": "MCQ",
+          "options": [
+            "6 : 2",
+            "7 : 2",
+            "2 5 : 3",
+            "3:2"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let the speed of the river be x and the speed of the boat be u. Let d be the one way distance and t be the initial time taken. t = d/(u-x) + d/(u+x) ... i. Also, t/4 = d/(2u-x) + d/(2u+x) ... ii. Equating both i and ii, u^2/x^2 = 7/4. u/x = sqrt(7)/2."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q74",
+          "text": "Suppose, C1, C2, C3, C4, and C5 are five companies. The profits made by Cl, C2, and C3 are in the ratio 9 : 10 : 8 while the profits made by C2, C4, and C5 are in the ratio 18 : 19 : 20. If C5 has made a profit of Rs 19 crore more than C1, then the total profit (in Rs) made by all five companies is",
+          "type": "MCQ",
+          "options": [
+            "438 crore",
+            "435 crore",
+            "348 crore",
+            "345 crore"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Given, C1 : C2 : C3 = 9 : 10 : 8 ... i. C2 : C4 : C5 = 18 : 19 : 20 ... ii. Let's multiply i by 9 and ii by 5. C1 : C2 : C3 = 81 : 90 : 72. C2 : C4 : C5 = 90 : 95 : 100. Therefore, C1 : C2 : C3 : C4 : C5 = 81 : 90 : 72 : 95 : 100. 100x - 81x = 19. x = 1. Hence, total profit = 100 + 95 + 72 + 90 + 81 = 438."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q75",
+          "text": "The number of girls appearing for an admission test is twice the number of boys. If 30% of the girls and 45% of the boys get admission, the percentage of candidates who do not get admission is",
+          "type": "MCQ",
+          "options": [
+            "35",
+            "50",
+            "60",
+            "65"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let the number of girls be 2x and number of boys be x. Girls getting admission = 0.6x. Boys getting admission = 0.45x. Number of students not getting admission = 3x - 0.6x -0.45x = 1.95x. Percentage = (1.95x/3x) * 100 = 65%."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q76",
+          "text": "A stall sells popcorn and chips in packets of three sizes: large, super, and jumbo. The numbers of large, super, and jumbo packets in its stock are in the ratio 7 : 17 : 16 for popcorn and 6 : 15 : 14 for chips. If the total number of popcorn packets in its stock is the same as that of chips packets, then the numbers of jumbo popcorn packets and jumbo chips packets are in the ratio",
+          "type": "MCQ",
+          "options": [
+            "1 : 1",
+            "8 : 7",
+            "4 : 3",
+            "6 : 5"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The ratio of L, S, J for popcorn = 7 : 17 : 16. Let them be 7x, 17x and 16x. The ratio of L, S, J for chips = 6y, 15y and 14y. Given, 40x = 35y, x = 7y/8. Jumbo popcor = 16x = 16 * 7y/8 = 14y. Hence, the ratio of jumbo popcorn and jumbo chips = 1 : 1"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q77",
+          "text": "In a market, the price of medium quality mangoes is half that of good mangoes. A shopkeeper buys 80 kg good mangoes and 40 kg medium quality mangoes from the market and then sells all these at a common price which is 10% less than the price at which he bought the good ones. His overall profit is",
+          "type": "MCQ",
+          "options": [
+            "6%",
+            "8%",
+            "10%",
+            "12%"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let the cost of good mangoes be 2x per kg. The cost of medium mangoes be x per kg. CP of good mangoes = 160x. CP of medium mangoes = 40x. His selling price = 0.9*2x = 1.80x. Therefore, total revenue generated by selling all the mangoes = 120*1.8x = 216x. Hence, the profit % = (216x-200x)/200x * 100 = 8%"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q78",
+          "text": "If Fatima sells 60 identical toys at a 40% discount on the printed price, then she makes 20% profit. Ten of these toys are destroyed in fire. While selling the rest, how much discount should be given on the printed price so that she can make the same amount of profit?",
+          "type": "MCQ",
+          "options": [
+            "30%",
+            "25%",
+            "24%",
+            "28%"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let the cost price be C and the marked price be M. Given, 0.6 M = 1.2 C, M = 2C. CP of 60 toys = 60C. Now only 50 are remaining. Hence, M (1 - d) * 50 = 72C. 1- d = 0.72, d = .28. Hence 28%"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q79",
+          "text": "If a and b are integers of opposite signs such that (a + 3)^2 : b^2 = 9 : 1 and (a - 1)^2 : (b - 1)^2 = 4 : 1, then the ratio a^2 : b^2 is",
+          "type": "MCQ",
+          "options": [
+            "9:4",
+            "81:4",
+            "1:4",
+            "25:4"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Since the square root can be positive or negative we will get two cases for each of the equation. Solving the equations, we get a = 15 and b = -6. Thus, a^2/b^2 = 225/36 = 25/4"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q80",
+          "text": "A class consists of 20 boys and 30 girls. In the mid-semester examination, the average score of the girls was 5 higher than that of the boys. In the final exam, however, the average score of the girls dropped by 3 while the average score of the entire class increased by 2. The increase in the average score of the boys is",
+          "type": "MCQ",
+          "options": [
+            "9.5",
+            "10",
+            "4.5",
+            "6"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let, the average score of boys in the mid semester exam is A. Therefore, the average score of girls in the mid semester exam be A+5. Hence, the total marks scored by the class is 20A + 30(A+5) = 50A + 150. The average score of the entire class is A+3. In final term, class average increased by 2, so class average = A+5. Total class score = 50(A+5) = 50A+250. Girls score dropped by 3, so girls average = A+2. Total girls score = 30(A+2) = 30A+60. Total boys score = (50A+250) - (30A+60) = 20A+190. Boys average = (20A+190)/20 = A+9.5. Increase = (A+9.5) - A = 9.5"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q81",
+          "text": "The area of the closed region bounded by the equation |x| + |y| = 2 in the two-dimensional plane is",
+          "type": "MCQ",
+          "options": [
+            "4\u03c0 sq. units",
+            "4 sq. units",
+            "8 sq. units",
+            "2\u03c0 sq. units"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The following equation will form a square of side 2\u221a2. The area of the square = (2\u221a2)^2 = 8 units."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q82",
+          "text": "From a triangle ABC with sides of lengths 40 ft, 25 ft and 35 ft, a triangular portion GBC is cut off where G is the centroid of ABC. The area, in sq ft, of the remaining portion of triangle ABC is",
+          "type": "MCQ",
+          "options": [
+            "225\u221a3",
+            "500/\u221a3",
+            "275/\u221a3",
+            "250/\u221a3"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The lengths are given as 40, 25 and 35. The perimeter = 100. Semi-perimeter, s = 50. Area = \u221a(50*10*25*15) = 250\u221a3. The triangle formed by the centroid and two vertices is removed. Since the centroid divides the median in the ratio 2 : 1, the remaining area will be two-thirds the area of the original triangle. Remaining area = 2/3 * 250\u221a3 = 500/\u221a3"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q83",
+          "text": "Let ABC be a right-angled isosceles triangle with hypotenuse BC. Let BQC be a semi-circle, away from A, with diameter BC. Let BPC be an arc of a circle centered at A and lying between BC and BQC. If AB has length 6 cm then the area, in sq cm, of the region enclosed by BPC and BQC is",
+          "type": "MCQ",
+          "options": [
+            "9\u03c0 - 18",
+            "18",
+            "9\u03c0",
+            "9"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "AB = AC = 6cm. Thus, BC = \u221a(6^2 + 6^2) = 6\u221a2 cm. The required area = Area of semi-circle BQC - Area of quadrant BPC + Area of triangle ABC = 9\u03c0 - 9\u03c0 + 18 = 18"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q84",
+          "text": "A solid metallic cube is melted to form five solid cubes whose volumes are in the ratio 1 : 1 : 8 : 27 : 27. The percentage by which the sum of the surface areas of these five cubes exceeds the surface area of the original cube is nearest to",
+          "type": "MCQ",
+          "options": [
+            "10",
+            "50",
+            "60",
+            "20"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let the volumes of the five cubes be x, x, 8x, 27x and 27x. Let the sides be a, a, 2a, 3a and 3a. Let the side of the original cube be A. Original surface area = 96a^2. New surface area = 144a^2. Percentage increase = (144-96)/96 * 100 = 50%"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q85",
+          "text": "A ball of diameter 4 cm is kept on top of a hollow cylinder standing vertically. The height of the cylinder is 3 cm, while its volume is 9\u03c0 cubic centimeters. Then the vertical distance, in cm, of the topmost point of the ball from the base of the cylinder is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "The volume of a cylinder is \u03c0 * r^2 * 3 = 9\u03c0, r = \u221a3 cm. Radius of the ball is 2 cm. Based on the Pythagoras theorem, the other leg will be 1 cm. Thus, the height will be 3 + 1 + 2 = 6 cm"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q86",
+          "text": "Let ABC be a right-angled triangle with BC as the hypotenuse. Lengths of AB and AC are 15 km and 20 km, respectively. The minimum possible time, in minutes, required to reach the hypotenuse from A at a speed of 30 km per hour is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "24",
+          "explanation": "The length of the altitude from A to the hypotenuse will be the shortest distance. This is a right triangle with sides 3 : 4 : 5. Hence, the hypotenuse = \u221a(20^2 + 15^2) = 25 Km. Length of the altitude = (15*20)/25 = 12 Km. The time taken = 12/30 * 60 = 24 minutes"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q87",
+          "text": "Suppose, log3 x = log12 y = a, where x, y are positive numbers. If G is the geometric mean of x and y, and log6 G is equal to",
+          "type": "MCQ",
+          "options": [
+            "\u221a a",
+            "2a",
+            "a/2",
+            "a"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We know that log3 x = a and log12 y = a. Hence, x = 3^a and y = 12^a. Therefore, the geometric mean of x and y equals \u221a(3^a * 12^a) = \u221a(36^a) = 6^a. This equals 6^a. Hence, G = 6^a, log6 G = a"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q88",
+          "text": "If x + 1 = x^2 and x > 0, then 2x^4 is",
+          "type": "MCQ",
+          "options": [
+            "6 + 4\u221a5",
+            "3 + 3\u221a5",
+            "5 + 3\u221a5",
+            "7 + 3\u221a5"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We know that x^2 - x - 1 = 0. Therefore x^4 = (x + 1)^2 = x^2 + 2x + 1 = x + 1 + 2x + 1 = 3x + 2. Therefore, 2x^4 = 6x + 4. We know that x > 0 therefore, we can calculate the value of x to be (1+\u221a5)/2. Hence, 2x^4 = 6((1+\u221a5)/2) + 4 = 3 + 3\u221a5 + 4 = 7 + 3\u221a5"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q89",
+          "text": "The value of log0.008 \u221a5 + log\u221a3 81 - 7 is equal to",
+          "type": "MCQ",
+          "options": [
+            "1/3",
+            "2/3",
+            "5/6",
+            "7/6"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "81 = 3^4 and 0.008 = 8/1000 = 1/125 = 5^-3. Hence, log0.008 \u221a5 + log\u221a3 81 - 7 = log5^-3 5^0.5 + log3^0.5 3^4 - 7 = -0.5/3 + 4/0.5 - 7 = -1/6 + 8 - 7 = 1 - 1/6 = 5/6"
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q90",
+          "text": "If 9^(2x-1) - 81^(x-1) = 1944, then x is",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "9/4",
+            "4/9",
+            "1/3"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "9^(2x-1) - 81^(x-1) = 1944. 9^(2x-1) - 9^(2x-2) = 1944. 9^(2x-2) * (9 - 1) = 1944. 9^(2x-2) = 1944/8 = 243. 3^(4x-4) = 3^5. 4x-4 = 5, 4x = 9, x = 9/4"
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q91",
+          "text": "The number of solutions to the equation x - y - z = 25, where x, y, and z are positive integers such that x <= 40, y <= 12 and z <= 12 is",
+          "type": "MCQ",
+          "options": [
+            "101",
+            "99",
+            "87",
+            "105"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "If x = 40 then y + z = 15. Now since both y and z are natural numbers less than 12, so y can range from 3 to 12 giving us a total of 10 solutions. Similarly, if x = 39, then y + z = 14. Now y can range from 2 to 12 giving us a total of 11 solutions. If x = 38, then y + z = 13. Now y can range from 1 to 12 giving us a total of 12 solutions. If x = 37 then y + z = 12 which will give 11 solutions. Similarly on proceeding in the same manner the number of solutions will be 10, 9, 8, 7 and so on till 1. Hence, required number of solutions will be (1 + 2 + 3 + 4 . . . . + 12) + 10 + 11 = 12*13/2 + 21 = 78 + 21 = 99."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q92",
+          "text": "For how many integers n, will the inequality (n - 5)(n - 10) - 3(n - 2) <= 0 be satisfied?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "11",
+          "explanation": "=> n^2 - 15n + 50 - 3n + 6 <= 0 => n^2 - 18n + 56 <= 0 => (n - 4)(n - 14) <= 0 => Thus, n can take values from 4 to 14. Hence, the required number of values are 14 - 4 + 1 = 11."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q93",
+          "text": "If f1(x) = x^2 + 11x + n and f2(x) = x, then the largest positive integer n for which the equation f1(x) = f2(x) has two distinct real roots is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "24",
+          "explanation": "f1(x) = f2(x) => x^2 + 11x + n = x => x^2 + 10x + n = 0. For this equation to have distinct real roots, b^2 - 4ac > 0. 10^2 > 4n => n < 100/4 => n < 25. Thus, largest integral value that n can take is 24."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q94",
+          "text": "If a, b, c, and d are integers such that a + b + c + d = 30 then the minimum possible value of (a - b)^2 + (a - c)^2 + (a - d)^2 is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "For the value of given expression to be minimum, the values of a, b, c and d should be as close as possible. 30/4 = 7.5. Since each one of these are integers so values must be 8, 8, 7, 7. On putting these values in the given expression, we get (8 - 8)^2 + (8 - 7)^2 + (8 - 7)^2 => 1 + 1 = 2."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q95",
+          "text": "Let AB, CD, EF, GH, and JK be five diameters of a circle with center at 0. In how many ways can three points be chosen out of A, B, C, D, E, F, G, H, J, K, and O so as to form a triangle?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "160",
+          "explanation": "The total number of given points are 11. (10 on circumference and 1 is the center). So total possible triangles = 11C3 = 165. However, AOB, COD, EOF, GOH, JOK lie on a straight line. Hence, these 5 triangles are not possible. Thus, the required number of triangles = 165 - 5 = 160."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q96",
+          "text": "The shortest distance of the point (1/2, 1) from the curve y = |x - 1| + |x + 1| is",
+          "type": "MCQ",
+          "options": [
+            "1",
+            "0",
+            "sqrt(2)",
+            "sqrt(3/2)"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The graph of the given function is as shown below. We can see that the shortest distance of the point (1/2, 1) will be 1 unit."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q97",
+          "text": "If the square of the 7th term of an arithmetic progression with positive common difference equals the product of the 3rd and 17th terms, then the ratio of the first term to the common difference is",
+          "type": "MCQ",
+          "options": [
+            "2:3",
+            "3:2",
+            "3:4",
+            "4:3"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The seventh term of an AP = a + 6d. Third term will be a + 2d and second term will be a + 16d. We are given that (a + 6d)^2 = (a + 2d)(a + 16d) => a^2 + 36d^2 + 12ad = a^2 + 18ad + 32d^2 => 4d^2 = 6ad => d : a = 3 : 2. We have been asked about a:d. Hence, it would be 2:3."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q98",
+          "text": "In how many ways can 7 identical erasers be distributed among 4 kids in such a way that each kid gets at least one eraser but nobody gets more than 3 erasers?",
+          "type": "MCQ",
+          "options": [
+            "16",
+            "20",
+            "14",
+            "15"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "We have been given that a + b + c + d = 7. Total ways of distributing 7 things among 4 people so that each one gets at least one = n-1Cr-1 = 6C3 = 20. Now we need to subtract the cases where any one person got more than 3 erasers. Any person cannot get more than 4 erasers since each child has to get at least 1. Any of the 4 childs can get 4 erasers. Thus, there are 4 cases. On subtracting these cases from the total cases we get the required answer. Hence, the required value is 20 - 4 = 16."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q99",
+          "text": "f(x) = (5x+2)/(3x-5) and g(x) = x^2 - 2x - 1, then the value of g(f(f(3))) is",
+          "type": "MCQ",
+          "options": [
+            "2",
+            "1/3",
+            "6",
+            "2/3"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "f(3) = (15+2)/(9-5) = 17/4. f(f(3)) = (5*17/4+2)/(3*17/4-5) = (93/4)/(31/4) = 3. g(f(f(3))) = 3^2 - 3*2 - 1 = 2."
+        },
+        {
+          "id": "CAT_2017_Slot_1_Question_Paper_by_Cracku_q100",
+          "text": "Let a1, a2,............., a3n be an arithmetic progression with a1 = 3 and a2 = 7. If a1 + a2 +...+ an = 1830, then what is the smallest positive integer m such that m(a1 + a2 +...+ an) > 1830?",
+          "type": "MCQ",
+          "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "a1 = 3 and a2 = 7. Hence, the common difference of the AP is 4. If we assume, k=3n. We have been given that the sum up to 3n terms of this AP is 1830. Hence, 1830 = k/2 * [2 * 3 + (k - 1) * 4] => 1830*2 = k(6 + 4k - 4) => 3660 = 2k + 4k^2 => 2k^2 + k - 1830 = 0 => (k - 30)(2k + 61) = 0 => k = 30 or k = -61/2. Since k is the number of terms so k cannot be negative. Hence, k must be 30. So, 3n = 30, n = 10. Sum of the first '10' terms of the given AP = 5*(6 + 9*4) = 42*5 = 210. m(a1 + a2 +...+ an) > 1830 => 210m > 1830 => m > 8.71. Hence, smallest integral value of 'm' is 9."
+        }
+      ]
+    }
+  ]
+}

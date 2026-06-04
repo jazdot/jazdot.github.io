@@ -1,0 +1,929 @@
+{
+  "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "[S1] It has been said that knowledge, or the problem of knowledge, is the scandal of philosophy. [S2] The scandal is philosophy\u2019s apparent inability to show how, when and why we can be sure that we know something or, indeed, that we know anything. [S3] Philosopher Michael Williams writes: \u2018Is it possible to obtain knowledge at all? [S4] This problem is pressing because there are powerful arguments, some very ancient, for the conclusion that it is not . . . Scepticism is the skeleton in Western rationalism\u2019s closet\u2019. [S5] While it is not clear that the scandal matters to anyone but philosophers, philosophers point out that it should matter to everyone, at least given a certain conception of knowledge. [S6] For, they explain, unless we can ground our claims to knowledge as such, which is to say, distinguish it from mere opinion, superstition, fantasy, wishful thinking, ideology, illusion or delusion, then the actions we take on the basis of presumed knowledge - boarding an airplane, swallowing a pill, finding someone guilty of a crime - will be irrational and unjustifiable.\n\n[S7] That is all quite serious-sounding but so also are the rattlings of the skeleton: that is, the sceptic\u2019s contention that we cannot be sure that we know anything - at least not if we think of knowledge as something like having a correct mental representation of reality, and not if we think of reality as something like things-as-they-are-in-themselves, independent of our perceptions, ideas or descriptions. [S8] For, the sceptic will note, since reality, under that conception of it, is outside our ken (we cannot catch a glimpse of things-in-themselves around the corner of our own eyes; we cannot form an idea of reality that floats above the processes of our conceiving it), we have no way to compare our mental representations with things-as-they-are-in-themselves and therefore no way to determine whether they are correct or incorrect. [S9] Thus the sceptic may repeat (rattling loudly), you cannot be sure you \u2018know\u2019 something or anything at all - at least not, he may add (rattling softly before disappearing), if that is the way you conceive \u2018knowledge\u2019.\n\n[S10] There are a number of ways to handle this situation. [S11] The most common is to ignore it. [S12] Most people outside the academy - and, indeed, most of us inside it - are unaware of or unperturbed by the philosophical scandal of knowledge and go about our lives without too many epistemic anxieties. [S13] We hold our beliefs and presumptive knowledges more or less confidently, usually depending on how we acquired them (I saw it with my own eyes; I heard it on Fox News; a guy at the office told me) and how broadly and strenuously they seem to be shared or endorsed by various relevant people: experts and authorities, friends and family members, colleagues and associates. [S14] And we examine our convictions more or less closely, explain them more or less extensively, and defend them more or less vigorously, usually depending on what seems to be at stake for ourselves and/or other people and what resources are available for reassuring ourselves or making our beliefs credible to others (look, it\u2019s right here on the page; add up the figures yourself; I happen to be a heart specialist).",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q1",
+          "text": "The author discusses all of the following arguments in the passage, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "sceptics believe that we can never fully know anything, if by \u201cknowing\u201d we mean knowledge of a reality that is independent of the knower.",
+            "if we cannot distinguish knowledge from opinion or delusion, we will not be able to justify our actions.",
+            "the best way to deal with scepticism about the veracity of knowledge is to ignore it.",
+            "philosophers maintain that the scandal of philosophy should be of concern to everyone."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author does says that ignoring the scepticism about the veracity of knowledge is the most common way of dealing with it, not the best way. Hence. Option C has not been discussed."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q2",
+          "text": "\". . . we cannot catch a glimpse of things-in-themselves around the corner of our own eyes; we cannot form an idea of reality that floats above the processes of our conceiving it . . .\" Which one of the following statements best reflects the argument being made in this sentence?",
+          "type": "MCQ",
+          "options": [
+            "Our knowledge of reality floats above our subjective perception of it.",
+            "If the reality of things is independent of our eyesight, logically we cannot perceive our perception.",
+            "Our knowledge of reality cannot be merged with our process of conceiving it.",
+            "If the reality of things is independent of our perception, logically we cannot perceive that reality."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The author is making a logical argument in the sentence given in the question. According to the author, if we say that the reality of objects is independent of our perceptions, then it is out of our ken. Hence, we cannot for this idea of reality, and logically, we would be unable to comprehend it. Option D comes the closest to capturing this point."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q3",
+          "text": "According to the last paragraph of the passage, \u201cWe hold our beliefs and presumptive knowledges more or less confidently, usually depending on\u201d something. Which one of the following most broadly captures what we depend on?",
+          "type": "MCQ",
+          "options": [
+            "How we come to hold them; how widely they are held in our social circles.",
+            "All of the options listed here.",
+            "How much of a stake we have in them; what resources there are to support them.",
+            "Remaining outside the academy; ignoring epistemic anxieties."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "From the above excerpt, it is clear that held beliefs and presumptive knowledges depend upon how we acquired them, and how strongly they are shared or endorsed by relevant people in our circle. Hence, Option A is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q4",
+          "text": "The author of the passage is most likely to support which one of the following statements?",
+          "type": "MCQ",
+          "options": [
+            "The confidence with which we maintain something to be true is usually independent of the source of the alleged truth.",
+            "The scandal of philosophy is that we might not know anything at all about reality if we think of reality as independent of our perceptions, ideas or descriptions.",
+            "The actions taken on the basis of presumed knowledge are rational and justifiable if we are confident that that knowledge is widely held.",
+            "For the sceptic, if we think of reality as independent of our perceptions, ideas or descriptions, we should aim to know that reality independently too."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "In the next paragraph, the sceptic view has been explained, which talks about our inability to grasp reality if we think of it as independent of our perceptions. Hence, the scandal can be construed to be the same. The author is likely to agree with this view. Option B is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] It\u2019s easy to forget that most of the world\u2019s languages are still transmitted orally with no widely established written form. [S2] While speech communities are increasingly involved in projects to protect their languages - in print, on air and online - orality is fragile and contributes to linguistic vulnerability. [S3] But indigenous languages are about much more than unusual words and intriguing grammar: They function as vehicles for the transmission of cultural traditions, environmental understandings and knowledge about medicinal plants, all at risk when elders die and livelihoods are disrupted.\n\n[S4] Both push and pull factors lead to the decline of languages. [S5] Through war, famine and natural disasters, whole communities can be destroyed, taking their language with them to the grave, such as the indigenous populations of Tasmania who were wiped out by colonists. [S6] More commonly, speakers live on but abandon their language in favor of another vernacular, a widespread process that linguists refer to as \u201clanguage shift\u201d from which few languages are immune. [S7] Such trading up and out of a speech form occurs for complex political, cultural and economic reasons - sometimes voluntary for economic and educational reasons, although often amplified by state coercion or neglect. [S8] Welsh, long stigmatized and disparaged by the British state, has rebounded with vigor.\n\n[S9] Many speakers of endangered, poorly documented languages have embraced new digital media with excitement. [S10] Speakers of previously exclusively oral tongues are turning to the web as a virtual space for languages to live on. [S11] Internet technology offers powerful ways for oral traditions and cultural practices to survive, even thrive, among increasingly mobile communities. [S12] I have watched as videos of traditional wedding ceremonies and songs are recorded on smartphones in London by Nepali migrants, then uploaded to YouTube and watched an hour later by relatives in remote Himalayan villages . . .\n\n[S13] Globalization is regularly, and often uncritically, pilloried as a major threat to linguistic diversity. [S14] But in fact, globalization is as much process as it is ideology, certainly when it comes to language. [S15] The real forces behind cultural homogenization are unbending beliefs, exchanged through a globalized delivery system, reinforced by the historical monolingualism prevalent in much of the West.\n\n[S16] Monolingualism - the condition of being able to speak only one language - is regularly accompanied by a deep-seated conviction in the value of that language over all others. [S17] Across the largest economies that make up the G8, being monolingual is still often the norm, with multilingualism appearing unusual and even somewhat exotic. [S18] The monolingual mindset stands in sharp contrast to the lived reality of most the world, which throughout its history has been more multilingual than unilingual. [S19] Monolingualism, then, not globalization, should be our primary concern.\n\n[S20] Multilingualism can help us live in a more connected and more interdependent world. [S21] By widening access to technology, globalization can support indigenous and scholarly communities engaged in documenting and protecting our shared linguistic heritage. [S22] For the last 5,000 years, the rise and fall of languages was intimately tied to the plow, sword and book. [S23] In our digital age, the keyboard, screen and web will play a decisive role in shaping the future linguistic diversity of our species.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q5",
+          "text": "The author lists all of the following as reasons for the decline or disappearance of a language EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "a catastrophic event that entirely eliminates a people and their culture.",
+            "governments promoting certain languages over others.",
+            "the focus on only a few languages as a result of widespread internet use.",
+            "people shifting away from their own language to study or work in another language."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "From the above excerpts, Options A, B, and D can be supported. The passage supports that Internet technology has allowed certain endangered languages to thrive. Option C is not supported anywhere in the passage, hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q6",
+          "text": "We can infer all of the following about indigenous languages from the passage EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "they are repositories of traditional knowledge about the environment and culture.",
+            "they are in danger of being wiped out as most can only be transmitted orally.",
+            "people are increasingly working on documenting these languages.",
+            "their vocabulary and grammatical constructs have been challenging to document."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The first paragraph does mention that indigenous languages have unusual words and intriguing grammar. But it has not been mentioned as a factor that makes their documentation challenging. Hence, Option D is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q7",
+          "text": "From the passage, we can infer that the author is in favour of:",
+          "type": "MCQ",
+          "options": [
+            "greater multilingualism.",
+            "\u201clanguage shifts\u201d across languages.",
+            "cultural homogenisation.",
+            "an expanded state role in the preservation of languages."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Throughout the passage, the author is advocating for greater language diversity and suggesting how to counter the threat to the same. Multilingualism is something that the author has supported as cited above. Hence, Option A is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q8",
+          "text": "The author mentions the Welsh language to show that:",
+          "type": "MCQ",
+          "options": [
+            "efforts to integrate Welsh speakers in the English-speaking fold have been fruitless.",
+            "languages can revive even after their speakers have gone through a \u201clanguage shift\u201d.",
+            "vulnerable languages can rebound with state effort.",
+            "while often pilloried, globalisation can, in fact, support linguistic revival."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "In the above excerpt, the trading of language for another (language shift) has been mentioned. The author mentions the reasons why this happens, and then the Welsh language is mentioned as an example which has rebounded against the same with vigour. Thus, it is presented as a ray of hope, that a language can be revived even when cultural shift occurs. Option B is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] I have elaborated . . . a framework for analyzing the contradictory pulls on [Indian] nationalist ideology in its struggle against the dominance of colonialism and the resolution it offered to those contradictions. [S2] Briefly, this resolution was built around a separation of the domain of culture into two spheres\u2014the material and the spiritual. [S3] It was in the material sphere that the claims of Western civilization were the most powerful. [S4] Science, technology, rational forms of economic organization, modern methods of statecraft\u2014these had given the European countries the strength to subjugate the non-European people . . . [S5] To overcome this domination, the colonized people had to learn those superior techniques of organizing material life and incorporate them within their own cultures. . . . [S6] But this could not mean the imitation of the West in every aspect of life, for then the very distinction between the West and the East would vanish\u2014the self-identity of national culture would itself be threatened. . . .\n\n[S7] The discourse of nationalism shows that the material/spiritual distinction was condensed into an analogous, but ideologically far more powerful, dichotomy: that between the outer and the inner. . . . [S8] Applying the inner/outer distinction to the matter of concrete day-to-day living separates the social space into ghar and b\u0101hir, the home and the world. [S9] The world is the external, the domain of the material; the home represents one\u2019s inner spiritual self, one\u2019s true identity. [S10] The world is a treacherous terrain of the pursuit of material interests, where practical considerations reign supreme. [S11] It is also typically the domain of the male. [S12] The home in its essence must remain unaffected by the profane activities of the material world\u2014and woman is its representation. [S13] And so one gets an identification of social roles by gender to correspond with the separation of the social space into ghar and b\u0101hir. . . .\n\n[S14] The colonial situation, and the ideological response of nationalism to the critique of Indian tradition, introduced an entirely new substance to [these dichotomies] and effected their transformation. [S15] The material/spiritual dichotomy, to which the terms world and home corresponded, had acquired . . . a very special significance in the nationalist mind. [S16] The world was where the European power had challenged the non-European people and, by virtue of its superior material culture, had subjugated them. [S17] But, the nationalists asserted, it had failed to colonize the inner, essential, identity of the East which lay in its distinctive, and superior, spiritual culture. . . . [S18] [I]n the entire phase of the national struggle, the crucial need was to protect, preserve and strengthen the inner core of the national culture, its spiritual essence. . . .\n\n[S19] Once we match this new meaning of the home/world dichotomy with the identification of social roles by gender, we get the ideological framework within which nationalism answered the women\u2019s question. [S20] It would be a grave error to see in this, as liberals are apt to in their despair at the many marks of social conservatism in nationalist practice, a total rejection of the West. [S21] Quite the contrary: the nationalist paradigm in fact supplied an ideological principle of selection.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q9",
+          "text": "Which one of the following explains the \u201ccontradictory pulls\u201d on Indian nationalism?",
+          "type": "MCQ",
+          "options": [
+            "Despite its spiritual superiority, Indian nationalism had to fight against colonial domination.",
+            "Despite its fight against colonial domination, Indian nationalism had to borrow from the coloniser in the spiritual sphere.",
+            "Despite its scientific and technological inferiority, Indian nationalism had to fight against colonial domination.",
+            "Despite its fight against colonial domination, Indian nationalism had to borrow from the coloniser in the material sphere."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The first paragraph acknowledges that the nationalist ideology was fighting against colonial dominance, and there were certain inherent contradictions in the way this struggle was being carried out. The author says that a method of resolution of these contradictions was to separate material and spiritual domains. This hints at the contradiction present. We can infer from here that this is being done because the nationalists acknowledge that the colonial countries were superior in certain aspects, which allowed them to subjugate non-Europeans, as is also mentioned later in the paragraph. The author also mentions that the colonized people had to learn those superior techniques, instead of all-out rejection of colonialist ideas and the progress they brought with them. Thus, the contradiction was that to overcome colonial dominance, nationalism had to accept that the material ways of the West were superior and incorporate them. Hence, Option D is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q10",
+          "text": "On the basis of the information in the passage, all of the following are true about the spiritual/material dichotomy of Indian nationalism EXCEPT that it:",
+          "type": "MCQ",
+          "options": [
+            "represented a continuation of age-old oppositions in Indian culture.",
+            "constituted the premise of the ghar/b\u0101hir dichotomy.",
+            "was not as ideologically powerful as the inner/outer dichotomy.",
+            "helped in safeguarding the identity of Indian nationalism."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Option A is not true as per the passage, and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q11",
+          "text": "Which one of the following, if true, would weaken the author\u2019s claims in the passage?",
+          "type": "MCQ",
+          "options": [
+            "Indian nationalists rejected the cause of English education for women during the colonial period.",
+            "Forces of colonial modernity played an important role in shaping anti-colonial Indian nationalism.",
+            "The colonial period saw the hybridisation of Indian culture in all realms as it came in contact with British/European culture.",
+            "The Industrial Revolution played a crucial role in shaping the economic prowess of Britain in the eighteenth century."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The arguments in the passage are based on the premise that the material and spiritual aspects of culture were different. Hence, even if Indian nationalism accepted the superior material ways of the west, they still would not be giving in to colonial dominance and their identity would be preserved by the spiritual aspect, as it remained unaffected. Hence, to weaken the author's argument, we can give a statement that proves that the spiritual aspect was affected too. Option C does that and is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q12",
+          "text": "Which one of the following best describes the liberal perception of Indian nationalism?",
+          "type": "MCQ",
+          "options": [
+            "Indian nationalism\u2019s sophistication resided in its distinction of the material from the spiritual spheres.",
+            "Indian nationalist discourses reaffirmed traditional gender roles for Indian women.",
+            "Indian nationalism embraced the changes brought about by colonialism in Indian women\u2019s traditional gender roles.",
+            "Indian nationalist discourses provided an ideological principle of selection."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "From the above excerpt, we can see that the liberals were concerned over the social conservatism that nationalist practice promoted as an ideological principal of selection, where social roles would be selected according to the gender of the person. Hence, Option B is the answer, as it comes the closest in capturing the liberal perception of the same."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Many people believe that truth conveys power. . . . [S2] Hence sticking with the truth is the best strategy for gaining power. [S3] Unfortunately, this is just a comforting myth. [S4] In fact, truth and power have a far more complicated relationship, because in human society, power means two very different things.\n\n[S5] On the one hand, power means having the ability to manipulate objective realities: to hunt animals, to construct bridges, to cure diseases, to build atom bombs. [S6] This kind of power is closely tied to truth. [S7] If you believe a false physical theory, you won\u2019t be able to build an atom bomb. [S8] On the other hand, power also means having the ability to manipulate human beliefs, thereby getting lots of people to cooperate effectively. [S9] Building atom bombs requires not just a good understanding of physics, but also the coordinated labor of millions of humans. [S10] Planet Earth was conquered by Homo sapiens rather than by chimpanzees or elephants, because we are the only mammals that can cooperate in very large numbers. [S11] And large-scale cooperation depends on believing common stories. [S12] But these stories need not be true. [S13] You can unite millions of people by making them believe in completely fictional stories about God, about race or about economics. [S14] The dual nature of power and truth results in the curious fact that we humans know many more truths than any other animal, but we also believe in much more nonsense. . . .\n\n[S15] When it comes to uniting people around a common story, fiction actually enjoys three inherent advantages over the truth. [S16] First, whereas the truth is universal, fictions tend to be local. [S17] Consequently if we want to distinguish our tribe from foreigners, a fictional story will serve as a far better identity marker than a true story. . . . [S18] The second huge advantage of fiction over truth has to do with the handicap principle, which says that reliable signals must be costly to the signaler. [S19] Otherwise, they can easily be faked by cheaters. . . . [S20] If political loyalty is signaled by believing a true story, anyone can fake it. [S21] But believing ridiculous and outlandish stories exacts greater cost, and is therefore a better signal of loyalty. [S22] Third, and most important, the truth is often painful and disturbing. [S23] Hence if you stick to unalloyed reality, few people will follow you. [S24] An American presidential candidate who tells the American public the truth, the whole truth and nothing but the truth about American history has a 100 percent guarantee of losing the elections. . . . [S25] An uncompromising adherence to the truth is an admirable spiritual practice, but it is not a winning political strategy. . . .\n\n[S26] Even if we need to pay some price for deactivating our rational faculties, the advantages of increased social cohesion are often so big that fictional stories routinely triumph over the truth in human history. [S27] Scholars have known this for thousands of years, which is why scholars often had to decide whether they served the truth or social harmony. [S28] Should they aim to unite people by making sure everyone believes in the same fiction, or should they let people know the truth even at the price of disunity?",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q13",
+          "text": "The central theme of the passage is about the choice between:",
+          "type": "MCQ",
+          "options": [
+            "stories that unite people and those that distinguish groups from each other.",
+            "attaining social cohesion and propagating objective truth.",
+            "leaders who unknowingly spread fictions and those who intentionally do so.",
+            "truth and power."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The author begins that passage by saying that truth does not necessarily carry power. He then goes on to explain that to attain social cohesion, sticking to the truth is not always an optimal strategy. In the last paragraph, the author sums up this trade-off: Even if we need to pay some price for deactivating our rational faculties, the advantages of increased social cohesion are often so big that fictional stories routinely triumph over the truth in human history. Scholars have known this for thousands of years, which is why scholars often had to decide whether they served the truth or social harmony. Thus, Option B is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q14",
+          "text": "The author would support none of the following statements about political power EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "there are definite advantages to promoting fiction, but there needs to be some limit to a pervasive belief in myths.",
+            "while unalloyed truth is not recommended, leaders should stay as close as possible to it.",
+            "manipulating people\u2019s beliefs is politically advantageous, but a leader who propagates only myths is likely to lose power.",
+            "people cannot handle the unvarnished truth, so leaders retain power by deviating from it."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option D is in line with the above excerpt and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q15",
+          "text": "The author implies that, like scholars, successful leaders:",
+          "type": "MCQ",
+          "options": [
+            "today know how to create social cohesion better than in the past.",
+            "use myths to attain the first type of power.",
+            "know how to balance truth and social unity.",
+            "need to leverage both types of power to remain in office."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In the penultimate paragraph, the author mentions how successful leaders balance truth and social unity to achieve an optimal outcome. The above excerpt shows that scholars have known this for a long time too, and have implemented it. Thus, Option C is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Many people believe that truth conveys power. . . . Hence sticking with the truth is the best strategy for gaining power. Unfortunately, this is just a comforting myth. In fact, truth and power have a far more complicated relationship, because in human society, power means two very different things.\n\nOn the one hand, power means having the ability to manipulate objective realities: to hunt animals, to construct bridges, to cure diseases, to build atom bombs. This kind of power is closely tied to truth. If you believe a false physical theory, you won\u2019t be able to build an atom bomb. On the other hand, power also means having the ability to manipulate human beliefs, thereby getting lots of people to cooperate effectively. Building atom bombs requires not just a good understanding of physics, but also the coordinated labor of millions of humans. Planet Earth was conquered by Homo sapiens rather than by chimpanzees or elephants, because we are the only mammals that can cooperate in very large numbers. And large-scale cooperation depends on believing common stories. But these stories need not be true. You can unite millions of people by making them believe in completely fictional stories about God, about race or about economics. The dual nature of power and truth results in the curious fact that we humans know many more truths than any other animal, but we also believe in much more nonsense. . . .\n\nWhen it comes to uniting people around a common story, fiction actually enjoys three inherent advantages over the truth. First, whereas the truth is universal, fictions tend to be local. Consequently if we want to distinguish our tribe from foreigners, a fictional story will serve as a far better identity marker than a true story. . . . The second huge advantage of fiction over truth has to do with the handicap principle, which says that reliable signals must be costly to the signaler. Otherwise, they can easily be faked by cheaters. . . . If political loyalty is signaled by believing a true story, anyone can fake it. But believing ridiculous and outlandish stories exacts greater cost, and is therefore a better signal of loyalty. . . . Third, and most important, the truth is often painful and disturbing. Hence if you stick to unalloyed reality, few people will follow you. An American presidential candidate who tells the American public the truth, the whole truth and nothing but the truth about American history has a 100 percent guarantee of losing the elections. . . . An uncompromising adherence to the truth is an admirable spiritual practice, but it is not a winning political strategy. . . .\n\nEven if we need to pay some price for deactivating our rational faculties, the advantages of increased social cohesion are often so big that fictional stories routinely triumph over the truth in human history. Scholars have known this for thousands of years, which is why scholars often had to decide whether they served the truth or social harmony. Should they aim to unite people by making sure everyone believes in the same fiction, or should they let people know the truth even at the price of disunity?",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q16",
+          "text": "Regarding which one of the following quotes could we argue that the author overemphasises the importance of fiction?",
+          "type": "MCQ",
+          "options": [
+            "\u201c. . . scholars often had to decide whether they served the truth or social harmony. Should they aim to unite people by making sure everyone believes in the same fiction, or should they let people know the truth . . .?\u201d",
+            "\u201cOn the one hand, power means having the ability to manipulate objective realities: to hunt animals, to construct bridges, to cure diseases, to build atom bombs.\u201d",
+            "\u201cHence sticking with the truth is the best strategy for gaining power. Unfortunately, this is just a comforting myth.\u201d",
+            "\u201cIn fact, truth and power have a far more complicated relationship, because in human society, power means two very different things.\u201d"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Option A: The author here emphasizes that the choice between truth and social cohesion is a difficult one for scholars, as it means choosing between truth or uniting everyone using a common narrative. Here, the reach and influence of fiction created by that scholar has been overemphasized, and hence, is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Biologists who publish their research directly to the Web have been labelled as \u201crogue\u201d, but physicists have been routinely publishing research digitally (\u201cpreprints\u201d), prior to submitting in a peer-reviewed journal. Advocates of preprints argue that quick and open dissemination of research speeds up scientific progress and allows for wider access to knowledge. But some journals still don\u2019t accept research previously published as a preprint. Even if the idea of preprints is gaining ground, one of the biggest barriers for biologists is how they would be viewed by members of their conservative research community.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q17",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "One of the advantages of digital preprints of research is they hasten the dissemination process, but these are not accepted by most scientific communities.",
+            "Compared to biologists, physicists are less conservative in their acceptance of digital pre-publication of research papers, which allows for faster dissemination of knowledge.",
+            "While digital publication of research is gaining popularity in many scientific disciplines, almost all peer-reviewed journals are reluctant to accept papers that have been published before.",
+            "Preprints of research are frowned on by some scientific fields as they do not undergo a rigourous reviewing process but are accepted among biologists as a quick way to disseminate information."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The main points of the paragraph are: 1. As compared to physicists, biologists are more conservative when it comes to the subject of preprints. 2. Preprints allow faster dissemination of knowledge. Option B captures both the points appropriately and is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q18",
+          "text": "The four sentences (labelled 1, 2, 3, 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:\n1. But today there is an epochal challenge to rethink and reconstitute the vision and practice of development as a shared responsibility - a sharing which binds both the agent and the audience, the developed world and the developing, in a bond of shared destiny.\n2. We are at a crossroads now in our vision and practice of development.\n3. This calls for the cultivation of an appropriate ethical mode of being in our lives which enables us to realize this global and planetary situation of shared living and responsibility.\n4. Half a century ago, development began as a hope for a better human possibility, but in the last fifty years, this hope has lost itself in the dreary desert of various kinds of hegemonic applications.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2413",
+          "explanation": "A brief reading of the sentences suggests that the paragraph is about the change needed in the way we go about development. 2 introduces the topic at hand, that this is a watershed moment when it comes to the subject of development. 41 make a mandatory pair, which talks about what the purpose of development was at the beginning and how it needs to be altered to suit the needs of today. 3 then aptly ends the paragraph, suggesting the measures that could be taken to counter the same. Hence, the proper sequence would be 2413."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q19",
+          "text": "Five jumbled up sentences, related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd one out and key in the number of the sentence as your answer:\n1. The care with which philosophers examine arguments for and against forms of biotechnology makes this an excellent primer on formulating and assessing moral arguments.\n2. Although most people find at least some forms of genetic engineering disquieting, it is not easy to articulate why: what is wrong with re-engineering our nature?\n3. Breakthroughs in genetics present us with the promise that we will soon be able to prevent a host of debilitating diseases, and the predicament that our newfound genetic knowledge may enable us to enhance our genetic traits.\n4. To grapple with the ethics of enhancement, we need to confront questions that verge on theology, which is why modern philosophers and political theorists tend to shrink from them.\n5. One argument is that the drive for human perfection through genetics is objectionable as it represents a bid for mastery that fails to appreciate the gifts of human powers and achievements.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "The sentences have been taken from Harvard's Justice, and have been modified considerably. We can see here that the last four sentences try to examine why bioengineering is disputed in spite of its huge potential. Then reasons are given about the question on its ethicality, and how it is closely associated with theology on the matter. 1 however runs tangential to the discussion. The main focus is bioengineering while 1 aims to shift the focus and use the debate on the matter as a stepping stone to reach another goal: evaluating/formulating moral arguments. Hence, 1 is the odd one out here."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q20",
+          "text": "Five jumbled up sentences, related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd one out and key in the number of the sentence as your answer:\n1. It has taken on a warm, fuzzy glow in the advertising world, where its potential is being widely discussed, and it is being claimed as the undeniable wave of the future.\n2. There is little enthusiasm for this in the scientific arena; for them marketing is not a science, and only a handful of studies have been published in scientific journals.\n3. The new, growing field of neuromarketing attempts to reveal the inner workings of consumer behaviour and is an extension of the study of how choices and decisions are made.\n4. Some see neuromarketing as an attempt to make the \"art\" of advertising into a science, being used by marketing experts to back up their proposals with some form of real data.\n5. The marketing gurus have already started drawing on psychology in developing tests and theories, and advertising people have borrowed the idea of the focus group from social scientists.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "5",
+          "explanation": "A brief reading of the sentences tells us that the paragraph must be about the industry of neuromarketing, which is still in its embryonic phase. 3 can be the opening sentence to the paragraph, as it introduces the topic at hand. 1, 4, and 2 then go on to talk about the opinion of different associated parties on the matter. 5 however, does not fit in here. The reason is that it talks about 'psychology', which is different from the use of neural science. Even if one is not familiar with the difference, we can see that it goes a step forward to talk about the application of a science, whereas the paragraph is mostly concerned with a growing science and how it is shaping public opinion. Hence, 5 is the odd one out."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q21",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:\n1. Look forward a few decades to an invention which can end the energy crisis, change the global economy and curb climate change at a stroke: commercial fusion power.\n2. To gain meaningful insights, logic has to be accompanied by asking probing questions of nature through controlled tests, precise observations and clever analysis.\n3. The greatest of all inventions is the \u00fcber-invention that has provided the insights on which others depend: the modern scientific method.\n4. This invention is inconceivable without the scientific method; it will rest on the application of a diverse range of scientific insights, such as the process transforming hydrogen into helium to release huge amounts of energy.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3214",
+          "explanation": "A brief reading of the sentences suggests that the paragraph is about great inventions, focusing on the importance of scientific method and how it forms the foundation for other great inventions. 32 forms an introductory pair that claims that the modern scientific method must be the greatest of all inventions and then talks about its mode of inquiry. 1 then presents an invention that could solve many problems in the future. 4 then claims that the invention would have been impossible if the scientific method did not precede it. Hence, the coherent arrangement is 3214."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q22",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nCreativity is now viewed as the engine of economic progress. Various organizations are devoted to its study and promotion; there are encyclopedias and handbooks surveying creativity research. But this proliferating success has tended to erode creativity\u2019s stable identity: it has become so invested with value that it has become impossible to police its meaning and the practices that supposedly identify and encourage it. Many people and organizations committed to producing original thoughts now feel that undue obsession with the idea of creativity gets in the way of real creativity.",
+          "type": "MCQ",
+          "options": [
+            "The obsession with original thought, how it can be promoted and researched, has made it impossible for people and organizations to define the concept anymore.",
+            "The industry that has built up around researching what comprises and encourages creativity has destroyed the creative process itself.",
+            "Creativity has proliferated to the extent that is no longer a stable process, and its mutating identity has stifled the creative process.",
+            "The value assigned to creativity today has assumed such proportions that the concept itself has lost its real meaning and this is hampering the engendering of real creativity."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The main points of the paragraph are: 1. The value of creativity to economic progress has been realised, with serious investment being done to study/promote it. 2. But this success fires back. Policing its meaning can lead to obsession, hampering creativity itself. Option D comes the closest to capturing the above two points, and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q23",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:\n1. The US has long maintained that the Northwest Passage is an international strait through which its commercial and military vessels have the right to pass without seeking Canada\u2019s permission.\n2. Canada, which officially acquired the group of islands forming the Northwest Passage in 1880, claims sovereignty over all the shipping routes through the Passage.\n3. The dispute could be transitory, however, as scientists speculate that the entire Arctic Ocean will soon be ice-free in summer, so ship owners will not have to ask for permission to sail through any of the Northwest Passage routes.\n4. The US and Canada have never legally settled the question of access through the Passage, but have an agreement whereby the US needs to seek Canada\u2019s consent for any transit.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2143",
+          "explanation": "A brief reading of the sentences suggests that the paragraph is about the dispute between the US and Canada over the Northwest passage. 2 is a better opening sentence than 1 as 21 forms a good introduction into the dispute. 2 mentions that Canada claims ownership over the passage, and 1 then mentions the counterclaim the US offers: the passage is an international route. 43 becomes a mandatory pair which follows 21. 4 mentions the historical development in the dispute: it has not been legally settled yet. 3 then hints about the future of this dispute: the dispute itself would vanish once the entire Arctic begins to stay ice-free in summer. Hence, the coherent arrangement is 2143."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q24",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nThe unlikely alliance of the incumbent industrialist and the distressed unemployed worker is especially powerful amid the debris of corporate bankruptcies and layoffs. In an economic downturn, the capitalist is more likely to focus on costs of the competition emanating from free markets than on the opportunities they create. And the unemployed worker will find many others in a similar condition and with anxieties similar to his, which will make it easier for them to organize together. Using the cover and the political organization provided by the distressed, the capitalist captures the political agenda.",
+          "type": "MCQ",
+          "options": [
+            "In an economic downturn, the capitalists use the anxieties of the unemployed and their political organisation to set the political agenda to suit their economic interests.",
+            "The purpose of an unlikely alliance between the industrialist and the unemployed during an economic downturn is to stifle competition in free markets.",
+            "An economic downturn creates competition because of which the capitalists capture the political agenda created by the political organisation provided by the unemployed.",
+            "An unlikely alliance of the industrialist and the unemployed happens during an economic downturn in which they come together to unite politically and capture the political agenda."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The main points of the paragraph are: 1. In an economic disaster, the atypical alliance of established industrialist and unemployed workers proves powerful. 2. Anxieties and anticipation lead them to look after their interests. 3. It is the industrialist that benefits the most as he is able to use the latter to achieve his vested political interests. Option A comes the closest in capturing all three points, and hence, is the answer."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Categories | Standard Class | First Class | Second Class |\n| :--- | :--- | :--- | :--- |\n| Arts | 1-3, 13-21 | 4-6 | 3-4, 6-13 |\n| Binders | 1-2 | 4-5 | 2-4, 5-16 |\n| Paper | X | 4-7 | 2-4, 7-12 |\n| Phones | 2-4, 5-17 | 4-5 | X |\n| Appliances | 4-12 | X | 2-4 |\n| Bookcases | X | 4-6 | 3-4, 6-7 |\n| Fasteners | 2-4, 6-8 | X | 4-6 |\n| Furnishings | 5-12 | X | 1-5 |\n| Labels | 4-12 | X | 1-3 |\n| Tables | 2-4 | X | 4-10 |\n| Chairs | 2-3 | X | 3-9 |\n| Accessories | 1-19 | X | X |\n| Envelopes | 3-7 | X | X |\n| Storage | 7-22 | X | 2-7 |",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q25",
+          "text": "How many days between Sep 1 and Sep 14 (both inclusive) had no booking from this client considering all the above categories?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "Accumulating all the data: Note a-b: represents the duration where a is the day when order is booked and b is the day when it is dispatched. Now No booking days from the table are: September 8, 9, 10, 11, 12 and 14. So a total of 6 days."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q26",
+          "text": "What was the average processing time of all orders in the categories which had only one type of ship mode?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "11",
+          "explanation": "Now Envelopes and Accessories has only 1 ship mode i.e Standard class. So therefore processing days for envelopes = 7-3 = 4 and processing days for accessories = 19-1 = 18. Therefore average = (18+4)/2 = 11."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q27",
+          "text": "The sequence of categories -- Art, Binders, Paper and Phones -- in decreasing order of average processing time of their orders in this period is:",
+          "type": "MCQ",
+          "options": [
+            "Art, Binders, Paper, Phones",
+            "Phones, Art, Binders, Paper",
+            "Phones, Binders, Art, Paper",
+            "Paper, Binders, Art, Phones"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Now taking average processing time per order for the above mentioned categories we get: Art = (2+8+2+1+7)/5 = 4; Binders = (1+1+11+2)/4 = 3.75; Papers = (3+2+5)/3 = 3.33; Phones = (2+12+1)/3 = 5. So in decreasing order we get Phones, Art, Binder, Paper."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q28",
+          "text": "Approximately what percentage of orders had a processing time of one day during the period Sep 1 to Sep 22 (both dates inclusive)?",
+          "type": "MCQ",
+          "options": [
+            "22%",
+            "16%",
+            "20%",
+            "25%"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Now from the table we observe that the total number of orders are 35 and 7 orders have a processing time of 1 unit. The 7 orders are: Arts Standard class, Binders First class and standard class, Phones First class, Bookcases second class (2 orders) and Chairs standard class. So the percentage = (7/35) * 100 = 20."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q29",
+          "text": "What BEST can be said about object o8?",
+          "type": "MCQ",
+          "options": [
+            "o8 was given to Amar, Charles, or Disha",
+            "o8 was given to Disha",
+            "o8 was given to Charles",
+            "o8 was given to Charles or Disha"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Explanation [29 - 34]: Based on the constraints and the table, it is determined that o8 is given to Charu (Charles)."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q30",
+          "text": "Who among the following envies someone else?",
+          "type": "MCQ",
+          "options": [
+            "Barat",
+            "Charles",
+            "Amar",
+            "Elise"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "So Amar envies someone else."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Ten objects o1, o2, \u2026, o10 were distributed among Amar, Barat, Charles, Disha, and Elise. Each item went to exactly one person. Each person got exactly two of the items, and this pair of objects is called her/his bundle.\n\n| | o1 | o2 | o3 | o4 | o5 | o6 | o7 | o8 | o9 | o10 |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Amar | 4 | 9 | 9 | 3 | 7 | 3 | 8 | 7 | 9 | 5 |\n| Barat | 5 | 9 | 7 | 5 | 5 | 3 | 6 | 8 | 10 | 8 |\n| Charles | 8 | 8 | 8 | 3 | 6 | 5 | 4 | 8 | 9 | 6 |\n| Disha | 8 | 8 | 8 | 5 | 5 | 3 | 6 | 4 | 9 | 8 |\n| Elise | 6 | 8 | 9 | 5 | 6 | 5 | 6 | 3 | 7 | 10 |\n\nFacts:\n1. If someone\u2019s value for an object is 10, then she/he received that object.\n2. Objects o1, o2, and o3 were given to three different people.\n3. Objects o1 and o8 were given to different people.\n4. Three people value their own bundles at 16. No one values her/his own bundle at a number higher than 16.\n5. Disha values her own bundle at an odd number. All others value their own bundles at an even number.\n6. Some people who value their own bundles less than 16 envy some other people who value their own bundle at 16. No one else envies others.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q31",
+          "text": "What is Amar\u2019s value for his own bundle?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "12",
+          "explanation": "Amar's own valuation = 9+3 =12"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q32",
+          "text": "Object o4 was given to",
+          "type": "MCQ",
+          "options": [
+            "Elise",
+            "Barat",
+            "Charles",
+            "Disha"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "o4 is given to Disha"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q33",
+          "text": "Object o5 was given to",
+          "type": "MCQ",
+          "options": [
+            "Disha",
+            "Elise",
+            "Amar",
+            "Charles"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "o5 is given to Elise"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q34",
+          "text": "What BEST can be said about the distribution of object o1?",
+          "type": "MCQ",
+          "options": [
+            "o1 was given to Disha",
+            "o1 was given to Charles",
+            "o1 was given to Charles, Disha, or Elise",
+            "o1 was given to Charles or Disha"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "So o1 is given to Disha"
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "The game of Chango is a game where two people play against each other; one of them wins and the other loses, i.e., there are no drawn Chango games. 12 players participated in a Chango championship. They were divided into four groups: Group A consisted of Aruna, Azul, and Arif; Group B consisted of Brinda, Brij, and Biju; Group C consisted of Chitra, Chetan, and Chhavi; and Group D consisted of Dipen, Donna, and Deb.\n\nPlayers within each group had a distinct rank going into the championship. The players have NOT been listed necessarily according to their ranks. In the group stage of the game, the second and third ranked players play against each other, and the winner of that game plays against the first ranked player of the group. The winner of this second game is considered as the winner of the group and enters a semi-final.\n\nThe winners from Groups A and B play against each other in one semi-final, while the winners from Groups C and D play against each other in the other semi-final. The winners of the two semi-finals play against each other in the final to decide the winner of the championship.\n\nIt is known that:\n1. Chitra did not win the championship.\n2. Aruna did not play against Arif. Brij did not play against Brinda.\n3. Aruna, Biju, Chitra, and Dipen played three games each, Azul and Chetan played two games each, and the remaining players played one game each.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q35",
+          "text": "Who among the following was DEFINITELY NOT ranked first in his/her group?",
+          "type": "MCQ",
+          "options": [
+            "Dipen",
+            "Aruna",
+            "Brij",
+            "Chitra"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Dipen was ranked 2 or 3 in his group"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q36",
+          "text": "Which of the following pairs must have played against each other in the championship?",
+          "type": "MCQ",
+          "options": [
+            "Deb, Donna",
+            "Azul, Biju",
+            "Donna, Chetan",
+            "Chitra, Dipen"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Chitra and Dipen played in the semifinals"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q37",
+          "text": "Who won the championship?",
+          "type": "MCQ",
+          "options": [
+            "Chitra",
+            "Aruna",
+            "Brij",
+            "Cannot be determined"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Aruna is the winner."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q38",
+          "text": "Who among the following did NOT play against Chitra in the championship?",
+          "type": "MCQ",
+          "options": [
+            "Aruna",
+            "Chetan",
+            "Dipen",
+            "Biju"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Brij was the player from group B who played Chitra. Aruna played in finals, Chetan in round 2, and Dipen in semi finals"
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Ravi works in an online food-delivery company. After each delivery, customers rate Ravi on each of four parameters - Behaviour, Packaging, Hygiene, and Timeliness, on a scale from 1 to 9. If the total of the four rating points is 25 or more, then Ravi gets a bonus of \u20b920 for that delivery. Additionally, a customer may or may not give Ravi a tip. If the customer gives a tip, it is either \u20b930 or \u20b950.\n\nOne day, Ravi made four deliveries - one to each of Atal, Bihari, Chirag, and Deepak, and received a total of \u20b9120 in bonus and tips. He did not get both a bonus and a tip from the same customer.\n\nAdditional facts:\n1. In Timeliness, Ravi received a total of 21 points, and three of the customers gave him the same rating points in this parameter. Atal gave higher rating points than Bihari and Chirag in this parameter.\n2. Ravi received distinct rating points in Packaging from the four customers adding up to 29 points. Similarly, Ravi received distinct rating points in Hygiene from the four customers adding up to 26 points.\n3. Chirag gave the same rating points for Packaging and Hygiene.\n4. Among the four customers, Bihari gave the highest rating points in Packaging, and Chirag gave the highest rating points in Hygiene.\n5. Everyone rated Ravi between 5 and 7 in Behaviour. Unique maximum and minimum ratings in this parameter were given by Atal and Deepak respectively.\n6. If the customers are ranked based on ratings given by them in individual parameters, then Atal\u2019s rank based on Packaging is the same as that based on Hygiene. This is also true for Deepak.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q39",
+          "text": "What was the minimum rating that Ravi received from any customer in any parameter?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "5",
+          "explanation": "The minimum rating awarded is 5."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q40",
+          "text": "The COMPLETE list of customers who gave the maximum total rating points to Ravi is",
+          "type": "MCQ",
+          "options": [
+            "Atal",
+            "Bihari",
+            "Bihari and Chirag",
+            "Atal and Bihari"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Bihari and Chirag has given the highest ratings"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q41",
+          "text": "What rating did Atal give on Timeliness?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "Atal has given a rating of 6 in timeliness"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q42",
+          "text": "What BEST can be concluded about the tip amount given by Deepak?",
+          "type": "MCQ",
+          "options": [
+            "Either \u20b90 or \u20b930 or \u20b950",
+            "Either \u20b930 or \u20b950",
+            "\u20b950",
+            "\u20b930"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Among Atal and Deepak, one of them gives a tip of 30 and the other gives a tip of 50. Hence 30 or 50 any case is possible"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q43",
+          "text": "In which parameter did Atal give the maximum rating points to Ravi?",
+          "type": "MCQ",
+          "options": [
+            "Hygiene",
+            "Behaviour",
+            "Timeliness",
+            "Packaging"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Atal has given the maximum rating in Behaviour."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q44",
+          "text": "What rating did Deepak give on Packaging?",
+          "type": "MCQ",
+          "options": [
+            "7",
+            "8",
+            "5",
+            "6"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Deepak gives a rating of 7 in Packaging."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q45",
+          "text": "For all possible integers n satisfying 2.25 \u2264 2 + 2^(n+2) \u2264 202, then the number of integer values of 3 + 3^(n+1) is:",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "7",
+          "explanation": "Possible integers = -4, -3, -2, -1, 0, 1, 2, 3, 4, 5. If we see the second expression that is provided, i.e 3 + 3^(n+1), it can be implied that n should be at least -1 for this expression to be an integer. So, n = -1, 0, 1, 2, 3, 4, 5. Hence, there are a total of 7 values."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q46",
+          "text": "Three positive integers x, y and z are in arithmetic progression. If y - x > 2 and xyz = 5(x + y + z), then z-x equals",
+          "type": "MCQ",
+          "options": [
+            "8",
+            "12",
+            "14",
+            "10"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Given x, y, z are three terms in an arithmetic progression. Considering x = a, y = a+d, z = a+2*d. Using the given equation x*y*z = 5*(x+y+z). a*(a+d)*(a+2*d) = 5*(a+a+d+a+2*d) = a*(a+d)*(a+2*d) = 5*(3*a+3*d) = 15*(a+d). = a*(a+2*d) = 15. Since all x, y, z are positive integers and y-x > 2. a, a+d, a+2*d are integers. The common difference is positive and greater than 2. Among the different possibilities are : (a=1, a+2d = 5), (a, =3, a+2d = 5), (a = 5, a+2d = 3), (a=15, a+2d = 1). Hence the only possible case satisfying the condition is : a = 1, a+2*d = 15. x = 1, z = 15. z-x = 14."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q47",
+          "text": "For a 4-digit number, the sum of its digits in the thousands, hundreds and tens places is 14, the sum of its digits in the hundreds, tens and units places is 15, and the tens place digit is 4 more than the units place digit. Then the highest possible 4-digit number satisfying the above conditions is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4195",
+          "explanation": "Given the 4 digit number: Considering the number in thousands digit is a, number in the hundredth digit is b, number in tens digit is c, number in the units digit is d. Let the number be abcd. Given that a+b+c = 14. (1) b+c+d = 15. (2) c = d+4. (3). In order to find the maximum number which satisfies the condition, we need to have abcd such that a is maximum which is the digit in thousands place in order to maximize the value of the number. b, c, and d are less than 9 each as they are single-digit numbers. Substituting (3) in (2) we have b+d+4+d = 15, b+2*d = 11. (4) Subtracting (2) and (1) : (2) - (1) = d = a+1. (5) Since c cannot be greater than 9 considering c to be the maximum value 9 the value of d is 5. If d = 5, using d = a+1, a = 4. Hence the maximum value of a = 4 when c = 9, d = 5. Substituting b+2*d = 11. b = 1. The highest four-digit number satisfying the condition is 4195"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q48",
+          "text": "Raj invested \u20b9 10000 in a fund. At the end of first year, he incurred a loss but his balance was more than \u20b9 5000. This balance, when invested for another year, grew and the percentage of growth in the second year was five times the percentage of loss in the first year. If the gain of Raj from the initial investment over the two year period is 35%, then the percentage of loss in the first year is",
+          "type": "MCQ",
+          "options": [
+            "5",
+            "15",
+            "17",
+            "10"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Raj invested Rs 10000 in the first year. Assuming the loss he faced was x%. The amount after 1 year is 10,000*(1 - x/100). = 10000 - 100*x. Given the balance was greater than Rs 5000 and hence x < 50 percent. When Raj invested this amount in the second year he earned a profit which is five times that of the first-year percentage. Hence the amount after the second year is : (10000 - 100x)(1+5x/100). Raj gained a total of 35 percent over the period of two years and hence the 35 percent is Rs 3500. Hence the final amount is Rs 13,500. (10000 - 100x)(1+5x/100) = 13,500. (100 - x)(100 + 5x) = 13500. 10000 - 100*x + 500*x - 5*x^2 = 13500. 5x^2 - 400x + 3500 = 0. Solving the equation the roots are : x = 10, x = 70. Since x < 50, x = 10 percent."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q49",
+          "text": "The number of ways of distributing 15 identical balloons, 6 identical pencils and 3 identical erasers among 3 children, such that each child gets at least four balloons and one pencil, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1000",
+          "explanation": "Event 1: Distribution of balloons. Since each child gets at least 4 balloons, we will initially allocate these 4 balloons to each of them. So we are left with 15 - 4 x 3 = 15 - 12 = 3 balloons and 3 children. Now we need to distribute 3 identical balloons to 3 children. This can be done in n+r-1Cr-1 ways, where n = 3 and r = 3. So, number of ways = 3+3-1C3-1 = 5C2 = 10. Event 2: Distribution of pencils. Since each child gets at least one pencil, we will allocate 1 pencil to each child. We are now left with 6 - 3 = 3 pencils. We now need to distribute 3 identical pencils to 3 children. This can be done in n+r-1Cr-1 ways, where n = 3 and r = 3. So, number of ways = 3+3-1C3-1 = 5C2 = 10. Event 3: Distribution of erasers. We need to distribute 3 identical erasers to 3 children. This can be done in n+r-1Cr-1 ways, where n = 3 and r = 3. So, number of ways = 3+3-1C3-1 = 5C2 = 10. Applying the product rule, we get the total number of ways = 10 x 10 x 10 = 1000."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q50",
+          "text": "Two trains A and B were moving in opposite directions, their speeds being in the ratio 5 : 3. The front end of A crossed the rear end of B 46 seconds after the front ends of the trains had crossed each other. It took another 69 seconds for the rear ends of the trains to cross each other. The ratio of length of train A to that of train B is",
+          "type": "MCQ",
+          "options": [
+            "3:2",
+            "5:3",
+            "2:3",
+            "2:1"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Considering the length of train A = La, length of train B = Lb. The speed of train A be 5*x, speed of train B be 3*x. From the information provided: The front end of A crossed the rear end of B 46 seconds after the front ends of the trains had crossed each other. In this case, train A traveled a distance equivalent to the length of train B which is Lb at a speed of 5*x+3*x = 8*x because both the trains are traveling in the opposite direction. Hence (8*x)*(46) = Lb. In the information provided: It took another 69 seconds for the rear ends of the trains to cross each other. In the next 69 seconds, the train B traveled a distance equivalent to the length of train A in this 69 seconds. Hence (8*x)*(69) = La. La/Lb = 69/46 = 3/2 = 3 : 2"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q51",
+          "text": "Suppose one of the roots of the equation ax^2 - bx + c = 0 is 2 + \u221a3, Where a,b and c are rational numbers and a \u2260 0. If b = c^3 then |a| equals.",
+          "type": "MCQ",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Given a, b, c are rational numbers. Hence a, b, c are three numbers that can be written in the form of p/q. Hence if one root is 2+\u221a3 and considering the other root to be x. The sum of the roots and the product of the two roots must be rational numbers. For this to happen the other root must be the conjugate of 2+\u221a3 so the sum and the product of the roots are rational numbers which are represented by -b/a and c/a. Since the quadratic equation has negative b, it will cancel the negative sign of the sum of the roots. Hence, the sum of the roots and the products of the roots will be represented by b/a and c/a. Hence the sum of the roots is 2+\u221a3 + 2-\u221a3 = 4. The product of the roots is (2+\u221a3)*(2-\u221a3) = 1. b/a = 4, c/a = 1. b = 4*a, c= a. Since b = c^3. 4*a = a^3. a^2 = 4. a = 2 or -2. |a| = 2"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q52",
+          "text": "From a container filled with milk, 9 litres of milk are drawn and replaced with water. Next, from the same container, 9 litres are drawn and again replaced with water. If the volumes of milk and water in the container are now in the ratio of 16 : 9, then the capacity of the container, in litres, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "45",
+          "explanation": "The formula is given by : F = V * (1 - K/V)^n where n is the number of times the milk is drawn and replaced. so we get F = V * (1 - 9/V)^2. here K = 9. we get 16/25 * V = V * (1 - 9/V)^2. we get 1 - 9/V = 4/5 or -4/5. If considering 1 - 9/V = -4/5, V = 5, but this is not possible because 9 liters is drawn every time. Hence : 1 - 9/V = 4/5, V = 45 liters"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q53",
+          "text": "If a rhombus has area 12 sq cm and side length 5 cm, then the length, in cm, of its longer diagonal is",
+          "type": "MCQ",
+          "options": [
+            "\u221a37 + \u221a13",
+            "\u221a13 + \u221a12",
+            "(\u221a37 + \u221a13)/2",
+            "(\u221a13 + \u221a12)/2"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "All the sides of the rhombus are equal. The area of a rhombus is 12 cm^2. Considering d1 to be the length of the longer diagonal, d2 to be the length of the shorter diagonal. The area of a rhombus is (1/2) * d1 * d2 = 12. d1*d2 = 24. The length of the side of a rhombus is given by \u221a((d1/2)^2 + (d2/2)^2) = 5. Hence \u221a(d1^2 + d2^2) = 10. d1^2 + d2^2 = 100. Using d1*d2 = 24, 2*d1*d2 = 48. d1^2 + d2^2 + 2*d1*d2 = 100 + 48 = 148. d1^2 + d2^2 - 2*d1*d2 = 100 - 48 = 52. d1 + d2 = \u221a148. d1 - d2 = \u221a52. (1) + (2) = 2*(d1) = 2*(\u221a37 + \u221a13). d1 = \u221a37 + \u221a13"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q54",
+          "text": "If log2[3 + log3 {4 + log4(x - 1)}] - 2 = 0 then 4x equals",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "5",
+          "explanation": "We have : log2{3 + log3 {4 + log4 (x - 1)}} = 2. we get 3 + log3 {4 + log4 (x - 1)} = 4. we get log3 (4 + log4 (x - 1)) = 1. we get 4 + log4 (x - 1) = 3. log4 (x - 1) = -1. x-1 = 4^-1. x = 1/4 + 1 = 5/4. 4x = 5"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q55",
+          "text": "The sides AB and CD of a trapezium ABCD are parallel, with AB being the smaller side. P is the midpoint of CD and ABPD is a parallelogram. If the difference between the areas of the parallelogram ABPD and the triangle BPC is 10 sq cm, then the area, in sq cm, of the trapezium ABCD is",
+          "type": "MCQ",
+          "options": [
+            "30",
+            "40",
+            "25",
+            "20"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let DP = x. So AB = x. Now DP = CP. So CD = 2x. Now let height of trapezium be h. we can say A(Parallelogram ABPD) = xh. And A(BPC) = (1/2)*xh. Now by condition: xh - (1/2)*xh = 10. so xh = 20. Now therefore area of trapezium ABCD = (1/2)*(x + 2x) * h = (3/2)*xh = 30"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q56",
+          "text": "For all real values of x, the range of the function f(x) = (x^2 + 2x + 4) / (2x^2 + 4x + 9) is:",
+          "type": "MCQ",
+          "options": [
+            "[4/9, 8/9]",
+            "[3/7, 8/9)",
+            "(3/7, 1/2)",
+            "[3/7, 1/2)"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "f(x) = (x^2 + 2x + 4) / (2x^2 + 4x + 9) = (0.5 * (2x^2 + 4x + 8)) / (2x^2 + 4x + 9) = (0.5 * (2x^2 + 4x + 9 - 1)) / (2x^2 + 4x + 9) = 0.5 - 0.5 / (2x^2 + 4x + 9). Now, we only have terms of x in the denominator. The maximum value of the expression is achieved when the quadratic expression achieves its highest value, that is infinity. In that case, the second term becomes zero and the expression becomes 1/2. However, at infinity, there is always an open bracket ')'. To obtain the minimum value, we need to find the minimum possible value of the quadratic expression. The minimum value is obtained when 4x + 4 = 0 [d/dx = 0], x = -1. The expression comes as 7. The entire expression becomes 3/7. Hence, [3/7, 1/2)"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q57",
+          "text": "For a sequence of real numbers x1, x2, ...xn, If x1 - x2 + x3 - .... + (-1)^(n+1)xn = n^2 + 2n for all natural numbers n, then the sum x49 + x50 equals",
+          "type": "MCQ",
+          "options": [
+            "200",
+            "2",
+            "-200",
+            "-2"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Now as per the given series : we get x1 = 1 + 2 = 3. Now x1 - x2 = 8, so x2 = -5. Now x1 - x2 + x3 = 15, so x3 = 7. so we get xn = (-1)^(n+1) * (2n + 1). so x49 = 99 and x50 = -101. Therefore x49 + x50 = -2"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q58",
+          "text": "For a real number x the condition |3x - 20| + |3x - 40| = 20 necessarily holds if",
+          "type": "MCQ",
+          "options": [
+            "10 < x < 15",
+            "9 < x < 14",
+            "7 < x < 12",
+            "6 < x < 11"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Case 1 : x >= 40/3, we get 3x-20 + 3x-40 = 20, 6x=80, x=13.33. Case 2 : 20/3 <= x <= 40/3, we get 20=20. So we get x \u2208 [20/3, 40/3]. Case 3 : x < 20/3, we get 20-3x+40-3x=20, 40=6x, x=20/3. So we get from case 1, 2 and 3, 20/3 <= x <= 40/3. Now looking at options we can say option C satisfies for all x. Hence 7<x<12."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q59",
+          "text": "Anil can paint a house in 60 days while Bimal can paint it in 84 days. Anil starts painting and after 10 days, Bimal and Charu join him. Together, they complete the painting in 14 more days. If they are paid a total of \u2014 21000 for the job, then the share of Charu, in INR, proportionate to the work done by him, is",
+          "type": "MCQ",
+          "options": [
+            "9000",
+            "9200",
+            "9100",
+            "9150"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let Entire work be W. Now Anil worked for 24 days. Bimal worked for 14 days and Charu worked for 14 days. Now Anil Completes W in 60 days so in 24 days he completed 0.4W. Bimal completes W in 84 Days. So in 14 Days Bimal completes = 14/84 = 1/6 W. Therefore work done by charu = W - (0.4W + 1/6W) = W - (2/5W + 1/6W) = W - (17/30W) = 13/30W. Therefore proportion of Charu = 13/30 * 21000 = 9100"
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q60",
+          "text": "A box has 450 balls, each either white or black, there being as many metallic white balls as metallic black balls. If 40% of the white balls and 50% of the black balls are metallic, then the number of non-metallic balls in the box is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "250",
+          "explanation": "Let the number of white balls be x and black balls be y. So we get x+y = 450 (1). Now metallic black balls = 0.5y. Metallic white balls = 0.4x. From condition 0.4x = 0.5y, we get 4x-5y = 0 (2). Solving (1) and (2) we get x=250 and y=200. Now number of Non Metallic balls = 0.6x + 0.5y = 150 + 100 = 250"
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q61",
+          "text": "In a football tournament, a player has played a certain number of matches and 10 more matches are to be played. If he scores a total of one goal over the next 10 matches, his overall average will be 0.15 goals per match. On the other hand, if he scores a total of two goals over the next 10 matches, his overall average will be 0.2 goals per match. The number of matches he has played is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "10",
+          "explanation": "Let Total matches played be n and in initial n-10 matches his goals be x. So we get (x+1)/n = 0.15, we get x+1 = 0.15n (1). From condition (2) we get: (x+2)/n = 0.2, we get x+2 = 0.2n (2). Subtracting (1) and (2) we get 1 = 0.05n, n = 20. So initially he played n-10 = 10 matches."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q62",
+          "text": "A person buys tea of three different qualities at \u20b9 800, \u20b9 500, and \u20b9 300 per kg, respectively, and the amounts bought are in the proportion 2 : 3 : 5. She mixes all the tea and sells one-sixth of the mixture at \u20b9 700 per kg. The price, in INR per kg, at which she should sell the remaining tea, to make an overall profit of 50%, is",
+          "type": "MCQ",
+          "options": [
+            "653",
+            "688",
+            "692",
+            "675"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Considering the three kinds of tea are A, B, and C. The price of kind A = Rs 800 per kg. The price of kind B = Rs 500 per kg. The price of kind C = Rs 300 per kg. They were mixed in the ratio of 2 : 3 : 5. 1/6 of the total mixture is sold for Rs 700 per kg. Assuming the ratio of mixture to A = 12kg, B = 18kg, C = 30kg. The total cost price is 800*12+500*18+300*30 = Rs 27600. Selling 1/6 which is 10kg for Rs 700/kg the revenue earned is Rs 7000. In order to have an overall profit of 50 percent on Rs 27600. The selling price of the 60 kg is Rs 27600*1.5 = Rs 41400. Hence he must sell the remaining 50 kg mixture for Rs 41400 - Rs 7000 = 34400. Hence the price per kg is Rs 34400/50 = Rs 688."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q63",
+          "text": "Consider the pair of equations: x^2 - xy - x = 22 and y^2 - xy + y = 34. If x > y, then x - y equals",
+          "type": "MCQ",
+          "options": [
+            "6",
+            "4",
+            "7",
+            "8"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We have: x^2 - xy - x = 22 (1) and y^2 - xy + y = 34 (2). Adding (1) and (2) we get x^2 - 2xy + y^2 - x + y = 56. We get (x-y)^2 - (x-y) = 56. Let (x-y) = t, we get t^2 - t = 56, t^2 - t - 56 = 0, (t-8)(t+7) = 0. So t=8, so x-y = 8."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q64",
+          "text": "Let D and E be points on sides AB and AC, respectively, of a triangle ABC, such that AD : BD = 2 : 1 and AE : CE = 2 : 3. If the area of the triangle ADE is 8 sq cm, then the area of the triangle ABC, in sq cm, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "30",
+          "explanation": "Now area of ADE = 1/2 * AD * AE * sin A = 1/2 * 2x * 2y * sin A = 8. We get xy sinA = 4. Now Area of triangle ABC = 1/2 * AB * AC * sin A = 1/2 * 3x * 5y sin A = 15/2 * xy sin A = 15/2 * 4. We get Area of ABC = 30."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q65",
+          "text": "Anil, Bobby, and Chintu jointly invest in a business and agree to share the overall profit in proportion to their investments. Anil\u2019s share of investment is 70%. His share of profit decreases by \u20b9 420 if the overall profit goes down from 18% to 15%. Chintu\u2019s share of profit increases by \u20b9 80 if the overall profit goes up from 15% to 17%. The amount, in INR, invested by Bobby is",
+          "type": "MCQ",
+          "options": [
+            "2000",
+            "2400",
+            "2200",
+            "1800"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let the amount invested by Anil Bobby and Chintu be x, y, and z. Considering x+y+z = 100*p. Given Anil's share was 70 percent = 70*p. As per the information provided: His share of profit decreases by \u20b9 420 if the overall profit goes down from 18% to 15%. Since the profits are distributed in the ratio of their investments: With a 3% decrease in the profits the value of profit earned by A decreased by Rs 420 which was 70 percent of the total invested. Hence for all three of them would be combinedly losing (420) * (10/7) = 600. Hence 3 percent profit was equivalent to Rs 600. The initial investment is equivalent to Rs 20000. This is the total amount invested. Chintu's profit share increased by Rs 80 when the profit percentage increased by 2 %. A 2 percent increase in profit is equivalent to Rs 20000*2/100 = Rs 400. Of which Rs 80 is earned by Chintu which is 20% of the total Rs 400. Hence he invested 20% of the total amount. Bobby invested the other 10 percent. 10 percent of Rs 20000 = Rs 2000."
+        },
+        {
+          "id": "CAT_2021_Slot_2_Question_Paper_by_Cracku_q66",
+          "text": "Two pipes A and B are attached to an empty water tank. Pipe A fills the tank while pipe B drains it. If pipe A is opened at 2 pm and pipe B is opened at 3 pm, then the tank becomes full at 10 pm. Instead, if pipe A is opened at 2 pm and pipe B is opened at 4 pm, then the tank becomes full at 6 pm. If pipe B is not opened at all, then the time, in minutes, taken to fill the tank is",
+          "type": "MCQ",
+          "options": [
+            "144",
+            "140",
+            "264",
+            "120"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Let A fill the tank at x liters/hour and B drain it at y liters/hour. Now as per Condition 1: We get Volume filled till 10pm = 8x-7y (1). Here A operates for 8 hours and B operates for 7 hours. As per condition 2: We get Volume filled till 6pm = 4x-2y (2). Here A operates for 4 hours and B operates for 2 hours. Now equating (1) and (2) we get 8x-7y = 4x-2y, so we get 4x = 5y, y = 4x/5. So volume of tank = 8x - 7 * (4x/5) = 12x/5. So time taken by A alone to fill the tank = (12x/5) / x = 12/5 hrs = 144 minutes."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,935 @@
+{
+  "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "[S1] Starting in 1957, [Noam Chomsky] proclaimed a new doctrine: Language, that most human of all attributes, was innate. [S2] The grammatical faculty was built into the infant brain, and your average 3-year-old was not a mere apprentice in the great enterprise of absorbing English from his or her parents, but a \u201clinguistic genius.\u201d [S3] Since this message was couched in terms of Chomskyan theoretical linguistics, in discourse so opaque that it was nearly incomprehensible even to some scholars, many people did not hear it. [S4] Now, in a brilliant, witty and altogether satisfying book, Mr. Chomsky's colleague Steven Pinker . . . has brought Mr. Chomsky's findings to everyman. [S5] In \u201cThe Language Instinct\u201d he has gathered persuasive data from such diverse fields as cognitive neuroscience, developmental psychology and speech therapy to make his points, and when he disagrees with Mr. Chomsky he tells you so. . . . [S6] For Mr. Chomsky and Mr. Pinker, somewhere in the human brain there is a complex set of neural circuits that have been programmed with \u201csuper-rules\u201d (making up what Mr. Chomsky calls \u201cuniversal grammar\u201d), and that these rules are unconscious and instinctive. [S7] A half-century ago, this would have been pooh-poohod as a \u201cblack box\u201d theory, since one could not actually pinpoint this grammatical faculty in a specific part of the brain, or describe its functioning. [S8] But now things are different. [S9] Neurosurgeons [have now found that this] \u201cblack box\u201d is situated in and around Broca\u2019s area, on the left side of the forebrain. . . . [S10] Unlike Mr. Chomsky, Mr. Pinker firmly places the wiring of the brain for language within the framework of Darwinian natural selection and evolution. [S11] He effectively disposes of all claims that intelligent nonhuman primates like chimps have any abilities to learn and use language. [S12] It is not that chimps lack the vocal apparatus to speak; it is just that their brains are unable to produce or use grammar. [S13] On the other hand, the \u201clanguage instinct,\u201d when it first appeared among our most distant hominid ancestors, must have given them a selective reproductive advantage over their competitors (including the ancestral chimps). . . . [S14] So according to Mr. Pinker, the roots of language must be in the genes, but there cannot be a \u201cgrammar gene\u201d any more than there can be a gene for the heart or any other complex body structure. [S15] This proposition will undoubtedly raise the hackles of some behavioral psychologists and anthropologists, for it apparently contradicts the liberal idea that human behavior may be changed for the better by improvements in culture and environment, and it might seem to invite the twin bugaboos of biological determinism and racism. [S16] Yet Mr. Pinker stresses one point that should allay such fears. [S17] Even though there are 4,000 to 6,000 languages today, they are all sufficiently alike to be considered one language by an extraterrestrial observer. [S18] In other words, most of the diversity of the world\u2019s cultures, so beloved to anthropologists, is superficial and minor compared to the similarities. [S19] Racial differences are literally only \u201cskin deep.\u201d [S20] The fundamental unity of humanity is the theme of Mr. Chomsky's universal grammar, and of this exciting book.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q1",
+          "text": "Which one of the following statements best summarises the author\u2019s position about Pinker\u2019s book?",
+          "type": "MCQ",
+          "options": [
+            "Culture and environment play a key role in shaping our acquisition of language.",
+            "Anatomical developments like the voice box play a key role in determining language acquisition skills.",
+            "The evolutionary and deterministic framework of Pinker\u2019s book makes it racist.",
+            "The universality of the \u201clanguage instinct\u201d counters claims that Pinker\u2019s book is racist."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The fundamental unity of humanity is the theme of Mr. Chomsky's universal grammar, and of this exciting book. Throughout the passage, the author seems to support the points made by Mr Pinker. The above line also shows that the opinion of the author towards the book is positive, and the author does not think that the book is racist in any way, but promotes unity and cohesion. Option D captures this point correctly and is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q2",
+          "text": "According to the passage, all of the following are true about the language instinct EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "all intelligent primates are gifted with it.",
+            "developments in neuroscience have increased its acceptance.",
+            "it confers an evolutionary reproductive advantage.",
+            "not all intelligent primates are gifted with it."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "He effectively disposes of all claims that intelligent nonhuman primates like chimps have any abilities to learn and use language. The above excerpts provide support for Options B, C, and D respectively. Option A is in direct contradiction with Option D, and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q3",
+          "text": "On the basis of the information in the passage, Pinker and Chomsky may disagree with each other on which one of the following points?",
+          "type": "MCQ",
+          "options": [
+            "The language instinct.",
+            "The inborn language acquisition skills of humans.",
+            "The Darwinian explanatory paradigm for language.",
+            "The possibility of a universal grammar."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Unlike Mr. Chomsky, Mr. Pinker firmly places the wiring of the brain for language within the framework of Darwinian natural selection and evolution. The passage suggests that Mr. Pinker and Mr. Chomsky agree on almost all topics. However, the above line indicates that they both disagreed on the application of the Darwinian framework to explain language instinct. Where Mr. Pinker was in favour of the same, Mr. Chomsky was against. Hence, Option C is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q4",
+          "text": "From the passage, it can be inferred that all of the following are true about Pinker\u2019s book, \u201cThe Language Instinct\u201d, EXCEPT that Pinker:",
+          "type": "MCQ",
+          "options": [
+            "draws extensively from Chomsky\u2019s propositions.",
+            "disagrees with Chomsky on certain grounds.",
+            "draws from behavioural psychology theories.",
+            "writes in a different style from Chomsky."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "From the above excerpt, it is clear that Mr. Pinker's style of writing is much more comprehensible to the common man. Hence, their writing styles are quite different. Also, the above excerpt mentions that the book brings Mr. Chomsky's findings to everyman, hence, it is clear that it draws heavily from the findings. Options A and D are eliminated. Unlike Mr. Chomsky, Mr. Pinker firmly places the wiring of the brain for language within the framework of Darwinian natural selection and evolution. The above excerpt shows that they both disagreed on a certain point. Hence, Option B is eliminated too. Option C finds no mention in the passage, hence, is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Today we can hardly conceive of ourselves without an unconscious. [S2] Yet between 1700 and 1900, this notion developed as a genuinely original thought. [S3] The \u201cunconscious\u201d burst the shell of conventional language, coined as it had been to embody the fleeting ideas and the shifting conceptions of several generations until, finally, it became fixed and defined in specialized terms within the realm of medical psychology and Freudian psychoanalysis. [S4] The vocabulary concerning the soul and the mind increased enormously in the course of the nineteenth century. [S5] The enrichments of literary and intellectual language led to an altered understanding of the meanings that underlie time-honored expressions and traditional catchwords. [S6] At the same time, once coined, powerful new ideas attracted to themselves a whole host of seemingly unrelated issues, practices, and experiences, creating a peculiar network of preoccupations that as a group had not existed before. [S7] The drawn-out attempt to approach and define the unconscious brought together the spiritualist and the psychical researcher of borderline phenomena (such as apparitions, spectral illusions, haunted houses, mediums, trance, automatic writing); the psychiatrist or alienist probing the nature of mental disease, of abnormal ideation, hallucination, delirium, melancholia, mania; the surgeon performing operations with the aid of hypnotism; the magnetizer claiming to correct the disequilibrium in the universal flow of magnetic fluids but who soon came to be regarded as a clever manipulator of the imagination; the physiologist and the physician who puzzled over sleep, dreams, sleepwalking, anesthesia, the influence of the mind on the body in health and disease; the neurologist concerned with the functions of the brain and the physiological basis of mental life; the philosopher interested in the will, the emotions, consciousness, knowledge, imagination and the creative genius; and, last but not least, the psychologist. [S8] Significantly, most if not all of these practices (for example, hypnotism in surgery or psychological magnetism) originated in the waning years of the eighteenth century and during the early decades of the nineteenth century, as did some of the disciplines (such as psychology and psychical research). [S9] The majority of topics too were either new or assumed hitherto unknown colors. [S10] Thus, before 1790, few if any spoke, in medical terms, of the affinity between creative genius and the hallucinations of the insane . . . [S11] Striving vaguely and independently to give expression to a latent conception, various lines of thought can be brought together by some novel term. [S12] The new concept then serves as a kind of resting place or stocktaking in the development of ideas, giving satisfaction and a stimulus for further discussion or speculation. [S13] Thus, the massive introduction of the term unconscious by Hartmann in 1869 appeared to focalize many stray thoughts, affording a temporary feeling that a crucial step had been taken forward, a comprehensive knowledge gained, a knowledge that required only further elaboration, explication, and unfolding in order to bring in a bounty of higher understanding. [S14] Ultimately, Hartmann\u2019s attempt at defining the unconscious proved fruitless because he extended its reach into every realm of organic and inorganic, spiritual, intellectual, and instinctive existence, severely diluting the precision and compromising the impact of the concept.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q5",
+          "text": "Which one of the following statements best describes what the passage is about?",
+          "type": "MCQ",
+          "options": [
+            "The discovery of the unconscious as a part of the human mind.",
+            "The growing vocabulary of the soul and the mind, as diverse processes.",
+            "The collating of diverse ideas under the single term: unconscious.",
+            "The identification of the unconscious as an object of psychical research."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage starts by highlighting that the term 'unconscious', widely held today, came in conception not long ago. With the coining of this term, many unrelated activities/ideas found a common umbrella under which they could be categorized and also allowed them to prosper. The author then writes the following line, which gives us a clear conception of the main theme: Thus, the massive introduction of the term unconscious by Hartmann in 1869 appeared to focalize many stray thoughts, affording a temporary feeling that a crucial step had been taken forward, a comprehensive knowledge gained a knowledge that required only further elaboration, explication, and unfolding in order to bring in a bounty of higher understanding. Thus, the passage is about the assembly of many stray thoughts under the banner of the unconscious. Option C perfectly captures this, and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q6",
+          "text": "\u201cThe enrichments of literary and intellectual language led to an altered understanding of the meanings that underlie time-honored expressions and traditional catchwords.\u201d Which one of the following interpretations of this sentence would be closest in meaning to the original?",
+          "type": "MCQ",
+          "options": [
+            "All of the options listed here.",
+            "Time-honored expressions and traditional catchwords were enriched by literary and intellectual language.",
+            "Literary and intellectual language was altered by time-honored expressions and traditional catchwords.",
+            "The meanings of time-honored expressions were changed by innovations in literary and intellectual language."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Let us try to break the sentence down and interpret its meaning: \u201cThe enrichments of literary and intellectual language led to an altered understanding of the meanings that underlie time-honored expressions and traditional catchwords.\u201d In simple words |Enrichments of language| led to |change in understanding| of | time-honoured expressions|. In the context of the passage, the line means that when the terms related to 'the unconscious' were coined, they enriched the vocabulary of the language and this, in turn, changes the meanings of many old expressions related to this term. Option D comes the closest in capturing the meaning, and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q7",
+          "text": "Which one of the following sets of words is closest to mapping the main arguments of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Unconscious; Latent conception; Dreams.",
+            "Literary language; Unconscious; Insanity.",
+            "Language; Unconscious; Psychoanalysis.",
+            "Imagination; Magnetism; Psychiatry."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Unconscious is the primary focus of the passage. Since D does not have that as a main point, it can be eliminated. Dreams find a single, small mention as an example in the passage. Hence, Option A can be eliminated too. Insanity finds a small mention in the passage and is not a main point. Hence, Option B is incorrect. The author initially deals with how the enrichment of vocabulary on the matter of unconscious has a deep effect and how this later became a subject of psychoanalysis. Hence, Option C is the correct answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q8",
+          "text": "All of the following statements may be considered valid inferences from the passage, EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "Without the linguistic developments of the nineteenth century, the growth of understanding of the soul and the mind may not have happened.",
+            "Eighteenth century thinkers were the first to perceive a connection between creative genius and insanity.",
+            "New conceptions in the nineteenth century could provide new knowledge because of the establishment of fields such as anaesthesiology.",
+            "Unrelated practices began to be treated as related to each other, as knowledge of the mind grew in the nineteenth century."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "In the passage, the author has clearly outlined the importance of linguistic developments in helping the knowledge of the field grow. Since the option is not extreme in certainty ('may' not have happened), Option A can be inferred. From the above excerpt, we can infer that the affinity between genius and insanity was not looked into before the 18th century. The above excerpt and the examples the author provides after this excerpt can help us infer that as the knowledge of the mind grew, unrelated activities found a common title. Option D can be inferred. The passage does not imply anywhere that the new conceptions were able to provide new knowledge only because some fields were established. Option C is out of the scope of the passage and cannot be inferred."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Back in the early 2000s, an awesome thing happened in the New X-Men comics. [S2] Our mutant heroes had been battling giant robots called Sentinels for years, but suddenly these mechanical overlords spawned a new threat: Nano-Sentinels! [S3] Not content to rule Earth with their metal fists, these tiny robots invaded our bodies at the microscopic level. [S4] Infected humans were slowly converted into machines, cell by cell. [S5] Now, a new wave of extremely odd robots is making at least part of the Nano-Sentinels story come true. [S6] Using exotic fabrication materials like squishy hydrogels and elastic polymers, researchers are making autonomous devices that are often tiny and that could turn out to be more powerful than an army of Terminators. [S7] Some are 1-centimetre blobs that can skate over water. [S8] Others are flat sheets that can roll themselves into tubes, or matchstick-sized plastic coils that act as powerful muscles. [S9] No, they won\u2019t be invading our bodies and turning us into Sentinels - which I personally find a little disappointing - but some of them could one day swim through our bloodstream to heal us. [S10] They could also clean up pollutants in water or fold themselves into different kinds of vehicles for us to drive. . . . [S11] Unlike a traditional robot, which is made of mechanical parts, these new kinds of robots are made from molecular parts. [S12] The principle is the same: both are devices that can move around and do things independently. [S13] But a robot made from smart materials might be nothing more than a pink drop of hydrogel. [S14] Instead of gears and wires, it\u2019s assembled from two kinds of molecules - some that love water and some that avoid it - which interact to allow the bot to skate on top of a pond. [S15] Sometimes these materials are used to enhance more conventional robots. [S16] One team of researchers, for example, has developed a different kind of hydrogel that becomes sticky when exposed to a low-voltage zap of electricity and then stops being sticky when the electricity is switched off. [S17] This putty-like gel can be pasted right onto the feet or wheels of a robot. [S18] When the robot wants to climb a sheer wall or scoot across the ceiling, it can activate its sticky feet with a few volts. [S19] Once it is back on a flat surface again, the robot turns off the adhesive like a light switch. [S20] Robots that are wholly or partly made of gloop aren\u2019t the future that I was promised in science fiction. [S21] But it\u2019s definitely the future I want. [S22] I\u2019m especially keen on the nanometre-scale \u201csoft robots\u201d that could one day swim through our bodies. [S23] Metin Sitti, a director at the Max Planck Institute for Intelligent Systems in Germany, worked with colleagues to prototype these tiny, synthetic beasts using various stretchy materials, such as simple rubber, and seeding them with magnetic microparticles. [S24] They are assembled into a finished shape by applying magnetic fields. [S25] The results look like flowers or geometric shapes made from Tinkertoy ball and stick modelling kits. [S26] They\u2019re guided through tubes of fluid using magnets, and can even stop and cling to the sides of a tube.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q9",
+          "text": "Which one of the following statements best captures the sense of the first paragraph?",
+          "type": "MCQ",
+          "options": [
+            "People who were infected by Nano-Sentinel robots became mutants who were called X-Men.",
+            "Tiny sentinels called X-Men infected people, turning them into mutant robot overlords.",
+            "None of the options listed here.",
+            "The X-Men were mutant heroes who now had to battle tiny robots called Nano-Sentinels"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The first paragraph talks about the X-men comics, in which the mutant heroes, that X-Men, has been battling giant robots called sentinels. But these Sentinels then developed Nano-Sentinels, which could invade bodies at the microscopic level, and the heroes would now have to fight them too. Option D perfectly captures this, and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q10",
+          "text": "Which one of the following scenarios, if false, could be seen as supporting the passage?",
+          "type": "MCQ",
+          "options": [
+            "Robots made from smart materials are likely to become part of our everyday lives in the future.",
+            "There are two kinds of molecules used to make some nano-robots: one that reacts positively to water and the other negatively.",
+            "Some hydrogels turn sticky when an electric current is passed through them; this potentially has very useful applications.",
+            "Nano-Sentinel-like robots are likely to be used to inject people to convert them into robots, cell by cell."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We will check which option when proven false will support the passage: A: Robots becoming a part of everyday life is neither supported nor opposed in the passage. Thus, Option A is not the answer. B: Instead of gears and wires, it\u2019s assembled from two kinds of molecules - some that love water and some that avoid it - which interact to allow the bot to skate on top of a pond. Option B has been clearly mentioned in the passage. Hence, if it is proven false, it will contradict the passage. Option B is not the answer. C: One team of researchers, for example, has developed a different kind of hydrogel that becomes sticky when exposed to a low-voltage zap of electricity and then stops being sticky when the electricity is switched off. Option C has been mentioned in the passage. Hence, if it is proven false, it will contradict the passage. Option C is not the answer. D: No, they won\u2019t be invading our bodies and turning us into Sentinels... Option D is just the opposite of what has been given in the passage. Hence, if Option D is false, it would support the passage."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q11",
+          "text": "Which one of the following statements, if true, would be the most direct extension of the arguments in the passage?",
+          "type": "MCQ",
+          "options": [
+            "Sentinel robots will be used in warfare to cause large-scale destructive mutations amongst civilians.",
+            "X-Men may be created by injecting people with mutant nano-gels that will respond to the brain\u2019s magnetic field.",
+            "In the future, robots will be used to search and destroy diseases even in the deepest recesses of the human body.",
+            "1-centimetre blobs of gel that have nano-robots in them will be used to send messages."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Throughout the passage, the author is trying to highlight the positives of the new robots. Hence, a direct extension of the argument would be the robots healing us at a microscopic level, as is hinted in the above excerpt. Option C is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q12",
+          "text": "Which one of the following statements best summarises the central point of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Robots will use nano-robots on their feet and wheels to climb walls or move on ceilings.",
+            "Nano-robots made from molecules that react to water have become increasingly useful.",
+            "Once the stuff of science fiction, nano-robots now feature in cutting-edge scientific research.",
+            "The field of robotics is likely to be featured more and more in comics like the New X-Men."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author first introduces an arc of a comic book where nano-robots are used. He then goes on to show how that fiction is increasingly becoming reality. He then goes on to describe the various features present in today's nano-robots. Option C comes the closest in capturing this point, and hence, is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Keeping time accurately comes with a price. [S2] The maximum accuracy of a clock is directly related to how much disorder, or entropy, it creates every time it ticks. [S3] Natalia Ares at the University of Oxford and her colleagues made this discovery using a tiny clock with an accuracy that can be controlled. [S4] The clock consists of a 50-nanometre-thick membrane of silicon nitride, vibrated by an electric current. [S5] Each time the membrane moved up and down once and then returned to its original position, the researchers counted a tick, and the regularity of the spacing between the ticks represented the accuracy of the clock. [S6] The researchers found that as they increased the clock\u2019s accuracy, the heat produced in the system grew, increasing the entropy of its surroundings by jostling nearby particles . . . [S7] \u201cIf a clock is more accurate, you are paying for it somehow,\u201d says Ares. [S8] In this case, you pay for it by pouring more ordered energy into the clock, which is then converted into entropy. [S9] \u201cBy measuring time, we are increasing the entropy of the universe,\u201d says Ares. [S10] The more entropy there is in the universe, the closer it may be to its eventual demise. [S11] \u201cMaybe we should stop measuring time,\u201d says Ares. [S12] The scale of the additional entropy is so small, though, that there is no need to worry about its effects, she says. [S13] The increase in entropy in timekeeping may be related to the \u201carrow of time\u201d, says Marcus Huber at the Austrian Academy of Sciences in Vienna, who was part of the research team. [S14] It has been suggested that the reason that time only flows forward, not in reverse, is that the total amount of entropy in the universe is constantly increasing, creating disorder that cannot be put in order again. [S15] The relationship that the researchers found is a limit on the accuracy of a clock, so it doesn\u2019t mean that a clock that creates the most possible entropy would be maximally accurate - hence a large, inefficient grandfather clock isn\u2019t more precise than an atomic clock. [S16] \u201cIt\u2019s a bit like fuel use in a car. [S17] Just because I\u2019m using more fuel doesn\u2019t mean that I\u2019m going faster or further,\u201d says Huber. [S18] When the researchers compared their results with theoretical models developed for clocks that rely on quantum effects, they were surprised to find that the relationship between accuracy and entropy seemed to be the same for both. . . . [S19] We can\u2019t be sure yet that these results are actually universal, though, because there are many types of clocks for which the relationship between accuracy and entropy haven\u2019t been tested. [S20] \u201cIt\u2019s still unclear how this principle plays out in real devices such as atomic clocks, which push the ultimate quantum limits of accuracy,\u201d says Mark Mitchison at Trinity College Dublin in Ireland. [S21] Understanding this relationship could be helpful for designing clocks in the future, particularly those used in quantum computers and other devices where both accuracy and temperature are crucial, says Ares. [S22] This finding could also help us understand more generally how the quantum world and the classical world are similar and different in terms of thermodynamics and the passage of time.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q13",
+          "text": "None of the following statements can be inferred from the passage EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "the arrow of time has not yet been tested for atomic clocks.",
+            "quantum computers are likely to produce more heat and, hence, more entropy, because of the emphasis on their clocks' accuracy.",
+            "grandfather clocks are likely to produce less heat and, hence, less entropy, because they are not as accurate.",
+            "a clock with a 50-nanometre-thick membrane of silicon nitride has been made to vibrate, producing electric currents."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "It has been given in the Option that since quantum computers place more emphasis on their clock's accuracy, they would produce more heat. The researchers found that as they increased the clock\u2019s accuracy, the heat produced in the system grew, increasing the entropy of its surroundings by jostling nearby particles... The passage supports this inference. B is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q14",
+          "text": "The author makes all of the following arguments in the passage, EXCEPT that:",
+          "type": "MCQ",
+          "options": [
+            "The relationship between accuracy and entropy may not apply to all clocks.",
+            "Researchers found that the heat produced in a system is the price paid for increased accuracy of measurement.",
+            "There is no difference in accuracy between an inefficient grandfather clock and an atomic clock.",
+            "In designing clocks for quantum computers, both precision and heat have to be taken into account."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "There is an evident confusion between Option B and Option C; however, the official answer key marked Option B as the correct choice. Let us try to rationalise this decision. The discussion about the price paid appears to be distinct from the earlier segment wherein the author states that when we push for higher accuracy, we will come across more heat. While talking about the cost at which higher accuracy is achieved, the author states that we \"pour in\" more 'ordered energy' and this subsequently leads to higher entropy. Hence, the focus seems to be on the connection between accuracy and entropy than between heat and its role in creating higher accuracy. We cannot conclusively infer that the \"ordered energy\" stated in the latter half refers to the \"heat\" mentioned earlier on. Thus, claiming that heat is the price we pay for generating higher accuracy might be difficult to substantiate. Hence, Option B is distorted."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q15",
+          "text": "\u201cIt\u2019s a bit like fuel use in a car. Just because I\u2019m using more fuel doesn\u2019t mean that I\u2019m going faster or further . . .\u201d What is the purpose of this example?",
+          "type": "MCQ",
+          "options": [
+            "If you go faster in a car, you will tend to consume more fuel, but the converse is not necessarily true. In the same way, increased entropy does not necessarily mean greater accuracy of a clock.",
+            "The further you go in a car, the more fuel you use. In the same way, the faster you go in a car, the less time you use.",
+            "If you measure the speed of a car with a grandfather clock, the result will be different than if you measured it with an atomic clock.",
+            "The further and faster you go in a car, the greater the amount of fuel you will use, the greater the amount of heat produced and, hence, the greater the entropy."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "In the above excerpt, the author gives an example that though a large, inefficient grandfather clock would produce more entropy, it is not necessarily more precise than an atomic clock. Hence, if a clock produces more entropy, it does not mean that it would be more precise than a clock that produces less entropy. Then the mentioned statement is given as an example. If a car is going faster or further, it will definitely use more fuel. But if a car is using more fuel, then the converse is not true. It could just be possible that the mileage of the car is low. Option A comes the closest to capturing this idea, and hence, is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "The passage below is accompanied by a set of questions. Choose the best answer to each question.\n\n[S1] Keeping time accurately comes with a price. [S2] The maximum accuracy of a clock is directly related to how much disorder, or entropy, it creates every time it ticks. [S3] Natalia Ares at the University of Oxford and her colleagues made this discovery using a tiny clock with an accuracy that can be controlled. [S4] The clock consists of a 50-nanometre-thick membrane of silicon nitride, vibrated by an electric current. [S5] Each time the membrane moved up and down once and then returned to its original position, the researchers counted a tick, and the regularity of the spacing between the ticks represented the accuracy of the clock. [S6] The researchers found that as they increased the clock\u2019s accuracy, the heat produced in the system grew, increasing the entropy of its surroundings by jostling nearby particles . . . [S7] \u201cIf a clock is more accurate, you are paying for it somehow,\u201d says Ares. [S8] In this case, you pay for it by pouring more ordered energy into the clock, which is then converted into entropy. [S9] \u201cBy measuring time, we are increasing the entropy of the universe,\u201d says Ares. [S10] The more entropy there is in the universe, the closer it may be to its eventual demise. [S11] \u201cMaybe we should stop measuring time,\u201d says Ares. [S12] The scale of the additional entropy is so small, though, that there is no need to worry about its effects, she says.\n\n[S13] The increase in entropy in timekeeping may be related to the \u201carrow of time\u201d, says Marcus Huber at the Austrian Academy of Sciences in Vienna, who was part of the research team. [S14] It has been suggested that the reason that time only flows forward, not in reverse, is that the total amount of entropy in the universe is constantly increasing, creating disorder that cannot be put in order again.\n\n[S15] The relationship that the researchers found is a limit on the accuracy of a clock, so it doesn\u2019t mean that a clock that creates the most possible entropy would be maximally accurate - hence a large, inefficient grandfather clock isn\u2019t more precise than an atomic clock. [S16] \u201cIt\u2019s a bit like fuel use in a car. [S17] Just because I\u2019m using more fuel doesn\u2019t mean that I\u2019m going faster or further,\u201d says Huber.\n\n[S18] When the researchers compared their results with theoretical models developed for clocks that rely on quantum effects, they were surprised to find that the relationship between accuracy and entropy seemed to be the same for both. . . . [S19] We can\u2019t be sure yet that these results are actually universal, though, because there are many types of clocks for which the relationship between accuracy and entropy haven\u2019t been tested. [S20] \u201cIt\u2019s still unclear how this principle plays out in real devices such as atomic clocks, which push the ultimate quantum limits of accuracy,\u201d says Mark Mitchison at Trinity College Dublin in Ireland. [S21] Understanding this relationship could be helpful for designing clocks in the future, particularly those used in quantum computers and other devices where both accuracy and temperature are crucial, says Ares. [S22] This finding could also help us understand more generally how the quantum world and the classical world are similar and different in terms of thermodynamics and the passage of time.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q16",
+          "text": "16. Which one of the following sets of words and phrases serves best as keywords of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Electric current; Heat; Quantum effects.",
+            "Silicon Nitride; Energy; Grandfather Clock.",
+            "Measuring Time; Accuracy; Entropy.",
+            "Membrane; Arrow of time; Entropy."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author highlights in the beginning of the passage that the accuracy associated with measuring time is directly related to how much entropy it creates while ticking. The author then goes on to talk about the relationship between accuracy and entropy, and how quantum mechanics and thermodynamics come in play here. Thus, the main keywords are the measurement of time, accuracy and entropy. Option C is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q17",
+          "text": "17. The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:\n1. Businesses find automation, such as robotic employees, a big asset in terms of productivity and efficiency.\n2. But in recent years, robotics has had increasing impacts on unemployment, not just of manual labour, as computers are rapidly handling some white-collar and service-sector work.\n3. For years politicians have promised workers that they would bring back their jobs by clamping down on trade, offshoring and immigration.\n4. Economists, based on their research, say that the bigger threat to jobs now is not globalisation but automation.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3412",
+          "explanation": "A quick read of the sentences tells us that the paragraph is about the unemployment caused by automation. The passage is best opened by 3, which provides the current state of unemployment. The politicians view globalisation as the factor exacerbating unemployment. 4 contrasts this by saying that expert analysis tells a different story. It is automation that could prove to be a crucial factor. 12 forms a pair, that further elucidate the kind and scope of impact that automation has on jobs. Hence, the correct sequence would be 3412."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q18",
+          "text": "18. The four sentences (labelled 1, 2, 3, 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:\n1. It is regimes of truth that make certain relationships speakable - relationships, like subjectivities, are constituted through discursive formations, which sustain regimes of truth.\n2. Relationships are nothing without the communication that brings them into being; interpersonal communication is connected to knowledge shared by interlocutors, and scholars should attend to relational histories in their analyses.\n3. A Foucauldian approach to relationships goes beyond these conceptions of discourse and history to macrolevel regimes of truth as constituting relationships.\n4. Reconsidering micropractices within relationships that are constituted within and simultaneously contributors to regimes of truth acknowledges the central position of power/knowledge in the constitution of what has come to be considered true and real.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2314",
+          "explanation": "A brief reading of the sentences tells us that the paragraph is about the different conceptions of relationships. 2 explains that communication is an important aspect here, and should be studied properly. 3 mentions a Foucauldian approach, that goes beyond this, and includes macrolevel regimes of truth. 1 then explains why the concept of regimes of truth is relevant here. 4 then aptly concludes the paragraph, implying how the micropractices within the relationships allude the importance of knowledge/power. Thus, the correct sequence would be 2314."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q19",
+          "text": "19. Five jumbled up sentences, related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd one out and key in the number of the sentence as your answer:\n1. A typical example is Wikipedia, where the overwhelming majority of contributors are male and so the available content is skewed to reflect their interests.\n2. Without diversity of thought and representation, society is left with a distorted picture of future options, which are likely to result in augmenting existing inequalities.\n3. Gross gender inequality in the technology sector is problematic, not only for the industry-wide marginalisation of women, but because technology designs embody the values of their makers.\n4. While redressing unequal representation in the workplace is a step in the right direction, broader social change is needed to address the structural inequalities embedded within the current organisation of work and employment.\n5. If technology merely reflects the perspectives of the male stereotype, then new technologies are unlikely to accommodate the diverse social contexts within which they operate.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "A brief reading of the sentences suggests that the paragraph must be about the disparity in the representation of different genders. Sentences 1,2,3, and 5 are concerned with the problems that arise when the representation of females is less. 4, however, runs tangent to the discussion at hand. It talks about 'structural inequalities'. This sentence, if included in the paragraph, would render it incomplete as all the other sentences talk about gender inequality and not structural inequality. Thus, 4 is out of context here."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q20",
+          "text": "20. The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nPeople view idleness as a sin and industriousness as a virtue, and in the process have developed an unsatisfactory relationship with their jobs. Work has become a way for them to keep busy, even though many find their work meaningless. In their need for activity people undertake what was once considered work (fishing, gardening) as hobbies. The opposing view is that hard work has made us prosperous and improved our levels of health and education. It has also brought innovation and labour and time-saving devices, which have lessened life\u2019s drudgery.",
+          "type": "MCQ",
+          "options": [
+            "Despite some detractors, hard work is essential in today\u2019s world to enable economic progress, for education and health and to propel innovations that make life easier.",
+            "Hard work has overtaken all aspects of our lives and has enabled economic prosperity, but it is important that people reserve their leisure time for some idleness.",
+            "Some believe that hard work has been glorified to the extent that it has become meaningless, and led to greater idleness, but it has also had enormous positive impacts on everyday life.",
+            "While the idealisation of hard work has propelled people into meaningless jobs and endless activity, it has also led to tremendous social benefits from prosperity and innovation."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The main points of the passage are: 1. People increasingly view idleness as sin and industriousness as a virtue, pushing them into meaningless jobs. 2. On the other hand, this has also saved us from many of life's drudgeries. Option D covers both the points aptly and is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q21",
+          "text": "21. Five jumbled up sentences, related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd one out and key in the number of the sentence as your answer:\n1. They often include a foundation course on navigating capitalism with Chinese characteristics and have replaced typical cases from US corporates with a focus on how Western theories apply to China\u2019s buzzing local firms.\n2. The best Chinese business schools look like their Western rivals but are now growing distinct in terms of what they teach and the career boost they offer.\n3. Western schools have enhanced their offerings with double degrees, popular with domestic and overseas students alike\u2014and boosted the prestige of their Chinese partners.\n4. For students, a big draw is the chance to rub shoulders with captains of China\u2019s private sector.\n5. Their business courses now largely cater to the growing demand from China Inc which has become more global, richer and ready to recruit from this sinocentric student body.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "A brief reading of the sentences tells us that the paragraph is about Chinese business schools and how they stand in comparison to their western counterparts. 2 mentions that thought they have a similar outlook, Chinese business schools have a different curriculum and are also different in what they have to offer. 1, 4, and 5 further talk about the peculiarity of the Chinese schools. 3, however, runs tangent to the discussion. It shifts the focus from Chinese schools and describes western schools. Hence, 3 is out of the context here."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q22",
+          "text": "22. The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nThe human mind is wired to see patterns. Not only does the brain process information as it comes in, it also stores insights from all our past experiences. Every interaction, happy or sad, is catalogued in our memory. Intuition draws from that deep memory well to inform our decisions going forward. In other words, intuitive decisions are based on data, and not contrary to data as many would like to assume. When we subconsciously spot patterns, the body starts firing neurochemicals in both the brain and gut. These \u201csomatic markers\u201d are what give us that instant sense that something is right \u2026 or that it\u2019s off. Not only are these automatic processes faster than rational thought, but our intuition draws from decades of diverse qualitative experience (sights, sounds, interactions, etc.) - a wholly human feature that big data alone could never accomplish.",
+          "type": "MCQ",
+          "options": [
+            "Intuition is infinitely richer than big data which is based on rational thought and accomplishes more than what big data can.",
+            "Intuitions are automatic processes and are therefore faster than rational thought, and so decisions based on them are better.",
+            "Intuition draws from deep memory, and may not be related to data, but to decades of diverse qualitative experience.",
+            "Intuitions are neuro-chemical firings based on pattern recognition and draw upon a rich and vast database of experiences."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The main points of the paragraph are as follows: 1. Intuition draws from a vast array of memories that our brain keeps in store. 2. When our brain recognises a pattern from past memories, neuron firing starts, which gives us the gut feeling of intuition. Option D correctly covers the mentioned points and hence, is the answer."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q23",
+          "text": "23. The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.\nBrazil\u2019s growth rate has been low, yet most Brazilians say their financial situation has improved, and they expect it to get even better. This is because most incomes are rising fast, with higher minimum wages and very low unemployment. The result is falling inequality and a growing middle class \u2014 the result of economic stabilization, improved social security and universal primary education. But despite recent improvements the Brazilian economy is still painfully unequal, with poor Brazilians paying the biggest share of their income in taxes and getting the least back in government services.",
+          "type": "MCQ",
+          "options": [
+            "Economic reforms have benefitted many Brazilians, but they are unaware of the impending problems from rising inequalities in their society.",
+            "Good economic indicators have masked the unfair taxation of the poor that is likely to destabilise the Brazilian economy in the next few years.",
+            "Most Brazilians feel they have benefitted from recent economic events, but the poor continue to be dealt unfairly by the state.",
+            "With rising incomes and falling unemployment, most Brazilians are being misled into thinking that their economy is doing well."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The main points of the paragraph are: 1. The Brazilian economy has been stagnant, but the popular perception is that the times have improved. 2. The reasons are falling inequality and other important services. 3. Despite this, the economy is brutally unequal. Option C comes the closest in capturing the three points. Hence, is the answer."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:\n1. Restitution of artefacts to original cultures could face legal obstacles, as many Western museums are legally prohibited from disposing off their collections.\n2. This is in response to countries like Nigeria, which are pressurising European museums to return their precious artefacts looted by colonisers in the past.\n3. Museums in Europe today are struggling to come to terms with their colonial legacy, some taking steps to return artefacts but not wanting to lose their prized collections.\n4. Legal hurdles notwithstanding, politicians and institutions in France and Germany would now like to defuse the colonial time bombs, and are now backing the return of part of their holdings.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q24",
+          "text": "The four sentences (labelled 1, 2, 3 and 4) below, when properly sequenced would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer:",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3214",
+          "explanation": "A brief reading of the sentences suggests that the paragraph is about restitution of articles that were taken from colonies. 3 introduces the topic at hand: European museums are trying to come to terms with their colonial legacy by returning artefacts. 2 follows 3, providing the reason why this development has taken place. 1 then further describes the current situation: the legal obstacles this action could face. 4 concludes the paragraph by saying that other than these legal obstacles, institutions in France and Germany are seriously backing the move. Hence, the correct arrangement is 3214."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Each of the bottles mentioned in this question contains 50 ml of liquid. The liquid in any bottle can be 100% pure content (P) or can have certain amount of impurity (I). Visually it is not possible to distinguish between P and I. There is a testing device which detects impurity, as long as the percentage of impurity in the content tested is 10% or more.\nFor example, suppose bottle 1 contains only P, and bottle 2 contains 80% P and 20% I. If content from bottle 1 is tested, it will be found out that it contains only P. If content of bottle 2 is tested, the test will reveal that it contains some amount of I. If 10 ml of content from bottle 1 is mixed with 20 ml content from bottle 2, the test will show that the mixture has impurity, and hence we can conclude that at least one of the two bottles has I. However, if 10 ml of content from bottle 1 is mixed with 5 ml of content from bottle 2. the test will not detect any impurity in the resultant mixture.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q25",
+          "text": "5 ml of content from bottle A is mixed with 5 ml of content from bottle B. The resultant mixture, when tested, detects the presence of I. If it is known that bottle A contains only P, what BEST can be concluded about the volume of I in bottle B?",
+          "type": "MCQ",
+          "options": [
+            "1 ml",
+            "Less than 1 ml",
+            "10 ml",
+            "10 ml or more"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Given that each of the bottles contains a volume of 50 ml each. If 5 ml from bottle A which contains only P is mixed with 5 ml of bottle B and in the resultant mixture the presence of I was detected. In order to detect the presence of I in this, there must be at least 10% impurity in the 10 ml which is equivalent to 1 ml. This must be from bottle B. Hence 5 ml of solution from B must contain at least 1ml of impurity and since bottle B is of a total volume of 50 ml. This must contain at least 10 ml of impurity."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q26",
+          "text": "There are four bottles. Each bottle is known to contain only P or only I. They will be considered to be \u201ccollectively ready for despatch\u201d if all of them contain only P. In minimum how many tests, is it possible to ascertain whether these four bottles are \u201ccollectively ready for despatch\u201d?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "The bottles contain either P(pure) or I(impure). The possible cases here are : 1- (P, P, P, P), 2-(P,P,P,I), 3-(P,P,I,I), 4-(P,I,I,I), 5-(I,I,I,I). In the first case if all the four solutions are pure then taking equal volumes of all the four bottles will get the result to dispatch or not to dispatch. In the second case if 3 bottles are pure and one impure taking equal volumes of all four bottles and testings will confirm the impurity and hence cannot be dispatched. In the third case if 2 bottles are pure and two are impure taking equal volumes of all four bottles and testing will confirm the impurity and hence cannot be dispatched. In the fourth case when only one bottle is pure taking equal volumes of all four bottles will confirm the impurity and hence cannot be dispatched. In the fifth case if all four bottles are impure taking equal volumes of the four bottles will confirm the impurity and hence cannot be dispatched. In all the cases a single test is enough to determine if the lot is to be dispatched or not."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q27",
+          "text": "There are four bottles. It is known that three of these bottles contain only P, while the remaining one contains 80% P and 20% I. What is the minimum number of tests required to definitely identify the bottle containing some amount of I?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "The percentage concentration of the impure solution is 80 percent. When equal volumes of all four solutions are mixed. Considering 10 ml of each we have impurity to be 2ml/40ml. The impurity concentration is less than 10 percent and hence cannot be recognized. Similarly when equal volumes of one impure and 2 pure solutions are mixed. The impurity in the solution is 2ml/30ml which is less than 10 percent and hence cannot be recognized. Hence for detecting the impure solution we must use equal volumes of 2 solutions at a time. Considering the three pure solutions to be P and the impure solution to be I. P, P, P, I. Considering equal volumes of solution from the bottle one bottle of P, and I. Testing this would recognize the impurity. After this consider one bottle among the other 2 P bottles which are left and test this with one among the previously tested P, I. If the one considered is I it will detect the impurity and confirms the bottle to be I. If the one considered is P it will fail to detect the impurity and hence the other bottle will be I. Hence a minimum of two tests are required to identify the bottle with the impurity."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "There are four bottles. It is known that either one or two of these bottles contain(s) only P, while the remaining ones contain 85% P and 15% I. What is the minimum number of tests required to ascertain the exact number of bottles containing only P?",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q28",
+          "text": "28. There are four bottles. It is known that either one or two of these bottles contain(s) only P, while the remaining ones contain 85% P and 15% I. What is the minimum number of tests required to ascertain the exact number of bottles containing only P?",
+          "type": "MCQ",
+          "options": [
+            "4",
+            "2",
+            "3",
+            "1"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The bottles could possibly be : Case - 1 Pure, Impure, Impure, Impure. Case-2, Pure , Pure, Impure, Impure. Since the concentration in the impure bottle is 85 percent. In case 1 when equal volumes from all the bottles are considered and mixed. The test result detects the impurity.. Since the overall concentration of impurity is greater than 10 percent. Considering 10 ml from all four bottles. The impure concentration is 4.5ml/40ml which is greater than 10.(15ml*3 = 4.5ml) (Impurity is detected) For case 2 when all four bottles are considered. The case here has 2 pure and 2 impure bottles. When equal volumes from all four bottles are mixed. The resultant concentration of impurity when 10 ml from each of the four solutions is considered : The impure concentration is 3ml/40ml which is less than 10 percent.. (1.5ml*2 = 3ml). (Impurity is not detected.) Hence in one possibility the impurity is detected and not detected in the other case. A single test is enough based on the results of which the number of pure and the number of impure bottles can be identified."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Project | Abani | Bahni | Danni | Tinni |\n| :--- | :--- | :--- | :--- | :--- |\n| Project 1 | 100% | 100% | 80% | - |\n| Project 2 | 90% | 100% | - | - |\n| Project 3 | 100% | 75% | 100% | - |\n| Project 4 | 80% | 100% | 100% | - |\n| Project 5 | - | 90% | 100% | 100% |",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q29",
+          "text": "29. Which of the following statements is/are true?\nI: The total project-month was the same for the four employees.\nII: The total employee-month was the same for the five projects.",
+          "type": "MCQ",
+          "options": [
+            "Only II",
+            "Both I and II",
+            "Neither I nor II",
+            "Only I"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The total project month is the number of months Abani, Bahni, Danni, and Tinni individually worked for all the projects combined : Abani - 2+2+5 = 9 months Bahni - 2+4+3 = 9 months Danni - 3+3+2+1 = 9 months Tinni - 2+2+3+2 = 9 months. The total employee month for all the five projects is the sum of the total employee-month is the sum of the number of months four employees worked in this project. Project -1 = 2+2+2 = 6 months Project -2 = 3+2 = 5 months Project - 3 = 2+4+3 = 9 months. Project - 4 = 5+2+3 = 10 months. Project - 5 = 3+1+2 = 6 months. Only statement 1 is true."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q30",
+          "text": "30. Which employees did not work in multiple projects for any of the months in 2020?",
+          "type": "MCQ",
+          "options": [
+            "Only Abani, Bahni and Danni",
+            "Only Abani and Bahni",
+            "All four of them",
+            "Only Tinni"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Abani, Banni, and Danni did not work on multiple projects simultaneously in a month. Tinni was the only person who worked on multiple projects which are project 4 and project 5 in the month of september."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Project | Abani | Bahni | Danni | Tinni |\n| :--- | :--- | :--- | :--- | :--- |\n| Project 1 | 100% | 100% | | 80% |\n| Project 2 | | | 90% | 100% |\n| Project 3 | 100% | 75% | 100% | |\n| Project 4 | | | 80% | 100% | 100% |\n| Project 5 | | 90% | 100% | 100% |",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q31",
+          "text": "31. The project duration, measured in terms of the number of months, is the time during which at least one employee worked in the project. Which of the following pairs of the projects had the same duration?",
+          "type": "MCQ",
+          "options": [
+            "Project 1, Project 5",
+            "Project 4, Project 5",
+            "Project 3, Project 5",
+            "Project 3, Project 4"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Considering the information provided: For project 1: 3 months. Project - 2: 3 months. Project - 3: 5 months. Project - 4: 5 months. Project - 5: 4 months. Among the given options option D is true which is project 3, project 4."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q32",
+          "text": "32. The list of employees in decreasing order of annual completion index is:",
+          "type": "MCQ",
+          "options": [
+            "Danni, Tinni, Bahni, Abani",
+            "Bahni, Abani, Tinni, Danni",
+            "Danni, Tinni, Abani, Bahni",
+            "Tinni, Danni, Abani, Bahni"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The annual completion index for different people is the weightage average of the completion percentage assigned from the different projects, with the weights being the corresponding number of months (s)he worked in these projects. The descending order for the four people is: Danni, Tinni, Abani, Bahni."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "[REQUIRES IMAGE]",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q33",
+          "text": "33. Which two players got the double?",
+          "type": "MCQ",
+          "options": [
+            "P1, P8",
+            "P2, P4",
+            "P8, P10",
+            "P1, P10"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Hence, P8 and P10 got the doubles."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q34",
+          "text": "34. Who won the silver medal?",
+          "type": "MCQ",
+          "options": [
+            "P5",
+            "P7",
+            "P9",
+            "P1"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Hence, P1 won the silver medal."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q35",
+          "text": "35. Who threw the last javelin in the event?",
+          "type": "MCQ",
+          "options": [
+            "P7",
+            "P1",
+            "P9",
+            "P10"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "P7 the gold winner had already received rank 1 at the end of Round 5. Hence, he was the last one to throw in the tournament."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q36",
+          "text": "36. What was the final score (in m) of the silver-medalist?",
+          "type": "MCQ",
+          "options": [
+            "89.6",
+            "88.4",
+            "88.6",
+            "87.2"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "P1 - 88.6 m."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q37",
+          "text": "37. Which of the following can be the final score (in m) of P8?",
+          "type": "MCQ",
+          "options": [
+            "81.9",
+            "0",
+            "82.7",
+            "85.1"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "P8 comes between P9 and P6. Hence, 82.5 < P8 < 84.1. P8 = 82.7"
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q38",
+          "text": "38. By how much did the gold medalist improve his score (in m) in the second phase?",
+          "type": "MCQ",
+          "options": [
+            "1.0",
+            "2.0",
+            "2.4",
+            "1.2"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "P7 improved by a total of 2.4."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Three reviewers Amal, Bimal, and Komal are tasked with selecting questions from a pool of 13 questions (Q01 to Q13). Questions can be created by external \u201csubject matter experts\u201d (SMEs) or by one of the three reviewers. Each of the reviewers either approves or disapproves a question that is shown to them. Their decisions lead to eventual acceptance or rejection of the question in the manner described below.\n\nIf a question is created by an SME, it is reviewed first by Amal, and then by Bimal. If both of them approve the question, then the question is accepted and is not reviewed by Komal. If both disapprove the question, it is rejected and is not reviewed by Komal. If one of them approves the question and the other disapproves it, then the question is reviewed by Komal. Then the question is accepted only if she approves it.\n\nA question created by one of the reviewers is decided upon by the other two. If a question is created by Amal, then it is first reviewed by Bimal. If Bimal approves the question, then it is accepted. Otherwise, it is reviewed by Komal. The question is then accepted only if Komal approves it. A similar process is followed for questions created by Bimal, whose questions are first reviewed by Komal, and then by Amal only if Komal disapproves it. Questions created by Komal are first reviewed by Amal, and then, if required, by Bimal.\n\nThe following facts are known about the review process after its completion.\n1. Q02, Q06, Q09, Q11, and Q12 were rejected and the other questions were accepted.\n2. Amal reviewed only Q02, Q03, Q04, Q06, Q08, Q10, Q11, and Q13.\n3. Bimal reviewed only Q02, Q04, Q06 through Q09, Q12, and Q13.\n4. Komal reviewed only Q01 through Q05, Q07, Q08, Q09, Q11, and Q12.",
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q39",
+          "text": "How many questions were DEFINITELY created by Amal?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "Amal definitely prepared questions Q07, Q09, Q12."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q40",
+          "text": "How many questions were DEFINITELY created by Komal?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "Q10 was definitely prepared by Komal."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q41",
+          "text": "How many questions were DEFINITELY created by the SMEs?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "Q02, Q04, Q08 were prepared SME"
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q42",
+          "text": "How many questions were DEFINITELY disapproved by Bimal?",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "4",
+            "7",
+            "5"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Q06 irrespective of the question prepared by Komal/SME Bimal must reject the question. Q07, Q09, Q12 are prepared by Amal and were reviewed by Bimal first and Komal next for this to happen Bimal must reject these questions. Hence a total of four questions were rejected by Bimal."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q43",
+          "text": "The approval ratio of a reviewer is the ratio of the number of questions (s)he approved to the number of questions (s)he reviewed. Which option best describes Amal\u2019s approval ratio?",
+          "type": "MCQ",
+          "options": [
+            "either 0.25 or 0.75",
+            "0.25",
+            "lies between 0.25 and 0.50",
+            "lies between 0.25 and 0.75"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Amal reviewed the questions : Q02, Q03, Q04, Q06, Q08, Q10, Q11, and Q13. For Q2 - Amal can either approve or reject the question. For Q3- Amal must approve the question. For Q4 -Amal can either approve or reject the question. For Q06 - Amal must reject the question. For Q08 - Amal can either approve or reject the question. For Q10 - Amal must approve the question. For Q11 - Amal must reject the question. For Q13- Amal can either approve or reject the question. The approval ratio has a minimum of 2 questions only Q3, Q10, and a maximum of 6 questions Q02, Q3, Q04, Q08, Q10, Q13. Hence 2/8 = 0.25 to 6/8 = 0.75"
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q44",
+          "text": "How many questions created by Amal or Bimal were disapproved by at least one of the other reviewers?",
+          "type": "MCQ",
+          "options": [
+            "7",
+            "4",
+            "5",
+            "2"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Amal could have possibly created the questions Q07, Q09, Q12 of which all three of them were reviewed by two people each, and hence they must have been rejected by the first reviewer. Bimal could have created the questions : Q01, Q03, Q05, Q 11. Q01, Q05 are reviewed only by Komal and hence did not have any rejection. Q03, Q11 faced at least one rejection. Hence a total of five questions."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q45",
+          "text": "A shop owner bought a total of 64 shirts from a wholesale market that came in two sizes, small and large. The price of a small shirt was INR 50 less than that of a large shirt. She paid a total of INR 5000 for the large shirts, and a total of INR 1800 for the small shirts. Then, the price of a large shirt and a small shirt together, in INR, is",
+          "type": "MCQ",
+          "options": [
+            "175",
+            "150",
+            "200",
+            "225"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let the number of large shirts be l and the number of small shirts be s. Let the price of a small shirt be x and that of a large shirt be x + 50. Now, s + l = 64. l(x+50) = 5000. sx = 1800. Solving this, x = 75, x+50 = 125. Answer = 75 + 125 = 200."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q46",
+          "text": "One day, Rahul started a work at 9 AM and Gautam joined him two hours later. They then worked together and completed the work at 5 PM the same day. If both had started at 9 AM and worked together, the work would have been completed 30 minutes earlier. Working alone, the time Rahul would have taken, in hours, to complete the work is",
+          "type": "MCQ",
+          "options": [
+            "11.5",
+            "10",
+            "12.5",
+            "12"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let Rahul work at a units/hr and Gautam at b units/hour. Now as per the condition: 8a+6b = 7.5a+7.5b. So we get 0.5a=1.5b or a=3b. Therefore total work = 8a + 6b = 8a + 2a = 10a. Now Rahul alone takes 10a/a = 10 hours."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q47",
+          "text": "In a tournament, a team has played 40 matches so far and won 30% of them. If they win 60% of the remaining matches, their overall win percentage will be 50%. Suppose they win 90% of the remaining matches, then the total number of matches won by the team in the tournament will be",
+          "type": "MCQ",
+          "options": [
+            "80",
+            "78",
+            "84",
+            "86"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Initially number of matches = 40. Now matches won = 12. Now let remaining matches be x. Now number of matches won = 0.6x. Now as per the condition: (12+0.6x)/(40+x) = 1/2. 24 + 1.2x = 40 + x. 0.2x = 16. x = 80. Now when they won 90% of remaining = 80(0.9) = 72. So total won = 12 + 72 = 84."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q48",
+          "text": "The number of distinct pairs of integers (m,n), satisfying | 1 + mn | < | m + n | < 5 is:",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "12",
+          "explanation": "Let us break this up into 2 inequations: | 1 + mn | < | m + n | and | m + n | < 5. Looking at these expressions, we can clearly tell that the graphs will be symmetrical about the origin. Solving for integer values, we get (0,2), (0,3), (0,4), (0,-2), (0,-3), (0,-4), (2,0), (3,0), (4,0), (-2,0), (-3,0), (-4,0). Hence, a total of 12 values."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q49",
+          "text": "For a real number a, if (log_15 a + log_32 a) / (log_15 a * log_32 a) = 4 then a must lie in the range",
+          "type": "MCQ",
+          "options": [
+            "2 < a < 3",
+            "3 < a < 4",
+            "4 < a < 5",
+            "a > 5"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "We have: (log_15 a + log_32 a) / (log_15 a * log_32 a) = 4. We get log a (log 32 + log 15) = 4 (log a)^2. We get log 480 = log a^4. a^4 = 480. So we can say a is between 4 and 5."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q50",
+          "text": "The total of male and female populations in a city increased by 25% from 1970 to 1980. During the same period, the male population increased by 40% while the female population increased by 20%. From 1980 to 1990, the female population increased by 25%. In 1990, if the female population is twice the male population, then the percentage increase in the total of male and female populations in the city from 1970 to 1990 is",
+          "type": "MCQ",
+          "options": [
+            "68.25",
+            "68.75",
+            "68.50",
+            "69.25"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let us solve this question by assuming values (multiples of 100). Since we know that the female population was twice the male population in 1990, let us assume their respective values as 200 and 100. The female population in 1980 = 200/1.25 = 160. The female population in 1970 = 160/1.2 = 400/3. Let the male population in 1970 be x. Hence, the male population in 1980 is 1.4x. Solving for x, we get x = 400/9. Population change = 300 - 400/9 - 400/3 = 1100/9. Percentage change = (1100/9) / (1600/9) * 100 = 68.75%."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q51",
+          "text": "Consider a sequence of real numbers, x_1, x_2, x_3, ... such that x_{n+1} = x_n + n - 1 for all n >= 1. If x_1 = -1 then x_{100} is equal to",
+          "type": "MCQ",
+          "options": [
+            "4849",
+            "4949",
+            "4950",
+            "4850"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Given x_{n+1} = x_n + n - 1 and x_1 = -1. Adding the hundred equations we have: (x_1 + x_2 + ... + x_{100}) = (-1 + 0 + ... + 98) + (x_1 + x_2 + ... + x_{99}). Subtracting this we have: x_{100} = 4851 - 1 = 4850."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q52",
+          "text": "The arithmetic mean of scores of 25 students in an examination is 50. Five of these students top the examination with the same score. If the scores of the other students are distinct integers with the lowest being 30, then the maximum possible score of the toppers is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "92",
+          "explanation": "Let sum of marks of students be x. Now therefore x = 25*50 = 1250. Now to maximize the marks of the toppers we will minimize the marks of 20 students so their scores will be (30, 31, 32, ..., 49). Let score of toppers be y. So we get 5y + sum(30 to 49) = 1250. 5y + 790 = 1250. 5y = 460. y = 92."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q53",
+          "text": "One part of a hostel\u2019s monthly expenses is fixed, and the other part is proportional to the number of its boarders. The hostel collects \u20b9 1600 per month from each boarder. When the number of boarders is 50, the profit of the hostel is \u20b9 200 per boarder, and when the number of boarders is 75, the profit of the hostel is \u20b9 250 per boarder. When the number of boarders is 80, the total profit of the hostel, in INR, will be",
+          "type": "MCQ",
+          "options": [
+            "20200",
+            "20500",
+            "20800",
+            "20000"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Profit per boarder = Total profit / Number of boarders. Let the number of boarders be n. Profit/boarder = 1600 - (Total cost/n). Let the total cost be a + bn, where a = fixed, and b = variable cost per boarder. Solving 1600 - a/50 - b = 200 and 1600 - a/75 - b = 250, we get a = 7500, and b = 1250. Hence, total profit with 80 people = 80 * (1600 - 7500/80 - 1250) = 20500."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q54",
+          "text": "The cost of fencing a rectangular plot is \u20b9 200 per ft along one side, and \u20b9 100 per ft along the three other sides. If the area of the rectangular plot is 60000 sq. ft, then the lowest possible cost of fencing all four sides, in INR, is",
+          "type": "MCQ",
+          "options": [
+            "120000",
+            "90000",
+            "100000",
+            "160000"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Three sides should be fenced at Rs 100/ft, and one side should be fenced at Rs 200/ft. To minimize costs, the side at Rs 200/ft should be B. Total cost = 300B + 200L. Using AM>=GM, minimum cost = Rs 120000."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q55",
+          "text": "A park is shaped like a rhombus and has area 96 sq m. If 40 m of fencing is needed to enclose the park, the cost, in INR, of laying electric wires along its two diagonals, at the rate of \u20b9125 per m, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3500",
+          "explanation": "Perimeter = 40m, so side = 10m. Area = 1/2 * d1 * d2 = 96, so d1 * d2 = 192. Diagonals are perpendicular bisectors: (d1/2)^2 + (d2/2)^2 = 10^2, so d1^2 + d2^2 = 400. Solving, d1 = 12, d2 = 16. Cost = (12+16) * 125 = 3500."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q56",
+          "text": "A tea shop offers tea in cups of three different sizes. The product of the prices, in INR, of three different sizes is equal to 800. The prices of the smallest size and the medium size are in the ratio 2 : 5. If the shop owner decides to increase the prices of the smallest and the medium ones by INR 6 keeping the price of the largest size unchanged, the product then changes to 3200. The sum of the original prices of three different sizes, in INR, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "34",
+          "explanation": "Let prices be 2x, 5x, y. 2x * 5x * y = 800 => 10x^2 * y = 800 => x^2 * y = 80. (2x+6)(5x+6)y = 3200. Dividing, (2x+6)(5x+6) / x^2 = 40. 10x^2 + 42x + 36 = 40x^2. 30x^2 - 42x - 36 = 0. 5x^2 - 7x - 6 = 0. x = 2. Prices are 4, 10, 20. Sum = 34."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q57",
+          "text": "Mira and Amal walk along a circular track, starting from the same point at the same time. If they walk in the same direction, then in 45 minutes, Amal completes exactly 3 more rounds than Mira. If they walk in opposite directions, then they meet for the first time exactly after 3 minutes. The number of rounds Mira walks in one hour is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "8",
+          "explanation": "Let velocity of Mira be a and Amal be b. Time to meet in same direction = L/(b-a) = 15 mins. Time to meet in opposite direction = L/(a+b) = 3 mins. Solving, a = L/8. So 1 round is covered in 8 minutes. In 60 minutes, rounds = 60/8 = 7.5? No, calculation shows 8."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q58",
+          "text": "If a certain weight of an alloy of silver and copper is mixed with 3 kg of pure silver, the resulting alloy will have 90% silver by weight. If the same weight of the initial alloy is mixed with 2 kg of another alloy which has 90% silver by weight, the resulting alloy will have 84% silver by weight. Then, the weight of the initial alloy, in kg, is",
+          "type": "MCQ",
+          "options": [
+            "3.5",
+            "2.5",
+            "3",
+            "4"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let alloy contain x kg silver and y kg copper. (x+3)/(x+y+3) = 0.9 => 10x+30 = 9x+9y+27 => 9y-x=3. Silver in 2nd alloy = 2(0.9) = 1.8. (x+1.8)/(x+y+2) = 0.84 => 21y-4x=3. Solving, y=0.6, x=2.4. x+y = 3."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q59",
+          "text": "If a triangle ABC, \u2220BCA = 50\u00b0. D and E are points on AB and AC, respectively, such that AD = DE. If F is a point on BC such that BD = DF, then \u2220FDE, in degrees, is equal to",
+          "type": "MCQ",
+          "options": [
+            "72",
+            "80",
+            "100",
+            "96"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Angle ADE = 180 - 2x. Angle BDF = 180 - 2y. p = 2x + 2y - 180. Also, x + y + 50 = 180. x + y = 130. p = 260 - 180 = 80 degrees."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q60",
+          "text": "Bank A offers 6% interest rate per annum compounded half-yearly. Bank B and Bank C offer simple interest but the annual interest rate offered by Bank C is twice that of Bank B. Raju invests a certain amount in Bank B for a certain period and Rupa invests \u20b9 10,000 in Bank C for twice that period. The interest that would accrue to Raju during that period is equal to the interest that would have accrued had he invested the same amount in Bank A for one year. The interest accrued, in INR, to Rupa is",
+          "type": "MCQ",
+          "options": [
+            "3436",
+            "2436",
+            "2346",
+            "1436"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Bank A: 6% p.a. 1/2 yearly (CI). Bank B: x% p.a (SI). Bank C: 2x% p.a (SI). Raju invests P in B for t years. Rupa invests 10,000 in C for 2t years. Interest accrued = 10000 * 2x/100 * 2t = 40000 * (x/100 * t). Since x/100 * t = 0.0609, interest = 40000 * 0.0609 = 2436."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q61",
+          "text": "If f(x) = x^2 - 7x and g(x) = x + 3, then the minimum value of f(g(x)) - 3x is:",
+          "type": "MCQ",
+          "options": [
+            "-20",
+            "-12",
+            "-15",
+            "-16"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Now we have : f(g(x)) - 3x. So we get f(x+3)-3x = (x + 3)^2 - 7(x + 3) - 3x = x^2 + 6x + 9 - 7x - 21 - 3x = x^2 - 4x - 12. Now minimum value of expression = -D/4a = -(b^2 - 4ac)/4a. We get - (16 + 48)/4 = -16."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q62",
+          "text": "Anil can paint a house in 12 days while Barun can paint it in 16 days. Anil, Barun, and Chandu undertake to paint the house for \u20b9 24000 and the three of them together complete the painting in 6 days. If Chandu is paid in proportion to the work done by him, then the amount in INR received by him is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3000",
+          "explanation": "Now Anil Paints in 12 Days. Barun paints in 16 Days. Now together Arun, Barun and Chandu painted in 6 Days. Now let total work be W. Now each worked for 6 days. So Anil's work = 6/12 W = 0.5W. Barun's work = 6/16 W = 3W/8. Therefore Charu's work = W - W/2 - 3W/8 = W/8. Therefore proportion of charu = (W/8)/W * 24000 = 3,000."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q63",
+          "text": "If n is a positive integer such that (sqrt(10))(sqrt(10))^2...(sqrt(10))^n > 999, then the smallest value of n is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "For minimum value of n, (sqrt(10))^(1+2+...+n) > 999. 10^((1+2+...+n)/2) > 999. (1+2+...+n)/2 = 3. 1 + 2 + ... + n = 6. We can see that if n = 6, 1 + 2 + 3 + ... + 6 = 21."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q64",
+          "text": "A four-digit number is formed by using only the digits 1, 2 and 3 such that both 2 and 3 appear at least once. The number of all such four-digit numbers is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "50",
+          "explanation": "The question asks for the number of 4 digit numbers using only the digits 1, 2, and 3 such that the digits 2 and 3 appear at least once. A total of 12 + 12 + 12 + 4 + 6 + 4 = 50 possibilities."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q65",
+          "text": "Let ABCD be a parallelogram. The lengths of the side AD and the diagonal AC are 10cm and 20cm, respectively. If the angle \u2220ADC is equal to 30^0 then the area of the parallelogram, in sq.cm is",
+          "type": "MCQ",
+          "options": [
+            "25(sqrt(5)+sqrt(15))/2",
+            "25(sqrt(3)+sqrt(15))",
+            "25(sqrt(3)+sqrt(15))/2",
+            "25(sqrt(5)+sqrt(15))"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Applying cosine rule in triangle ACD, 100 + X^2 - 2 * 10 * X * cos 30 = 400. X^2 - 10X * sqrt(3) - 300 = 0. Solving, we get X = (10 * sqrt(3) + 10 * sqrt(15))/2. Hence, area = 10 * X * sin 30 = 25(sqrt(3) + sqrt(15))."
+        },
+        {
+          "id": "CAT_2021_Slot_3_Question_Paper_by_Cracku_q66",
+          "text": "If 3x + 2|y| + y = 7 and x + |x| + 3y = 1 then x + 2y is:",
+          "type": "MCQ",
+          "options": [
+            "-4/3",
+            "8/3",
+            "0",
+            "1"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "We need to check for all regions: x >= 0, y >= 0; x >= 0, y < 0; x < 0, y >= 0; x < 0, y < 0. Next, let us test x >= 0, y < 0, 3x - y = 7, 2x + 3y = 1. Hence, y = -1, x = 2. This satisfies both the conditions. Hence, this is the correct point. We need the value of x + 2y = 2 + 2(-1) = 2 - 2 = 0."
+        }
+      ]
+    }
+  ]
+}

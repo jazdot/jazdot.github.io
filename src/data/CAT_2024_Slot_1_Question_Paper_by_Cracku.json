@@ -1,0 +1,989 @@
+{
+  "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku",
+  "question_groups": [
+    {
+      "section": "VARC",
+      "context": "[S1]... [T]he idea of craftsmanship is not simply nostalgic. [S2] Crafts require distinct skills, an allround approach to work that involves the whole product, rather than individual parts, and an attitude that necessitates devotion to the job and a focus on the communal interest. [S3] The concept of craft emphasises the human touch and individual judgment. [S4] Essentially, the crafts concept seems to run against the preponderant ethos of management studies which, as the academics note, have long prioritised efficiency and consistency. [S5] Craft skills were portrayed as being primitive and traditionalist. [S6] The contrast between artisanship and efficiency first came to the fore in the 19th century when British manufacturers suddenly faced competition from across the Atlantic as firms developed the \u201cAmerican system\u201d using standardised parts. [S7] The worldwide success of the Singer sewing machine showed the potential of a mass-produced device. [S8] This process created its own reaction, first in the form of the Arts and Crafts movement of the late 19th century, and then again in the \u201csmall is beautiful\u201d movement of the 1970s. [S9] A third crafts movement is emerging as people become aware of the environmental impact of conventional industry. [S10] There are two potential markets for those who practise crafts. [S11] The first stems from the existence of consumers who are willing to pay a premium price for goods that are deemed to be of extra quality. [S12] The second market lies in those consumers who wish to use their purchases to support local workers, or to reduce their environmental impact by taking goods to craftspeople to be mended, or recycled. [S13] For workers, the appeal of craftsmanship is that it allows them the autonomy to make creative choices, and thus makes a job far more satisfying. [S14] In that sense, it could offer hope for the overall labour market. [S15] Let the machines automate dull and repetitive tasks and let workers focus purely on their skills, judgment and imagination. [S16] As a current example, the academics cite the \u201cagile\u201d manifesto in the software sector, an industry at the heart of technological change. [S17] The pioneers behind the original agile manifesto promised to prioritise \u201cindividuals and interactions over processes and tools\u201d. [S18] By bringing together experts from different teams, agile working is designed to improve creativity. [S19] But the broader question is whether crafts can create a lot more jobs than they do today. [S20] Demand for crafted products may rise but will it be easy to retrain workers in sectors that might get automated (such as truck drivers) to take advantage? [S21] In a world where products and services often have to pass through regulatory hoops, large companies will usually have the advantage. [S22] History also suggests that the link between crafts and creativity is not automatic. [S23] Medieval craft guilds were monopolies which resisted new entrants. [S24] They were also highly hierarchical with young men required to spend long periods as apprentices and journeymen before they could set up on their own; by that time the innovative spirit may have been knocked out of them. [S25] Craft workers can thrive in the modern era, but only if they don\u2019t get too organised.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q1",
+          "text": "We can infer from the passage that medieval crafts guilds resembled mass production in that both",
+          "type": "MCQ",
+          "options": [
+            "did not necessarily promote creativity.",
+            "discouraged innovation by restricting entry through strict rules",
+            "did not always employ egalitarian production processes.",
+            "focused excessively on product quality"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The passage mentions that medieval craft guilds were monopolies that resisted new entrants and required long apprenticeship periods, which could stifle innovative spirit. Similarly, the ethos of mass production prioritizes efficiency and consistency, which often comes at the expense of creativity. Therefore, Option A could be inferred."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q2",
+          "text": "Which one of the following statements is NOT inconsistent with the views stated in the passage?",
+          "type": "MCQ",
+          "options": [
+            "We need to support the crafts; only then can we retain the creativity intrinsic to their production.",
+            "Creativity in the crafts could be stifled if the market for artisan goods becomes too organised.",
+            "The Arts and Crafts movement was initially inspired by the \u201cAmerican system\u201d of production.",
+            "The agile movement in software is a throwback to the tenets of the medieval crafts guilds"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage mentions that medieval craft guilds were monopolistic and hierarchical, resisting new entrants and imposing long apprenticeships, which could stifle innovation. It also warns that modern craft workers \u201ccan thrive... only if they don\u2019t get too organised,\u201d supporting option B."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q3",
+          "text": "The author questions the ability of crafts to create substantial employment opportunities presently because",
+          "type": "MCQ",
+          "options": [
+            "the low scale of crafts production will not be able to absorb the mass of redundant labour.",
+            "regulatory requirements could make it difficult for small crafts outfits to compete.",
+            "workers made redundant by automation are unlikely to opt for crafts-related work.",
+            "crafts guilds tend to resist new entrants and are unlikely to accept large numbers of trainees."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The author says \"In a world where products and services often have to pass through regulatory hoops, large companies will usually have the advantage.\" From this, we can infer that the author doubts whether crafts can create substantial employment opportunities because smaller craft businesses may struggle to compete with larger companies due to regulatory barriers."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q4",
+          "text": "The most recent revival in interest in the crafts is a result of the emergence of all of the following EXCEPT:",
+          "type": "MCQ",
+          "options": [
+            "support for individual creations as opposed to mass-produced objects",
+            "concerns about the environmental impact of mass production.",
+            "a niche market for discerning buyers of quality products.",
+            "a greater interest in buying locally produced goods."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "While the passage mentions the premium for high-quality crafted goods and the contrast between mass production and craftsmanship, it does not mention that there is support for \"individual creations\" as opposed to mass-produced goods. The focus is on quality and sustainability rather than explicitly advocating for individuality in products."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Scientific research shows that many animals are very intelligent and have sensory and motor abilities that dwarf ours. Dogs are able to detect diseases such as cancer and diabetes and warn humans of impending heart attacks and strokes. Elephants, whales, hippopotamuses, giraffes, and alligators use low frequency sounds to communicate over long distances, often miles. Many animals also display wide-ranging emotions, including joy, happiness, empathy, compassion, grief, and even resentment and embarrassment. It\u2019s not surprising that animals share many emotions with us because we also share brain structures, located in the limbic system, that are the seat of our emotions.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q5",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "The advanced sensory and motor abilities of animals is the reason why they can display wide-ranging emotions",
+            "The similarity in brain structure explains why animals show emotions typically associated with humans",
+            "Animals can show emotions which are typically associated with humans.",
+            "Animals are more intelligent than us in sensing danger and detecting diseases."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The paragraph states that animals share many emotions with humans, such as joy, happiness, empathy, and grief, because of shared brain structures, particularly in the limbic system, which is responsible for emotions in both humans and animals. This is the key point that ties together animals' intelligence and emotional capacity, as discussed in the passage."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Oftentimes, when economists cross borders, they are less interested in learning from others than in invading their garden plots. [S2] Gary Becker, for instance, pioneered the idea of human capital. [S3] To do so, he famously tackled topics like crime and domesticity, applying methods honed in the study of markets to domains of nonmarket life. [S4] He projected economics outward into new realms: for example, by revealing the extent to which humans calculate marginal utilities when choosing their spouses or stealing from neighbors. [S5] At the same time, he did not let other ways of thinking enter his own economic realm: for example, he did not borrow from anthropology or history or let observations of nonmarket economics inform his homo economicus. [S6] Becker was a picture of the imperial economist in the heyday of the discipline\u2019s bravura. [S7] Times have changed for the once almighty discipline. [S8] Economics has been taken to task, within and beyond its ramparts. [S9] Some economists have reached out, imported, borrowed, and collaborated\u2014been less imperial, more open. [S10] Consider Thomas Piketty and his outreach to historians. [S11] The booming field of behavioral economics\u2014the fusion of economics and social psychology\u2014is another case. [S12] Having spawned active subfields, like judgment, decisionmaking and a turn to experimentation, the field aims to go beyond the caricature of Rational Man to explain how humans make decisions\u2026. [S13] It is important to underscore how this flips the way we think about economics. [S14] For generations, economists have presumed that people have interests \u2014\u201cpreferences,\u201d in the neoclassical argot\u2014that get revealed in the course of peoples\u2019 choices. [S15] Interests come before actions and determine them. [S16] If you are hungry, you buy lunch; if you are cold, you get a sweater. [S17] If you only have so much money and can\u2019t afford to deal with both your growling stomach and your shivering, which need you choose to meet using your scarce savings reveals your preference. [S18] Psychologists take one look at this simple formulation and shake their heads. [S19] Increasingly, even some mainstream economists have to admit that homo economicus doesn\u2019t always behave like the textbook maximizer; irrational behavior can\u2019t simply be waved away as extraeconomic expressions of passions over interests, and thus the domain of other disciplines\u2026. [S20] This is one place where the humanist can help the economist. [S21] If narrative economics is going to help us understand how rivals duke it out, who wins and who loses, we are going to need much more than lessons from epidemiological studies of viruses or intracranial stimuli. [S22] Above all, we need politics and institutions. [S23] Shiller [the Nobel prize winning economist] connects perceptions of narratives to changes in behavior and thence to social outcomes. [S24] He completes a circle that was key to behavioral economics and brings in storytelling to make sense of how perceptions get framed. [S25] This cycle (perception to behavior to society) was once mediated or dominated by institutions: the political parties, lobby groups, and media organizations that played a vital role in legitimating, representing, and excluding interests. [S26] Yet institutions have been stripped from Shiller\u2019s account, to reveal a bare dynamic of emotions and economics, without the intermediating place of politics.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q6",
+          "text": "We can infer from the passage that the term '\u2018homo economicus\u201d refers to someone who",
+          "type": "MCQ",
+          "options": [
+            "is not influenced by the preferences and choices of others.",
+            "believes in borrowing and collaborating with other disciplines in their work.",
+            "makes rational decisions based on their own preferences.",
+            "maximises their opportunities based on nonmarket choices."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The passage suggests that the idea of 'homo economicus' assumes that people have \u201cpreferences\u201d that determine their choices. Deciding whether to spend limited money on food or warmth illustrates this rational decision-making based on individual preferences. This aligns with option C"
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q7",
+          "text": "\u201cTimes have changed for the once almighty discipline.\u201d We can infer from this statement and the associated paragraph that the author is being",
+          "type": "MCQ",
+          "options": [
+            "sarcastic about how economists, who earlier shunned other disciplines, are now beginning to incorporate them in their analyses",
+            "disparaging of economists\u2019 inability to precisely predict market behaviour, and are now borrowing from other disciplines to remedy this",
+            "judgemental about the ability of economic tools to accurately manage crises leading to the downfall of this lofty science.",
+            "critical of economists\u2019 openly borrowing and collaborating across disciplines to explain how humans make decisions"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The tone of the phrase \u201calmighty discipline\u201d suggests mild sarcasm regarding economics' earlier dominance and self-containment. The statement reflects a shift in economics from being insular and self-assured to being more open to interdisciplinary borrowing. The author describes earlier economists, like Gary Becker, as imperialistic and unwilling to incorporate ideas from other disciplines. In contrast, contemporary economists like Thomas Piketty are portrayed as reaching out and collaborating."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q8",
+          "text": "The author critiques Schiller\u2019s approach to behavioural economics for",
+          "type": "MCQ",
+          "options": [
+            "ignoring the marginal role that media and politics play in influencing people\u2019s behaviour.",
+            "denigrating the role of institutions while creating a link between behavioural economics and perceptions",
+            "linking emotions and rational behaviour without considering the mediation of social institutions.",
+            "relying excessively on storytelling as the main influence on the formation of perceptions."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The author critiques Schiller for focusing on the direct relationship between emotions, perceptions, and behaviour while excluding the mediating role of institutions such as political parties, media organizations, and lobby groups. The passage states that these institutions historically played a vital role in framing perceptions and legitimizing interests, which Schiller\u2019s narrative leaves out."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q9",
+          "text": "In the first paragraph the author is making the point that economists like Becker",
+          "type": "MCQ",
+          "options": [
+            "benefitted from the application of their principles and concepts to non-economic phenomena.",
+            "had begun to borrow concepts from other disciplines but were averse to the latter applying economic principles.",
+            "used economics to analyse non-market behaviour, without incorporating perspectives from other areas of inquiry.",
+            "tended to guard their discipline from poaching by academics from other subject areas."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "The first paragraph describes how Becker projected economics into non-market domains like crime and domesticity, analyzing them with economic tools. It also states that he did not borrow ideas or perspectives from fields such as anthropology or history. Option C aligns with this."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: Comprehending a wide range of emotions, Renaissance music nevertheless portrayed all emotions in a balanced and moderate fashion.\n\nParagraph: A volume of translated Italian madrigals were published in London during the year of 1588. This sudden public interest facilitated a surge of English Madrigal writing as well as a spurt of other secular music writing and publication. ___(1)___. This music boom lasted for thirty years and was as much a golden age of music as British literature was with Shakespeare and Queen Elizabeth I. ___(2)___. The rebirth in both literature and music originated in Italy and migrated to England; the English madrigal became more humorous and lighter in England as compared to Italy. Renaissance music was mostly polyphonic in texture. ___(3)___. Extreme use of and contrasts in dynamics, rhythm, and tone colour do not occur. ___(4)___. The rhythms in Renaissance music tend to have a smooth, soft flow instead of a sharp, well-defined pulse of accents.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q10",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 1",
+            "Option 3",
+            "Option 4",
+            "Option 2"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Option 3 is the most logical position because it continues the description of Renaissance music\u2019s characteristics, which was mentioned in the sentence before blank 3. The missing sentence fits perfectly here, as it discusses how Renaissance music handles emotions in a balanced and moderate manner, aligning with the flow and tone of the preceding sentences."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: Understanding central Asia\u2019s role helps developments make more sense not only across Asia but in Europe, the Americas and Africa.\n\nParagraph: The nations of the Silk Roads are sometimes called \u2018developing countries\u2019, but they are actually some of the world\u2019s most highly developed countries, the very crossroads of civilization, in advanced states of disrepair. ___(1)___. These countries lie at the centre of global affairs: they have since the beginning of history. Running across the spine of Asia, they form a web of connections fanning out in every direction, routes along which pilgrims and warriors, nomads and merchants have travelled, goods and produce have been bought and sold, and ideas exchanged, adapted and refined. ___(2)___ .They have carried not only prosperity, but also death and violence, disease and disaster. ___(3)___. The Silk Roads are the world\u2019s central nervous system, connecting otherwise far-flung peoples and places\u2026. ___(4)___. It allows us to see patterns and links, causes and effects that remain invisible if one looks only at Europe, or North America.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q11",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 3",
+            "Option 2",
+            "Option 1",
+            "Option 4"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We can observe that the only spot where the given sentence would fit is Blank 4. This sentence in question emphasises the broader, global significance of Central Asia's role; it reflects the idea that understanding the Silk Roads provides clarity on historical and global interconnectedness."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "1. Urbanites also have more and better options for getting around: Uber is ubiquitous; easy-to-rent dockless bicycles are spreading; battery-powered scooters will be next.\n2. When more people use buses or trains the service usually improves because public-transport agencies run more buses and trains.\n3. Worsening services on public transport, terrorist attacks in some urban metros and a rise in fares have been blamed for this trend.\n4. It seems more likely that public transport is being squeezed structurally as people\u2019s need to travel is diminishing as a result of smartphones, videoconferencing, online shopping and so on.\n5. There has been a puzzling decline in the use of urban public transport in many countries in the west, despite the growth in urban populations and rising employment.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q12",
+          "text": "Five jumbled up sentences (labelled 1, 2, 3, 4 and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence and key in the number of that sentence as your answer.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "Sentence 2 is the odd one out. The sequence 5-3-4-1 forms a coherent paragraph. Sentence 5 introduces the issue of the puzzling decline in public transport despite growing urban populations and employment. Sentence 3, then explains some of the reasons for the decline, like worsening services, terrorist attacks, and rising fares. Sentence 4 adds a structural explanation, stating that public transport is being squeezed as people travel less due to technology. Sentence 1 provides more details about the alternatives to public transport, which are contributing to the decline in usage. Sentence 2 talks about how more people using buses or trains improves the service, but this idea is not directly relevant to the overall discussion in the passage, which focuses on the decline of public transport usage."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Landing in Australia, the British colonists weren\u2019t much impressed with the small-bodied, slender-snooted marsupials called bandicoots. [S2] \u201cTheir muzzle, which is much too long, gives them an air exceedingly stupid,\u201d one naturalist noted in 1805. [S3] They nicknamed one type the \u201czebra rat\u201d because of its black-striped rump. [S4] Silly-looking or not, though, the zebra rat\u2014the smallest bandicoot, more commonly known today as the western barred bandicoot\u2014exhibited a genius for survival in the harsh outback, where its ancestors had persisted for some 26 million years. [S5] Its births were triggered by rainfall in the bone-dry desert. [S6] It carried its breath-mint-size babies in a backward-facing pouch so mothers could forage for food and dig shallow, camouflaged shelters. [S7] Still, these adaptations did not prepare the western barred bandicoot for the colonial-era transformation of its ecosystem, particularly the onslaught of imported British animals, from cattle and rabbits that damaged delicate desert vegetation to ravenous house cats that soon developed a taste for bandicoots. [S8] Several of the dozen-odd bandicoot species went extinct, and by the 1940s the western barred bandicoot, whose original range stretched across much of the continent, persisted only on two predator-free islands in Shark Bay, off Australia\u2019s western coast. [S9] \u201cOur isolated fauna had simply not been exposed to these predators,\u201d says Reece Pedler, an ecologist with the Wild Deserts conservation program. [S10] Now Wild Deserts is using descendants of those few thousand island survivors, called Shark Bay bandicoots, in a new effort to seed a mainland bandicoot revival. [S11] They\u2019ve imported 20 bandicoots to a preserve on the edge of the Strzelecki Desert, in the remote interior of New South Wales. [S12] This sanctuary is a challenging place, desolate much of the year, with one of the world\u2019s most mercurial rainfall patterns\u2014relentless droughts followed by sudden drenching floods. [S13] The imported bandicoots occupy two fenced \u201cexclosures,\u201d cleared of invasive rabbits (courtesy of Pedler\u2019s sheepdog) and of feral cats (which slunk off once the rabbits disappeared). [S14] A third fenced area contains the program\u2019s Wild Training Zone, where two other rare marsupials (bilbies, a larger type of bandicoot, and mulgaras, a somewhat fearsome fuzzball known for sucking the brains out of prey) currently share terrain with controlled numbers of cats, learning to evade them. [S15] It\u2019s unclear whether the Shark Bay bandicoots, which are perhaps even more predator-naive than their now-extinct mainland bandicoot kin, will be able to make that kind of breakthrough. [S16] For now, though, a recent surge of rainfall has led to a bandicoot joey boom, raising the Wild Deserts population to about 100, with other sanctuaries adding to that number. [S17] There are also signs of rebirth in the landscape itself. [S18] With their constant digging, the bandicoots trap moisture and allow for seed germination so the cattle-damaged desert can restore itself. [S19] They have a new nickname\u2014a flattering one, this time. [S20] \u201cWe call them ecosystem engineers,\u201d Pedler says.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q13",
+          "text": "According to the text, the western barred bandicoots now have a flattering name because they have",
+          "type": "MCQ",
+          "options": [
+            "aided in altering an arid environment.",
+            "led a revival in preserving the species.",
+            "grown fivefold in terms of population",
+            "led to a surge and increase of rainfall"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The passage mentions how bandicoots contribute to the ecosystem by digging, which traps moisture and aids in seed germination. This activity helps restore the desert ecosystem damaged by cattle. Their role as \"ecosystem engineers\" stems from these positive environmental impacts."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q14",
+          "text": "Which one of the following options does NOT represent the characteristics of the western barred bandicoot?",
+          "type": "MCQ",
+          "options": [
+            "Shallow diggers having an elongated muzzle",
+            "Smallest black striped marsupial that uses camouflage and dig",
+            "Look of a rat but with a baby pouch and a slender snout",
+            "Long thin nose, black striped back, pouch for joeys"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage does not mention the bandicoots' use of camouflage as a survival technique. While their shelters may be camouflaged (hidden), the bandicoots themselves are not described as using camouflage directly."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q15",
+          "text": "The text uses the word \u2018exclosures\u2019 because Wild Deserts has adopted a measure of",
+          "type": "MCQ",
+          "options": [
+            "restoring cattle damaged deserts to green landscapes.",
+            "ridding the main desert of feral cats and large bilbies",
+            "excluding animals to make the islands predator-free.",
+            "barring the entry of invasive species."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The 'exclosures' are mentioned as fenced areas cleared of invasive rabbits and feral cats. The term \"exclosures\" points to the intentional exclusion of these invasive species to create a safe environment for the bandicoots and other native animals."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "[S1] Landing in Australia, the British colonists weren\u2019t much impressed with the small-bodied, slender-snooted marsupials called bandicoots. [S2] \u201cTheir muzzle, which is much too long, gives them an air exceedingly stupid,\u201d one naturalist noted in 1805. [S3] They nicknamed one type the \u201czebra rat\u201d because of its black-striped rump. [S4] Silly-looking or not, though, the zebra rat\u2014the smallest bandicoot, more commonly known today as the western barred bandicoot\u2014exhibited a genius for survival in the harsh outback, where its ancestors had persisted for some 26 million years. [S5] Its births were triggered by rainfall in the bone-dry desert. [S6] It carried its breath-mint-size babies in a backward-facing pouch so mothers could forage for food and dig shallow, camouflaged shelters. [S7] Still, these adaptations did not prepare the western barred bandicoot for the colonial-era transformation of its ecosystem, particularly the onslaught of imported British animals, from cattle and rabbits that damaged delicate desert vegetation to ravenous house cats that soon developed a taste for bandicoots. [S8] Several of the dozen-odd bandicoot species went extinct, and by the 1940s the western barred bandicoot, whose original range stretched across much of the continent, persisted only on two predator-free islands in Shark Bay, off Australia\u2019s western coast. [S9] \u201cOur isolated fauna had simply not been exposed to these predators,\u201d says Reece Pedler, an ecologist with the Wild Deserts conservation program. [S10] Now Wild Deserts is using descendants of those few thousand island survivors, called Shark Bay bandicoots, in a new effort to seed a mainland bandicoot revival. [S11] They\u2019ve imported 20 bandicoots to a preserve on the edge of the Strzelecki Desert, in the remote interior of New South Wales. [S12] This sanctuary is a challenging place, desolate much of the year, with one of the world\u2019s most mercurial rainfall patterns\u2014relentless droughts followed by sudden drenching floods. [S13] The imported bandicoots occupy two fenced \u201cexclosures,\u201d cleared of invasive rabbits (courtesy of Pedler\u2019s sheepdog) and of feral cats (which slunk off once the rabbits disappeared). [S14] A third fenced area contains the program\u2019s Wild Training Zone, where two other rare marsupials (bilbies, a larger type of bandicoot, and mulgaras, a somewhat fearsome fuzzball known for sucking the brains out of prey) currently share terrain with controlled numbers of cats, learning to evade them. [S15] It\u2019s unclear whether the Shark Bay bandicoots, which are perhaps even more predator-naive than their now-extinct mainland bandicoot kin, will be able to make that kind of breakthrough. [S16] For now, though, a recent surge of rainfall has led to a bandicoot joey boom, raising the Wild Deserts population to about 100, with other sanctuaries adding to that number. [S17] There are also signs of rebirth in the landscape itself. [S18] With their constant digging, the bandicoots trap moisture and allow for seed germination so the cattle-damaged desert can restore itself. [S19] They have a new nickname\u2014a flattering one, this time. [S20] \u201cWe call them ecosystem engineers,\u201d Pedler says.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q16",
+          "text": "Which one of the following statements provides a gist of this passage?",
+          "type": "MCQ",
+          "options": [
+            "The onslaught of animals, such as cattle, rabbits and housecats, brought in by the British led to the extinction of the western barred bandicoot.",
+            "The negligent attitude of the British colonists towards these bandicoots evidenced by the names given to them led to their annihilation.",
+            "Marsupials are going extinct due to the colonial era transformation of the ecosystem which also destroyed natural vegetation",
+            "A type of bandicoots was nearly wiped out by invasive species but rescuers now pin hopes on a remnant island population."
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Option D captures the main idea of the passage. It reflects the near-extinction of the western barred bandicoot due to invasive species and highlights the conservation efforts using survivors from Shark Bay islands."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Cartographers design and create maps to communicate information about phenomena located somewhere on our planet. In the past, cartographers did not worry too much about who was going to read their maps. Although some simple \u201cusability\u201d research was done\u2014like comparing whether circle or bar symbols worked best\u2014cartographers knew how to make maps. This has changed now, however, due to all kinds of societal and technological developments. Today, map readers are more demanding\u2014mostly because of the tools they use to read maps. Cartographers, who are also influenced by these trends, are now more interested in seeing if their products are efficient, effective, and appreciated.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q17",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "Today, cartographers also need to look into the usability of maps because of the new technological developments.",
+            "Modern mapmakers evaluate a map\u2019s effectiveness efficiency and satisfaction of the user through a series of experiments",
+            "Maps are being used for a variety of reasons and therefore map readers have become more demanding",
+            "New technological developments have prompted cartographers to experiment with their maps by applying these new innovations."
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "The passage emphasizes that cartographers now should pay attention to the usability of maps due to the evolving expectations of map readers. The key point is that technological developments have made users more demanding, leading cartographers to focus on how efficient, effective, and appreciated their maps are."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Sentence: The brain isn\u2019t organized the way you might set up your home office or bathroom medicine cabinet.\n\nParagraph: ___(1)___. You can\u2019t just put things anywhere you want to. The evolved architecture of the brain is haphazard and disjointed, and incorporates multiple systems, each of which has a mind of its own. ___(2)___. Evolution doesn\u2019t design things and it doesn\u2019t build systems\u2014it settles on systems that, historically, conveyed a survival benefit. There is no overarching, grand planner engineering the systems so that they work harmoniously together. ___(3)___. The brain is more like a big, old house with piecemeal renovations done on every floor, and less like new construction. ___(4)___.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q18",
+          "text": "There is a sentence that is missing in the paragraph below. Look at the paragraph and decide where (option 1, 2, 3, or 4) the following sentence would best fit.",
+          "type": "MCQ",
+          "options": [
+            "Option 4",
+            "Option 1",
+            "Option 2",
+            "Option 3"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Option 1 is the best fit as it introduces the idea clearly, aligns with the paragraph's theme, and transitions seamlessly into the discussion of the brain's complexity."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "Certain codes may, of course, be so widely distributed in a specific language community or culture, and be learned at so early an age, that they appear not to be constructed - the effect of an articulation between sign and referent - but to be \u2018naturally\u2019 given. Simple visual signs appear to have achieved a \u2018near universality\u2019 in this sense: though evidence remains that even apparently \u2018natural\u2019 visual codes are culture specific. However, this does not mean that no codes have intervened; rather, that the codes have been profoundly naturalized. The operation of naturalized codes reveals not the transparency and \u2018naturalness\u2019 of language but the depth, the habituation and the near-universality of the codes in use. They produce apparently \u2018natural\u2019 recognitions. This has the (ideological) effect of concealing the practices of coding which are present.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q19",
+          "text": "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+          "type": "MCQ",
+          "options": [
+            "Learning linguistic and visual signs at an early age makes all such codes appear natural. This naturalization of codes is the effect of ideology.",
+            "Not all codes are natural but certain codes are naturalized and made to appear universal. Ideology aims to hide the mechanism of coding behind signs.",
+            "Language and visual signs are codes. However, some of the codes are so widespread that they not only seem naturally given but also hide the mechanism of coding behind the signs.",
+            "All codes, linguistic and visual, have a natural origin but some are so widespread that they become universal. This is what hides the mechanism of coding behind signs."
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Option C captures the main idea of the passage that some codes, like language and visual signs, are so commonly used that they appear natural and conceal the process of how they were created."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q20",
+          "text": "Five jumbled up sentences (labelled 1, 2, 3, 4 and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence and key in the number of that sentence as your answer.\n1. Animals have an interest in fulfilling their basic needs, but also in avoiding suffering, and thus we ought to extend moral consideration.\n2. Singer viewed himself as a utilitarian, and presents a direct moral theory concerning animal rights, in contrast to indirect positions, such as welfarist views.\n3. He argued for extending moral consideration to animals because, similar to humans, animals have certain significant interests.\n4. The event that publicly announced animal rights as a legitimate issue within contemporary philosophy was Peter Singer\u2019s Animal Liberation text in 1975.\n5. As such, we ought to view their interests alongside and equal to human interests, which results in humans having direct moral duties towards animals.",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "1",
+          "explanation": "Sentence 1 is the odd one out because it does not focus on Peter Singer's views on animal rights and the moral obligations humans have towards animals, which is the main theme of the paragraph."
+        }
+      ]
+    },
+    {
+      "section": "VARC",
+      "context": "In the summer of 2022, subscribers to the US streaming service HBO MAX were alarmed to discover that dozens of the platform\u2019s offerings - from the Covid-themed heist thriller Locked Down to the recent remake of The Witches - had been quietly removed from the service . . . The news seemed like vindication to those who had long warned that streaming was more about controlling access to the cultural commons than expanding it, as did reports (since denied by the show\u2019s creators) that Netflix had begun editing old episodes of Stranger Things to retroactively improve their visual effects.\n\nWhat\u2019s less clear is whether the commonly prescribed cure for these cultural ills - a return to the material pleasures of physical media - is the right one. While the makers of Blu-ray discs claim they have a shelf life of 100 years, such statistics remain largely theoretical until they come to pass, and are dependent on storage conditions, not to mention the continued availability of playback equipment. The humble DVD has already proved far less resilient, with many early releases already beginning to deteriorate in quality Digital movie purchases provide even less security. Any film \u201cbought\u201d on iTunes could disappear if you move to another territory with a different rights agreement and try to redownload it. It\u2019s a bold new frontier in the commodification of art: the birth of the product recall. After a man took to Twitter to bemoan losing access to Cars 2 after moving from Canada to Australia, Apple clarified that users who downloaded films to their devices would retain permanent access to those downloads, even if they relocated to a hemisphere where the [content was] subject to a different set of rights agreements. Thanks to the company\u2019s ironclad digital rights management technology, however, such files cannot be moved or backed up, locking you into watching with your Apple account.\n\nAnyone who does manage to acquire Digital Rights Management free (DRM-free) copies of their favourite films must nonetheless grapple with ever-changing file format standards, not to mention data decay - the gradual process by which electronic information slowly but surely corrupts. Only the regular migration of files from hard drive to hard drive can delay the inevitable, in a sisyphean battle against the ravages of digital time.\n\nIn a sense, none of this is new. Charlie Chaplin burned the negative of his 1926 film A Woman of the Sea as a tax write-off. Many more films have been lost through accident, negligence or plain indifference. During a heatwave in July 1937, a Fox film vault in New Jersey burned down, destroying a majority of the silent films produced by the studio.\n\nBack then, at least, cinema was defined by its ephemerality: the sense that a film was as good as gone once it left your local cinema. Today, with film studios keen to stress the breadth of their back catalogues (or to put in Hollywood terms, the value of their IPs), audiences may start to wonder why those same studios seem happy to set the vault alight themselves if it\u2019ll help next quarter\u2019s numbers.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q21",
+          "text": "Which one of the following statements about art best captures the arguments made in the passage?",
+          "type": "MCQ",
+          "options": [
+            "In the age of online subscription services, it is time to change our understanding of classic works of art being primarily immutable and easily available to the public",
+            "As art is increasingly created, stored and distributed digitally, access to it is counterintuitively likely to be made more difficult by the rapid churn in technology and the whims of host platforms.",
+            "Accepting retroactive changes to works of art is dangerous because it will encourage creators to not put enough effort into the original attempt, given that they can always edit or update their work later",
+            "Works of art belong to the cultural commons and hence must remain available in perpetuity, irrespective of who pays for access to them."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage argues that, despite the advances in digital distribution and storage of films (via streaming services or digital purchases), access to art is becoming more fragile. It mentions how content can disappear from platforms, how digital files deteriorate over time, and how rights agreements can limit access based on geographical location. The idea that technology and platform control lead to difficulties in maintaining access captured in Option B."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q22",
+          "text": "Which one of the following statements, if true, would best invalidate the main argument of the passage?",
+          "type": "MCQ",
+          "options": [
+            "Recent research has irrefutably proven that Blu-Ray discs have a shelf life of at least 100 years.",
+            "Studios and streaming services have committed to giving customers perpetual and platform independent access to the original digital content they have paid for.",
+            "When moving to a different geographical location, customers can easily use Virtual Private Networks (VPNs) to bypass geo-blocking and regain access to their content on any streaming service.",
+            "Improved cloud storage services have made it possible for movie collections to now be preserved in perpetuity, without the need to keep migrating the files."
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Option B would invalidate the main argument because it directly addresses the issue raised in the passage, i.e., the lack of permanent access to digital content. The passage highlights concerns about the temporary and restricted nature of digital ownership. If studios and streaming services committed to providing perpetual and platform-independent access, it would resolve the problem of content being removed or restricted, making the author's argument about the instability of digital media irrelevant."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q23",
+          "text": "Which of the following statements is suggested by the sentence \u201cBack then, at least, cinema was defined by its ephemerality: the sense that a film was as good as gone once it left your local cinema\u201d?",
+          "type": "MCQ",
+          "options": [
+            "Around a century ago, people were more accepting of not having access to films once they left the local cinema.",
+            "Today, films are expected to be available for a long time, since they are no longer tied solely to their stay at the local cinema",
+            "Cinema is now no longer as ephemeral as it used to be earlier, because the technology used for creating and preserving films has improved manifold",
+            "Presently, there is no reason why film studios should remove access to films once they have left the local cinema"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "The passage contrasts the past and present by mentioning that, in the past, films were considered \u201cas good as gone\u201d once they left the cinema, meaning they were ephemeral and not readily accessible afterwards. Whereas, today's audience expects ongoing access to films well beyond their initial cinema run, thanks to technological advancements like streaming services and digital media. This shift in expectations is what the passage implies when referencing the previous era's ephemerality versus today's more lasting availability."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q24",
+          "text": "\u201cNetflix had begun editing old episodes of Stranger Things to retroactively improve their visual effects.\u201d What is the purpose of this example used in the passage?",
+          "type": "MCQ",
+          "options": [
+            "To show that streaming services are controlling access to the cultural commons rather than expanding it.",
+            "To show how unsubstantiated reports are leading to an increase in the level of distrust towards streaming services",
+            "To show a practice that justifies the fears of people who feel streaming services cannot be trusted to be custodians of cultural artefacts like film.",
+            "To show that art in the digital age, specifically film, is no longer sacrosanct, and may be changed to suit changing tastes or technology"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "The passage highlights that the practice of streaming services, like Netflix, editing old episodes of Stranger Things retroactively raised concerns. Altering a popular show\u2019s content without consent or transparency supports the concern that such platforms can tamper with or erase parts of culture at their discretion rather than preserve them as they were originally created."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Stock | Opening | Close | High | Low |\n| :--- | :--- | :--- | :--- | :--- |\n| A | 2200 | 1800 | 2400 | 1200 |\n| B | 2000 | 1700 | 2000 | 1400 |\n| C | 800 | 1200 | 1400 | 800 |\n| D | 500 | 1000 | 1200 | 300 |\n| E | 1300 | 1100 | 1400 | 1100 |\n| F | 1800 | 1600 | 2000 | 1200 |\n| G | 1200 | 1700 | 1900 | 1000 |",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q25",
+          "text": "Daily Share Price Variability (SPV) is defined as (Day\u2019s high price - Day\u2019s low price) / (Average of the opening and closing prices during the day). Which among the shares A, C, D and F had the highest SPV on that day?",
+          "type": "MCQ",
+          "options": [
+            "F",
+            "A",
+            "D",
+            "C"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Calculating it for the four options, Stock F: 800/1700=8/17, Stock A: 1200/2000=3/5, Stock D: 900/750=90/75=6/5, Stock C: 600/1000=3/5. Clearly Stock D has the highest SPV."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q26",
+          "text": "Daily Share Price Variability (SPV) is defined as (Day\u2019s high price - Day\u2019s low price) / (Average of the opening and closing prices during the day). How many shares had an SPV greater than 0.5 on that day?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "Calculating it for the stocks: Stock A: 1200/2000=3/5, Stock B: 600/1850=60/185, Stock C: 600/1000=3/5, Stock D: 900/750=90/75=6/5, Stock E: 300/1200=1/4, Stock F: 800/1700=8/17, Stock G: 900/1450=90/145. Stock A, Stock C, Stock D, Stock G have SPV greater than 0.5 that day. Hence, the answer is 4."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q27",
+          "text": "Daily loss for a share is defined as (Opening price - Closing price) / (Opening price). Which among the shares A, B, F and G had the highest daily loss on that day?",
+          "type": "MCQ",
+          "options": [
+            "G",
+            "B",
+            "A",
+            "F"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Calculating this for the options: Stock A: 400/2200=2/11, Stock B: 300/2000=3/20, Stock F: 200/1800=1/9, Stock G gained money that day. Hence Stock A has the highest Daily Loss."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q28",
+          "text": "What would have been the percentage wealth gain for a trader, who bought equal numbers of all bullish shares at opening price and sold them at their day\u2019s high?",
+          "type": "MCQ",
+          "options": [
+            "80%",
+            "50%",
+            "72%",
+            "100%"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "There are three bullish shares, C, D and G. Lets say a trader buys one share of each of these stocks, and sells them at their day's high. One share of C at opening is 800, sells at 1400. One share of D at opening is 500, 1200. One share of G at opening is 1200, 1900. Total Investment is 2500, and total money after selling is 4500. That is an 80% return since (4500-2500)/2500 = 0.8."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Six web surfers M, N, O, P, X, and Y each had 30 stars which they distributed among four bloggers A, B, C, and D. The number of stars received by A and B from the six web surfers is shown in the figure below.\n\n| Surfer/Blogger | A | B | C | D | Total |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| M | 10 | 0 | 15 | 5 | 30 |\n| N | 25 | 0 | 0 | 5 | 30 |\n| O | 0 | 0 | 30 | 0 | 30 |\n| P | 5 | 25 | 0 | 0 | 30 |\n| X | 0 | 0 | 0 | 30 | 30 |\n| Y | 5 | 20 | 0 | 5 | 30 |\n| Total | 45 | 45 | 45 | 45 | 180 |",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q29",
+          "text": "What was the total number of stars received by D?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "45",
+          "explanation": "D was rewarded 45 stars in total."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q30",
+          "text": "What was the number of stars received by D from Y?",
+          "type": "MCQ",
+          "options": [
+            "5",
+            "10",
+            "Cant be determined",
+            "0"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "D received 5 stars from Y."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Surfer/Blogger | A | B | C | D | Total |\n|---|---|---|---|---|---|\n| M | 10 | 0 | 15 | 5 | 30 |\n| N | 25 | 0 | 0 | 5 | 30 |\n| O | 0 | 0 | 30 | 0 | 30 |\n| P | 5 | 25 | 0 | 0 | 30 |\n| X | 0 | 0 | 0 | 30 | 30 |\n| Y | 5 | 20 | 0 | 5 | 30 |\n| Total | 45 | 45 | 45 | 45 | 180 |",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q31",
+          "text": "How many surfers distributed their stars among exactly 2 bloggers?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "M distributed among 3 bloggers, N among 2 bloggers, O among 1, P among 2, X among 1, Y among 3. Hence 2 surfers distribute their stars among 2 bloggers."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q32",
+          "text": "Which of the following can be determined with certainty?\nI. The number of stars received by C from M\nII. The number of stars received by D from O",
+          "type": "MCQ",
+          "options": [
+            "Neither I or II",
+            "Only I",
+            "Only II",
+            "Both I and II"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "There are two cases formed since we cannot identify for certain two whom did O reward the stars to, We can identify the number of stars rewarded by M to C. Hence only statement 1 can be identified uniquely."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "The game of QUIET is played between two teams. Six teams, numbered 1, 2, 3, 4, 5, and 6, play in a QUIET tournament. These teams are divided equally into two groups. In the tournament, each team plays every other team in the same group only once, and each team in the other group exactly twice. The tournament has several rounds, each of which consists of a few games. Every team plays exactly one game in each round.\n\nThe following additional facts are known about the schedule of games in the tournament.\n1. Each team played against a team from the other group in Round 8.\n2. In Round 4 and Round 7, the match-ups, that is the pair of teams playing against each other, were identical. In Round 5 and Round 8, the match-ups were identical.\n3. Team 4 played Team 6 in both Round 1 and Round 2.\n4. Team 1 played Team 5 ONLY once and that was in Round 2.\n5. Team 3 played Team 4 in Round 3. Team 1 played Team 6 in Round 6.\n6. In Round 8, Team 3 played Team 6, while Team 2 played Team 5.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q33",
+          "text": "How many rounds were there in the tournament?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "8",
+          "explanation": "The tournament will have 8 rounds."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q34",
+          "text": "What is the number of the team that played Team 1 in Round 5?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "The team that played Team 1 in Round 5 is 4."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q35",
+          "text": "Which team among the teams numbered 2, 3, 4, and 5 was not part of the same group?",
+          "type": "MCQ",
+          "options": [
+            "5",
+            "3",
+            "4",
+            "2"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "2, 3 and 4 were part of the same group. 5 is the answer."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q36",
+          "text": "What is the number of the team that played Team 1 in Round 7?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "The team that played Team 1 in Round 7 is 3."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q37",
+          "text": "What is the number of the team that played Team 6 in Round 3?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "5",
+          "explanation": "Team that played Team 6 in Round 3 was Team 5."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "Two students, Amiya and Ramya are the only candidates in an election for the position of class representative. Students will vote based on the intensity level of Amiya\u2019s and Ramya\u2019s campaigns and the type of campaigns they run. Each campaign is said to have a level of 1 if it is a staid campaign and a level of 2 if it is a vigorous campaign. Campaigns can be of two types, they can either focus on issues, or on attacking the other candidate.\n\nIf Amiya and Ramya both run campaigns focusing on issues, then\n\u2022 The percentage of students voting in the election will be 20 times the sum of the levels of campaigning of the two students. For example, if Amiya and Ramya both run vigorous campaigns, then 20 \u00d7 (2+2)%, that is, 80% of the students will vote in the election.\n\u2022 Among voting students, the percentage of votes for each candidate will be proportional to the levels of their campaigns. For example, if Amiya runs a staid (i.e., level 1) campaign while Ramya runs a vigorous (i.e., level 2) campaign, then Amiya will receive 1/3 of the votes cast, and Ramya will receive the other 2/3.\nThe above-mentioned percentages change as follows if at least one of them runs a campaign attacking their opponent.\n\u2022 If Amiya runs a campaign attacking Ramya and Ramya runs a campaign focusing on issues, then 10% of the students who would have otherwise voted for Amiya will vote for Ramya, and another 10% who would have otherwise voted for Amiya, will not vote at all.\n\u2022 If Ramya runs a campaign attacking Amiya and Amiya runs a campaign focusing on issues, then 20% of the students who would have otherwise voted for Ramya will vote for Amiya, and another 5% who would have otherwise voted for Ramya, will not vote at all.\n\u2022 If both run campaigns attacking each other, then 10% of the students who would have otherwise voted for them had they run campaigns focusing on issues, will not vote at all.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q38",
+          "text": "If both of them run staid campaigns attacking the other, then what percentage of students will vote in the election?",
+          "type": "MCQ",
+          "options": [
+            "40%",
+            "64%",
+            "60%",
+            "36%"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "If both Ramya and Amiya run staid campaigns, the intensity of each staid campaign is 1. So total number of voters that would vote for them if they focused on issues will be 20x(1+1)%=40%. This means if they had both ran regarding issues, then they would get 20% of votes each. We are told that both of them run attacking campaigns, and the rule for mutual attacking campaign is 10% of voters who would have voted for each candidate will not vote. That means 10% of 20% of each candidate will not vote, now that it is a mutually attacking campaign. That means, each candidate receives 18% of the votes. Total votes received is 36%."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q39",
+          "text": "What is the minimum percentage of students who will vote in the election?",
+          "type": "MCQ",
+          "options": [
+            "32%",
+            "40%",
+            "38%",
+            "36%"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We want the minimum vote share, that means both the candidates run staid campaigns. And, both the campaigns should be attacking, since we see that if one candidate runs an attacking campaign whereas the other candidate runs an issues campaign, a fair number of voters get transferred to the other candidate's vote share. This points to us to a scenario where both the campaigns are staid and attacking, which is nothing but the scenario described in the previous question. Total votes received is 36%, which is the minimum possible."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q40",
+          "text": "If Amiya runs a campaign focusing on issues, then what is the maximum percentage of votes that she can get?",
+          "type": "MCQ",
+          "options": [
+            "48%",
+            "44%",
+            "40%",
+            "36%"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Amiya runs a campaign on issues, and we need to find the maximum vote share that she can get. We are trying to maximise the number of voters for Amiya, that means Amiya needs to run a vigorous campaign. Since, we are trying to increase the vote share for Amiya, we want as many voters as possible transferred from Ramya's share to Amiya's votes. As the number of votes a candidate receives is proportional to the intensity level of the campaign, we want Ramya also to run a vigorous AND attacking campaign, so that her votes are transferred to Amiya. In this scenario we have 20x(2+2)% of the people voting, 80% of the people. Of that, if both had ran issues campaign, they would have each received 40% of the votes. Now, we want Ramya to run an attacking campaign, where 20% of the people that would have voted for her vote for Amiya. So 20% of 40% of the votes are transferred to Amiya. That is 8% of the votes. And we are also told that, 5% that would have voted for her dont vote, so 5% of 40% dont vote, that is 2% of the voters. Final Tally is Amiya gets 48% of the votes, and Ramya gets 30% of the votes."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q41",
+          "text": "If Ramya runs a campaign attacking Amiya, then what is the minimum percentage of votes that she is guaranteed to get?",
+          "type": "MCQ",
+          "options": [
+            "12%",
+            "15%",
+            "30%",
+            "18%"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "We are looking for the minimum possible number of votes that Ramya can get when she runs an attacking campaign. To minimise the number of votes, we can have Ramya run a staid campaign to minimise the votes, so minimum intensity, which will get her 20% of the votes if she ran with issues. Now that she is running with attacking, she will loose 20% of the votes to Amiya and 5% of the votes will not vote anymore. That is a total 25% loss. Remaining votes she will get is 75% of the 20% which will leave her with 15% of the votes."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q42",
+          "text": "What is the maximum possible voting margin with which one of the candidates can win?",
+          "type": "MCQ",
+          "options": [
+            "20%",
+            "29%",
+            "28%",
+            "26%"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "We are looking for the minimum possible number of votes that Ramya can get and maximise the number of votes that Amiya can get. We can borrow the scenario from the previous question where Ramya runs an attacking campaign, and we minimised the number of votes she can get. To minimise the number of votes, we can have Ramya run a staid campaign to minimise the votes, so minimum intensity, which will get her 20% of the votes if she ran with issues. Now that she is running with attacking, she will loose 20% of the votes to Amiya and 5% of the votes will not vote anymore. That is a total 25% loss. Remaining votes she will get is 75% of the 20% which will leave her with 15% of the votes. And to maximise the number of votes Amiya can get, we will have her run an vigorous issues campaign, which will give her 2x20% of the votes, that is 40% of the votes. And since Ramya has been running an attacking campaign, 20% of her votes are transferred to Amiya. 20% of the 20% of the votes which is 4% that were going to Ramya will now go to Amiya. That will bring up Amiya's tally up to 44% leaving Ramya's tally at 15%. The difference in the votes will be 44-15=29%."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "[REQUIRES IMAGE]\n\nThe following additional facts are known about the countries visited by them.\n1. 32 countries were visited by at least one of them.\n2. USA (in ROW) is the only country that was visited by all three of them.\n3. China (in Asia) is the only country that was visited by both Dheeraj and Nitesh, but not by Samantha.\n4. France (in Europe) is the only country outside Asia, which was visited by both Dheeraj and Samantha, but not by Nitesh.\n5. Half of the countries visited by both Samantha and Nitesh are in Europe.",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q43",
+          "text": "How many countries in Asia were visited by at least one of Dheeraj, Samantha and Nitesh?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "3",
+          "explanation": "How many countries in Asia were visited by at least one of Dheeraj, Samantha and Nitesh is 3."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q44",
+          "text": "How many countries in Europe were visited only by Nitesh?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "2",
+          "explanation": "Number of countries visited by only Nitesh is 2."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q45",
+          "text": "How many countries in the ROW were visited by both Nitesh and Samantha?",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "4",
+          "explanation": "Number of countries in ROW visited by both Nitesh and Samantha is 3+1=4."
+        }
+      ]
+    },
+    {
+      "section": "LRDI",
+      "context": "| Combination | Asia | EU | ROW | Total |\n| :--- | :--- | :--- | :--- | :--- |\n| Dheeraj | 2 | 6 | 0 | 8 |\n| Samantha | 0 | 4 | 0 | 4 |\n| Nitesh | 0 | 2 | 8 | 10 |\n| Dheeraj and Nitesh | 1(China) | 0 | 0 | 1 |\n| Dheeraj and Samantha | 0 | 1(France) | 0 | 1 |\n| Samantha and Nitesh | 0 | 4 | 3 | 7 |\n| All Three | 0 | 0 | 1(USA) | 1 |\n| Total | 3 | 17 | 12 | 32 |",
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q46",
+          "text": "46. How many countries in Europe were visited by exactly one of Dheeraj, Samantha and Nitesh?",
+          "type": "MCQ",
+          "options": [
+            "10",
+            "5",
+            "14",
+            "12"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Number of countries in EU visited by exactly 1 person is 12."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q47",
+          "text": "47. Consider two sets A = {2, 3, 5, 7, 11, 13} and B = {1, 8, 27}. Let f be a function from A to B such that for every element in B, there is at least one element a in A such that f(a) = b. Then, the total number of such functions f is",
+          "type": "MCQ",
+          "options": [
+            "665",
+            "667",
+            "537",
+            "540"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "Set A={2,3,5,7,11,13} so |A|=6. Set B={1, 8, 27} so |B|=3. Without any restrictions, each element in A can map to any of the 3 elements in B. Thus, the total number of functions is: 3^6 = 729. Excluding Functions That Miss One Element in B: If a function does not map to an element in B, there are 2 elements in B left for mapping. The total number of such functions (for each specific element not mapped) is: 2^6 = 64. Since there are 3 elements in B, the total number of such functions is: 3x64=192. Adding Back Functions That Miss Two Elements in B: If a function misses two elements in B, there is only 1 element left for mapping. The total number of such functions is: 1^6=1. Since there are 3C2 ways to choose which two elements are missed, the total number of such functions is: 3. Using the inclusion-exclusion principle, the number of functions where all elements of B are mapped by at least one element of A is: 729-192+3=540."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q48",
+          "text": "48. Let x, y, and z be real numbers satisfying\n4(x^2 + y^2 + z^2) = a,\n4(x - y - z) = 3 + a\nThe a equals",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "1/3",
+            "4",
+            "1"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "We have two equations, 4(x^2 + y^2 + z^2) = a ---(1) and 4(x - y - z) = 3 + a ---(2). Substituting the value of a from equation 1 in equation 2, we get, 4(x - y - z) = 3 + 4(x^2 + y^2 + z^2). It can be written as, 3 + 4(x^2 + y^2 + z^2) - 4(x - y - z) = 0. 3 + 4x^2 + 4y^2 + 4z^2 - 4x + 4y + 4z = 0. 4x^2 - 4x + 1 + 4y^2 + 4y + 1 + 4z^2 + 4z + 1 = 0. (2x - 1)^2 + (2y + 1)^2 + (2z + 1)^2 = 0. We know that if the sum of the squares of terms is 0, then all the terms must be equal to 0. 2x - 1 = 0 => x = 1/2. 2y + 1 = 0 => y = -1/2. 2z + 1 = 0 => z = -1/2. Substituting the values in equation 2, we get, 4(1/2 - (-1/2) - (-1/2)) = 3 + a. 4(3/2) = 3 + a. 6 = 3 + a. a = 3. Therefore, the correct answer is option A."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q49",
+          "text": "49. If the equations x^2 + mx + 9 = 0, x^2 + nx + 17 = 0 and x^2 + (m + n)x + 35 = 0 have a common negative root, then the value of (2m + 3n) is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "38",
+          "explanation": "When given more than one equations, stating the fact that there is a common root, We need to equate the two equations to get discernible values for x. Here, we are given three equations with the values of m, n. x^2 + mx + 9 = x^2 + (m + n)x + 35 => mx + 9 = mx + nx + 35 => nx = -26. Similarly, we can do it for the other equation as well, x^2 + nx + 17 = x^2 + (m + n)x + 35 => nx + 17 = mx + nx + 35 => mx = -18. Substituting the value of either mx or nx in the original equations, we get x^2 - 18 + 9 = 0 => x^2 = 9 => x = \u00b1 3. Since we are given that the root is negative, x = -3. n = -26/-3. m = -18/-3. 3n = 26. 2m = 12. 2m + 3n = 38."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q50",
+          "text": "50. Suppose x1, x2, x3, ..., x100 are in arithmetic progression such that x5 = -4 and 2x6 + 2x9 = x11 + x13, Then, x100 equals",
+          "type": "MCQ",
+          "options": [
+            "-194",
+            "-196",
+            "204",
+            "206"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "Using the arithmetic progression formula for the nth term, where xn = a + (n - 1)d. Substituting the value for n and using that in the equation that is given, 2x6 + 2x9 = x11 + x13. We get, 2(a + 5d) + 2(a + 8d) = a + 10d + a + 12d. 4a + 26d = 2a + 22d. 2a = -4d. a = -2d. We are given, x5 = -4. a + 4d = -4. Substituting the value for a in terms of d, 2d = -4. d = -2. a = 4. x100 = a + 99d. x100 = 4 - 198 = -194."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q51",
+          "text": "51. Renu would take 15 days working 4 hours per day to complete a certain task whereas Seema would take 8 days working 5 hours per day to complete the same task. They decide to work together to complete this task. Seema agrees to work for double the number of hours per day as Renu, while Renu agrees to work for double the number of days as Seema. If Renu works 2 hours per day, then the number of days Seema will work, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "6",
+          "explanation": "Let us assign the amount of work done by Renu in one hour is R. And the amount of work done by Seema in one hour is S. We are told that a certain task with different time durations for Seema and Renu. Renu=15 days with 4 hours each day, that is total work done by Renu is 15 * 4 * R = 60R. Similarly for Seema, 8 days and 5 hours each day, total work done by Seema is 40S. We know that 60R = 40S or S = 1.5R. For this task, let us assume that the amount of days that Seema decides to work is X and the hours per day that Renu decides to work is Y. We are then told that, Seema works for 2Y hours per day and Renu works for 2X days, Work done by them will be 2XY R and 2XY S. We are told that Y=2, Making this 4XR and 4XS. S = 1.5R. Total work will be, 4XR + 6XR = 60R. We get the value of X = 6. X is the number of days Seema will work, which is 6."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q52",
+          "text": "52. When 10^100 is divided by 7, the remainder is",
+          "type": "MCQ",
+          "options": [
+            "3",
+            "4",
+            "1",
+            "6"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "To find the value of 10^100 mod 7. When 10 is divided by 7, it leaves a remainder 3, so the above equation can be written as, 3^100 mod 7. Now looking at the cyclicality of powers of 3 when divided by 7, 3^1 mod 7 = 3, 3^2 mod 7 = 2, 3^3 mod 7 = 6, 3^4 mod 7 = 4, 3^5 mod 7 = 5, 3^6 mod 7 = 1. From this calculation, it is evident that the powers of 3 modulo 7 repeat every 6 steps. This forms a cycle: 3, 2, 6, 4, 5, 1. Since 100 = (3^6)^16 * (3^4). Since 3^6 mod 7 = 1. We just need to consider 3^4 mod 7 which equals 4. Hence the answer is 4."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q53",
+          "text": "53. The sum of all real values of k for which (1/8)^k * (1/32768)^(1/3) = (1/8) * (1/32768)^(1/k), is",
+          "type": "MCQ",
+          "options": [
+            "2/3",
+            "4/3",
+            "-2/3",
+            "-4/3"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "To solve this question, we need to immediately recognise the fact that, 32768 = 8^5. Substituting this in the above given equation, (1/8)^k * (1/8)^(5/3) = (1/8) * (1/8)^(5/k). Since the bases are equal, we can equate the powers on either side of the equation, k + 5/3 = 1 + 5/k. (3k+5)/3 = (k+5)/k. 3k^2 + 5k = 3k + 15. 3k^2 + 2k - 15 = 0. Here in the given quadratic equation, the Discriminant is greater than 0, 2^2 - (4)(3)(-15) > 0. That means both the roots are real, hence we can simply take the sum of the roots of the quadratic equation in k, Which in a standard quadratic equation of the form ax^2 + bx + c is -b/a. Here, the sum of the real values of k is -2/3."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q54",
+          "text": "54. For any natural number n let an be the largest integer not exceeding sqrt(n). Then the value of a1 + a2 + ..... + a50 is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "217",
+          "explanation": "We are told that, for any natural number n, an be the largest integer not exceeding sqrt(n). So for n=1, the largest integer not exceeding sqrt(1) will be 1. For n=2, the largest integer not exceeding sqrt(2) will be 1. For n=3, the largest integer not exceeding sqrt(3) will be 1. For n=4, the largest integer not exceeding sqrt(4) will be 2. We see a pattern here regarding the squares of the numbers, Listing down all the perfect squares, 1, 4, 9, 16, 25, 36, 49, 64, ... We see that the difference between 4 and 1 is 3 and there were three natural numbers in the given pattern with the value as 1, So we can write for the rest of the numbers as well, 3 numbers will have value 1, giving a total value of 3. 5 numbers will have value 2, giving a total value of 10. 7 numbers will have value 3, giving a total value of 21. 9 numbers will have value 4, giving a total value of 36. 11 numbers will have value 5, giving a total value of 55. 13 numbers will have value 6, giving a total value of 78. Now, only the values of a49, a50 will have the value of 7, total value of 14. Adding these values, we get the total sum as 217, which is the answer."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q55",
+          "text": "55. In September, the incomes of Kamal, Amal and Vimal are in the ratio 8 : 6 : 5. They rent a house together, and Kamal pays 15%, Amal pays 12% and Vimal pays 18% of their respective incomes to cover the total house rent in that month. In October, the house rent remains unchanged while their incomes increase by 10%, 12% and 15%, respectively. In October, the percentage of their total income that will be paid as house rent, is nearest to",
+          "type": "MCQ",
+          "options": [
+            "15.18",
+            "13.26",
+            "14.84",
+            "12.75"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "We are told that, the incomes of Kamal, Amal and Vimal are in the ratio 8 : 6 : 5. Lets assume them to be 80X, 60X, 50X respectively. Money that each one of them pays towards rent, Kamal 15% which comes to 12X, Amal 12% which comes to 7.2X, Vimal 18% which comes to 9X. Total Rental expenditure will be, 28.2X. Their incomes increase by 10%, 12% and 15% respectively, Kamal 10% which comes to 88X, Amal 12% which comes to 67.2X, Vimal 15% which comes to 57.5X. Total income will be 212.7X. We are told the rent is the same, so it will be 28.2X. Percentage of income going towards rent in October will be, 28.2X / 212.7X = 0.13258. Hence, the answer is 13.26%."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q56",
+          "text": "56. The sum of all four-digit numbers that can be formed with the distinct non-zero digits a, b, c, and d, with each digit appearing exactly once in every number, is 153310 + n, where n is a single digit natural number. Then, the value of (a + b + c + d + n) is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "31",
+          "explanation": "When gives n distinct numbers, and asked to find the sum of the possible n distinct numbers that can be formed, We use the formula, (10^(n-1) + 10^(n-2) + 10^(n-3) + ...) * ((n - 1)!) * (Sum of numbers). Inserting n=4, (1000 + 100 + 10 + 1)(3!)(a + b + c + d) = (6666)(a + b + c + d). We are told that this value equals, 153310 + n. Since we are told that n is a single digit natural number, the total value cannot be that much greater and 6666 should perfectly divide 153310 + n. Upon dividing 153310 by 6666 we get the quotient as 22.99. Nearest value being 23, We take 6666x23 giving us the value 153318. Hence the value of n=8 and the value of a+b+c+d=23. Value of a+b+c+d+n=31."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q57",
+          "text": "57. ABCD is a rectangle with sides AB = 56 cm and BC = 45 cm, and E is the midpoint of side CD. Then, the length, in cm, of radius of incircle of ADE is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "10",
+          "explanation": "Drawing the figure described in the question, we get the following representation. Since E is the midpoint of CD, the length of each half will be 28cm. We need to find the incircle of the triangle ADE, which is a right angled triangle, we can do that with the formula, (a + b - h)/2. h^2 = 28^2 + 45^2. h^2 = 784 + 2025 = 2809. h = 53. r = (28 + 45 - 53)/2 = 10."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q58",
+          "text": "58. In the XY-plane, the area, in sq. units, of the region defined by the inequalities y >= x + 4 and -4 <= x^2 + y^2 + 4(x - y) <= 0 is",
+          "type": "MCQ",
+          "options": [
+            "2\u03c0",
+            "4\u03c0",
+            "\u03c0",
+            "3\u03c0"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "We have two inequalities, y >= x + 4, -4 <= x^2 + y^2 + 4(x - y) <= 0. The second inequality can be written as two separate inequalities, -4 <= x^2 + y^2 + 4(x - y) and x^2 + y^2 + 4(x - y) <= 0. The first inequality can be written as, x^2 + y^2 + 4x - 4y + 4 >= 0 => (x + 2)^2 + (y - 2)^2 >= 4. The second inequality can be written as, x^2 + y^2 + 4x - 4y <= 0 => x^2 + 4x + 4 + y^2 - 4y + 4 - 8 <= 0 => (x + 2)^2 + (y - 2)^2 <= 8. Representing all three inequalities in the graph, we get the graph as shown above, and we must calculate the intersection of all three inequalities. We can see that the line passes through the centre of both circles (-2, 2), and the area obtained from the second inequality is the area between the two circles. So, the area of intersection of all three graphs is half of the area between both the circles as the line divides the circle in half, and we must only consider the area above the line as per the given inequality. We know that the area of the bigger circle is 8\u03c0 and the area of the smaller circle is 4\u03c0 from the equations of the circles as we know that equation of circle as (x - a)^2 + (y - b)^2 = (radius)^2 where (a,b) is the centre of the circle. The area of intersection = 1/2 (Area of bigger circle - Area of smaller circle) = 1/2 (8\u03c0 - 4\u03c0) = 2\u03c0. Therefore, the correct answer is option A."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q59",
+          "text": "59. If x is a positive real number such that 4 log10 x + 4 log100 x + 8 log1000 x = 13, then the greatest integer not exceeding x, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "31",
+          "explanation": "Using the logarithmic property that log_a^p b = 1/p log_a b. 4 log10 x + 4 log100 x + 8 log1000 x = 13. Can be written as 4 log10 x + 2 log10 x + 8/3 log10 x = 13. 26/3 log10 x = 13. log10 x = 1.5. x = 10^1.5. x = 1000. [sqrt(1000)] = 31. Where [.] is Greatest Integer Function since that is what is asked in the question, 31 is the greatest integer that does not exceed x."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q60",
+          "text": "60. The selling price of a product is fixed to ensure 40% profit. If the product had cost 40% less and had been sold for 5 rupees less, then the resulting profit would have been 50%. The original selling price, in rupees, of the product is",
+          "type": "MCQ",
+          "options": [
+            "15",
+            "14",
+            "10",
+            "20"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let us fix the Cost Price of the product to be X, and the Selling Price of the product to be 1.4X, since it is given that it is fixed to have a profit of 40%. If the CP has been 40% less, making the CP 0.6X, And the selling price is 5 rupees less, making it 1.4X-5. Profit will be 50%, So, 1.5 (0.6X) = 1.4X - 5. 0.9X = 1.4X - 5. 0.5X = 5. X = 10. Original selling price will be 14."
+        }
+      ]
+    },
+    {
+      "section": "Quant",
+      "context": null,
+      "questions": [
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q61",
+          "text": "A glass is filled with milk. Two-thirds of its content is poured out and replaced with water. If this process of pouring out two-thirds the content and replacing with water is repeated three more times, then the final ratio of milk to water in the glass, is",
+          "type": "MCQ",
+          "options": [
+            "1 : 27",
+            "1 : 80",
+            "1 : 81",
+            "1 : 26"
+          ],
+          "correct": 1,
+          "tita_answer": null,
+          "explanation": "Let us say the capacity of the glass is X, and it is completely filled with milk. If two-thirds of its content is poured out and replaced with water, the remaining fraction of the milk will be one third. And this is said to be done three more times, that means a total of 4 times. So the contents of Milk initially being X, And after 4 times the contents will be, $X (1 - 2/3)^4 = X/81$. Since the total contents is X, and the milk contents is X/81, the water contents will be 80X/81. Ratio of milk to water will be $(X/81) : (80X/81)$. Answer is 1 : 80"
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q62",
+          "text": "A fruit seller has a total of 187 fruits consisting of apples, mangoes and oranges. The number of apples and mangoes are in the ratio 5 : 2. After she sells 75 apples, 26 mangoes and half of the oranges, the ratio of number of unsold apples to number of unsold oranges becomes 3 : 2. The total number of unsold fruits is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "66",
+          "explanation": "The number of apples and mangoes are in the ratio 5 : 2. Let us write the number of apples as 5X and number of mangoes as 2X. This means oranges will be 187-7X. After selling the remaining fruits, Apples: 5X-75, Mangoes: 2X-26, Oranges: (187-7X)/2. Unsold Apples to Unsold oranges is 3:2. $2(5x-75) / (187-7x) = 3/2$. $20x - 300 = 561 - 21x$. $41x = 861$. $x = 21$. Total number of unsold fruits will be, Apples: 30, Mangoes: 16, Oranges: 20. Total is 66."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q63",
+          "text": "Two places A and B are 45 kms apart and connected by a straight road. Anil goes from A to B while Sunil goes from B to A. Starting at the same time, they cross each other in exactly 1 hour 30 minutes. If Anil reaches B exactly 1 hour 15 minutes after Sunil reaches A, the speed of Anil, in km per hour, is",
+          "type": "MCQ",
+          "options": [
+            "18",
+            "16",
+            "14",
+            "12"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We can use the formula for when two people moving towards each other and meeting in a straight line. $t^2 = t_1 \\times t_2$. Where $t$ is time taken for them to meet each other. $t_1$ is the time taken by person 1 to reach the destination after meeting and $t_2$ is the time taken by person 2 to reach the destination after meeting. We are told they meet each other in 1 and a half hours, that is 90 minutes. And if Sunil takes X minutes to reach A, Anil will take X+75 minutes. Since it is given that, Anil reaches B exactly 1 hour 15 minutes after Sunil reaches A. $90^2 = x(x+75)$. $8100 = x^2 + 75x$. $x^2 + 75x - 8100 = 0$. $x = 60$. Total time of travel of Anil is, 90 min + 60 min + 75 min = 225 minutes. Time in hours will be 3.75 hours. Speed is $45 / 3.75 = 12$ km/hr."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q64",
+          "text": "There are four numbers such that average of first two numbers is 1 more than the first number, average of first three numbers is 2 more than average of first two numbers, and average of first four numbers is 3 more than average of first three numbers. Then, the difference between the largest and the smallest numbers, is",
+          "type": "TITA",
+          "options": [],
+          "correct": null,
+          "tita_answer": "15",
+          "explanation": "Let us assume the four numbers to be a, b, c and d in ascending order. Average of first two numbers is 1 more than the first number: $(a+b)/2 = a+1 \\implies b-a=2 \\implies b=a+2$. Average of first three numbers is 2 more than average of first two numbers: $(a+b+c)/3 = (a+b)/2 + 2 \\implies 2c = a+b+12 \\implies 2c = a+a+2+12 \\implies c=a+7$. Average of first four numbers is 3 more than average of first three numbers: $(a+b+c+d)/4 = (a+b+c)/3 + 3 \\implies 3d = a+b+c+36 \\implies 3d = a+a+2+a+7+36 \\implies d=a+15$. d is the largest and a is the smallest and we know that d=a+15. Hence the difference between the smallest and the largest values is 15."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q65",
+          "text": "An amount of Rs 10000 is deposited in bank A for a certain number of years at a simple interest of 5% per annum. On maturity, the total amount received is deposited in bank B for another 5 years at a simple interest of 6% per annum. If the interests received from bank A and bank B are in the ratio 10 : 13, then the investment period, in years, in bank A is",
+          "type": "MCQ",
+          "options": [
+            "4",
+            "5",
+            "3",
+            "6"
+          ],
+          "correct": 3,
+          "tita_answer": null,
+          "explanation": "We are told that, 10000 is deposited in bank A for a certain number of years at a simple interest of 5% per annum. Let us say that the number of years is x. Total value of the deposit after x years is, $10000(1 + x(0.05))$. On maturity, the total amount received is deposited in bank B for another 5 years at a simple interest of 6% per annum. Interest received from Bank A is $10000(x(0.05))$. Interest received from Bank B is $0.3(10000(1 + x(0.05)))$. This ratio is given to be 10:13. $x(0.05) / (0.3(1 + x(0.05))) = 10/13$. $0.65x = 3 + 0.15x$. $0.5x = 3$. $x = 6$. Hence the number of years the money was invested in Bank A is 6 years."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q66",
+          "text": "A shop wants to sell a certain quantity (in kg) of grains. It sells half the quantity and an additional 3 kg of these grains to the first customer. Then, it sells half of the remaining quantity and an additional 3 kg of these grains to the second customer. Finally, when the shop sells half of the remaining quantity and an additional 3 kg of these grains to the third customer, there are no grains left. The initial quantity, in kg, of grains is",
+          "type": "MCQ",
+          "options": [
+            "50",
+            "36",
+            "42",
+            "18"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Let us say the quantity of grains is X. For the first customer he sells $X/2 + 3$. Remaining is $X/2 - 3$. Second customer he sells: $(X/2 - 3)/2 + 3 = X/4 + 3/2$. Remaining will be $X/4 - 9/2$. Third customer he sells: $(X/4 - 9/2)/2 + 3 = X/8 + 3/4$. Remaining will be $X/8 - 21/4$. Now, this is said to be 0, $X/8 - 21/4 = 0$. X=42."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q67",
+          "text": "If $(a + b\\sqrt{n})$ is the positive square root of $(29 - 12\\sqrt{5})$, where a and b are integers, and n is a natural number, then the maximum possible value of $(a + b + n)$ is",
+          "type": "MCQ",
+          "options": [
+            "18",
+            "22",
+            "4",
+            "6"
+          ],
+          "correct": 0,
+          "tita_answer": null,
+          "explanation": "So $29 - 12\\sqrt{5} = (a + b\\sqrt{n})^2$. $29 - 12\\sqrt{5} = a^2 + b^2n + 2ab\\sqrt{n}$. $a^2 + b^2n = 29$ and $ab\\sqrt{n} = -6\\sqrt{5}$. $a^2b^2n = 180$. $b^2n = 180/a^2$. Substituting this in the above equation, $a^2 + 180/a^2 = 29$. $a^4 - 29a^2 + 180 = 0$. $a^2 = 9$ or $20$. That means, one of $a^2$ is 9 and 20. We also have $ab\\sqrt{n} = -6\\sqrt{5}$ that means one of a or b should be negative. And also the fact that this is a positive square root, And we need to maximise the value of a, b and n. We can have a=-3, b=1 and n=20. This satisfies all the above equations, and the value of a+b+n=18."
+        },
+        {
+          "id": "CAT_2024_Slot_1_Question_Paper_by_Cracku_q68",
+          "text": "The surface area of a closed rectangular box, which is inscribed in a sphere, is 846 sq cm, and the sum of the lengths of all its edges is 144 cm. The volume, in cubic cm, of the sphere is",
+          "type": "MCQ",
+          "options": [
+            "1125\\pi",
+            "750\\pi",
+            "1125\\pi\\sqrt{2}",
+            "750\\pi\\sqrt{2}"
+          ],
+          "correct": 2,
+          "tita_answer": null,
+          "explanation": "Given that, The surface area of a closed rectangular box, which is inscribed in a sphere, is 846 sq cm. So, $2(lb + bh + hl) = 846$. And $4(l + b + h) = 144 \\implies (l + b + h) = 36$. $(l + b + h)^2 = l^2 + b^2 + h^2 + 2(lb + bh + hl)$. $1296 = (l^2 + b^2 + h^2) + 846$. $450 = l^2 + b^2 + h^2$. We are told that this cuboid is inscribed in a sphere, the body diagonal of the cuboid equals the diameter of the sphere. $\\sqrt{l^2 + b^2 + h^2} = 2R$. $l^2 + b^2 + h^2 = 4R^2$. $450 = 4R^2$. $R^2 = 225/2$. $R = 15/\\sqrt{2}$. Volume of sphere will be $4/3 \\times \\pi \\times (15/\\sqrt{2})^3 = 4/3 \\times \\pi \\times (3375 / 2\\sqrt{2}) = \\pi \\times 1125\\sqrt{2}$."
+        }
+      ]
+    }
+  ]
+}
