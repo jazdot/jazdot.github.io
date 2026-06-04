@@ -1,0 +1,295 @@
+{
+  "title": "CAT Quantitative Aptitude Flashcards",
+  "description": "A comprehensive, categorized collection of formulas and concepts extracted from the CAT Formula Book, corrected and formatted for flashcard creation.",
+  "topics": [
+    {
+      "topic_name": "Ratio, Proportion & Variation",
+      "flashcards": [
+        {
+          "question": "What is the Duplicate Ratio of a : b?",
+          "answer": "a² : b²"
+        },
+        {
+          "question": "What is the Sub-duplicate Ratio of a : b?",
+          "answer": "√a : √b"
+        },
+        {
+          "question": "What is the Triplicate Ratio of a : b?",
+          "answer": "a³ : b³"
+        },
+        {
+          "question": "What is the Third Proportional of two numbers a and b?",
+          "answer": "c, such that a : b = b : c (or c = b² / a)"
+        },
+        {
+          "question": "What is the Fourth Proportional to numbers a, b, and c?",
+          "answer": "d, such that a : b = c : d (or d = bc / a)"
+        },
+        {
+          "question": "State the Componendo and Dividendo rule.",
+          "answer": "If a/b = c/d, then (a + b) / (a - b) = (c + d) / (c - d)"
+        }
+      ]
+    },
+    {
+      "topic_name": "Mixtures and Alligations",
+      "flashcards": [
+        {
+          "question": "What is the Alligation Rule formula to find the ratio of quantities of two mixed ingredients?",
+          "answer": "(Quantity of Cheaper) / (Quantity of Dearer) = (Price of Dearer - Mean Price) / (Mean Price - Price of Cheaper)"
+        },
+        {
+          "question": "What is the formula for the amount of liquid A left after replacing 'b' units of a mixture with liquid B, 'n' times?",
+          "answer": "Amount of A left = a * [1 - (b / a)]^n, where 'a' is the initial quantity of liquid A."
+        }
+      ]
+    },
+    {
+      "topic_name": "Profit, Loss and Discount",
+      "flashcards": [
+        {
+          "question": "How is Profit Percentage calculated?",
+          "answer": "Profit % = (Profit / Cost Price) * 100"
+        },
+        {
+          "question": "What is the formula for resultant discount of two successive discounts of a% and b%?",
+          "answer": "Resultant Discount = [a + b - (ab / 100)]%"
+        },
+        {
+          "question": "If a trader sells at Cost Price but uses a false weight, what is the Gain Percentage? (Rectified)",
+          "answer": "Gain % = (Error / False Weight) * 100  OR  (Claimed Weight - True Weight) / True Weight * 100"
+        },
+        {
+          "question": "If you 'Buy x get y free', what is the equivalent discount percentage?",
+          "answer": "Discount % = [y / (x + y)] * 100"
+        },
+        {
+          "question": "If two identical items are sold at the same price, one at a profit of P% and the other at a loss of P%, what is the overall result?",
+          "answer": "There is always an overall loss, calculated as: Loss % = (P² / 100)%"
+        }
+      ]
+    },
+    {
+      "topic_name": "Simple and Compound Interest",
+      "flashcards": [
+        {
+          "question": "What is the formula for Simple Interest?",
+          "answer": "I = (P * T * R) / 100, where P = Principal, T = Time in years, R = Rate of interest per annum."
+        },
+        {
+          "question": "What is the formula for Amount under Compound Interest calculated annually?",
+          "answer": "A = P * (1 + R/100)^N"
+        },
+        {
+          "question": "What is the formula for the Principal if the difference between CI and SI for 2 years is given at a rate R?",
+          "answer": "P = Difference * (100 / R)²"
+        },
+        {
+          "question": "What is the Present Worth of an installment 'K' due 'N' years hence at R% interest?",
+          "answer": "Present Worth = K / (1 + R/100)^N"
+        }
+      ]
+    },
+    {
+      "topic_name": "Time, Speed, Distance & Work",
+      "flashcards": [
+        {
+          "question": "What is the average speed if a person travels equal distances at x km/hr and y km/hr?",
+          "answer": "Average Speed = (2xy) / (x + y)"
+        },
+        {
+          "question": "What is the average speed if a person travels for equal time intervals at x km/hr and y km/hr?",
+          "answer": "Average Speed = (x + y) / 2"
+        },
+        {
+          "question": "What is the formula to find the angle between the hour and minute hands of a clock at H:M?",
+          "answer": "Angle = | (11/2)M - 30H | degrees"
+        },
+        {
+          "question": "How frequently do the minute and hour hands of a well-functioning clock meet?",
+          "answer": "Every 720/11 minutes (approx. 65.45 minutes)"
+        },
+        {
+          "question": "If two people run on a circular track with coprime speeds 'a' and 'b', at how many distinct points will they meet?",
+          "answer": "(a + b) points if running in opposite directions; |a - b| points if running in the same direction."
+        },
+        {
+          "question": "If two trains of lengths L1 and L2 travel in opposite directions at speeds S1 and S2, what is the time taken to cross each other?",
+          "answer": "Time = (L1 + L2) / (S1 + S2)"
+        },
+        {
+          "question": "What is the formula relating Men, Days, Hours, and Work across two scenarios?",
+          "answer": "(M1 * D1 * H1) / W1 = (M2 * D2 * H2) / W2"
+        }
+      ]
+    },
+    {
+      "topic_name": "Linear and Quadratic Equations",
+      "flashcards": [
+        {
+          "question": "For two linear equations a₁x + b₁y = c₁ and a₂x + b₂y = c₂, what is the condition for infinite solutions?",
+          "answer": "a₁ / a₂ = b₁ / b₂ = c₁ / c₂"
+        },
+        {
+          "question": "What is the formula for the roots of a quadratic equation ax² + bx + c = 0?",
+          "answer": "x = [-b ± √(b² - 4ac)] / 2a"
+        },
+        {
+          "question": "What are the conditions for the nature of roots based on the discriminant D = b² - 4ac?",
+          "answer": "If D < 0: Complex imaginary roots. If D = 0: Real and equal roots. If D > 0: Real and distinct roots."
+        },
+        {
+          "question": "What is the minimum value of ax² + bx + c (when a > 0), and where does it occur?",
+          "answer": "Minimum value = (4ac - b²) / 4a. It occurs at x = -b / 2a."
+        }
+      ]
+    },
+    {
+      "topic_name": "Inequalities",
+      "flashcards": [
+        {
+          "question": "State the Triangle Inequality for absolute values.",
+          "answer": "|a| + |b| ≥ |a +b|  AND  |a| - |b| ≤ |a - b|"
+        },
+        {
+          "question": "What is the relationship between Arithmetic Mean (AM), Geometric Mean (GM), and Harmonic Mean (HM)?",
+          "answer": "AM ≥ GM ≥ HM"
+        },
+        {
+          "question": "What is the minimum value of (x + 1/x) for any positive real number x?",
+          "answer": "Minimum value is 2 (x + 1/x ≥ 2)"
+        },
+        {
+          "question": "If ax² + bx + c < 0 and the roots are m and n (where n > m), what is the range of x?",
+          "answer": "m < x < n"
+        }
+      ]
+    },
+    {
+      "topic_name": "Progressions & Series",
+      "flashcards": [
+        {
+          "question": "What is the sum of 'n' terms in an Arithmetic Progression?",
+          "answer": "Sn = (n / 2) * [2a + (n - 1)d] OR Sn = (n / 2) * [First Term + Last Term]"
+        },
+        {
+          "question": "What is the sum of an infinite Geometric Progression for |r| < 1?",
+          "answer": "S∞ = a / (1 - r)"
+        },
+        {
+          "question": "What is the formula for the sum of squares of the first 'n' natural numbers?",
+          "answer": "n(n + 1)(2n + 1) / 6"
+        },
+        {
+          "question": "What is the formula for the sum of cubes of the first 'n' natural numbers?",
+          "answer": "[n(n + 1) / 2]²"
+        }
+      ]
+    },
+    {
+      "topic_name": "Logarithms, Surds & Indices",
+      "flashcards": [
+        {
+          "question": "Simplify log_a (b^c).",
+          "answer": "c * log_a (b)"
+        },
+        {
+          "question": "Express the base change formula for log_a (b).",
+          "answer": "log_c (b) / log_c (a)"
+        },
+        {
+          "question": "Simplify x^(log_b (y)).",
+          "answer": "y^(log_b (x))"
+        },
+        {
+          "question": "What is the result of the infinite nested square root: √(a√(a√(a...)))?",
+          "answer": "a"
+        }
+      ]
+    },
+    {
+      "topic_name": "Geometry and Coordinate Geometry",
+      "flashcards": [
+        {
+          "question": "What is the distance between two parallel lines Ax + By + C₁ = 0 and Ax + By + C₂ = 0?",
+          "answer": "|C₁ - C₂| / √(A² + B²)"
+        },
+        {
+          "question": "What are the coordinates of the Centroid of a triangle with vertices (x₁, y₁), (x₂, y₂), (x₃, y₃)?",
+          "answer": "((x₁ + x₂ + x₃) / 3 , (y₁ + y₂ + y₃) / 3)"
+        },
+        {
+          "question": "State Apollonius' Theorem for a triangle ABC with median AD to side BC.",
+          "answer": "AB² + AC² = 2(AD² + BD²)"
+        },
+        {
+          "question": "What are the Inradius and Circumradius of an equilateral triangle of side 'a'?",
+          "answer": "Inradius = a / (2√3); Circumradius = a / √3"
+        },
+        {
+          "question": "What is the area of a Regular Hexagon with side 'a'?",
+          "answer": "[3√3 / 2] * a²"
+        },
+        {
+          "question": "What is the formula for the area of a Cyclic Quadrilateral?",
+          "answer": "Area = √[(s-a)(s-b)(s-c)(s-d)], where s = (a+b+c+d)/2"
+        }
+      ]
+    },
+    {
+      "topic_name": "Set Theory",
+      "flashcards": [
+        {
+          "question": "What is the formula for n(A U B U C)?",
+          "answer": "n(A) + n(B) + n(C) - n(A∩B) - n(B∩C) - n(C∩A) + n(A∩B∩C)"
+        },
+        {
+          "question": "How many total subsets can be formed from a set containing 'n' elements?",
+          "answer": "2^n subsets"
+        }
+      ]
+    },
+    {
+      "topic_name": "Number System & Remainders",
+      "flashcards": [
+        {
+          "question": "If N = p^a * q^b * r^c (where p, q, r are primes), what is the total number of factors of N?",
+          "answer": "(a + 1)(b + 1)(c + 1)"
+        },
+        {
+          "question": "What is Euler's Totient function φ(N) for N = p^a * q^b?",
+          "answer": "φ(N) = N * (1 - 1/p) * (1 - 1/q)"
+        },
+        {
+          "question": "State Fermat's Little Theorem.",
+          "answer": "a^(p-1) mod p = 1 (where p is a prime number and 'a' is coprime to p)"
+        },
+        {
+          "question": "State Wilson's Theorem.",
+          "answer": "(p - 1)! mod p = p - 1 (where p is a prime number)"
+        }
+      ]
+    },
+    {
+      "topic_name": "Permutations, Combinations & Probability",
+      "flashcards": [
+        {
+          "question": "What is the formula for combinations (nCr)?",
+          "answer": "n! / [(n - r)! * r!]"
+        },
+        {
+          "question": "What is the number of ways to partition 'n' identical items into 'r' distinct slots?",
+          "answer": "(n + r - 1)C(r - 1)"
+        },
+        {
+          "question": "What is the formula for Derangements (D_n) of 'n' distinct items? (Rectified)",
+          "answer": "D_n = n! * [1/0! - 1/1! + 1/2! - 1/3! + ... + (-1)^n / n!]"
+        },
+        {
+          "question": "State Bayes' Theorem for Conditional Probability.",
+          "answer": "P(B|A) = [P(A|B) * P(B)] / P(A)"
+        }
+      ]
+    }
+  ]
+}

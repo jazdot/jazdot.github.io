@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2 } from 'lucide-react';
 import { useCatStore } from './catStore';
-import { CAT_PAST_PAPERS, getPracticeQuestionsBySection, type Question } from '../data/cat_db';
+import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMasterDB';
@@ -77,6 +77,21 @@ const deleteFormula = async (id: string) => {
   });
 };
 
+// --- Latex Helper ---
+const renderLatex = (text: string) => {
+  if (!text) return '';
+  if (!(window as any).katex) return text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
+  const parts = text.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
+  return parts.map(part => {
+    if (part.startsWith('$$') && part.endsWith('$$')) {
+      try { return (window as any).katex.renderToString(part.slice(2, -2), { displayMode: true, throwOnError: false }); } catch(e) { return part; }
+    } else if (part.startsWith('$') && part.endsWith('$')) {
+      try { return (window as any).katex.renderToString(part.slice(1, -1), { displayMode: false, throwOnError: false }); } catch(e) { return part; }
+    }
+    return part.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
+  }).join('');
+};
+
 // --- Flashcard Component ---
 const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEdit: () => void, onDelete: () => void, onUpdate: (f: any) => void }) => {
   const [flipped, setFlipped] = useState(false);
@@ -109,9 +124,10 @@ const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEd
         <button onClick={(e) => { e.stopPropagation(); onEdit(); }} className="p-2 text-slate-500 hover:text-[hsl(var(--accent))] bg-white/90 dark:bg-slate-800/90 rounded-lg backdrop-blur-md shadow-sm border border-slate-200/50 dark:border-white/10 transition-colors"><Edit2 size={16} /></button>
         <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-2 text-slate-500 hover:text-rose-500 bg-white/90 dark:bg-slate-800/90 rounded-lg backdrop-blur-md shadow-sm border border-slate-200/50 dark:border-white/10 transition-colors"><Trash2 size={16} /></button>
       </div>
-      <div className="absolute top-4 left-4 z-10">
+      <div className="absolute top-4 left-4 z-10 flex gap-2">
          <span className={`text-xs font-bold px-2 py-1 rounded ${mastery === 'Mastered' ? 'bg-emerald-500/20 text-emerald-500' : mastery === 'Learning' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-rose-500/20 text-rose-500'}`}>{mastery}</span>
-         {isDue && <span className="ml-2 text-xs font-bold px-2 py-1 rounded bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))]">Due</span>}
+         {isDue && <span className="text-xs font-bold px-2 py-1 rounded bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))]">Due</span>}
+         {formula.isOfficial && <span className="text-xs font-bold px-2 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">Official</span>}
       </div>
       <m.div
         className="w-full h-full relative"
@@ -121,11 +137,12 @@ const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEd
       >
         {/* Front */}
         <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-center items-center p-6 text-center" style={{ backfaceVisibility: 'hidden' }}>
-          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 whitespace-pre-line">{formula.front}</h3>
+          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100" dangerouslySetInnerHTML={{ __html: renderLatex(formula.front) }} />
+          {formula.topic && <div className="absolute bottom-5 text-xs font-bold text-slate-400 uppercase tracking-wider">{formula.topic}</div>}
         </div>
         {/* Back */}
         <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm bg-[hsl(var(--accent))] border-[hsl(var(--accent))] flex flex-col justify-between items-center p-6 text-center" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-          <div className="flex-1 flex items-center justify-center text-lg font-medium text-white whitespace-pre-line">{formula.back}</div>
+          <div className="flex-1 flex items-center justify-center text-lg font-medium text-white" dangerouslySetInnerHTML={{ __html: renderLatex(formula.back) }} />
           <div className="flex gap-2 w-full mt-4">
              <button onClick={(e) => handleRate(e, 1)} className="flex-1 bg-rose-500/20 hover:bg-rose-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Hard</button>
              <button onClick={(e) => handleRate(e, 3)} className="flex-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Good</button>
@@ -140,9 +157,11 @@ const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEd
 
 export default function CatMaster() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [paperList, setPaperList] = useState<{id: string, title: string}[]>([]);
   
   // Zustand Global State
   const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating } = useCatStore();
@@ -153,6 +172,7 @@ export default function CatMaster() {
   const [activeSection, setActiveSection] = useState<string>('');
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
+  const [isPaused, setIsPaused] = useState(false);
   const [sectionTimes, setSectionTimes] = useState<Record<string, number>>({});
   const [reviewFilter, setReviewFilter] = useState<'all' | 'correct' | 'incorrect' | 'unanswered'>('all');
   const [taggedQuestions, setTaggedQuestions] = useState<Record<string, string>>({});
@@ -171,6 +191,7 @@ export default function CatMaster() {
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
+  const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
   const [qotd, setQotd] = useState<Question | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
     () => (localStorage.getItem('cat-master-theme') as 'light' | 'dark' | 'system') || 'system'
@@ -180,6 +201,20 @@ export default function CatMaster() {
     try { const saved = localStorage.getItem('cat-master-question-ratings'); return saved ? JSON.parse(saved) : {}; } 
     catch { return {}; }
   });
+  const [, setKatexLoaded] = useState(false);
+
+  useEffect(() => {
+    if ((window as any).katex) { setKatexLoaded(true); return; }
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js';
+    script.onload = () => setKatexLoaded(true);
+    document.head.appendChild(script);
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css';
+    document.head.appendChild(link);
+  }, []);
 
   useEffect(() => {
     // Try to resume an unfinished test from localStorage
@@ -195,6 +230,7 @@ export default function CatMaster() {
           setActiveSection(savedState.activeSection || '');
           setActiveQuestionIdx(savedState.activeQuestionIdx || 0);
           setSectionTimes(savedState.sectionTimes || {});
+          setIsPaused(true);
           setMockPhase('test');
         } else {
           localStorage.removeItem('cat-master-active-test');
@@ -234,7 +270,7 @@ export default function CatMaster() {
 
   useEffect(() => {
     let timer: any;
-    if (mockPhase === 'test' && timeLeft > 0) {
+    if (mockPhase === 'test' && timeLeft > 0 && !isPaused) {
       timer = setInterval(() => {
         setTimeLeft(prev => prev - 1);
         setSectionTimes(prev => ({
@@ -242,12 +278,12 @@ export default function CatMaster() {
           [activeSection]: (prev[activeSection] || 0) + 1
         }));
       }, 1000);
-    } else if (timeLeft <= 0 && mockPhase === 'test') {
+    } else if (timeLeft <= 0 && mockPhase === 'test' && !isPaused) {
       // Auto-submit triggers when timer expires, evaluating the exact final score using the latest render scope's answers
       handleSubmitMock();
     }
     return () => clearInterval(timer);
-  }, [mockPhase, timeLeft, activeSection]);
+  }, [mockPhase, timeLeft, activeSection, isPaused]);
 
   useEffect(() => {
     if (mockPhase === 'test' && currentTest) {
@@ -267,46 +303,50 @@ export default function CatMaster() {
   }, [mockPhase, currentTest, selectedAnswers, markedForReview, timeLeft, activeSection, activeQuestionIdx, sectionTimes]);
 
   useEffect(() => {
-    let allQs: Question[] = [];
-    CAT_PAST_PAPERS.forEach(paper => {
-      allQs = [...allQs, ...(paper.questions || [])];
-    });
-
-    if (practiceFilterTopic) {
-      const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
-      setPracticeQuestions(allQs.filter(q => topicQIds.includes(q.id)));
-    } else if (practiceFilterBookmark) {
-      const bookmarkedIds = progress.bookmarkedQuestions || [];
-      setPracticeQuestions(allQs.filter(q => bookmarkedIds.includes(q.id)));
-    } else if (isAdaptive) {
+    const fetchPracticeQuestions = async () => {
+      if (practiceFilterTopic) {
+        const allQs = await getAllQuestions();
+        const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
+        setPracticeQuestions(allQs.filter(q => topicQIds.includes(q.id)));
+      } else if (practiceFilterBookmark) {
+        const allQs = await getAllQuestions();
+        const bookmarkedIds = progress.bookmarkedQuestions || [];
+        setPracticeQuestions(allQs.filter(q => bookmarkedIds.includes(q.id)));
+      } else if (isAdaptive) {
+        const allQs = await getAllQuestions();
         const subjectQs = allQs.filter(q => q.section === practiceSubject);
         const userRating = progress.skillRatings?.[practiceSubject] || 1200;
         const ratedQs = subjectQs.map(q => ({
           ...q,
           rating: questionRatings[q.id] || 1200,
         }));
-        
+
         ratedQs.sort((a, b) => Math.abs(a.rating - userRating) - Math.abs(b.rating - userRating));
-        
+
         const selectedQs = ratedQs.slice(0, 20).sort(() => 0.5 - Math.random());
         setPracticeQuestions(selectedQs);
-    } else {
-      setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject).slice(0, 20));
+      } else {
+        const questions = await getPracticeQuestionsBySection(practiceSubject);
+        setPracticeQuestions(questions.slice(0, 20));
+      }
+      setPracticeAnswers({});
+    };
+    if (activeTab === 'practice') {
+      fetchPracticeQuestions();
     }
-    setPracticeAnswers({});
-  }, [practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions, isAdaptive, progress.skillRatings, questionRatings]);
+  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions, isAdaptive, progress.skillRatings, questionRatings]);
 
   useEffect(() => {
-    let allQs: Question[] = [];
-    CAT_PAST_PAPERS.forEach(paper => {
-      allQs = [...allQs, ...(paper.questions || [])];
-    });
-    if (allQs.length > 0) {
-      const today = new Date();
-      const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-      const randomIdx = seed % allQs.length;
-      setQotd(allQs[randomIdx]);
-    }
+    const fetchQotd = async () => {
+      const allQs = await getAllQuestions();
+      if (allQs.length > 0) {
+        const today = new Date();
+        const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+        const randomIdx = seed % allQs.length;
+        setQotd(allQs[randomIdx]);
+      }
+    };
+    fetchQotd();
   }, []);
 
   useEffect(() => {
@@ -352,14 +392,28 @@ export default function CatMaster() {
       const loadFormulas = async () => {
         try {
           let f = await getFormulas();
-          if (f.length === 0) { // Seed default flashcards if DB is empty
-            const defaultF = [
-              { id: '1', front: 'Basic Proportionality Theorem\n(Geometry)', back: 'If a line is drawn parallel to one side of a triangle and it intersects the other two sides at two distinct points, then it divides the two sides in the same ratio.' },
-              { id: '2', front: 'Logarithm Power Rule\n(Algebra)', back: 'log_a(x^n) = n × log_a(x)' },
-              { id: '3', front: 'Compound Interest\n(Quant)', back: 'A = P(1 + R/100)^N' }
-            ];
-            for (let df of defaultF) await saveFormula(df);
-            f = defaultF;
+          if (!f.some(form => form.isOfficial)) { // Seed official flashcards from formulas.json
+            const formulasRaw = (await import('../data/formulas.json')).default || await import('../data/formulas.json');
+            const defaultF: any[] = [];
+            let idCounter = 1;
+            if (formulasRaw && formulasRaw.topics) {
+              formulasRaw.topics.forEach((topic: any) => {
+                topic.flashcards?.forEach((card: any) => {
+                  defaultF.push({
+                    id: `official_${idCounter++}`,
+                    front: card.question,
+                    back: card.answer,
+                    topic: topic.topic_name,
+                    isOfficial: true,
+                    reps: 0,
+                    interval: 1,
+                    ease: 2.5
+                  });
+                });
+              });
+              for (let df of defaultF) await saveFormula(df);
+              f = await getFormulas();
+            }
           }
           setFormulas(f);
         } catch (e) { console.error("Failed to load formulas", e); }
@@ -399,8 +453,11 @@ export default function CatMaster() {
   };
 
   const handleStartPastPaper = async (paperId: string) => {
-    const paper = CAT_PAST_PAPERS.find(p => p.id === paperId);
-    if (!paper) return;
+    const loader = paperLoaders[paperId];
+    if (!loader) return;
+    
+    const paper = await loader();
+
     
     const testObj = {
       id: paper.id + '_' + Date.now().toString(),
@@ -414,6 +471,26 @@ export default function CatMaster() {
     setMockPhase('confirm');
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const challengeId = params.get('challenge');
+    if (challengeId && paperLoaders[challengeId]) {
+      setActiveTab('mock');
+      handleStartPastPaper(challengeId);
+      window.history.replaceState({}, '', location.pathname);
+    }
+  }, [location.search]); 
+
+  useEffect(() => {
+    if (activeTab === 'mock') {
+      const papers = Object.keys(paperLoaders).map(id => ({
+        id,
+        title: id.replace(/_/g, ' ')
+      }));
+      setPaperList(papers);
+    }
+  }, [activeTab]);
+
   const startConfirmedTest = () => {
     setTimeLeft(7200);
     const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
@@ -425,6 +502,7 @@ export default function CatMaster() {
     setSectionTimes({});
     setReviewFilter('all');
     setTaggedQuestions({});
+    setIsPaused(false);
     setMockPhase('test');
   };
 
@@ -476,7 +554,15 @@ export default function CatMaster() {
   // Zero-dependency SVG Donut Chart Calculation
   const accuracy = progress.totalAttempted > 0 ? Math.round((progress.correct / progress.totalAttempted) * 100) : 0;
 
-  const filteredFormulas = formulas.filter(f => f.front.toLowerCase().includes(formulaSearch.toLowerCase()) || f.back.toLowerCase().includes(formulaSearch.toLowerCase()));
+  const formulaTopics = ['All', 'Custom (Mine)', ...Array.from(new Set(formulas.filter(f => f.isOfficial).map(f => f.topic)))];
+
+  const filteredFormulas = formulas.filter(f => {
+    const matchesSearch = f.front.toLowerCase().includes(formulaSearch.toLowerCase()) || f.back.toLowerCase().includes(formulaSearch.toLowerCase());
+    if (!matchesSearch) return false;
+    if (formulaTopicFilter === 'All') return true;
+    if (formulaTopicFilter === 'Custom (Mine)') return !f.isOfficial;
+    return f.topic === formulaTopicFilter;
+  });
 
   return (
     <m.div 
@@ -678,15 +764,20 @@ export default function CatMaster() {
                   <div className="p-8 flex flex-col flex-1 border-b md:border-b-0 md:border-r border-slate-200/50 dark:border-white/10">
                     <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><BrainCircuit size={24} className="text-[hsl(var(--accent))]" /> Official Past Papers</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {CAT_PAST_PAPERS.map((paper) => (
+                      {paperList.map((paper) => (
                         <div key={paper.id} className="p-5 bg-white/60 dark:bg-white/5 rounded-xl border border-slate-200/50 dark:border-white/10 flex flex-col justify-between shadow-sm hover:border-[hsl(var(--accent))]/50 hover:shadow-md transition-all group">
                           <div className="mb-4">
                         <h4 className="font-bold text-lg">{paper.title || paper.id || 'Unnamed Paper'}</h4>
-                        <p className="text-slate-500 text-sm">{paper.questions?.length || 0} Questions</p>
+                        <p className="text-slate-500 text-sm">Past Paper</p>
                           </div>
-                          <button onClick={() => handleStartPastPaper(paper.id)} className="w-full flex items-center justify-center gap-2 bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))] hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
-                            <PlayCircle size={18} /> Start Test
-                          </button>
+                          <div className="flex flex-col gap-2">
+                            <button onClick={() => handleStartPastPaper(paper.id)} className="w-full flex items-center justify-center gap-2 bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))] hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
+                              <PlayCircle size={18} /> Start Test
+                            </button>
+                            <button onClick={(e) => { e.stopPropagation(); const url = new URL(window.location.href); url.searchParams.set('challenge', paper.id); navigator.clipboard.writeText(url.toString()); alert('Challenge URL copied to clipboard!'); }} className="w-full flex items-center justify-center gap-2 bg-purple-500/10 text-purple-500 hover:bg-purple-500 hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
+                              <Share2 size={18} /> Challenge Friend
+                            </button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -723,10 +814,21 @@ export default function CatMaster() {
                 </div>
               )}
               {mockPhase === 'test' && currentTest && (
-                <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
+                <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50 relative">
+                  <AnimatePresence>
+                    {isPaused && (
+                      <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-[100] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex flex-col items-center justify-center text-center p-6">
+                        <Timer size={48} className="text-[hsl(var(--accent))] mb-4 opacity-50" />
+                        <h2 className="text-3xl font-black mb-2">Test Paused</h2>
+                        <p className="text-slate-500 mb-8 max-w-md">Your timer has been stopped. The questions are hidden to maintain fairness. You can resume whenever you're ready.</p>
+                        <button onClick={() => setIsPaused(false)} className="px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))] text-white shadow-lg hover:scale-105 active:scale-95 transition-all">Resume Test</button>
+                      </m.div>
+                    )}
+                  </AnimatePresence>
                   <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
                     <div className="flex items-center gap-4">
+                      <button onClick={() => setIsPaused(true)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm hidden sm:block">Pause</button>
                       <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg font-bold text-lg flex items-center gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
                          <Timer size={18} /> {formatTime(timeLeft)}
                       </div>
@@ -1297,7 +1399,7 @@ export default function CatMaster() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
                   <h3 className="text-2xl font-bold mb-2">Interactive Formula Hub</h3>
-                  <p className="text-slate-500">Click a card to reveal the formula, or add your own to the IndexedDB offline database.</p>
+                  <p className="text-slate-500">Master the official CAT formulas or add your own custom flashcards to IndexedDB.</p>
                 </div>
                 <div className="flex gap-4 w-full sm:w-auto">
                   <div className="relative flex-1 sm:w-64">
@@ -1310,12 +1412,24 @@ export default function CatMaster() {
                 </div>
               </div>
 
+              <div className="flex gap-2 overflow-x-auto pb-4 mb-2 scrollbar-hide">
+                {formulaTopics.map((topic: any) => (
+                  <button 
+                    key={topic} 
+                    onClick={() => setFormulaTopicFilter(topic)} 
+                    className={`px-4 py-2 rounded-xl font-bold whitespace-nowrap text-sm transition-colors ${formulaTopicFilter === topic ? 'bg-[hsl(var(--accent))] text-white' : 'bg-white/60 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700/50 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'}`}
+                  >
+                    {topic}
+                  </button>
+                ))}
+              </div>
+
               <AnimatePresence>
                 {isAddingFormula && (
                   <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-8 overflow-hidden">
                     <div className="bg-white/40 dark:bg-white/5 p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 flex flex-col md:flex-row gap-4 mt-2">
-                      <input type="text" placeholder="Front (e.g. Area of a Circle)" value={newFormula.front} onChange={e => setNewFormula({...newFormula, front: e.target.value})} className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
-                      <input type="text" placeholder="Back (e.g. π * r²)" value={newFormula.back} onChange={e => setNewFormula({...newFormula, back: e.target.value})} className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
+                      <input type="text" placeholder="Front (e.g. Area of a Circle: $A = \pi r^2$)" value={newFormula.front} onChange={e => setNewFormula({...newFormula, front: e.target.value})} className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
+                      <input type="text" placeholder="Back (e.g. $A = \pi r^2$)" value={newFormula.back} onChange={e => setNewFormula({...newFormula, back: e.target.value})} className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
                       <button onClick={async () => {
                         if(!newFormula.front || !newFormula.back) return;
                         const f = { id: editingFormulaId || Date.now().toString(), front: newFormula.front, back: newFormula.back };
