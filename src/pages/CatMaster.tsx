@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2 } from 'lucide-react';
@@ -172,6 +172,7 @@ export default function CatMaster() {
   const [activeSection, setActiveSection] = useState<string>('');
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
   const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [sectionTimes, setSectionTimes] = useState<Record<string, number>>({});
   const [reviewFilter, setReviewFilter] = useState<'all' | 'correct' | 'incorrect' | 'unanswered'>('all');
@@ -215,6 +216,28 @@ export default function CatMaster() {
     link.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css';
     document.head.appendChild(link);
   }, []);
+
+  const audioCtxRef = useRef<any>(null);
+  const playTickSound = () => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === 'suspended') ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 800;
+      gain.gain.value = 0.05;
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.1);
+      osc.stop(ctx.currentTime + 0.1);
+    } catch (e) {
+      console.error("Audio playback failed", e);
+    }
+  };
 
   useEffect(() => {
     // Try to resume an unfinished test from localStorage
@@ -272,7 +295,11 @@ export default function CatMaster() {
     let timer: any;
     if (mockPhase === 'test' && timeLeft > 0 && !isPaused) {
       timer = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+        setTimeLeft(prev => {
+          const nextTime = prev - 1;
+          if (nextTime > 0 && nextTime <= 300) playTickSound();
+          return nextTime;
+        });
         setSectionTimes(prev => ({
           ...prev,
           [activeSection]: (prev[activeSection] || 0) + 1
@@ -835,6 +862,15 @@ export default function CatMaster() {
                       <button onClick={() => setShowSubmitSummary(true)} className="bg-[hsl(var(--accent))] text-white px-5 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all">Submit</button>
                     </div>
                   </div>
+
+                  {/* Progress Bar */}
+                  <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 shrink-0">
+                    <m.div 
+                      className="h-full bg-[hsl(var(--accent))] transition-all"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.round((Object.values(selectedAnswers).filter(v => v !== undefined && String(v).trim() !== '').length / (currentTest.questions?.length || 1)) * 100)}%` }}
+                    />
+                  </div>
                   
                   <div className="flex bg-white/40 dark:bg-white/5 border-b border-slate-200/50 dark:border-white/10 shrink-0 px-2 overflow-x-auto scrollbar-hide">
                      {Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))).map((sec: any) => (
@@ -1000,21 +1036,57 @@ export default function CatMaster() {
                     
                     <div className="mb-8 bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 text-left">
                       <h3 className="font-bold mb-4">Section Time Analysis</h3>
-                      <div className="space-y-3">
-                        {Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))).map((sec: any) => {
-                          const time = lastTestResult.sectionTimes?.[sec] || 0;
-                          const qCount = currentTest.questions?.filter((q: any) => q.section === sec).length || 1;
-                          const avg = Math.round(time / qCount);
+                      <div className="flex flex-col md:flex-row gap-8 items-center">
+                        {(() => {
+                          const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+                          const totalTime = sections.reduce((sum, sec) => sum + (lastTestResult.sectionTimes?.[sec] || 0), 0);
+                          const secColors = ['#10b981', '#a855f7', '#3b82f6', '#f43f5e', '#f59e0b'];
+                          let cumulativePercent = 0;
+                          const conicStops = totalTime > 0 ? sections.map((sec, i) => {
+                            const time = lastTestResult.sectionTimes?.[sec] || 0;
+                            const pct = (time / totalTime) * 100;
+                            const color = hoveredSection && hoveredSection !== sec ? secColors[i % secColors.length] + '40' : secColors[i % secColors.length];
+                            const stop = `${color} ${cumulativePercent}% ${cumulativePercent + pct}%`;
+                            cumulativePercent += pct;
+                            return stop;
+                          }).join(', ') : '#cbd5e1 0% 100%';
+
                           return (
-                            <div key={sec} className="flex flex-col sm:flex-row sm:justify-between sm:items-center pb-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0 last:pb-0 gap-1">
-                              <span className="font-bold text-slate-700 dark:text-slate-300">{sec}</span>
-                              <div className="flex items-center gap-4 text-sm">
-                                 <span className="text-slate-500">Total: <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{formatTime(time)}</span></span>
-                                 <span className="text-slate-500">Avg/Q: <span className="font-mono font-bold text-[hsl(var(--accent))]">{formatTime(avg)}</span></span>
+                            <>
+                              <div className="w-48 h-48 shrink-0 rounded-full shadow-md relative flex items-center justify-center transition-all duration-500" style={{ background: `conic-gradient(${conicStops})` }}>
+                                <div className="w-32 h-32 bg-[#f8fafc] dark:bg-[#020617] rounded-full flex flex-col items-center justify-center shadow-inner z-10 transition-colors">
+                                  <span className="text-xs text-slate-500 uppercase tracking-wider font-bold">Total Time</span>
+                                  <span className="font-mono font-black text-lg">{formatTime(totalTime)}</span>
+                                </div>
                               </div>
-                            </div>
+                              <div className="space-y-2 flex-1 w-full">
+                                {sections.map((sec: any, i: number) => {
+                                  const time = lastTestResult.sectionTimes?.[sec] || 0;
+                                  const qCount = currentTest.questions?.filter((q: any) => q.section === sec).length || 1;
+                                  const avg = Math.round(time / qCount);
+                                  const color = secColors[i % secColors.length];
+                                  return (
+                                    <div 
+                                      key={sec} 
+                                      onMouseEnter={() => setHoveredSection(sec)}
+                                      onMouseLeave={() => setHoveredSection(null)}
+                                      className={`flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 rounded-xl transition-all cursor-default ${hoveredSection === sec ? 'bg-white/60 dark:bg-white/10 shadow-sm scale-[1.02]' : hoveredSection ? 'opacity-40' : 'hover:bg-white/40 dark:hover:bg-white/5'}`}
+                                    >
+                                      <div className="flex items-center gap-3">
+                                        <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: color }}></div>
+                                        <span className="font-bold text-slate-700 dark:text-slate-300">{sec}</span>
+                                      </div>
+                                      <div className="flex items-center gap-4 text-sm mt-2 sm:mt-0">
+                                         <span className="text-slate-500">Total: <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{formatTime(time)}</span></span>
+                                         <span className="text-slate-500">Avg/Q: <span className="font-mono font-bold text-[hsl(var(--accent))]">{formatTime(avg)}</span></span>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </>
                           );
-                        })}
+                        })()}
                       </div>
                     </div>
 
