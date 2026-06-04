@@ -193,6 +193,7 @@ export default function CatMaster() {
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
   const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
+  const [showMobilePalette, setShowMobilePalette] = useState(false);
   const [qotd, setQotd] = useState<Question | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
     () => (localStorage.getItem('cat-master-theme') as 'light' | 'dark' | 'system') || 'system'
@@ -635,8 +636,8 @@ export default function CatMaster() {
             <span className="hidden md:inline font-medium">{user ? 'Log Out' : 'Log In'}</span>
           </button>
         </div>
-        <div className="p-4 border-t border-slate-200/50 dark:border-white/10 hidden md:block">
-          <div className="flex items-center justify-around md:justify-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+        <div className="p-2 md:p-4 border-t border-slate-200/50 dark:border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-around gap-1 md:gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
             <button onClick={() => setTheme('light')} title="Light Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'light' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Sun size={16} /></button>
             <button onClick={() => setTheme('system')} title="System Preference" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'system' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Monitor size={16} /></button>
             <button onClick={() => setTheme('dark')} title="Dark Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Moon size={16} /></button>
@@ -854,12 +855,13 @@ export default function CatMaster() {
                   </AnimatePresence>
                   <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
-                    <div className="flex items-center gap-4">
-                      <button onClick={() => setIsPaused(true)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm hidden sm:block">Pause</button>
-                      <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg font-bold text-lg flex items-center gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
+                    <div className="flex items-center gap-2 md:gap-4">
+                      <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
+                      <button onClick={() => setIsPaused(true)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm hidden lg:block">Pause</button>
+                      <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-2 md:px-3 py-1.5 rounded-lg font-bold text-sm md:text-lg flex items-center gap-1 md:gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
                          <Timer size={18} /> {formatTime(timeLeft)}
                       </div>
-                      <button onClick={() => setShowSubmitSummary(true)} className="bg-[hsl(var(--accent))] text-white px-5 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all">Submit</button>
+                      <button onClick={() => setShowSubmitSummary(true)} className="bg-[hsl(var(--accent))] text-white px-3 md:px-5 py-1.5 md:py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base">Submit</button>
                     </div>
                   </div>
 
@@ -965,9 +967,15 @@ export default function CatMaster() {
                         })()}
                      </div>
 
-                     <div className="w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white/40 dark:bg-white/5 flex-col hidden md:flex">
-                        <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold">
-                          Question Palette
+                     {/* Mobile Palette Overlay */}
+                     {showMobilePalette && (
+                       <div className="md:hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-40" onClick={() => setShowMobilePalette(false)}></div>
+                     )}
+
+                     <div className={`w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : 'hidden md:flex'}`}>
+                        <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold flex justify-between items-center">
+                          <span>Question Palette</span>
+                          <button onClick={() => setShowMobilePalette(false)} className="md:hidden text-slate-500"><X size={20} /></button>
                         </div>
                         <div className="p-4 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
                            <div className="grid grid-cols-4 gap-2">
@@ -1127,7 +1135,8 @@ export default function CatMaster() {
                 <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
                   <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title} - Review</h3>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 md:gap-4">
+                      <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
                       <select 
                         value={reviewFilter} 
                         onChange={(e) => { setReviewFilter(e.target.value as any); setActiveQuestionIdx(0); }}
@@ -1138,7 +1147,7 @@ export default function CatMaster() {
                         <option value="incorrect">Incorrect Only</option>
                         <option value="unanswered">Unanswered Only</option>
                       </select>
-                      <button onClick={() => setMockPhase('result')} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-5 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all">Back to Results</button>
+                      <button onClick={() => setMockPhase('result')} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 md:px-5 py-1.5 md:py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base whitespace-nowrap">Back <span className="hidden md:inline">to Results</span></button>
                     </div>
                   </div>
                   
@@ -1284,9 +1293,15 @@ export default function CatMaster() {
                         })()}
                      </div>
 
-                     <div className="w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white/40 dark:bg-white/5 flex-col hidden md:flex">
-                        <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold">
-                          Question Palette
+                     {/* Mobile Palette Overlay */}
+                     {showMobilePalette && (
+                       <div className="md:hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-40" onClick={() => setShowMobilePalette(false)}></div>
+                     )}
+
+                     <div className={`w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : 'hidden md:flex'}`}>
+                        <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold flex justify-between items-center">
+                          <span>Question Palette</span>
+                          <button onClick={() => setShowMobilePalette(false)} className="md:hidden text-slate-500"><X size={20} /></button>
                         </div>
                         <div className="p-4 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
                            <div className="grid grid-cols-4 gap-2">
