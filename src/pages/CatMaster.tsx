@@ -815,7 +815,7 @@ export default function CatMaster() {
           )}
 
           {activeTab === 'mock' && (
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden flex flex-col flex-1 min-h-[600px] lg:h-[calc(100vh-12rem)]">
+            <div className={`bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-sm overflow-hidden flex flex-col flex-1 ${mockPhase === 'test' || mockPhase === 'review' ? 'fixed inset-0 z-[5000] md:relative md:inset-auto md:z-auto md:rounded-2xl h-[100dvh] md:h-[calc(100vh-12rem)] md:min-h-[600px] bg-[#f8fafc] dark:bg-[#020617] md:bg-white/60 md:dark:bg-white/5' : 'rounded-2xl min-h-[600px] lg:h-[calc(100vh-12rem)]'}`}>
               {mockPhase === 'select' && (
                 <div className="flex flex-col md:flex-row w-full h-full flex-1">
                   <div className="p-8 flex flex-col flex-1 border-b md:border-b-0 md:border-r border-slate-200/50 dark:border-white/10">
@@ -945,20 +945,20 @@ export default function CatMaster() {
                                     {q.context}
                                   </div>
                                 )}
-                                <div className="bg-white/60 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                                <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                                   <div className="flex justify-between items-start mb-4">
-                                    <p className="font-bold text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-sm font-normal">of {sectionQuestions.length}</span></p>
-                                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
+                                    <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {sectionQuestions.length}</span></p>
+                                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <p className="font-medium mb-6 text-lg">{q.text}</p>
+                                  <p className="font-medium mb-6 text-base md:text-lg">{q.text}</p>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => (
-                                      <label key={oIdx} className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/5' : 'border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50'}`}>
+                                      <label key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/5' : 'border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50'}`}>
                                         <input type="radio" name={`q-${q.originalIndex}`} checked={selectedAnswers[q.originalIndex] === oIdx} onChange={() => setSelectedAnswers(prev => ({ ...prev, [q.originalIndex]: oIdx }))} className="hidden" />
                                         <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))]' : 'border-slate-400'}`}>
                                           {selectedAnswers[q.originalIndex] === oIdx && <div className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--accent))]"></div>}
                                         </div>
-                                        <span className="text-base">{opt}</span>
+                                        <span className="text-sm md:text-base">{opt}</span>
                                       </label>
                                     )) : (
                                       <input 
@@ -972,15 +972,15 @@ export default function CatMaster() {
                                   </div>
                                 </div>
                                 
-                                <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4">
+                                <div className="mt-6 flex flex-col sm:flex-row justify-between gap-3 md:gap-4 pb-8 md:pb-0">
                                    <button 
                                      disabled={activeQuestionIdx === 0} 
                                      onClick={() => setActiveQuestionIdx(prev => prev - 1)}
-                                     className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all order-2 sm:order-1"
+                                     className="w-full sm:w-auto px-4 md:px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all order-2 sm:order-1 text-sm md:text-base"
                                    >
                                      Previous
                                    </button>
-                                   <div className="flex flex-wrap gap-3 sm:gap-4 order-1 sm:order-2 justify-end">
+                                   <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-4 order-1 sm:order-2 w-full sm:w-auto">
                                      <button 
                                        disabled={selectedAnswers[q.originalIndex] === undefined || selectedAnswers[q.originalIndex] === ''}
                                        onClick={() => setSelectedAnswers(prev => {
@@ -988,20 +988,20 @@ export default function CatMaster() {
                                          delete next[q.originalIndex];
                                          return next;
                                        })}
-                                       className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-500 hover:border-rose-500 text-slate-600 dark:text-slate-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                       className="px-2 md:px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-500 hover:border-rose-500 text-slate-600 dark:text-slate-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-xs md:text-base"
                                      >
-                                       Clear Response
+                                       Clear
                                      </button>
                                      <button 
                                        onClick={() => setMarkedForReview(prev => ({...prev, [q.originalIndex]: !prev[q.originalIndex]}))}
-                                       className={`px-6 py-3 rounded-xl font-bold border-2 transition-all ${markedForReview[q.originalIndex] ? 'border-purple-500 text-purple-500 bg-purple-50 dark:bg-purple-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-purple-500 hover:text-purple-500 text-slate-600 dark:text-slate-400'}`}
+                                       className={`px-2 md:px-6 py-3 rounded-xl font-bold border-2 transition-all text-xs md:text-base ${markedForReview[q.originalIndex] ? 'border-purple-500 text-purple-500 bg-purple-50 dark:bg-purple-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-purple-500 hover:text-purple-500 text-slate-600 dark:text-slate-400'}`}
                                      >
-                                       {markedForReview[q.originalIndex] ? 'Unmark Review' : 'Mark for Review'}
+                                       Review
                                      </button>
                                      <button 
                                        disabled={activeQuestionIdx === sectionQuestions.length - 1} 
                                        onClick={() => setActiveQuestionIdx(prev => prev + 1)}
-                                       className="px-6 py-3 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                       className="col-span-2 sm:col-auto px-4 md:px-6 py-3 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
                                      >
                                        Save & Next
                                      </button>
@@ -1265,12 +1265,12 @@ export default function CatMaster() {
                                     {q.context}
                                   </div>
                                 )}
-                                <div className="bg-white/60 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                                <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                                   <div className="flex justify-between items-start mb-4">
-                                    <p className="font-bold text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-sm font-normal">of {sectionQuestions.length}</span></p>
-                                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
+                                    <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {sectionQuestions.length}</span></p>
+                                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <p className="font-medium mb-6 text-lg">{q.text}</p>
+                                  <p className="font-medium mb-6 text-base md:text-lg">{q.text}</p>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => {
                                       const isSelected = selectedAnswers[q.originalIndex] === oIdx;
@@ -1286,11 +1286,11 @@ export default function CatMaster() {
                                       }
 
                                       return (
-                                        <div key={oIdx} className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all ${borderClass} ${bgClass}`}>
+                                        <div key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 transition-all ${borderClass} ${bgClass}`}>
                                           <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSelected ? (isCorrect ? 'border-emerald-500' : 'border-rose-500') : (isCorrect ? 'border-emerald-500' : 'border-slate-400')}`}>
                                             {isSelected && <div className={`w-2.5 h-2.5 rounded-full ${isCorrect ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>}
                                           </div>
-                                          <span className="text-base">{opt}</span>
+                                          <span className="text-sm md:text-base">{opt}</span>
                                           {isCorrect && <span className="ml-auto text-emerald-500 font-bold text-sm hidden sm:inline">Correct</span>}
                                           {isSelected && !isCorrect && <span className="ml-auto text-rose-500 font-bold text-sm hidden sm:inline">Your Answer</span>}
                                         </div>
@@ -1317,7 +1317,7 @@ export default function CatMaster() {
                                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{q.explanation}</p>
                                 </div>
 
-                                <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 pb-8 md:pb-0">
                                    <div className="flex items-center gap-2 w-full sm:w-auto">
                                      {taggedQuestions[q.id] ? (
                                        <div className="bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] px-4 py-2 rounded-lg font-bold text-sm border border-[hsl(var(--accent))]/20">
@@ -1345,18 +1345,18 @@ export default function CatMaster() {
                                        </>
                                      )}
                                    </div>
-                                   <div className="flex gap-4 w-full sm:w-auto">
+                                   <div className="flex gap-3 md:gap-4 w-full sm:w-auto">
                                      <button 
                                        disabled={activeQuestionIdx === 0} 
                                        onClick={() => setActiveQuestionIdx(prev => prev - 1)}
-                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
                                      >
                                        Previous
                                      </button>
                                      <button 
                                        disabled={activeQuestionIdx === sectionQuestions.length - 1} 
                                        onClick={() => setActiveQuestionIdx(prev => prev + 1)}
-                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
                                      >
                                        Next
                                      </button>
@@ -1654,7 +1654,7 @@ export default function CatMaster() {
       {/* Submit Summary Modal */}
       <AnimatePresence>
         {showSubmitSummary && currentTest && (
-          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[2000] flex items-center justify-center">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[6000] flex items-center justify-center">
             <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-6 md:p-8 rounded-2xl shadow-2xl border border-white/10 max-w-md w-full mx-4">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold">Submit Test</h3>
@@ -1690,7 +1690,7 @@ export default function CatMaster() {
       {/* Auth Modal */}
       <AnimatePresence>
         {isAuthOpen && (
-          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[2000] flex items-center justify-center">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[6000] flex items-center justify-center">
             <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-8 rounded-2xl shadow-2xl border border-white/10 max-w-md w-full mx-4">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold">Sign In</h3>
