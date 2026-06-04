@@ -1090,24 +1090,35 @@ export default function CatMaster() {
                       </div>
                     </div>
 
-                    <button onClick={() => { 
-                      setMockPhase('select'); 
-                      setCurrentTest(null); 
-                      setSelectedAnswers({}); 
-                      setLastTestResult(null); 
-                      setMarkedForReview({});
-                    }} className="border px-8 py-3 rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
-                      Back to Mock Tests
-                    </button>
-                    <button onClick={() => { 
-                      setMockPhase('review'); 
-                      const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
-                      setActiveSection(sections[0] || '');
-                      setActiveQuestionIdx(0);
-                      setReviewFilter('all');
-                    }} className="border px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white transition-all ml-4">
-                      Review Answers
-                    </button>
+                    <div className="flex flex-wrap justify-center gap-4 mt-8">
+                      <button onClick={() => { 
+                        setMockPhase('select'); 
+                        setCurrentTest(null); 
+                        setSelectedAnswers({}); 
+                        setLastTestResult(null); 
+                        setMarkedForReview({});
+                      }} className="border px-8 py-3 rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        Back to Mock Tests
+                      </button>
+                      <button onClick={() => { 
+                        setMockPhase('review'); 
+                        const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+                        setActiveSection(sections[0] || '');
+                        setActiveQuestionIdx(0);
+                        setReviewFilter('all');
+                      }} className="border px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white transition-all">
+                        Review Answers
+                      </button>
+                      <button onClick={() => { 
+                        setMockPhase('review'); 
+                        const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+                        setActiveSection(sections[0] || '');
+                        setActiveQuestionIdx(0);
+                        setReviewFilter('incorrect');
+                      }} className="border px-8 py-3 rounded-xl font-bold bg-rose-500/10 text-rose-500 border-rose-500/30 hover:bg-rose-500 hover:text-white transition-all">
+                        Review Incorrect
+                      </button>
+                    </div>
                   </m.div>
                 </div>
               )}
