@@ -20,6 +20,11 @@ interface Progress {
   history?: TestHistory[];
   topicStats?: Record<string, TopicStat>;
   bookmarkedQuestions?: string[];
+  skillRatings?: {
+    QA: number;
+    VARC: number;
+    DILR: number;
+  };
 }
 
 interface CatState {
@@ -31,13 +36,14 @@ interface CatState {
   addTopicResult: (topic: string, isCorrect: boolean, questionId?: string) => void;
   toggleBookmark: (questionId: string) => void;
   clearHistory: () => void;
+  updateSkillRating: (subject: 'QA' | 'VARC' | 'DILR', questionDifficulty: number, isCorrect: boolean) => void;
 }
 
 export const useCatStore = create<CatState>()(
   persist(
     (set) => ({
       user: null,
-      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [] },
+      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 } },
       
       login: (name) => set({ user: { name } }),
       logout: () => set({ user: null }),
@@ -81,8 +87,29 @@ export const useCatStore = create<CatState>()(
       }),
       
       clearHistory: () => set((state) => ({
-        progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: state.progress.bookmarkedQuestions || [] }
+        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {} }
       })),
+
+      updateSkillRating: (subject, questionDifficulty, isCorrect) => set(state => {
+        const currentRatings = state.progress.skillRatings || { QA: 1200, VARC: 1200, DILR: 1200 };
+        const userRating = currentRatings[subject];
+        
+        const K = 32;
+        const expectedScore = 1 / (1 + Math.pow(10, (questionDifficulty - userRating) / 400));
+        const actualScore = isCorrect ? 1 : 0;
+        
+        const newUserRating = Math.round(userRating + K * (actualScore - expectedScore));
+        
+        return {
+          progress: {
+            ...state.progress,
+            skillRatings: {
+              ...currentRatings,
+              [subject]: newUserRating,
+            }
+          }
+        };
+      })
     }),
     { name: 'cat-master-storage' }
   )

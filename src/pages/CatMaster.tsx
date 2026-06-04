@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { CAT_PAST_PAPERS, getPracticeQuestionsBySection, type Question } from '../data/cat_db';
 
@@ -78,13 +78,40 @@ const deleteFormula = async (id: string) => {
 };
 
 // --- Flashcard Component ---
-const Flashcard = ({ front, back, onEdit, onDelete }: { front: string, back: string, onEdit: () => void, onDelete: () => void }) => {
+const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEdit: () => void, onDelete: () => void, onUpdate: (f: any) => void }) => {
   const [flipped, setFlipped] = useState(false);
+  
+  const handleRate = (e: React.MouseEvent, performance: number) => {
+    e.stopPropagation();
+    let { reps = 0, interval = 1, ease = 2.5 } = formula;
+    if (performance >= 3) {
+      if (reps === 0) interval = 1;
+      else if (reps === 1) interval = 6;
+      else interval = Math.round(interval * ease);
+      reps += 1;
+      ease = ease + (0.1 - (5 - performance) * (0.08 + (5 - performance) * 0.02));
+    } else {
+      reps = 0;
+      interval = 1;
+      ease = Math.max(1.3, ease - 0.2);
+    }
+    const nextReview = Date.now() + interval * 86400000;
+    onUpdate({ ...formula, reps, interval, ease, nextReview, lastPerformance: performance });
+    setFlipped(false);
+  };
+
+  const isDue = !formula.nextReview || formula.nextReview <= Date.now();
+  const mastery = formula.reps > 4 ? 'Mastered' : formula.reps > 0 ? 'Learning' : 'New';
+
   return (
     <div className="relative w-full h-64 cursor-pointer group" style={{ perspective: '1000px' }} onClick={() => setFlipped(!flipped)}>
       <div className="absolute top-4 right-4 flex gap-2 z-10 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button onClick={(e) => { e.stopPropagation(); onEdit(); }} className="p-2 text-slate-500 hover:text-[hsl(var(--accent))] bg-white/90 dark:bg-slate-800/90 rounded-lg backdrop-blur-md shadow-sm border border-slate-200/50 dark:border-white/10 transition-colors"><Edit2 size={16} /></button>
         <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-2 text-slate-500 hover:text-rose-500 bg-white/90 dark:bg-slate-800/90 rounded-lg backdrop-blur-md shadow-sm border border-slate-200/50 dark:border-white/10 transition-colors"><Trash2 size={16} /></button>
+      </div>
+      <div className="absolute top-4 left-4 z-10">
+         <span className={`text-xs font-bold px-2 py-1 rounded ${mastery === 'Mastered' ? 'bg-emerald-500/20 text-emerald-500' : mastery === 'Learning' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-rose-500/20 text-rose-500'}`}>{mastery}</span>
+         {isDue && <span className="ml-2 text-xs font-bold px-2 py-1 rounded bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))]">Due</span>}
       </div>
       <m.div
         className="w-full h-full relative"
@@ -94,11 +121,16 @@ const Flashcard = ({ front, back, onEdit, onDelete }: { front: string, back: str
       >
         {/* Front */}
         <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-center items-center p-6 text-center" style={{ backfaceVisibility: 'hidden' }}>
-          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 whitespace-pre-line">{front}</h3>
+          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 whitespace-pre-line">{formula.front}</h3>
         </div>
         {/* Back */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm bg-[hsl(var(--accent))] border-[hsl(var(--accent))] flex flex-col justify-center items-center p-6 text-center" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-          <div className="text-lg font-medium text-white whitespace-pre-line">{back}</div>
+        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm bg-[hsl(var(--accent))] border-[hsl(var(--accent))] flex flex-col justify-between items-center p-6 text-center" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+          <div className="flex-1 flex items-center justify-center text-lg font-medium text-white whitespace-pre-line">{formula.back}</div>
+          <div className="flex gap-2 w-full mt-4">
+             <button onClick={(e) => handleRate(e, 1)} className="flex-1 bg-rose-500/20 hover:bg-rose-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Hard</button>
+             <button onClick={(e) => handleRate(e, 3)} className="flex-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Good</button>
+             <button onClick={(e) => handleRate(e, 5)} className="flex-1 bg-emerald-500/20 hover:bg-emerald-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Easy</button>
+          </div>
         </div>
       </m.div>
     </div>
@@ -113,7 +145,7 @@ export default function CatMaster() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -140,6 +172,14 @@ export default function CatMaster() {
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
   const [qotd, setQotd] = useState<Question | null>(null);
+  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
+    () => (localStorage.getItem('cat-master-theme') as 'light' | 'dark' | 'system') || 'system'
+  );
+  const [isAdaptive, setIsAdaptive] = useState(false);
+  const [questionRatings, setQuestionRatings] = useState<Record<string, number>>(() => {
+    try { const saved = localStorage.getItem('cat-master-question-ratings'); return saved ? JSON.parse(saved) : {}; } 
+    catch { return {}; }
+  });
 
   useEffect(() => {
     // Try to resume an unfinished test from localStorage
@@ -176,6 +216,22 @@ export default function CatMaster() {
     loadSavedTests();
   }, [mockPhase]); // Refresh list when phase changes
 
+  const updateQuestionRating = (questionId: string, userRating: number, isCorrect: boolean) => {
+    const questionRating = questionRatings[questionId] || 1200;
+    const K = 32;
+    const expectedScoreForUser = 1 / (1 + Math.pow(10, (questionRating - userRating) / 400));
+    const actualScoreForUser = isCorrect ? 1 : 0;
+    
+    const ratingChange = K * (actualScoreForUser - expectedScoreForUser);
+    const newQuestionRating = Math.round(questionRating - ratingChange);
+    
+    setQuestionRatings(prev => {
+      const newRatings = { ...prev, [questionId]: newQuestionRating };
+      localStorage.setItem('cat-master-question-ratings', JSON.stringify(newRatings));
+      return newRatings;
+    });
+  };
+
   useEffect(() => {
     let timer: any;
     if (mockPhase === 'test' && timeLeft > 0) {
@@ -211,25 +267,34 @@ export default function CatMaster() {
   }, [mockPhase, currentTest, selectedAnswers, markedForReview, timeLeft, activeSection, activeQuestionIdx, sectionTimes]);
 
   useEffect(() => {
+    let allQs: Question[] = [];
+    CAT_PAST_PAPERS.forEach(paper => {
+      allQs = [...allQs, ...(paper.questions || [])];
+    });
+
     if (practiceFilterTopic) {
-      let allQs: Question[] = [];
-      CAT_PAST_PAPERS.forEach(paper => {
-        allQs = [...allQs, ...(paper.questions || [])];
-      });
       const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
       setPracticeQuestions(allQs.filter(q => topicQIds.includes(q.id)));
     } else if (practiceFilterBookmark) {
-      let allQs: Question[] = [];
-      CAT_PAST_PAPERS.forEach(paper => {
-        allQs = [...allQs, ...(paper.questions || [])];
-      });
       const bookmarkedIds = progress.bookmarkedQuestions || [];
       setPracticeQuestions(allQs.filter(q => bookmarkedIds.includes(q.id)));
+    } else if (isAdaptive) {
+        const subjectQs = allQs.filter(q => q.section === practiceSubject);
+        const userRating = progress.skillRatings?.[practiceSubject] || 1200;
+        const ratedQs = subjectQs.map(q => ({
+          ...q,
+          rating: questionRatings[q.id] || 1200,
+        }));
+        
+        ratedQs.sort((a, b) => Math.abs(a.rating - userRating) - Math.abs(b.rating - userRating));
+        
+        const selectedQs = ratedQs.slice(0, 20).sort(() => 0.5 - Math.random());
+        setPracticeQuestions(selectedQs);
     } else {
-      setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject));
+      setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject).slice(0, 20));
     }
     setPracticeAnswers({});
-  }, [practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions]);
+  }, [practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions, isAdaptive, progress.skillRatings, questionRatings]);
 
   useEffect(() => {
     let allQs: Question[] = [];
@@ -243,6 +308,25 @@ export default function CatMaster() {
       setQotd(allQs[randomIdx]);
     }
   }, []);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const updateTheme = () => {
+      if (theme === 'dark' || (theme === 'system' && mediaQuery.matches)) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    };
+
+    updateTheme();
+    localStorage.setItem('cat-master-theme', theme);
+
+    mediaQuery.addEventListener('change', updateTheme);
+    return () => mediaQuery.removeEventListener('change', updateTheme);
+  }, [theme]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -400,7 +484,7 @@ export default function CatMaster() {
       className="fixed inset-0 z-[1000] flex bg-[#f8fafc] dark:bg-[#020617] text-slate-900 dark:text-slate-100 overflow-hidden font-sans"
     >
       {/* Sidebar */}
-      <nav className="w-20 md:w-64 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0">
+      <nav className="w-20 md:w-64 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0 print:hidden">
         <div>
           <div className="p-4 md:p-6">
             <button onClick={() => navigate('/tools')} className="flex items-center gap-2 text-slate-500 hover:text-[hsl(var(--accent))] transition-colors mb-6 text-[10px] md:text-xs font-bold tracking-widest uppercase">
@@ -438,11 +522,18 @@ export default function CatMaster() {
             <span className="hidden md:inline font-medium">{user ? 'Log Out' : 'Log In'}</span>
           </button>
         </div>
+        <div className="p-4 border-t border-slate-200/50 dark:border-white/10 hidden md:block">
+          <div className="flex items-center justify-around md:justify-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+            <button onClick={() => setTheme('light')} title="Light Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'light' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Sun size={16} /></button>
+            <button onClick={() => setTheme('system')} title="System Preference" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'system' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Monitor size={16} /></button>
+            <button onClick={() => setTheme('dark')} title="Dark Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Moon size={16} /></button>
+          </div>
+        </div>
       </nav>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col relative overflow-y-auto">
-        <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-4 sticky top-0 z-10 flex justify-between items-center px-6">
+        <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-4 sticky top-0 z-10 flex justify-between items-center px-6 print:hidden">
           <h2 className="text-2xl font-bold capitalize">{activeTab}</h2>
           <div className="flex items-center gap-4 bg-white/40 dark:bg-white/5 backdrop-blur-md py-2 px-4 rounded-full border border-slate-200/50 dark:border-white/10">
             <div className="text-sm font-medium"><span className="text-slate-500">Accuracy: </span><span className="text-[hsl(var(--accent))] font-bold">{accuracy}%</span></div>
@@ -1074,26 +1165,32 @@ export default function CatMaster() {
 
           {activeTab === 'practice' && (
             <div className="flex flex-col flex-1">
-              <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
-                {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
-                  <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
-                    {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+                <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                  {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
+                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                      {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
+                    </button>
+                  ))}
+                  {practiceFilterTopic && (
+                    <button className="px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))]">
+                      {practiceFilterTopic} Focus
+                    </button>
+                  )}
+                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                    Bookmarks ({progress.bookmarkedQuestions?.length || 0})
                   </button>
-                ))}
-                {practiceFilterTopic && (
-                  <button className="px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))]">
-                    {practiceFilterTopic} Focus
-                  </button>
-                )}
-                <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
-                  Bookmarks ({progress.bookmarkedQuestions?.length || 0})
-                </button>
+                </div>
+                <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
+                  <input type="checkbox" checked={isAdaptive} onChange={(e) => setIsAdaptive(e.target.checked)} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
+                  <span className={isAdaptive ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>Adaptive Difficulty</span>
+                </label>
               </div>
               <div className="space-y-6">
-                {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark) && (
+                {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark || isAdaptive) && (
                   <div className="text-center py-16 text-slate-500">
                     <BrainCircuit size={48} className="mx-auto mb-4 opacity-20" />
-                    <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : 'in your bookmarks'}.</p>
+                    <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : 'for this skill level'}.</p>
                   </div>
                 )}
                 {practiceQuestions?.map((q, idx) => (
@@ -1129,13 +1226,17 @@ export default function CatMaster() {
 
                         return (
                           <label key={oIdx} className="relative cursor-pointer">
-                            <input type="radio" name={`pq-${q.id}`} disabled={isAnswered} className="sr-only" onChange={() => { 
-                              setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx })); 
+                            <input type="radio" name={`pq-${q.id}`} disabled={isAnswered} className="sr-only" onChange={() => {
+                              const userRating = progress.skillRatings?.[practiceSubject] || 1200;
                               const isCorrect = oIdx === q.correct;
-                              addResult(1, isCorrect ? 1 : 0); 
+
+                              setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx }));
+                              updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
+                              updateQuestionRating(q.id, userRating, isCorrect);
+                              addResult(1, isCorrect ? 1 : 0);
                               if (!isCorrect) {
                                 const front = `[Auto-Generated]\n\nQ: ${q.text}`;
-                                const back = `Correct Answer: ${q.options?.[q.correct as number]}\n\nExplanation:\n${q.explanation}`;
+                                const back = `Correct Answer: ${q.options?.[q.correct as number]}\\n\\nExplanation:\\n${q.explanation}`;
                                 saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
                               }
                             }} />
@@ -1150,12 +1251,16 @@ export default function CatMaster() {
                               onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     const val = e.currentTarget.value;
+                                    const userRating = progress.skillRatings?.[practiceSubject] || 1200;
                                     setPracticeAnswers(prev => ({ ...prev, [q.id]: val }));
                                     const isCorrect = String(val).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+                                    
+                                    updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
+                                    updateQuestionRating(q.id, userRating, isCorrect);
                                     addResult(1, isCorrect ? 1 : 0);
                                     if (!isCorrect) {
                                       const front = `[Auto-Generated]\n\nQ: ${q.text}`;
-                                      const back = `Correct Answer: ${q.tita_answer}\n\nExplanation:\n${q.explanation}`;
+                                      const back = `Correct Answer: ${q.tita_answer}\\n\\nExplanation:\\n${q.explanation}`;
                                       saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
                                     }
                                 }
@@ -1239,7 +1344,7 @@ export default function CatMaster() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
                   {filteredFormulas.map((f) => (
-                   <Flashcard key={f.id} front={f.front} back={f.back} onEdit={() => {
+                   <Flashcard key={f.id} formula={f} onEdit={() => {
                      setEditingFormulaId(f.id);
                      setNewFormula({ front: f.front, back: f.back });
                      setIsAddingFormula(true);
@@ -1248,6 +1353,9 @@ export default function CatMaster() {
                        await deleteFormula(f.id);
                        setFormulas(formulas.filter(form => form.id !== f.id));
                      }
+                   }} onUpdate={async (updated) => {
+                     await saveFormula(updated);
+                     setFormulas(formulas.map(form => form.id === updated.id ? updated : form));
                    }} />
                   ))}
                 </div>
