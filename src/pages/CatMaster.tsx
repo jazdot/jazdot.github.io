@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { CAT_PAST_PAPERS, getPracticeQuestionsBySection, type Question } from '../data/cat_db';
 
@@ -113,7 +113,7 @@ export default function CatMaster() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -136,6 +136,7 @@ export default function CatMaster() {
   const [practiceSubject, setPracticeSubject] = useState<'QA' | 'VARC' | 'DILR'>('QA');
   const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
   const [practiceFilterTopic, setPracticeFilterTopic] = useState<string | null>(null);
+  const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
 
@@ -216,11 +217,18 @@ export default function CatMaster() {
       });
       const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
       setPracticeQuestions(allQs.filter(q => topicQIds.includes(q.id)));
+    } else if (practiceFilterBookmark) {
+      let allQs: Question[] = [];
+      CAT_PAST_PAPERS.forEach(paper => {
+        allQs = [...allQs, ...(paper.questions || [])];
+      });
+      const bookmarkedIds = progress.bookmarkedQuestions || [];
+      setPracticeQuestions(allQs.filter(q => bookmarkedIds.includes(q.id)));
     } else {
       setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject));
     }
     setPracticeAnswers({});
-  }, [practiceSubject, practiceFilterTopic, progress.topicStats]);
+  }, [practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -428,7 +436,10 @@ export default function CatMaster() {
                 </div>
                 
                 <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-4">Quick Stats</h3>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-bold">Quick Stats</h3>
+                    <button onClick={() => { if(confirm('Are you sure you want to clear your entire history?')) clearHistory(); }} className="text-xs font-bold text-rose-500 hover:bg-rose-500/10 px-3 py-1.5 rounded-lg transition-colors border border-rose-500/20">Clear History</button>
+                  </div>
                   <div className="grid grid-cols-2 gap-4 h-[calc(100%-2rem)]">
                     <div className="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/5 flex flex-col justify-center shadow-inner"><div className="text-slate-500 mb-2 text-sm font-medium uppercase tracking-wider">Attempted</div><div className="text-4xl font-black">{progress.totalAttempted}</div></div>
                     <div className="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/5 flex flex-col justify-center shadow-inner"><div className="text-slate-500 mb-2 text-sm font-medium uppercase tracking-wider">Correct</div><div className="text-4xl font-black text-emerald-500">{progress.correct}</div></div>
@@ -1012,19 +1023,22 @@ export default function CatMaster() {
             <div className="flex flex-col flex-1">
               <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
                 {(['QA', 'VARC', 'DILR'] as const).map(subj => (
-                  <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceSubject === subj && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>{subj} Training</button>
+                  <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>{subj} Training</button>
                 ))}
                 {practiceFilterTopic && (
                   <button className="px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))]">
                     {practiceFilterTopic} Focus
                   </button>
                 )}
+                <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                  Bookmarks ({progress.bookmarkedQuestions?.length || 0})
+                </button>
               </div>
               <div className="space-y-6">
-                {practiceQuestions.length === 0 && practiceFilterTopic && (
+                {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark) && (
                   <div className="text-center py-16 text-slate-500">
                     <BrainCircuit size={48} className="mx-auto mb-4 opacity-20" />
-                    <p>No questions found for topic "{practiceFilterTopic}"</p>
+                    <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : 'in your bookmarks'}.</p>
                   </div>
                 )}
                 {practiceQuestions?.map((q, idx) => (
@@ -1034,7 +1048,16 @@ export default function CatMaster() {
                         {q.context}
                       </div>
                     )}
-                    <p className="font-medium mb-6 text-lg">{idx + 1}. {q.text}</p>
+                    <div className="flex justify-between items-start mb-6 gap-4">
+                      <p className="font-medium text-lg">{idx + 1}. {q.text}</p>
+                      <button 
+                        onClick={() => toggleBookmark(q.id)}
+                        className={`p-2 shrink-0 rounded-lg transition-colors ${progress.bookmarkedQuestions?.includes(q.id) ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                        title="Bookmark Question"
+                      >
+                        <Bookmark size={20} fill={progress.bookmarkedQuestions?.includes(q.id) ? 'currentColor' : 'none'} />
+                      </button>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {q.type === 'MCQ' ? q.options?.map((opt, oIdx) => {
                         const isAnswered = practiceAnswers[q.id] !== undefined;
@@ -1051,7 +1074,16 @@ export default function CatMaster() {
 
                         return (
                           <label key={oIdx} className="relative cursor-pointer">
-                            <input type="radio" name={`pq-${q.id}`} disabled={isAnswered} className="sr-only" onChange={() => { setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx })); addResult(1, oIdx === q.correct ? 1 : 0); }} />
+                            <input type="radio" name={`pq-${q.id}`} disabled={isAnswered} className="sr-only" onChange={() => { 
+                              setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx })); 
+                              const isCorrect = oIdx === q.correct;
+                              addResult(1, isCorrect ? 1 : 0); 
+                              if (!isCorrect) {
+                                const front = `[Auto-Generated]\n\nQ: ${q.text}`;
+                                const back = `Correct Answer: ${q.options?.[q.correct as number]}\n\nExplanation:\n${q.explanation}`;
+                                saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
+                              }
+                            }} />
                             <div className={`border-2 rounded-xl p-4 transition-colors ${borderClass} ${bgClass}`}>{opt}</div>
                           </label>
                         );
@@ -1066,6 +1098,11 @@ export default function CatMaster() {
                                     setPracticeAnswers(prev => ({ ...prev, [q.id]: val }));
                                     const isCorrect = String(val).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
                                     addResult(1, isCorrect ? 1 : 0);
+                                    if (!isCorrect) {
+                                      const front = `[Auto-Generated]\n\nQ: ${q.text}`;
+                                      const back = `Correct Answer: ${q.tita_answer}\n\nExplanation:\n${q.explanation}`;
+                                      saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
+                                    }
                                 }
                               }} 
                               className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors disabled:opacity-50" 

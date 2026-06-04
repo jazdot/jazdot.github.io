@@ -19,6 +19,7 @@ interface Progress {
   testsCompleted: number;
   history?: TestHistory[];
   topicStats?: Record<string, TopicStat>;
+  bookmarkedQuestions?: string[];
 }
 
 interface CatState {
@@ -28,13 +29,15 @@ interface CatState {
   logout: () => void;
   addResult: (attempted: number, correct: number) => void;
   addTopicResult: (topic: string, isCorrect: boolean, questionId?: string) => void;
+  toggleBookmark: (questionId: string) => void;
+  clearHistory: () => void;
 }
 
 export const useCatStore = create<CatState>()(
   persist(
     (set) => ({
       user: null,
-      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {} },
+      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [] },
       
       login: (name) => set({ user: { name } }),
       logout: () => set({ user: null }),
@@ -66,6 +69,20 @@ export const useCatStore = create<CatState>()(
           }
         };
       }),
+      
+      toggleBookmark: (questionId) => set((state) => {
+        const bookmarks = state.progress.bookmarkedQuestions || [];
+        return {
+          progress: {
+            ...state.progress,
+            bookmarkedQuestions: bookmarks.includes(questionId) ? bookmarks.filter(id => id !== questionId) : [...bookmarks, questionId]
+          }
+        };
+      }),
+      
+      clearHistory: () => set((state) => ({
+        progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: state.progress.bookmarkedQuestions || [] }
+      })),
     }),
     { name: 'cat-master-storage' }
   )
