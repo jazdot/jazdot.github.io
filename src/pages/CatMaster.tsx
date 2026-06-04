@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, UploadCloud, Trophy, Loader2, X, Edit2, Trash2, Search } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer } from 'lucide-react';
 import { useCatStore } from './catStore';
+import { CAT_PAST_PAPERS, getPracticeQuestionsBySection, type Question } from '../data/cat_db';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMasterDB';
@@ -76,21 +77,6 @@ const deleteFormula = async (id: string) => {
   });
 };
 
-// --- Mock Practice Database ---
-const MOCK_PRACTICE_DB = {
-  QA: [
-    { id: 'q1', text: 'If a, b, c and d are integers such that their sum is 46, then the minimum possible value of (a-b)² + (a-c)² + (a-d)² is:', options: ['0', '2', '3', '4'], correct: 1, explanation: 'The minimum value of squares is positive. If their sum is 46 (not divisible by 4), we must distribute the values as evenly as possible: 12, 11, 11, 12. The sum of differences squared is (12-11)² + (12-11)² + (12-12)² = 2.' },
-    { id: 'q2', text: 'Let A, B, C be priced at Rs 120, 90, 150 respectively. A portfolio has 10 shares of A and 20 of B & C combined. Total value Rs 3300. Number of B shares is:', options: ['12', '15', '10', '8'], correct: 1, explanation: 'Let B shares be x, C shares be 20-x. Equation: 120(10) + 90x + 150(20-x) = 3300. Solving: 1200 + 3000 - 60x = 3300 => 60x = 900 => x = 15.' }
-  ],
-  VARC: [
-    { id: 'v1', text: 'Arrange to form a coherent paragraph: 1. Developments both technological... 2. But I believe... 3. Legalising assisted dying... 4. Many people endorse... 5. Freedom is notoriously complex...', options: ['5, 1, 2, 3', '1, 4, 2, 3', '4, 1, 5, 2', '1, 3, 2, 5'], correct: 0, explanation: 'The philosophical discussion starts with sentence 5, setting the framework of freedom. Sentence 1 focuses on freedom over death, 2 builds on it, and 3 concludes with the legal step.' },
-    { id: 'v2', text: 'Which word best captures the tone of an author who is gently mocking societal norms?', options: ['Sardonic', 'Satirical', 'Facetious', 'Derisive'], correct: 2, explanation: 'Facetious implies treating serious issues with deliberately inappropriate humor, which aligns with "gently mocking." Sardonic and Derisive are too harsh.' }
-  ],
-  DILR: [
-    { id: 'd1', text: 'Four friends take turns moving around a 7-chair round table. The chairs occupied after Turn 6 are 4, 5, 6, 7. Who sat on chair 4 at Turn 3?', options: ['Aslam', 'Bashir', 'Chhavi', 'No one'], correct: 3, explanation: 'After tracing the paths and vacant chair constraints backward from turn 6, Chair 4 must be empty at turn 3 because it is only occupied on Turn 5.' }
-  ]
-};
-
 // --- Flashcard Component ---
 const Flashcard = ({ front, back, onEdit, onDelete }: { front: string, back: string, onEdit: () => void, onDelete: () => void }) => {
   const [flipped, setFlipped] = useState(false);
@@ -127,22 +113,55 @@ export default function CatMaster() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult } = useCatStore();
   
   // Mock State
-  const [mockPhase, setMockPhase] = useState<'upload' | 'loading' | 'test' | 'result'>('upload');
+  const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
+  const [timeLeft, setTimeLeft] = useState(7200);
+  const [activeSection, setActiveSection] = useState<string>('');
+  const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
+  const [markedForReview, setMarkedForReview] = useState<Record<number, boolean>>({});
+  const [sectionTimes, setSectionTimes] = useState<Record<string, number>>({});
+  const [reviewFilter, setReviewFilter] = useState<'all' | 'correct' | 'incorrect' | 'unanswered'>('all');
+  const [taggedQuestions, setTaggedQuestions] = useState<Record<string, string>>({});
+  const [showSubmitSummary, setShowSubmitSummary] = useState(false);
   const [currentTest, setCurrentTest] = useState<any>(null);
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
+  const [lastTestResult, setLastTestResult] = useState<any>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | string>>({});
   const [savedTests, setSavedTests] = useState<any[]>([]);
   const [formulas, setFormulas] = useState<any[]>([]);
   const [isAddingFormula, setIsAddingFormula] = useState(false);
   const [newFormula, setNewFormula] = useState({ front: '', back: '' });
   const [editingFormulaId, setEditingFormulaId] = useState<string | null>(null);
   const [practiceSubject, setPracticeSubject] = useState<'QA' | 'VARC' | 'DILR'>('QA');
-  const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number>>({});
+  const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
+  const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
 
   useEffect(() => {
+    // Try to resume an unfinished test from localStorage
+    try {
+      const savedStateJSON = localStorage.getItem('cat-master-active-test');
+      if (savedStateJSON) {
+        if (window.confirm('An unfinished mock test was found. Would you like to resume?')) {
+          const savedState = JSON.parse(savedStateJSON);
+          setCurrentTest(savedState.currentTest);
+          setSelectedAnswers(savedState.selectedAnswers || {});
+          setMarkedForReview(savedState.markedForReview || {});
+          setTimeLeft(savedState.timeLeft || 7200);
+          setActiveSection(savedState.activeSection || '');
+          setActiveQuestionIdx(savedState.activeQuestionIdx || 0);
+          setSectionTimes(savedState.sectionTimes || {});
+          setMockPhase('test');
+        } else {
+          localStorage.removeItem('cat-master-active-test');
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load saved test state", e);
+      localStorage.removeItem('cat-master-active-test');
+    }
+
     const loadSavedTests = async () => {
       try {
         const tests = await getMockTests();
@@ -153,6 +172,45 @@ export default function CatMaster() {
     };
     loadSavedTests();
   }, [mockPhase]); // Refresh list when phase changes
+
+  useEffect(() => {
+    let timer: any;
+    if (mockPhase === 'test' && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+        setSectionTimes(prev => ({
+          ...prev,
+          [activeSection]: (prev[activeSection] || 0) + 1
+        }));
+      }, 1000);
+    } else if (timeLeft <= 0 && mockPhase === 'test') {
+      // Auto-submit triggers when timer expires, evaluating the exact final score using the latest render scope's answers
+      handleSubmitMock();
+    }
+    return () => clearInterval(timer);
+  }, [mockPhase, timeLeft, activeSection]);
+
+  useEffect(() => {
+    if (mockPhase === 'test' && currentTest) {
+      const activeTestData = {
+        currentTest,
+        selectedAnswers,
+        markedForReview,
+        timeLeft,
+        activeSection,
+        activeQuestionIdx,
+        sectionTimes,
+      };
+      localStorage.setItem('cat-master-active-test', JSON.stringify(activeTestData));
+    } else if (mockPhase !== 'test') {
+      localStorage.removeItem('cat-master-active-test');
+    }
+  }, [mockPhase, currentTest, selectedAnswers, markedForReview, timeLeft, activeSection, activeQuestionIdx, sectionTimes]);
+
+  useEffect(() => {
+    setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject));
+    setPracticeAnswers({});
+  }, [practiceSubject]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -184,55 +242,92 @@ export default function CatMaster() {
     }, 1500);
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setMockPhase('loading');
-
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('count', '15'); // Request exactly 15 questions from the Edge AI
-
-      // Secure Serverless Edge API Call
-      const res = await fetch('https://cat-master-ai.jazdot.workers.dev', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!res.ok) throw new Error('AI processing failed');
-      
-      const data = await res.json();
-      
-      const testObj = {
-        id: Date.now().toString(),
-        date: new Date().toISOString(),
-        questions: data
-      };
-      
-      // Persist generated test offline in IndexedDB
-      await saveMockTest(testObj);
-      
-      setCurrentTest(testObj);
-      setMockPhase('test');
-    } catch (error) {
-      console.error(error);
-      setMockPhase('upload');
-      alert('Failed to generate mock test. Ensure the Cloudflare worker is deployed and running.');
+  const handleTagTopic = (q: any, topic: string) => {
+    if (!topic.trim()) return;
+    const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+    let isCorrect = false;
+    if (isAnswered) {
+      if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
+      else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
     }
+
+    addTopicResult(topic.trim(), isCorrect);
+    setTaggedQuestions(prev => ({ ...prev, [q.id]: topic.trim() }));
+  };
+
+  const formatTime = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    if (h > 0) return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const handleStartPastPaper = async (paperId: string) => {
+    const paper = CAT_PAST_PAPERS.find(p => p.id === paperId);
+    if (!paper) return;
+    
+    const testObj = {
+      id: paper.id + '_' + Date.now().toString(),
+      date: new Date().toISOString(),
+      title: paper.title || paper.id || 'Mock Test',
+      questions: paper.questions || []
+    };
+    
+    await saveMockTest(testObj);
+    setCurrentTest(testObj);
+    setMockPhase('confirm');
+  };
+
+  const startConfirmedTest = () => {
+    setTimeLeft(7200);
+    const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+    setActiveSection(sections[0] || '');
+    setActiveQuestionIdx(0);
+    setLastTestResult(null);
+    setSelectedAnswers({});
+    setMarkedForReview({});
+    setSectionTimes({});
+    setReviewFilter('all');
+    setTaggedQuestions({});
+    setMockPhase('test');
   };
 
   const handleSubmitMock = () => {
     let score = 0;
+    let answeredCount = 0;
     if (currentTest) {
-      currentTest.questions.forEach((q: any, idx: number) => {
-        if (selectedAnswers[idx] === q.correct) score++;
+      currentTest.questions?.forEach((q: any, idx: number) => {
+        const answer = selectedAnswers[idx];
+        if (answer !== undefined && String(answer).trim() !== '') {
+          answeredCount++;
+          if (q.type === 'MCQ') {
+            if (answer === q.correct) score++;
+          } else {
+            if (String(answer).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()) score++;
+          }
+        }
+      });
+
+      const totalQuestions = currentTest.questions?.length || 0;
+      const incorrectCount = answeredCount - score;
+      const unansweredCount = totalQuestions - answeredCount;
+      const accuracy = answeredCount > 0 ? Math.round((score / answeredCount) * 100) : 0;
+
+      setLastTestResult({
+        score,
+        total: totalQuestions,
+        answered: answeredCount,
+        correct: score,
+        incorrect: incorrectCount,
+        unanswered: unansweredCount,
+        accuracy,
+        sectionTimes,
       });
     }
     
     setMockPhase('result');
-    addResult(currentTest?.questions?.length || 0, score);
+    addResult(answeredCount, score);
   };
 
   // Zero-dependency SVG Donut Chart Calculation
@@ -297,7 +392,7 @@ export default function CatMaster() {
           </div>
         </header>
 
-        <div className="p-4 md:p-8 max-w-6xl mx-auto w-full">
+        <div className="p-4 md:p-8 max-w-6xl mx-auto w-full flex-1 flex flex-col">
           {activeTab === 'dashboard' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -350,22 +445,71 @@ export default function CatMaster() {
                   </div>
                 </div>
               </div>
+
+              <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                  <h3 className="text-lg font-bold mb-4">Progress Over Time (Accuracy %)</h3>
+                  {progress.history && progress.history.length > 0 ? (
+                    <div className="h-40 flex items-end gap-2 w-full mt-4">
+                      {progress.history.slice(-30).map((h, i) => {
+                        const acc = h.attempted > 0 ? Math.round((h.correct / h.attempted) * 100) : 0;
+                        return (
+                          <div key={i} className="flex-1 bg-[hsl(var(--accent))]/40 hover:bg-[hsl(var(--accent))]/80 rounded-t-md relative group transition-all" style={{ height: `${Math.max(acc, 5)}%` }}>
+                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-10 shadow-lg">
+                               {acc}% ({new Date(h.date).toLocaleDateString()})
+                             </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <div className="h-40 flex items-center justify-center text-slate-500">Take some tests to see your progress!</div>
+                  )}
+                </div>
+                
+                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                  <h3 className="text-lg font-bold mb-4">Topic Performance</h3>
+                  {progress.topicStats && Object.keys(progress.topicStats).length > 0 ? (
+                    <div className="space-y-4 max-h-40 overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
+                      {Object.entries(progress.topicStats)
+                        .map(([topic, stat]) => ({ topic, acc: Math.round((stat.correct / stat.attempted) * 100) }))
+                        .sort((a, b) => a.acc - b.acc)
+                        .map(t => (
+                          <div key={t.topic}>
+                            <div className="flex justify-between text-sm mb-1"><span className="font-medium text-slate-700 dark:text-slate-300">{t.topic}</span><span className={`font-bold ${t.acc < 50 ? 'text-rose-500' : t.acc < 80 ? 'text-yellow-500' : 'text-emerald-500'}`}>{t.acc}%</span></div>
+                            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                              <m.div initial={{ width: 0 }} animate={{ width: `${t.acc}%` }} className={`h-full rounded-full ${t.acc < 50 ? 'bg-rose-500' : t.acc < 80 ? 'bg-yellow-500' : 'bg-emerald-500'}`}></m.div>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  ) : (
+                    <div className="h-40 flex items-center justify-center text-center text-slate-500 px-4 text-sm">Flag questions to specific topics during review to identify your weak areas here!</div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
           {activeTab === 'mock' && (
-            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-[500px]">
-              {mockPhase === 'upload' && (
+            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden flex flex-col flex-1 min-h-[600px] lg:h-[calc(100vh-12rem)]">
+              {mockPhase === 'select' && (
                 <div className="flex flex-col md:flex-row w-full h-full flex-1">
-                  <div className="p-8 flex flex-col items-center justify-center flex-1 text-center md:border-r border-slate-200/50 dark:border-white/10">
-                    <div className="w-20 h-20 bg-[hsl(var(--accent))]/10 rounded-full flex items-center justify-center mb-6"><BrainCircuit size={40} className="text-[hsl(var(--accent))]" /></div>
-                    <h2 className="text-2xl font-bold mb-2">AI Mock Test Generation</h2>
-                    <p className="text-slate-500 max-w-md mb-8">Upload a CAT paper. Our AI will extract 15 questions and generate an interactive test instantly.</p>
-                    <label className="cursor-pointer border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-[hsl(var(--accent))] bg-white/40 dark:bg-white/5 rounded-xl p-8 transition-colors w-full max-w-md flex flex-col items-center">
-                      <UploadCloud size={32} className="text-slate-400 mb-3" />
-                      <span className="font-medium">Select File or Drag & Drop</span>
-                      <input type="file" className="hidden" accept="application/pdf,image/*" onChange={handleFileUpload} />
-                    </label>
+                  <div className="p-8 flex flex-col flex-1 border-b md:border-b-0 md:border-r border-slate-200/50 dark:border-white/10">
+                    <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><BrainCircuit size={24} className="text-[hsl(var(--accent))]" /> Official Past Papers</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {CAT_PAST_PAPERS.map((paper) => (
+                        <div key={paper.id} className="p-5 bg-white/60 dark:bg-white/5 rounded-xl border border-slate-200/50 dark:border-white/10 flex flex-col justify-between shadow-sm hover:border-[hsl(var(--accent))]/50 hover:shadow-md transition-all group">
+                          <div className="mb-4">
+                        <h4 className="font-bold text-lg">{paper.title || paper.id || 'Unnamed Paper'}</h4>
+                        <p className="text-slate-500 text-sm">{paper.questions?.length || 0} Questions</p>
+                          </div>
+                          <button onClick={() => handleStartPastPaper(paper.id)} className="w-full flex items-center justify-center gap-2 bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))] hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
+                            <PlayCircle size={18} /> Start Test
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   
                   {savedTests.length > 0 && (
@@ -378,7 +522,7 @@ export default function CatMaster() {
                               <div className="font-bold text-sm">Mock Test ({test.questions?.length || 0} Qs)</div>
                               <div className="text-xs text-slate-500 mt-0.5">{new Date(test.date).toLocaleString()}</div>
                             </div>
-                            <button onClick={() => { setCurrentTest(test); setSelectedAnswers({}); setMockPhase('test'); }} className="text-sm font-bold text-white bg-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]/90 px-4 py-2 rounded-lg shadow-md active:scale-95 transition-all">Retake</button>
+                            <button onClick={() => { setCurrentTest(test); setSelectedAnswers({}); setMockPhase('confirm'); }} className="text-sm font-bold text-white bg-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]/90 px-4 py-2 rounded-lg shadow-md active:scale-95 transition-all">Retake</button>
                           </div>
                         ))}
                       </div>
@@ -386,50 +530,454 @@ export default function CatMaster() {
                   )}
                 </div>
               )}
-              {mockPhase === 'loading' && (
-                <div className="flex flex-col items-center justify-center flex-1 p-12">
-                  <Loader2 size={48} className="text-[hsl(var(--accent))] animate-spin mb-6" />
-                  <h3 className="text-xl font-bold">Analyzing Document...</h3>
-                  <p className="text-slate-500">Gemini AI is extracting questions and formulating layout.</p>
+              {mockPhase === 'confirm' && currentTest && (
+                <div className="flex flex-col items-center justify-center flex-1 p-8 text-center">
+                   <h2 className="text-3xl font-black mb-4">{currentTest.title}</h2>
+                   <p className="text-slate-500 mb-8 max-w-lg">
+                     You are about to start this mock test. The test contains {currentTest.questions?.length || 0} questions and you will have 120 minutes to complete it. Ensure you have a stable connection and are ready to begin.
+                   </p>
+                   <div className="flex gap-4">
+                     <button onClick={() => setMockPhase('select')} className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
+                     <button onClick={startConfirmedTest} className="px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))] text-white shadow-lg hover:scale-105 active:scale-95 transition-all">Begin Test</button>
+                   </div>
                 </div>
               )}
               {mockPhase === 'test' && currentTest && (
-                <div className="flex flex-col flex-1 p-6 md:p-12">
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-bold">Mock Test Active</h3>
-                    <div className="font-mono text-[hsl(var(--accent))] font-bold text-xl">40:00</div>
+                <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
+                  <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
+                    <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
+                    <div className="flex items-center gap-4">
+                      <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg font-bold text-lg flex items-center gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
+                         <Timer size={18} /> {formatTime(timeLeft)}
+                      </div>
+                      <button onClick={() => setShowSubmitSummary(true)} className="bg-[hsl(var(--accent))] text-white px-5 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all">Submit</button>
+                    </div>
                   </div>
                   
-                  <div className="space-y-6 flex-1 overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
-                    {currentTest.questions.map((q: any, idx: number) => (
-                      <div key={idx} className="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10">
-                        <p className="font-medium mb-4">{idx + 1}. {q.text}</p>
-                        <div className="space-y-3">
-                          {q.options.map((opt: string, oIdx: number) => (
-                            <label key={oIdx} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${selectedAnswers[idx] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/10' : 'border-slate-200/50 dark:border-white/10 hover:border-[hsl(var(--accent))]/50'}`}>
-                              <input type="radio" name={`q-${idx}`} checked={selectedAnswers[idx] === oIdx} onChange={() => setSelectedAnswers(prev => ({ ...prev, [idx]: oIdx }))} className="hidden" />
-                              <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${selectedAnswers[idx] === oIdx ? 'border-[hsl(var(--accent))]' : 'border-slate-400'}`}>
-                                {selectedAnswers[idx] === oIdx && <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>}
-                              </div>
-                              <span>{opt}</span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                  <div className="flex bg-white/40 dark:bg-white/5 border-b border-slate-200/50 dark:border-white/10 shrink-0 px-2 overflow-x-auto scrollbar-hide">
+                     {Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))).map((sec: any) => (
+                       <button 
+                         key={sec} 
+                         onClick={() => { setActiveSection(sec); setActiveQuestionIdx(0); }}
+                         className={`px-6 py-3 font-bold text-sm border-b-2 transition-colors whitespace-nowrap ${activeSection === sec ? 'border-[hsl(var(--accent))] text-[hsl(var(--accent))]' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                       >
+                         {sec}
+                       </button>
+                     ))}
                   </div>
 
-                  <div className="mt-8 flex justify-end">
-                    <button onClick={handleSubmitMock} className="bg-[hsl(var(--accent))] text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all">Submit Test</button>
+                  <div className="flex flex-1 overflow-hidden relative">
+                     <div className="flex-1 flex flex-col overflow-y-auto p-4 md:p-6" style={{ scrollbarWidth: 'thin' }}>
+                        {(() => {
+                           const sectionQuestions = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
+                           const q = sectionQuestions[activeQuestionIdx];
+                           if (!q) return <div className="p-8 text-center text-slate-500">No questions in this section.</div>;
+
+                           return (
+                             <div className="max-w-4xl mx-auto w-full pb-8">
+                                {q.context && (
+                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+                                    {q.context}
+                                  </div>
+                                )}
+                                <div className="bg-white/60 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                                  <div className="flex justify-between items-start mb-4">
+                                    <p className="font-bold text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-sm font-normal">of {sectionQuestions.length}</span></p>
+                                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
+                                  </div>
+                                  <p className="font-medium mb-6 text-lg">{q.text}</p>
+                                  <div className="space-y-3">
+                                    {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => (
+                                      <label key={oIdx} className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/5' : 'border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50'}`}>
+                                        <input type="radio" name={`q-${q.originalIndex}`} checked={selectedAnswers[q.originalIndex] === oIdx} onChange={() => setSelectedAnswers(prev => ({ ...prev, [q.originalIndex]: oIdx }))} className="hidden" />
+                                        <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))]' : 'border-slate-400'}`}>
+                                          {selectedAnswers[q.originalIndex] === oIdx && <div className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--accent))]"></div>}
+                                        </div>
+                                        <span className="text-base">{opt}</span>
+                                      </label>
+                                    )) : (
+                                      <input 
+                                        type="text" 
+                                        value={(selectedAnswers[q.originalIndex] as string) || ''} 
+                                        onChange={(e) => setSelectedAnswers(prev => ({ ...prev, [q.originalIndex]: e.target.value }))} 
+                                        className="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 text-lg focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" 
+                                        placeholder="Type your answer here..." 
+                                      />
+                                    )}
+                                  </div>
+                                </div>
+                                
+                                <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4">
+                                   <button 
+                                     disabled={activeQuestionIdx === 0} 
+                                     onClick={() => setActiveQuestionIdx(prev => prev - 1)}
+                                     className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all order-2 sm:order-1"
+                                   >
+                                     Previous
+                                   </button>
+                                   <div className="flex flex-wrap gap-3 sm:gap-4 order-1 sm:order-2 justify-end">
+                                     <button 
+                                       disabled={selectedAnswers[q.originalIndex] === undefined || selectedAnswers[q.originalIndex] === ''}
+                                       onClick={() => setSelectedAnswers(prev => {
+                                         const next = { ...prev };
+                                         delete next[q.originalIndex];
+                                         return next;
+                                       })}
+                                       className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-500 hover:border-rose-500 text-slate-600 dark:text-slate-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                     >
+                                       Clear Response
+                                     </button>
+                                     <button 
+                                       onClick={() => setMarkedForReview(prev => ({...prev, [q.originalIndex]: !prev[q.originalIndex]}))}
+                                       className={`px-6 py-3 rounded-xl font-bold border-2 transition-all ${markedForReview[q.originalIndex] ? 'border-purple-500 text-purple-500 bg-purple-50 dark:bg-purple-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-purple-500 hover:text-purple-500 text-slate-600 dark:text-slate-400'}`}
+                                     >
+                                       {markedForReview[q.originalIndex] ? 'Unmark Review' : 'Mark for Review'}
+                                     </button>
+                                     <button 
+                                       disabled={activeQuestionIdx === sectionQuestions.length - 1} 
+                                       onClick={() => setActiveQuestionIdx(prev => prev + 1)}
+                                       className="px-6 py-3 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                     >
+                                       Save & Next
+                                     </button>
+                                   </div>
+                                </div>
+                             </div>
+                           );
+                        })()}
+                     </div>
+
+                     <div className="w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white/40 dark:bg-white/5 flex-col hidden md:flex">
+                        <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold">
+                          Question Palette
+                        </div>
+                        <div className="p-4 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
+                           <div className="grid grid-cols-4 gap-2">
+                             {(() => {
+                                const sectionQuestions = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
+                                return sectionQuestions.map((q: any, idx: number) => {
+                                  const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+                                  const isMarked = markedForReview[q.originalIndex];
+                                  const isCurrent = activeQuestionIdx === idx;
+                                  
+                                  let btnClass = 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400';
+                                  if (isMarked) {
+                                     if (isAnswered) {
+                                        btnClass = 'bg-purple-500 border-purple-600 text-white relative overflow-hidden';
+                                     } else {
+                                        btnClass = 'bg-purple-500 border-purple-600 text-white';
+                                     }
+                                  } else if (isAnswered) {
+                                     btnClass = 'bg-emerald-500 border-emerald-600 text-white';
+                                  }
+                                  if (isCurrent) {
+                                     btnClass += ' ring-2 ring-[hsl(var(--accent))] ring-offset-2 dark:ring-offset-slate-900';
+                                  }
+
+                                  return (
+                                    <button 
+                                      key={idx}
+                                      onClick={() => setActiveQuestionIdx(idx)}
+                                      className={`aspect-square rounded-lg border flex items-center justify-center font-bold text-sm transition-all hover:scale-105 ${btnClass}`}
+                                    >
+                                      {idx + 1}
+                                      {isMarked && isAnswered && (
+                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-tl-md"></div>
+                                      )}
+                                    </button>
+                                  )
+                                });
+                             })()}
+                           </div>
+                        </div>
+                        <div className="p-4 border-t border-slate-200/50 dark:border-white/10 space-y-3 text-xs font-medium">
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-emerald-500 border border-emerald-600"></div> Answered</div>
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"></div> Not Answered</div>
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-purple-500 border border-purple-600"></div> Marked for Review</div>
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-purple-500 border border-purple-600 relative overflow-hidden"><div className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-400 rounded-tl-sm"></div></div> Answered & Marked</div>
+                        </div>
+                     </div>
                   </div>
                 </div>
               )}
-              {mockPhase === 'result' && (
-                <div className="flex flex-col items-center justify-center flex-1 p-12 text-center">
-                  <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 rounded-full flex items-center justify-center mb-6"><Trophy size={48} /></div>
-                  <h2 className="text-3xl font-black mb-2">Test Completed</h2>
-                  <p className="text-slate-500 mb-8">Results synced to dashboard and saved offline to IndexedDB.</p>
-                  <button onClick={() => { setMockPhase('upload'); setCurrentTest(null); setSelectedAnswers({}); }} className="border px-6 py-2 rounded-lg font-medium hover:bg-white/5 transition-all">Take Another Test</button>
+              {mockPhase === 'result' && lastTestResult && (
+                <div className="flex flex-col items-center justify-center flex-1 p-8 md:p-12">
+                  <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-lg p-8 text-center">
+                    <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 rounded-full flex items-center justify-center mb-6 mx-auto"><Trophy size={48} /></div>
+                    <h2 className="text-3xl font-black mb-2">Test Completed!</h2>
+                    <p className="text-slate-500 mb-8">Here's a summary of your performance for this session.</p>
+                    
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-left mb-8 text-slate-800 dark:text-slate-200">
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Score</div><div className="text-3xl font-black">{lastTestResult.score} <span className="text-lg font-bold text-slate-400">/ {lastTestResult.total}</span></div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Accuracy</div><div className="text-3xl font-black text-[hsl(var(--accent))]">{lastTestResult.accuracy}%</div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Answered</div><div className="text-3xl font-black">{lastTestResult.answered}</div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Correct</div><div className="text-3xl font-black text-emerald-500">{lastTestResult.correct}</div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Incorrect</div><div className="text-3xl font-black text-rose-500">{lastTestResult.incorrect}</div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Unanswered</div><div className="text-3xl font-black text-slate-500">{lastTestResult.unanswered}</div></div>
+                    </div>
+                    
+                    <div className="mb-8 bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 text-left">
+                      <h3 className="font-bold mb-4">Section Time Analysis</h3>
+                      <div className="space-y-3">
+                        {Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))).map((sec: any) => {
+                          const time = lastTestResult.sectionTimes?.[sec] || 0;
+                          const qCount = currentTest.questions?.filter((q: any) => q.section === sec).length || 1;
+                          const avg = Math.round(time / qCount);
+                          return (
+                            <div key={sec} className="flex flex-col sm:flex-row sm:justify-between sm:items-center pb-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0 last:pb-0 gap-1">
+                              <span className="font-bold text-slate-700 dark:text-slate-300">{sec}</span>
+                              <div className="flex items-center gap-4 text-sm">
+                                 <span className="text-slate-500">Total: <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{formatTime(time)}</span></span>
+                                 <span className="text-slate-500">Avg/Q: <span className="font-mono font-bold text-[hsl(var(--accent))]">{formatTime(avg)}</span></span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <button onClick={() => { 
+                      setMockPhase('select'); 
+                      setCurrentTest(null); 
+                      setSelectedAnswers({}); 
+                      setLastTestResult(null); 
+                      setMarkedForReview({});
+                    }} className="border px-8 py-3 rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                      Back to Mock Tests
+                    </button>
+                    <button onClick={() => { 
+                      setMockPhase('review'); 
+                      const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+                      setActiveSection(sections[0] || '');
+                      setActiveQuestionIdx(0);
+                      setReviewFilter('all');
+                    }} className="border px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white transition-all ml-4">
+                      Review Answers
+                    </button>
+                  </m.div>
+                </div>
+              )}
+              
+              {mockPhase === 'review' && currentTest && (
+                <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
+                  <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
+                    <h3 className="text-lg font-bold truncate pr-4">{currentTest.title} - Review</h3>
+                    <div className="flex items-center gap-4">
+                      <select 
+                        value={reviewFilter} 
+                        onChange={(e) => { setReviewFilter(e.target.value as any); setActiveQuestionIdx(0); }}
+                        className="bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm font-medium focus:outline-none focus:border-[hsl(var(--accent))]"
+                      >
+                        <option value="all">All Questions</option>
+                        <option value="correct">Correct Only</option>
+                        <option value="incorrect">Incorrect Only</option>
+                        <option value="unanswered">Unanswered Only</option>
+                      </select>
+                      <button onClick={() => setMockPhase('result')} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-5 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all">Back to Results</button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex bg-white/40 dark:bg-white/5 border-b border-slate-200/50 dark:border-white/10 shrink-0 px-2 overflow-x-auto scrollbar-hide">
+                     {Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))).map((sec: any) => (
+                       <button 
+                         key={sec} 
+                         onClick={() => { setActiveSection(sec); setActiveQuestionIdx(0); }}
+                         className={`px-6 py-3 font-bold text-sm border-b-2 transition-colors whitespace-nowrap ${activeSection === sec ? 'border-[hsl(var(--accent))] text-[hsl(var(--accent))]' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                       >
+                         {sec}
+                       </button>
+                     ))}
+                  </div>
+
+                  <div className="flex flex-1 overflow-hidden relative">
+                     <div className="flex-1 flex flex-col overflow-y-auto p-4 md:p-6" style={{ scrollbarWidth: 'thin' }}>
+                        {(() => {
+                           const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
+                           const sectionQuestions = sectionQuestionsAll.filter((q: any) => {
+                             if (reviewFilter === 'all') return true;
+                             const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+                             if (reviewFilter === 'unanswered') return !isAnswered;
+                             if (!isAnswered) return false;
+                             let isCorrect = false;
+                             if (isAnswered) {
+                               if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
+                               else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+                             }
+                             if (reviewFilter === 'correct') return isCorrect;
+                             if (reviewFilter === 'incorrect') return !isCorrect;
+                             return true;
+                           });
+                           const q = sectionQuestions[activeQuestionIdx];
+                           if (!q) return <div className="p-8 text-center text-slate-500">No questions match the current filter in this section.</div>;
+
+                           return (
+                             <div className="max-w-4xl mx-auto w-full pb-8">
+                                {q.context && (
+                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+                                    {q.context}
+                                  </div>
+                                )}
+                                <div className="bg-white/60 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                                  <div className="flex justify-between items-start mb-4">
+                                    <p className="font-bold text-lg">Question {sectionQuestionsAll.findIndex(sq => sq.originalIndex === q.originalIndex) + 1} <span className="text-slate-400 text-sm font-normal">of {sectionQuestionsAll.length}</span></p>
+                                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
+                                  </div>
+                                  <p className="font-medium mb-6 text-lg">{q.text}</p>
+                                  <div className="space-y-3">
+                                    {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => {
+                                      const isSelected = selectedAnswers[q.originalIndex] === oIdx;
+                                      const isCorrect = q.correct === oIdx;
+                                      let borderClass = 'border-slate-200 dark:border-slate-700';
+                                      let bgClass = '';
+                                      if (isCorrect) {
+                                        borderClass = 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20';
+                                      } else if (isSelected && !isCorrect) {
+                                        borderClass = 'border-rose-500 bg-rose-50 dark:bg-rose-900/20';
+                                      } else if (!isSelected && !isCorrect) {
+                                        borderClass = 'border-slate-200 dark:border-slate-700 opacity-50';
+                                      }
+
+                                      return (
+                                        <div key={oIdx} className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all ${borderClass} ${bgClass}`}>
+                                          <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSelected ? (isCorrect ? 'border-emerald-500' : 'border-rose-500') : (isCorrect ? 'border-emerald-500' : 'border-slate-400')}`}>
+                                            {isSelected && <div className={`w-2.5 h-2.5 rounded-full ${isCorrect ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>}
+                                          </div>
+                                          <span className="text-base">{opt}</span>
+                                          {isCorrect && <span className="ml-auto text-emerald-500 font-bold text-sm hidden sm:inline">Correct</span>}
+                                          {isSelected && !isCorrect && <span className="ml-auto text-rose-500 font-bold text-sm hidden sm:inline">Your Answer</span>}
+                                        </div>
+                                      )
+                                    }) : (
+                                      <div>
+                                        <input 
+                                          type="text" 
+                                          disabled
+                                          value={(selectedAnswers[q.originalIndex] as string) || ''} 
+                                          className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 text-lg focus:outline-none transition-colors" 
+                                          placeholder="Not answered" 
+                                        />
+                                        <div className={`mt-3 font-bold ${String(selectedAnswers[q.originalIndex] || '').trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase() ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                           Correct Answer: {q.tita_answer}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                                
+                                <div className="mt-6 p-6 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
+                                  <div className="font-bold flex items-center gap-2 mb-3 text-[hsl(var(--accent))]"><Book size={18} /> Explanation</div>
+                                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{q.explanation}</p>
+                                </div>
+
+                                <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                   <div className="flex items-center gap-2 w-full sm:w-auto">
+                                     {taggedQuestions[q.id] ? (
+                                       <div className="bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] px-4 py-2 rounded-lg font-bold text-sm border border-[hsl(var(--accent))]/20">
+                                         Flagged as: {taggedQuestions[q.id]}
+                                       </div>
+                                     ) : (
+                                       <>
+                                         <input 
+                                           type="text" 
+                                           placeholder="Flag topic (e.g. Algebra)" 
+                                           className="flex-1 sm:w-48 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[hsl(var(--accent))]"
+                                           onKeyDown={(e) => {
+                                              if (e.key === 'Enter') handleTagTopic(q, e.currentTarget.value);
+                                           }}
+                                         />
+                                         <button 
+                                            onClick={(e) => {
+                                              const input = e.currentTarget.previousElementSibling as HTMLInputElement;
+                                              handleTagTopic(q, input.value);
+                                            }}
+                                            className="bg-[hsl(var(--accent))] text-white px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-colors"
+                                         >
+                                           Flag
+                                         </button>
+                                       </>
+                                     )}
+                                   </div>
+                                   <div className="flex gap-4 w-full sm:w-auto">
+                                     <button 
+                                       disabled={activeQuestionIdx === 0} 
+                                       onClick={() => setActiveQuestionIdx(prev => prev - 1)}
+                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                     >
+                                       Previous
+                                     </button>
+                                     <button 
+                                       disabled={activeQuestionIdx === sectionQuestions.length - 1} 
+                                       onClick={() => setActiveQuestionIdx(prev => prev + 1)}
+                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                     >
+                                       Next
+                                     </button>
+                                   </div>
+                                </div>
+                             </div>
+                           );
+                        })()}
+                     </div>
+
+                     <div className="w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white/40 dark:bg-white/5 flex-col hidden md:flex">
+                        <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold">
+                          Question Palette
+                        </div>
+                        <div className="p-4 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
+                           <div className="grid grid-cols-4 gap-2">
+                             {(() => {
+                                const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
+                                const sectionQuestions = sectionQuestionsAll.filter((q: any) => {
+                                  if (reviewFilter === 'all') return true;
+                                  const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+                                  if (reviewFilter === 'unanswered') return !isAnswered;
+                                  if (!isAnswered) return false;
+                                  let isCorrect = false;
+                                  if (isAnswered) {
+                                    if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
+                                    else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+                                  }
+                                  if (reviewFilter === 'correct') return isCorrect;
+                                  if (reviewFilter === 'incorrect') return !isCorrect;
+                                  return true;
+                                });
+                                return sectionQuestions.map((q: any, idx: number) => {
+                                  const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+                                  let isCorrect = false;
+                                  if (isAnswered) {
+                                    if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
+                                    else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+                                  }
+                                  const isCurrent = activeQuestionIdx === idx;
+                                  
+                                  let btnClass = 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400';
+                                  if (isAnswered) {
+                                     btnClass = isCorrect ? 'bg-emerald-500 border-emerald-600 text-white' : 'bg-rose-500 border-rose-600 text-white';
+                                  }
+                                  if (isCurrent) {
+                                     btnClass += ' ring-2 ring-[hsl(var(--accent))] ring-offset-2 dark:ring-offset-slate-900';
+                                  }
+
+                                  return (
+                                    <button 
+                                      key={idx}
+                                      onClick={() => setActiveQuestionIdx(idx)}
+                                      className={`aspect-square rounded-lg border flex items-center justify-center font-bold text-sm transition-all hover:scale-105 ${btnClass}`}
+                                    >
+                                      {sectionQuestionsAll.findIndex(sq => sq.originalIndex === q.originalIndex) + 1}
+                                    </button>
+                                  )
+                                });
+                             })()}
+                           </div>
+                        </div>
+                        <div className="p-4 border-t border-slate-200/50 dark:border-white/10 space-y-3 text-xs font-medium">
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-emerald-500 border border-emerald-600"></div> Correct</div>
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-rose-500 border border-rose-600"></div> Incorrect</div>
+                           <div className="flex items-center gap-3"><div className="w-4 h-4 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"></div> Not Answered</div>
+                        </div>
+                     </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -443,11 +991,16 @@ export default function CatMaster() {
                 ))}
               </div>
               <div className="space-y-6">
-                {MOCK_PRACTICE_DB[practiceSubject].map((q, idx) => (
+                {practiceQuestions?.map((q, idx) => (
                   <div key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
+                    {q.context && (
+                      <div className="mb-4 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap max-h-60 overflow-y-auto">
+                        {q.context}
+                      </div>
+                    )}
                     <p className="font-medium mb-6 text-lg">{idx + 1}. {q.text}</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {q.options.map((opt, oIdx) => {
+                      {q.type === 'MCQ' ? q.options?.map((opt, oIdx) => {
                         const isAnswered = practiceAnswers[q.id] !== undefined;
                         const isSelected = practiceAnswers[q.id] === oIdx;
                         const isCorrect = q.correct === oIdx;
@@ -466,7 +1019,29 @@ export default function CatMaster() {
                             <div className={`border-2 rounded-xl p-4 transition-colors ${borderClass} ${bgClass}`}>{opt}</div>
                           </label>
                         );
-                      })}
+                      }) : (
+                        <div className="sm:col-span-2">
+                           <input 
+                              type="text" 
+                              disabled={practiceAnswers[q.id] !== undefined} 
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    const val = e.currentTarget.value;
+                                    setPracticeAnswers(prev => ({ ...prev, [q.id]: val }));
+                                    const isCorrect = String(val).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+                                    addResult(1, isCorrect ? 1 : 0);
+                                }
+                              }} 
+                              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors disabled:opacity-50" 
+                              placeholder="Type your answer and press Enter..." 
+                           />
+                           {practiceAnswers[q.id] !== undefined && (
+                             <div className={`mt-2 text-sm font-bold ${String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase() ? 'text-emerald-500' : 'text-rose-500'}`}>
+                               Your Answer: {practiceAnswers[q.id]} | Correct: {q.tita_answer}
+                             </div>
+                           )}
+                        </div>
+                      )}
                     </div>
                     <AnimatePresence>
                       {practiceAnswers[q.id] !== undefined && (
@@ -553,6 +1128,42 @@ export default function CatMaster() {
           )}
         </div>
       </main>
+
+      {/* Submit Summary Modal */}
+      <AnimatePresence>
+        {showSubmitSummary && currentTest && (
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[2000] flex items-center justify-center">
+            <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-6 md:p-8 rounded-2xl shadow-2xl border border-white/10 max-w-md w-full mx-4">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold">Submit Test</h3>
+                <button onClick={() => setShowSubmitSummary(false)} className="text-slate-400 hover:text-slate-600"><X /></button>
+              </div>
+              <div className="space-y-4 mb-8">
+                <div className="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-700">
+                  <span className="text-slate-600 dark:text-slate-400 font-medium">Total Questions:</span>
+                  <span className="font-bold text-lg">{currentTest.questions?.length || 0}</span>
+                </div>
+                <div className="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-700">
+                  <span className="flex items-center gap-3 text-slate-600 dark:text-slate-400 font-medium"><div className="w-3 h-3 rounded bg-emerald-500"></div> Answered:</span>
+                  <span className="font-bold text-lg text-emerald-600 dark:text-emerald-400">{currentTest.questions?.filter((q: any) => selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '').length || 0}</span>
+                </div>
+                <div className="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-700">
+                  <span className="flex items-center gap-3 text-slate-600 dark:text-slate-400 font-medium"><div className="w-3 h-3 rounded bg-purple-500"></div> Marked for Review:</span>
+                  <span className="font-bold text-lg text-purple-600 dark:text-purple-400">{currentTest.questions?.filter((q: any) => markedForReview[q.originalIndex]).length || 0}</span>
+                </div>
+                <div className="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-700">
+                  <span className="flex items-center gap-3 text-slate-600 dark:text-slate-400 font-medium"><div className="w-3 h-3 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600"></div> Not Answered:</span>
+                  <span className="font-bold text-lg">{currentTest.questions?.filter((q: any) => selectedAnswers[q.originalIndex] === undefined || selectedAnswers[q.originalIndex] === '').length || 0}</span>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <button onClick={() => setShowSubmitSummary(false)} className="flex-1 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Resume</button>
+                <button onClick={() => { setShowSubmitSummary(false); handleSubmitMock(); }} className="flex-1 py-3 rounded-xl font-bold bg-[hsl(var(--accent))] text-white shadow-lg hover:scale-105 active:scale-95 transition-all">Confirm Submit</button>
+              </div>
+            </m.div>
+          </m.div>
+        )}
+      </AnimatePresence>
 
       {/* Auth Modal */}
       <AnimatePresence>
