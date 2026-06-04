@@ -10,6 +10,7 @@ interface TestHistory {
 interface TopicStat {
   attempted: number;
   correct: number;
+  questionIds?: string[];
 }
 
 interface Progress {
@@ -26,7 +27,7 @@ interface CatState {
   login: (name: string) => void;
   logout: () => void;
   addResult: (attempted: number, correct: number) => void;
-  addTopicResult: (topic: string, isCorrect: boolean) => void;
+  addTopicResult: (topic: string, isCorrect: boolean, questionId?: string) => void;
 }
 
 export const useCatStore = create<CatState>()(
@@ -47,9 +48,10 @@ export const useCatStore = create<CatState>()(
         }
       })),
       
-      addTopicResult: (topic, isCorrect) => set((state) => {
+      addTopicResult: (topic, isCorrect, questionId) => set((state) => {
         const stats = state.progress.topicStats || {};
-        const current = stats[topic] || { attempted: 0, correct: 0 };
+        const current = stats[topic] || { attempted: 0, correct: 0, questionIds: [] };
+        const qIds = current.questionIds || [];
         return {
           progress: {
             ...state.progress,
@@ -57,7 +59,8 @@ export const useCatStore = create<CatState>()(
               ...stats,
               [topic]: {
                 attempted: current.attempted + 1,
-                correct: current.correct + (isCorrect ? 1 : 0)
+                correct: current.correct + (isCorrect ? 1 : 0),
+                questionIds: questionId && !qIds.includes(questionId) ? [...qIds, questionId] : qIds
               }
             }
           }

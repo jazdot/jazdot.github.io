@@ -135,6 +135,7 @@ export default function CatMaster() {
   const [editingFormulaId, setEditingFormulaId] = useState<string | null>(null);
   const [practiceSubject, setPracticeSubject] = useState<'QA' | 'VARC' | 'DILR'>('QA');
   const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
+  const [practiceFilterTopic, setPracticeFilterTopic] = useState<string | null>(null);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
 
@@ -208,9 +209,18 @@ export default function CatMaster() {
   }, [mockPhase, currentTest, selectedAnswers, markedForReview, timeLeft, activeSection, activeQuestionIdx, sectionTimes]);
 
   useEffect(() => {
-    setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject));
+    if (practiceFilterTopic) {
+      let allQs: Question[] = [];
+      CAT_PAST_PAPERS.forEach(paper => {
+        allQs = [...allQs, ...(paper.questions || [])];
+      });
+      const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
+      setPracticeQuestions(allQs.filter(q => topicQIds.includes(q.id)));
+    } else {
+      setPracticeQuestions(getPracticeQuestionsBySection(practiceSubject));
+    }
     setPracticeAnswers({});
-  }, [practiceSubject]);
+  }, [practiceSubject, practiceFilterTopic, progress.topicStats]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -251,7 +261,7 @@ export default function CatMaster() {
       else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
     }
 
-    addTopicResult(topic.trim(), isCorrect);
+    addTopicResult(topic.trim(), isCorrect, q.id);
     setTaggedQuestions(prev => ({ ...prev, [q.id]: topic.trim() }));
   };
 
@@ -301,10 +311,18 @@ export default function CatMaster() {
         const answer = selectedAnswers[idx];
         if (answer !== undefined && String(answer).trim() !== '') {
           answeredCount++;
+          let isCorrect = false;
           if (q.type === 'MCQ') {
-            if (answer === q.correct) score++;
+            if (answer === q.correct) { score++; isCorrect = true; }
           } else {
-            if (String(answer).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()) score++;
+            if (String(answer).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()) { score++; isCorrect = true; }
+          }
+          
+          if (!isCorrect) {
+            const front = `[Auto-Generated]\n\nQ: ${q.text}`;
+            const correctAnsStr = q.type === 'MCQ' ? q.options?.[q.correct as number] : q.tita_answer;
+            const back = `Correct Answer: ${correctAnsStr}\n\nExplanation:\n${q.explanation}`;
+            saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
           }
         }
       });
@@ -475,8 +493,15 @@ export default function CatMaster() {
                         .map(([topic, stat]) => ({ topic, acc: Math.round((stat.correct / stat.attempted) * 100) }))
                         .sort((a, b) => a.acc - b.acc)
                         .map(t => (
-                          <div key={t.topic}>
-                            <div className="flex justify-between text-sm mb-1"><span className="font-medium text-slate-700 dark:text-slate-300">{t.topic}</span><span className={`font-bold ${t.acc < 50 ? 'text-rose-500' : t.acc < 80 ? 'text-yellow-500' : 'text-emerald-500'}`}>{t.acc}%</span></div>
+                          <div 
+                            key={t.topic}
+                            className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 p-2 -mx-2 rounded-lg transition-colors group"
+                            onClick={() => {
+                              setPracticeFilterTopic(t.topic);
+                              setActiveTab('practice');
+                            }}
+                          >
+                            <div className="flex justify-between text-sm mb-1"><span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-[hsl(var(--accent))] transition-colors">{t.topic}</span><span className={`font-bold ${t.acc < 50 ? 'text-rose-500' : t.acc < 80 ? 'text-yellow-500' : 'text-emerald-500'}`}>{t.acc}%</span></div>
                             <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
                               <m.div initial={{ width: 0 }} animate={{ width: `${t.acc}%` }} className={`h-full rounded-full ${t.acc < 50 ? 'bg-rose-500' : t.acc < 80 ? 'bg-yellow-500' : 'bg-emerald-500'}`}></m.div>
                             </div>
@@ -819,7 +844,7 @@ export default function CatMaster() {
                                 )}
                                 <div className="bg-white/60 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                                   <div className="flex justify-between items-start mb-4">
-                                    <p className="font-bold text-lg">Question {sectionQuestionsAll.findIndex(sq => sq.originalIndex === q.originalIndex) + 1} <span className="text-slate-400 text-sm font-normal">of {sectionQuestionsAll.length}</span></p>
+                                    <p className="font-bold text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-sm font-normal">of {sectionQuestions.length}</span></p>
                                     <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
                                   <p className="font-medium mb-6 text-lg">{q.text}</p>
@@ -964,7 +989,7 @@ export default function CatMaster() {
                                       onClick={() => setActiveQuestionIdx(idx)}
                                       className={`aspect-square rounded-lg border flex items-center justify-center font-bold text-sm transition-all hover:scale-105 ${btnClass}`}
                                     >
-                                      {sectionQuestionsAll.findIndex(sq => sq.originalIndex === q.originalIndex) + 1}
+                                      {sectionQuestionsAll.findIndex((sq: any) => sq.originalIndex === q.originalIndex) + 1}
                                     </button>
                                   )
                                 });
@@ -987,10 +1012,21 @@ export default function CatMaster() {
             <div className="flex flex-col flex-1">
               <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
                 {(['QA', 'VARC', 'DILR'] as const).map(subj => (
-                  <button key={subj} onClick={() => setPracticeSubject(subj)} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceSubject === subj ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>{subj} Training</button>
+                  <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceSubject === subj && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>{subj} Training</button>
                 ))}
+                {practiceFilterTopic && (
+                  <button className="px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))]">
+                    {practiceFilterTopic} Focus
+                  </button>
+                )}
               </div>
               <div className="space-y-6">
+                {practiceQuestions.length === 0 && practiceFilterTopic && (
+                  <div className="text-center py-16 text-slate-500">
+                    <BrainCircuit size={48} className="mx-auto mb-4 opacity-20" />
+                    <p>No questions found for topic "{practiceFilterTopic}"</p>
+                  </div>
+                )}
                 {practiceQuestions?.map((q, idx) => (
                   <div key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
                     {q.context && (
@@ -1047,7 +1083,7 @@ export default function CatMaster() {
                       {practiceAnswers[q.id] !== undefined && (
                         <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
                           <div className="p-5 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
-                            <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach's Explanation</div>
+                            <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
                             <p className="text-sm leading-relaxed">{q.explanation}</p>
                           </div>
                         </m.div>
