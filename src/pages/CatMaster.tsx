@@ -92,6 +92,98 @@ const renderLatex = (text: string) => {
   }).join('');
 };
 
+// --- Pinch Zoom Image Component ---
+const PinchZoomImage = ({ src, alt }: { src: string, alt: string }) => {
+  const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const startDist = useRef<number | null>(null);
+  const startScale = useRef<number>(1);
+  const lastPan = useRef<{ x: number, y: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      e.stopPropagation();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      startDist.current = dist;
+      startScale.current = scale;
+      lastPan.current = null;
+    } else if (e.touches.length === 1 && scale > 1) {
+      e.stopPropagation();
+      lastPan.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && startDist.current !== null) {
+      e.stopPropagation();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const newScale = Math.max(1, Math.min(startScale.current * (dist / startDist.current), 5));
+      setScale(newScale);
+      if (newScale === 1) setPosition({ x: 0, y: 0 });
+    } else if (e.touches.length === 1 && scale > 1 && lastPan.current) {
+      e.stopPropagation();
+      const deltaX = e.touches[0].clientX - lastPan.current.x;
+      const deltaY = e.touches[0].clientY - lastPan.current.y;
+      setPosition(prev => ({ x: prev.x + deltaX / scale, y: prev.y + deltaY / scale }));
+      lastPan.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  };
+
+  const handleTouchEnd = () => {
+    startDist.current = null;
+    lastPan.current = null;
+    if (scale <= 1) {
+        setPosition({ x: 0, y: 0 });
+    }
+  };
+
+  return (
+    <div className="relative w-full flex justify-center my-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50" style={{ touchAction: scale > 1 ? 'none' : 'pan-x pan-y', overflow: 'hidden' }}>
+      <img 
+        src={src} 
+        alt={alt} 
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onDoubleClick={() => { setScale(scale > 1 ? 1 : 2); setPosition({ x: 0, y: 0 }); }}
+        style={{ 
+          transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`, 
+          transition: startDist.current || lastPan.current ? 'none' : 'transform 0.2s ease-out',
+          transformOrigin: 'center'
+        }}
+        className="max-w-full object-contain cursor-zoom-in"
+      />
+      {scale > 1 && (
+        <button 
+          onClick={() => { setScale(1); setPosition({ x: 0, y: 0 }); }}
+          className="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1 z-10"
+        >
+          <X size={16} />
+        </button>
+      )}
+    </div>
+  );
+};
+
+// --- Render Context Helper ---
+const renderContextWithImages = (text: string) => {
+  if (!text) return null;
+  const parts = text.split(/(!\[.*?\]\(.*?\))/g);
+  return parts.map((part, i) => {
+    const imgMatch = part.match(/!\[(.*?)\]\((.*?)\)/);
+    if (imgMatch) {
+      return <PinchZoomImage key={i} alt={imgMatch[1]} src={imgMatch[2]} />;
+    }
+    return <span key={i} dangerouslySetInnerHTML={{ __html: renderLatex(part) }} />;
+  });
+};
+
 // --- Flashcard Component ---
 const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEdit: () => void, onDelete: () => void, onUpdate: (f: any) => void }) => {
   const [flipped, setFlipped] = useState(false);
@@ -611,6 +703,16 @@ export default function CatMaster() {
   // Zero-dependency SVG Donut Chart Calculation
   const accuracy = progress.totalAttempted > 0 ? Math.round((progress.correct / progress.totalAttempted) * 100) : 0;
 
+  // IRT Logistic Percentile Approximation
+  const predictPercentile = (rating: number) => {
+    const z = (rating - 1200) / 200;
+    const p = 1 / (1 + Math.exp(-1.702 * z));
+    return Math.max(1, Math.min(99.99, Number((p * 100).toFixed(2))));
+  };
+  const qaPercentile = predictPercentile(progress.skillRatings?.QA || 1200);
+  const varcPercentile = predictPercentile(progress.skillRatings?.VARC || 1200);
+  const dilrPercentile = predictPercentile(progress.skillRatings?.DILR || 1200);
+
   const formulaTopics = ['All', 'Custom (Mine)', ...Array.from(new Set(formulas.filter(f => f.isOfficial).map(f => f.topic)))];
 
   const filteredFormulas = formulas.filter(f => {
@@ -716,19 +818,19 @@ export default function CatMaster() {
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-6">Subject Mastery</h3>
+                  <h3 className="text-lg font-bold mb-6">Predicted Percentile (IRT Model)</h3>
                   <div className="space-y-6">
                     <div>
-                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Quantitative Ability (QA)</span><span className="text-[hsl(var(--accent))] font-bold">75%</span></div>
-                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: '75%' }} transition={{ duration: 1, delay: 0.2 }} className="bg-[hsl(var(--accent))] h-full rounded-full shadow-[0_0_10px_hsl(var(--accent))]"></m.div></div>
+                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Quantitative Ability (QA)</span><span className="text-[hsl(var(--accent))] font-bold">{qaPercentile} PR</span></div>
+                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${qaPercentile}%` }} transition={{ duration: 1, delay: 0.2 }} className="bg-[hsl(var(--accent))] h-full rounded-full shadow-[0_0_10px_hsl(var(--accent))]"></m.div></div>
                     </div>
                     <div>
-                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Verbal Ability (VARC)</span><span className="text-purple-500 font-bold">60%</span></div>
-                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: '60%' }} transition={{ duration: 1, delay: 0.3 }} className="bg-purple-500 h-full rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]"></m.div></div>
+                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Verbal Ability (VARC)</span><span className="text-purple-500 font-bold">{varcPercentile} PR</span></div>
+                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${varcPercentile}%` }} transition={{ duration: 1, delay: 0.3 }} className="bg-purple-500 h-full rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]"></m.div></div>
                     </div>
                     <div>
-                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Data Interpretation (DILR)</span><span className="text-emerald-500 font-bold">85%</span></div>
-                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: '85%' }} transition={{ duration: 1, delay: 0.4 }} className="bg-emerald-500 h-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]"></m.div></div>
+                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Data Interpretation (DILR)</span><span className="text-emerald-500 font-bold">{dilrPercentile} PR</span></div>
+                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${dilrPercentile}%` }} transition={{ duration: 1, delay: 0.4 }} className="bg-emerald-500 h-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]"></m.div></div>
                     </div>
                   </div>
                 </div>
@@ -1262,7 +1364,7 @@ export default function CatMaster() {
                              <div className="max-w-4xl mx-auto w-full pb-8">
                                 {q.context && (
                                   <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
-                                    {q.context}
+                                    {renderContextWithImages(q.context)}
                                   </div>
                                 )}
                                 <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
@@ -1270,7 +1372,7 @@ export default function CatMaster() {
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {sectionQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <p className="font-medium mb-6 text-base md:text-lg">{q.text}</p>
+                                  <div className="font-medium mb-6 text-base md:text-lg">{renderContextWithImages(q.text)}</div>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => {
                                       const isSelected = selectedAnswers[q.originalIndex] === oIdx;
