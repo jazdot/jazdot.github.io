@@ -247,6 +247,22 @@ const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEd
 };
 // -------------------------
 
+const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = 'Confirm', cancelText = 'Cancel', isDestructive = false }: any) => {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[7000] flex items-center justify-center">
+      <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 max-w-sm w-full mx-4">
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-slate-500 mb-6 text-sm">{message}</p>
+        <div className="flex gap-3">
+          <button onClick={onCancel} className="flex-1 px-4 py-2 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">{cancelText}</button>
+          <button onClick={onConfirm} className={`flex-1 px-4 py-2 rounded-xl font-bold text-white transition-all ${isDestructive ? 'bg-rose-500 hover:bg-rose-600' : 'bg-[hsl(var(--accent))] hover:opacity-90'}`}>{confirmText}</button>
+        </div>
+      </m.div>
+    </div>
+  );
+};
+
 export default function CatMaster() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -288,9 +304,12 @@ export default function CatMaster() {
   const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
   const [showMobilePalette, setShowMobilePalette] = useState(false);
   const [showDesktopPalette, setShowDesktopPalette] = useState(true);
+  const [showClearHistoryConfirmationModal, setShowClearHistoryConfirmationModal] = useState(false);
   const [passageWidth, setPassageWidth] = useState(50);
   const isDragging = useRef(false);
   const [qotd, setQotd] = useState<Question | null>(null);
+  const [pendingUnfinishedTest, setPendingUnfinishedTest] = useState<any>(null);
+  const [formulaToDelete, setFormulaToDelete] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
     () => (localStorage.getItem('cat-master-theme') as 'light' | 'dark' | 'system') || 'system'
   );
@@ -1777,10 +1796,7 @@ export default function CatMaster() {
                      setNewFormula({ front: f.front, back: f.back });
                      setIsAddingFormula(true);
                    }} onDelete={async () => {
-                     if (confirm('Are you sure you want to delete this flashcard?')) {
-                       await deleteFormula(f.id);
-                       setFormulas(formulas.filter(form => form.id !== f.id));
-                     }
+                     setFormulaToDelete(f.id);
                    }} onUpdate={async (updated) => {
                      await saveFormula(updated);
                      setFormulas(formulas.map(form => form.id === updated.id ? updated : form));
@@ -1846,6 +1862,57 @@ export default function CatMaster() {
           </m.div>
         )}
       </AnimatePresence>
+
+      {/* Confirmation Modals */}
+      <ConfirmationModal 
+        isOpen={!!pendingUnfinishedTest}
+        title="Unfinished Test Found"
+        message="You have an unfinished mock test saved locally. Would you like to resume it where you left off?"
+        confirmText="Resume Test"
+        cancelText="Discard"
+        onConfirm={() => {
+          setCurrentTest(pendingUnfinishedTest.currentTest);
+          setSelectedAnswers(pendingUnfinishedTest.selectedAnswers || {});
+          setMarkedForReview(pendingUnfinishedTest.markedForReview || {});
+          setTimeLeft(pendingUnfinishedTest.timeLeft || 7200);
+          setActiveSection(pendingUnfinishedTest.activeSection || '');
+          setActiveQuestionIdx(pendingUnfinishedTest.activeQuestionIdx || 0);
+          setSectionTimes(pendingUnfinishedTest.sectionTimes || {});
+          setPendingUnfinishedTest(null);
+          setIsPaused(true);
+          setMockPhase('test');
+        }}
+        onCancel={() => {
+          localStorage.removeItem('cat-master-active-test');
+          setPendingUnfinishedTest(null);
+        }}
+      />
+
+      <ConfirmationModal 
+        isOpen={showClearHistoryConfirmationModal}
+        title="Clear History"
+        message="Are you sure you want to clear your entire progress history? This action cannot be undone."
+        confirmText="Clear History"
+        isDestructive={true}
+        onConfirm={() => { clearHistory(); setShowClearHistoryConfirmationModal(false); }}
+        onCancel={() => setShowClearHistoryConfirmationModal(false)}
+      />
+
+      <ConfirmationModal 
+        isOpen={!!formulaToDelete}
+        title="Delete Flashcard"
+        message="Are you sure you want to delete this flashcard?"
+        confirmText="Delete"
+        isDestructive={true}
+        onConfirm={async () => {
+          if (formulaToDelete) {
+            await deleteFormula(formulaToDelete);
+            setFormulas(formulas.filter(form => form.id !== formulaToDelete));
+            setFormulaToDelete(null);
+          }
+        }}
+        onCancel={() => setFormulaToDelete(null)}
+      />
     </m.div>
   );
 }
