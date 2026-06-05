@@ -32,8 +32,12 @@ const processPaper = (paper: PastPaper): PastPaper => {
   if (paper.question_groups && !paper.questions) {
     let flatQs: Question[] = [];
     paper.question_groups.forEach((group: any) => {
+      let sectionName = group.section;
+      if (sectionName === 'Quant') sectionName = 'QA';
+      if (sectionName === 'LRDI') sectionName = 'DILR';
+
       if (group.questions) {
-        group.questions.forEach((q: any) => flatQs.push({ ...q, section: group.section, context: group.context }));
+        group.questions.forEach((q: any) => flatQs.push({ ...q, section: sectionName, context: group.context }));
       }
     });
     paper.questions = flatQs;

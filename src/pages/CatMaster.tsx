@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX } from 'lucide-react';
@@ -228,13 +228,13 @@ const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEd
         transition={{ duration: 0.6, type: 'spring', stiffness: 260, damping: 20 }}
       >
         {/* Front */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-center items-center p-6 text-center" style={{ backfaceVisibility: 'hidden' }}>
-          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100" dangerouslySetInnerHTML={{ __html: renderLatex(formula.front) }} />
+        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-center items-center p-6 text-center overflow-y-auto" style={{ backfaceVisibility: 'hidden' }}>
+          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-wrap">{renderContextWithImages(formula.front)}</h3>
           {formula.topic && <div className="absolute bottom-5 text-xs font-bold text-slate-400 uppercase tracking-wider">{formula.topic}</div>}
         </div>
         {/* Back */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm bg-[hsl(var(--accent))] border-[hsl(var(--accent))] flex flex-col justify-between items-center p-6 text-center" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-          <div className="flex-1 flex items-center justify-center text-lg font-medium text-white" dangerouslySetInnerHTML={{ __html: renderLatex(formula.back) }} />
+        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm bg-[hsl(var(--accent))] border-[hsl(var(--accent))] flex flex-col justify-between items-center p-6 text-center overflow-y-auto" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+          <div className="flex-1 flex items-center justify-center text-lg font-medium text-white leading-relaxed whitespace-pre-wrap">{renderContextWithImages(formula.back)}</div>
           <div className="flex gap-2 w-full mt-4">
              <button onClick={(e) => handleRate(e, 1)} className="flex-1 bg-rose-500/20 hover:bg-rose-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Hard</button>
              <button onClick={(e) => handleRate(e, 3)} className="flex-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Good</button>
@@ -410,6 +410,7 @@ export default function CatMaster() {
 
   useEffect(() => {
     if (mockPhase === 'test' && currentTest) {
+      if (timeLeft % 5 !== 0) return; // Optimize by saving only every 5 seconds
       const activeTestData = {
         currentTest,
         selectedAnswers,
@@ -509,6 +510,31 @@ export default function CatMaster() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeTab]);
+
+  // Memoize questions mapping and filtering to optimize re-renders during test/review
+  const allQuestionsMapped = useMemo(() => {
+    return currentTest?.questions?.map((q: any, i: number) => ({ ...q, originalIndex: i })) || [];
+  }, [currentTest]);
+
+  const activeSectionQuestions = useMemo(() => {
+    return allQuestionsMapped.filter((q: any) => q.section === activeSection);
+  }, [allQuestionsMapped, activeSection]);
+
+  const filteredReviewQuestions = useMemo(() => {
+    if (mockPhase !== 'review') return [];
+    return activeSectionQuestions.filter((q: any) => {
+      if (reviewFilter === 'all') return true;
+      const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
+      if (reviewFilter === 'unanswered') return !isAnswered;
+      if (!isAnswered) return false;
+      let isCorrect = false;
+      if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
+      else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
+      if (reviewFilter === 'correct') return isCorrect;
+      if (reviewFilter === 'incorrect') return !isCorrect;
+      return true;
+    });
+  }, [mockPhase, activeSectionQuestions, reviewFilter, selectedAnswers]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -750,7 +776,7 @@ export default function CatMaster() {
             {[
               { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
               { id: 'practice', icon: PenTool, label: 'Practice Subjects' },
-              { id: 'mock', icon: Bot, label: 'AI Mock Tests' },
+              { id: 'mock', icon: Bot, label: 'Mock Tests' },
               { id: 'formula', icon: Book, label: 'Formula Hub' }
             ].map((item) => (
               <button key={item.id} onClick={() => setActiveTab(item.id)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${activeTab === item.id ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5'}`}>
@@ -852,7 +878,7 @@ export default function CatMaster() {
                     <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{qotd.section}</span>
                     <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{qotd.type}</span>
                   </div>
-                  <p className="font-medium text-lg mb-6 max-w-4xl">{qotd.text}</p>
+                  <div className="font-medium text-lg mb-6 max-w-4xl leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(qotd.text)}</div>
                   <button onClick={() => {
                     setPracticeSubject((qotd.section as 'QA' | 'VARC' | 'DILR') || 'QA');
                     setPracticeFilterTopic(null);
@@ -1029,38 +1055,36 @@ export default function CatMaster() {
                        onTouchEnd={() => {
                          if (touchStartX === null || touchEndX === null) return;
                          const distance = touchStartX - touchEndX;
-                         const sectionQuestionsLength = currentTest.questions?.filter((q: any) => q.section === activeSection).length || 0;
-                         if (distance > 50 && activeQuestionIdx < sectionQuestionsLength - 1) setActiveQuestionIdx(prev => prev + 1);
+                         if (distance > 50 && activeQuestionIdx < activeSectionQuestions.length - 1) setActiveQuestionIdx(prev => prev + 1);
                          if (distance < -50 && activeQuestionIdx > 0) setActiveQuestionIdx(prev => prev - 1);
                          setTouchStartX(null); setTouchEndX(null);
                        }}
                      >
                         {(() => {
-                           const sectionQuestions = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
-                           const q = sectionQuestions[activeQuestionIdx];
+                           const q = activeSectionQuestions[activeQuestionIdx];
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions in this section.</div>;
 
                            return (
                              <div className="max-w-4xl mx-auto w-full pb-8">
                                 {q.context && (
-                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
-                                    {q.context}
+                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
+                                    {renderContextWithImages(q.context)}
                                   </div>
                                 )}
                                 <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                                   <div className="flex justify-between items-start mb-4">
-                                    <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {sectionQuestions.length}</span></p>
+                                    <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {activeSectionQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <p className="font-medium mb-6 text-base md:text-lg">{q.text}</p>
+                                  <div className="font-medium mb-6 text-base md:text-lg leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(q.text)}</div>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => (
-                                      <label key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/5' : 'border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50'}`}>
+                                      <label key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/5 shadow-sm' : 'border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>
                                         <input type="radio" name={`q-${q.originalIndex}`} checked={selectedAnswers[q.originalIndex] === oIdx} onChange={() => setSelectedAnswers(prev => ({ ...prev, [q.originalIndex]: oIdx }))} className="hidden" />
                                         <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))]' : 'border-slate-400'}`}>
                                           {selectedAnswers[q.originalIndex] === oIdx && <div className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--accent))]"></div>}
                                         </div>
-                                        <span className="text-sm md:text-base">{opt}</span>
+                                        <span className="text-sm md:text-base leading-relaxed">{renderContextWithImages(opt)}</span>
                                       </label>
                                     )) : (
                                       <input 
@@ -1101,7 +1125,7 @@ export default function CatMaster() {
                                        Review
                                      </button>
                                      <button 
-                                       disabled={activeQuestionIdx === sectionQuestions.length - 1} 
+                                       disabled={activeQuestionIdx === activeSectionQuestions.length - 1} 
                                        onClick={() => setActiveQuestionIdx(prev => prev + 1)}
                                        className="col-span-2 sm:col-auto px-4 md:px-6 py-3 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
                                      >
@@ -1127,8 +1151,7 @@ export default function CatMaster() {
                         <div className="p-4 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
                            <div className="grid grid-cols-4 gap-2">
                              {(() => {
-                                const sectionQuestions = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
-                                return sectionQuestions.map((q: any, idx: number) => {
+                                return activeSectionQuestions.map((q: any, idx: number) => {
                                   const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
                                   const isMarked = markedForReview[q.originalIndex];
                                   const isCurrent = activeQuestionIdx === idx;
@@ -1321,58 +1344,28 @@ export default function CatMaster() {
                        onTouchEnd={() => {
                          if (touchStartX === null || touchEndX === null) return;
                          const distance = touchStartX - touchEndX;
-                         const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
-                         const sectionQuestionsLength = sectionQuestionsAll.filter((q: any) => {
-                           if (reviewFilter === 'all') return true;
-                           const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
-                           if (reviewFilter === 'unanswered') return !isAnswered;
-                           if (!isAnswered) return false;
-                           let isCorrect = false;
-                           if (isAnswered) {
-                             if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
-                             else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
-                           }
-                           if (reviewFilter === 'correct') return isCorrect;
-                           if (reviewFilter === 'incorrect') return !isCorrect;
-                           return true;
-                         }).length;
-                         if (distance > 50 && activeQuestionIdx < sectionQuestionsLength - 1) setActiveQuestionIdx(prev => prev + 1);
+                         if (distance > 50 && activeQuestionIdx < filteredReviewQuestions.length - 1) setActiveQuestionIdx(prev => prev + 1);
                          if (distance < -50 && activeQuestionIdx > 0) setActiveQuestionIdx(prev => prev - 1);
                          setTouchStartX(null); setTouchEndX(null);
                        }}
                      >
                         {(() => {
-                           const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
-                           const sectionQuestions = sectionQuestionsAll.filter((q: any) => {
-                             if (reviewFilter === 'all') return true;
-                             const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
-                             if (reviewFilter === 'unanswered') return !isAnswered;
-                             if (!isAnswered) return false;
-                             let isCorrect = false;
-                             if (isAnswered) {
-                               if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
-                               else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
-                             }
-                             if (reviewFilter === 'correct') return isCorrect;
-                             if (reviewFilter === 'incorrect') return !isCorrect;
-                             return true;
-                           });
-                           const q = sectionQuestions[activeQuestionIdx];
+                           const q = filteredReviewQuestions[activeQuestionIdx];
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions match the current filter in this section.</div>;
 
                            return (
                              <div className="max-w-4xl mx-auto w-full pb-8">
                                 {q.context && (
-                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
                                     {renderContextWithImages(q.context)}
                                   </div>
                                 )}
                                 <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                                   <div className="flex justify-between items-start mb-4">
-                                    <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {sectionQuestions.length}</span></p>
+                                    <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {filteredReviewQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <div className="font-medium mb-6 text-base md:text-lg">{renderContextWithImages(q.text)}</div>
+                                  <div className="font-medium mb-6 text-base md:text-lg leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(q.text)}</div>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => {
                                       const isSelected = selectedAnswers[q.originalIndex] === oIdx;
@@ -1384,7 +1377,7 @@ export default function CatMaster() {
                                       } else if (isSelected && !isCorrect) {
                                         borderClass = 'border-rose-500 bg-rose-50 dark:bg-rose-900/20';
                                       } else if (!isSelected && !isCorrect) {
-                                        borderClass = 'border-slate-200 dark:border-slate-700 opacity-50';
+                                        borderClass = 'border-slate-200 dark:border-slate-700 opacity-50 hover:opacity-100';
                                       }
 
                                       return (
@@ -1392,7 +1385,7 @@ export default function CatMaster() {
                                           <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSelected ? (isCorrect ? 'border-emerald-500' : 'border-rose-500') : (isCorrect ? 'border-emerald-500' : 'border-slate-400')}`}>
                                             {isSelected && <div className={`w-2.5 h-2.5 rounded-full ${isCorrect ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>}
                                           </div>
-                                          <span className="text-sm md:text-base">{opt}</span>
+                                          <span className="text-sm md:text-base leading-relaxed">{renderContextWithImages(opt)}</span>
                                           {isCorrect && <span className="ml-auto text-emerald-500 font-bold text-sm hidden sm:inline">Correct</span>}
                                           {isSelected && !isCorrect && <span className="ml-auto text-rose-500 font-bold text-sm hidden sm:inline">Your Answer</span>}
                                         </div>
@@ -1416,7 +1409,7 @@ export default function CatMaster() {
                                 
                                 <div className="mt-6 p-6 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
                                   <div className="font-bold flex items-center gap-2 mb-3 text-[hsl(var(--accent))]"><Book size={18} /> Explanation</div>
-                                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{q.explanation}</p>
+                                  <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
                                 </div>
 
                                 <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 pb-8 md:pb-0">
@@ -1456,7 +1449,7 @@ export default function CatMaster() {
                                        Previous
                                      </button>
                                      <button 
-                                       disabled={activeQuestionIdx === sectionQuestions.length - 1} 
+                                       disabled={activeQuestionIdx === filteredReviewQuestions.length - 1} 
                                        onClick={() => setActiveQuestionIdx(prev => prev + 1)}
                                        className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
                                      >
@@ -1482,22 +1475,7 @@ export default function CatMaster() {
                         <div className="p-4 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
                            <div className="grid grid-cols-4 gap-2">
                              {(() => {
-                                const sectionQuestionsAll = currentTest.questions?.map((q: any, i: number) => ({...q, originalIndex: i})).filter((q: any) => q.section === activeSection) || [];
-                                const sectionQuestions = sectionQuestionsAll.filter((q: any) => {
-                                  if (reviewFilter === 'all') return true;
-                                  const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
-                                  if (reviewFilter === 'unanswered') return !isAnswered;
-                                  if (!isAnswered) return false;
-                                  let isCorrect = false;
-                                  if (isAnswered) {
-                                    if (q.type === 'MCQ') isCorrect = selectedAnswers[q.originalIndex] === q.correct;
-                                    else isCorrect = String(selectedAnswers[q.originalIndex]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
-                                  }
-                                  if (reviewFilter === 'correct') return isCorrect;
-                                  if (reviewFilter === 'incorrect') return !isCorrect;
-                                  return true;
-                                });
-                                return sectionQuestions.map((q: any, idx: number) => {
+                                return filteredReviewQuestions.map((q: any, idx: number) => {
                                   const isAnswered = selectedAnswers[q.originalIndex] !== undefined && selectedAnswers[q.originalIndex] !== '';
                                   let isCorrect = false;
                                   if (isAnswered) {
@@ -1520,7 +1498,7 @@ export default function CatMaster() {
                                       onClick={() => setActiveQuestionIdx(idx)}
                                       className={`aspect-square rounded-lg border flex items-center justify-center font-bold text-sm transition-all hover:scale-105 ${btnClass}`}
                                     >
-                                      {sectionQuestionsAll.findIndex((sq: any) => sq.originalIndex === q.originalIndex) + 1}
+                                      {activeSectionQuestions.findIndex((sq: any) => sq.originalIndex === q.originalIndex) + 1}
                                     </button>
                                   )
                                 });
@@ -1572,12 +1550,15 @@ export default function CatMaster() {
                 {practiceQuestions?.map((q, idx) => (
                   <div key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
                     {q.context && (
-                      <div className="mb-4 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap max-h-60 overflow-y-auto">
-                        {q.context}
+                      <div className="mb-4 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap max-h-60 overflow-y-auto leading-relaxed">
+                        {renderContextWithImages(q.context)}
                       </div>
                     )}
                     <div className="flex justify-between items-start mb-6 gap-4">
-                      <p className="font-medium text-lg">{idx + 1}. {q.text}</p>
+                      <div className="font-medium text-lg leading-relaxed flex gap-2 text-slate-800 dark:text-slate-200">
+                        <span>{idx + 1}.</span>
+                        <div>{renderContextWithImages(q.text)}</div>
+                      </div>
                       <button 
                         onClick={() => toggleBookmark(q.id)}
                         className={`p-2 shrink-0 rounded-lg transition-colors ${progress.bookmarkedQuestions?.includes(q.id) ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
@@ -1616,7 +1597,7 @@ export default function CatMaster() {
                                 saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
                               }
                             }} />
-                            <div className={`border-2 rounded-xl p-4 transition-colors ${borderClass} ${bgClass}`}>{opt}</div>
+                            <div className={`border-2 rounded-xl p-4 transition-all duration-200 hover:shadow-md ${borderClass} ${bgClass} leading-relaxed`}>{renderContextWithImages(opt)}</div>
                           </label>
                         );
                       }) : (
@@ -1657,7 +1638,7 @@ export default function CatMaster() {
                         <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
                           <div className="p-5 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
                             <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
-                            <p className="text-sm leading-relaxed">{q.explanation}</p>
+                            <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
                           </div>
                         </m.div>
                       )}
