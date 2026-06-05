@@ -822,13 +822,19 @@ export default function CatMaster() {
     return f.topic === formulaTopicFilter;
   });
 
+  const hideNavigation = isFullscreen && activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review');
+  const testReviewClasses = hideNavigation 
+    ? 'rounded-none border-none h-[100dvh] bg-[#f8fafc] dark:bg-[#020617]' 
+    : 'fixed inset-0 z-[5000] md:relative md:inset-auto md:z-auto md:rounded-2xl h-[100dvh] md:h-[calc(100vh-12rem)] md:min-h-[600px] bg-[#f8fafc] dark:bg-[#020617] md:bg-white/60 md:dark:bg-white/5';
+
   return (
     <m.div 
       initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
       className="fixed inset-0 z-[1000] flex bg-[#f8fafc] dark:bg-[#020617] text-slate-900 dark:text-slate-100 overflow-hidden font-sans"
     >
       {/* Sidebar */}
-      <nav className="w-20 md:w-64 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0 print:hidden">
+        {!hideNavigation && (
+          <nav className="w-20 md:w-64 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0 print:hidden">
         <div>
           <div className="p-4 md:p-6">
             <button onClick={() => navigate('/tools')} className="flex items-center gap-2 text-slate-500 hover:text-[hsl(var(--accent))] transition-colors mb-6 text-[10px] md:text-xs font-bold tracking-widest uppercase">
@@ -873,20 +879,23 @@ export default function CatMaster() {
             <button onClick={() => setTheme('dark')} title="Dark Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Moon size={16} /></button>
           </div>
         </div>
-      </nav>
+          </nav>
+        )}
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col relative overflow-y-auto">
-        <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-4 sticky top-0 z-10 flex justify-between items-center px-6 print:hidden">
+          {!hideNavigation && (
+            <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-4 sticky top-0 z-10 flex justify-between items-center px-6 print:hidden">
           <h2 className="text-2xl font-bold capitalize">{activeTab}</h2>
           <div className="flex items-center gap-4 bg-white/40 dark:bg-white/5 backdrop-blur-md py-2 px-4 rounded-full border border-slate-200/50 dark:border-white/10">
             <div className="text-sm font-medium"><span className="text-slate-500">Accuracy: </span><span className="text-[hsl(var(--accent))] font-bold">{accuracy}%</span></div>
             <div className="w-px h-4 bg-slate-300 dark:bg-slate-600"></div>
             <div className="text-sm font-medium"><span className="text-slate-500">Tests: </span><span className="text-[hsl(var(--accent))] font-bold">{progress.testsCompleted}</span></div>
           </div>
-        </header>
+            </header>
+          )}
 
-        <div className={`p-4 md:p-8 mx-auto w-full flex-1 flex flex-col ${activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review') ? 'max-w-[1800px]' : 'max-w-6xl'}`}>
+          <div className={`${hideNavigation ? 'p-0 md:p-0' : 'p-4 md:p-8'} mx-auto w-full flex-1 flex flex-col ${activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review') ? (hideNavigation ? 'max-w-full' : 'max-w-[1800px]') : 'max-w-6xl'}`}>
           <style>{`
             @media (min-width: 1024px) {
               .passage-container { width: ${passageWidth}% !important; flex: none !important; }
@@ -1022,7 +1031,7 @@ export default function CatMaster() {
           )}
 
           {activeTab === 'mock' && (
-            <div className={`bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-sm overflow-hidden flex flex-col flex-1 ${mockPhase === 'test' || mockPhase === 'review' ? 'fixed inset-0 z-[5000] md:relative md:inset-auto md:z-auto md:rounded-2xl h-[100dvh] md:h-[calc(100vh-12rem)] md:min-h-[600px] bg-[#f8fafc] dark:bg-[#020617] md:bg-white/60 md:dark:bg-white/5' : 'rounded-2xl min-h-[600px] lg:h-[calc(100vh-12rem)]'}`}>
+              <div className={`bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-sm overflow-hidden flex flex-col flex-1 ${mockPhase === 'test' || mockPhase === 'review' ? testReviewClasses : 'rounded-2xl min-h-[600px] lg:h-[calc(100vh-12rem)]'}`}>
               {mockPhase === 'select' && (
                 <div className="flex flex-col md:flex-row w-full h-full flex-1">
                   <div className="p-8 flex flex-col flex-1 border-b md:border-b-0 md:border-r border-slate-200/50 dark:border-white/10">
@@ -1157,11 +1166,11 @@ export default function CatMaster() {
                                     {renderContextWithImages(q.context)}
                                   </div>
                                     <div 
-                                      className="hidden lg:flex w-4 shrink-0 rounded-full hover:bg-[hsl(var(--accent))]/20 cursor-col-resize items-center justify-center transition-colors group"
+                                      className="hidden lg:flex w-4 shrink-0 cursor-col-resize items-center justify-center group select-none outline-none"
                                       onMouseDown={handleDragStart}
                                       onTouchStart={handleDragStart}
                                     >
-                                      <div className="w-1 h-12 bg-slate-300 dark:bg-slate-600 group-hover:bg-[hsl(var(--accent))] rounded-full transition-colors"></div>
+                                      <div className="w-1 h-12 bg-slate-300 dark:bg-slate-600 group-hover:bg-slate-400 dark:group-hover:bg-slate-500 rounded-full transition-colors"></div>
                                     </div>
                                   </>
                                 )}
@@ -1456,13 +1465,22 @@ export default function CatMaster() {
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions match the current filter in this section.</div>;
 
                            return (
-                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
+                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-2 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
-                                  <div className="lg:w-[60%] p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
-                                    {renderContextWithImages(q.context)}
-                                  </div>
+                                  <>
+                                    <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+                                      {renderContextWithImages(q.context)}
+                                    </div>
+                                    <div 
+                                      className="hidden lg:flex w-4 shrink-0 cursor-col-resize items-center justify-center group select-none outline-none"
+                                      onMouseDown={handleDragStart}
+                                      onTouchStart={handleDragStart}
+                                    >
+                                      <div className="w-1 h-12 bg-slate-300 dark:bg-slate-600 group-hover:bg-slate-400 dark:group-hover:bg-slate-500 rounded-full transition-colors"></div>
+                                    </div>
+                                  </>
                                 )}
-                                <div className={`flex-1 ${q.context ? 'lg:w-[40%] overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: 'calc(100vh - 200px)' } : {}}>
+                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: 'calc(100vh - 200px)' } : {}}>
                                   <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {filteredReviewQuestions.length}</span></p>
