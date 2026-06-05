@@ -287,6 +287,9 @@ export default function CatMaster() {
   const [formulaSearch, setFormulaSearch] = useState('');
   const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
   const [showMobilePalette, setShowMobilePalette] = useState(false);
+  const [showDesktopPalette, setShowDesktopPalette] = useState(true);
+  const [passageWidth, setPassageWidth] = useState(50);
+  const isDragging = useRef(false);
   const [qotd, setQotd] = useState<Question | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
     () => (localStorage.getItem('cat-master-theme') as 'light' | 'dark' | 'system') || 'system'
@@ -299,6 +302,37 @@ export default function CatMaster() {
   const [, setKatexLoaded] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+      if (!isDragging.current) return;
+      let clientX = 0;
+      if ('touches' in e) clientX = e.touches[0].clientX;
+      else clientX = e.clientX;
+      
+      const newWidth = (clientX / window.innerWidth) * 100;
+      setPassageWidth(Math.max(20, Math.min(newWidth, 80)));
+    };
+    const handleMouseUp = () => {
+      if (isDragging.current) {
+        isDragging.current = false;
+        document.body.style.userSelect = '';
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('touchmove', handleMouseMove);
+    window.addEventListener('touchend', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchend', handleMouseUp);
+    };
+  }, []);
+
+  const handleDragStart = () => {
+    isDragging.current = true;
+    document.body.style.userSelect = 'none';
+  };
 
   useEffect(() => {
     if ((window as any).katex) { setKatexLoaded(true); return; }
@@ -813,7 +847,13 @@ export default function CatMaster() {
           </div>
         </header>
 
-        <div className="p-4 md:p-8 max-w-6xl mx-auto w-full flex-1 flex flex-col">
+        <div className={`p-4 md:p-8 mx-auto w-full flex-1 flex flex-col ${activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review') ? 'max-w-[1800px]' : 'max-w-6xl'}`}>
+          <style>{`
+            @media (min-width: 1024px) {
+              .passage-container { width: ${passageWidth}% !important; flex: none !important; }
+              .question-container { width: calc(${100 - passageWidth}% - 2rem) !important; flex: none !important; }
+            }
+          `}</style>
           {activeTab === 'dashboard' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1014,6 +1054,9 @@ export default function CatMaster() {
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
                     <div className="flex items-center gap-2 md:gap-4">
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
+                      <button onClick={() => setShowDesktopPalette(!showDesktopPalette)} className="hidden md:block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all whitespace-nowrap">
+                        {showDesktopPalette ? 'Hide Palette' : 'Show Palette'}
+                      </button>
                       <button onClick={() => setIsSoundEnabled(!isSoundEnabled)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isSoundEnabled ? "Mute Timer" : "Unmute Timer"}>
                         {isSoundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                       </button>
@@ -1065,13 +1108,23 @@ export default function CatMaster() {
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions in this section.</div>;
 
                            return (
-                             <div className="max-w-4xl mx-auto w-full pb-8">
+                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-2 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
-                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
+                                  <>
+                                    <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                                     {renderContextWithImages(q.context)}
                                   </div>
+                                    <div 
+                                      className="hidden lg:flex w-4 shrink-0 rounded-full hover:bg-[hsl(var(--accent))]/20 cursor-col-resize items-center justify-center transition-colors group"
+                                      onMouseDown={handleDragStart}
+                                      onTouchStart={handleDragStart}
+                                    >
+                                      <div className="w-1 h-12 bg-slate-300 dark:bg-slate-600 group-hover:bg-[hsl(var(--accent))] rounded-full transition-colors"></div>
+                                    </div>
+                                  </>
                                 )}
-                                <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: 'calc(100vh - 200px)' } : {}}>
+                                  <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {activeSectionQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
@@ -1098,7 +1151,7 @@ export default function CatMaster() {
                                   </div>
                                 </div>
                                 
-                                <div className="mt-6 flex flex-col sm:flex-row justify-between gap-3 md:gap-4 pb-8 md:pb-0">
+                                  <div className="mt-auto shrink-0 flex flex-col sm:flex-row justify-between gap-3 md:gap-4 pb-8 md:pb-0">
                                    <button 
                                      disabled={activeQuestionIdx === 0} 
                                      onClick={() => setActiveQuestionIdx(prev => prev - 1)}
@@ -1132,6 +1185,7 @@ export default function CatMaster() {
                                        Save & Next
                                      </button>
                                    </div>
+                                  </div>
                                 </div>
                              </div>
                            );
@@ -1143,7 +1197,7 @@ export default function CatMaster() {
                        <div className="md:hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-40" onClick={() => setShowMobilePalette(false)}></div>
                      )}
 
-                     <div className={`w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : 'hidden md:flex'}`}>
+                     <div className={`w-56 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : (showDesktopPalette ? 'hidden md:flex' : 'hidden md:hidden')}`}>
                         <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold flex justify-between items-center">
                           <span>Question Palette</span>
                           <button onClick={() => setShowMobilePalette(false)} className="md:hidden text-slate-500"><X size={20} /></button>
@@ -1309,6 +1363,9 @@ export default function CatMaster() {
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title} - Review</h3>
                     <div className="flex items-center gap-2 md:gap-4">
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
+                      <button onClick={() => setShowDesktopPalette(!showDesktopPalette)} className="hidden md:block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all whitespace-nowrap">
+                        {showDesktopPalette ? 'Hide Palette' : 'Show Palette'}
+                      </button>
                       <select 
                         value={reviewFilter} 
                         onChange={(e) => { setReviewFilter(e.target.value as any); setActiveQuestionIdx(0); }}
@@ -1354,13 +1411,14 @@ export default function CatMaster() {
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions match the current filter in this section.</div>;
 
                            return (
-                             <div className="max-w-4xl mx-auto w-full pb-8">
+                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
-                                  <div className="mb-6 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
+                                  <div className="lg:w-[60%] p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                                     {renderContextWithImages(q.context)}
                                   </div>
                                 )}
-                                <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                                <div className={`flex-1 ${q.context ? 'lg:w-[40%] overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: 'calc(100vh - 200px)' } : {}}>
+                                  <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {filteredReviewQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
@@ -1407,12 +1465,12 @@ export default function CatMaster() {
                                   </div>
                                 </div>
                                 
-                                <div className="mt-6 p-6 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
+                                  <div className="mb-6 p-6 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
                                   <div className="font-bold flex items-center gap-2 mb-3 text-[hsl(var(--accent))]"><Book size={18} /> Explanation</div>
                                   <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
-                                </div>
+                                  </div>
 
-                                <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 pb-8 md:pb-0">
+                                  <div className="mt-auto shrink-0 flex flex-col sm:flex-row justify-between items-center gap-4 pb-8 md:pb-0">
                                    <div className="flex items-center gap-2 w-full sm:w-auto">
                                      {taggedQuestions[q.id] ? (
                                        <div className="bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] px-4 py-2 rounded-lg font-bold text-sm border border-[hsl(var(--accent))]/20">
@@ -1456,6 +1514,7 @@ export default function CatMaster() {
                                        Next
                                      </button>
                                    </div>
+                                  </div>
                                 </div>
                              </div>
                            );
@@ -1467,7 +1526,7 @@ export default function CatMaster() {
                        <div className="md:hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-40" onClick={() => setShowMobilePalette(false)}></div>
                      )}
 
-                     <div className={`w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : 'hidden md:flex'}`}>
+                     <div className={`w-56 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : 'hidden md:flex'}`}>
                         <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold flex justify-between items-center">
                           <span>Question Palette</span>
                           <button onClick={() => setShowMobilePalette(false)} className="md:hidden text-slate-500"><X size={20} /></button>
@@ -1550,7 +1609,7 @@ export default function CatMaster() {
                 {practiceQuestions?.map((q, idx) => (
                   <div key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
                     {q.context && (
-                      <div className="mb-4 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap max-h-60 overflow-y-auto leading-relaxed">
+                      <div className="mb-6 p-6 md:p-8 bg-slate-100 dark:bg-slate-800/50 rounded-xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap max-h-96 overflow-y-auto leading-loose border border-slate-200 dark:border-slate-700 shadow-inner">
                         {renderContextWithImages(q.context)}
                       </div>
                     )}
