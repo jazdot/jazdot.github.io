@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
 
@@ -321,6 +321,24 @@ export default function CatMaster() {
   const [, setKatexLoaded] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => console.error("Error attempting to enable full-screen mode:", err.message));
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+    }
+  };
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent | TouchEvent) => {
       if (!isDragging.current) return;
@@ -334,7 +352,7 @@ export default function CatMaster() {
     const handleMouseUp = () => {
       if (isDragging.current) {
         isDragging.current = false;
-        document.body.style.userSelect = '';
+        document.body.classList.remove('select-none');
       }
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -348,9 +366,11 @@ export default function CatMaster() {
     };
   }, []);
 
-  const handleDragStart = () => {
+  const handleDragStart = (e?: any) => {
+    if (e && e.preventDefault) e.preventDefault();
     isDragging.current = true;
-    document.body.style.userSelect = 'none';
+    document.body.classList.add('select-none');
+    window.getSelection()?.removeAllRanges();
   };
 
   useEffect(() => {
@@ -1076,6 +1096,9 @@ export default function CatMaster() {
                       <button onClick={() => setShowDesktopPalette(!showDesktopPalette)} className="hidden md:block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all whitespace-nowrap">
                         {showDesktopPalette ? 'Hide Palette' : 'Show Palette'}
                       </button>
+                      <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
+                        {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+                      </button>
                       <button onClick={() => setIsSoundEnabled(!isSoundEnabled)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isSoundEnabled ? "Mute Timer" : "Unmute Timer"}>
                         {isSoundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                       </button>
@@ -1384,6 +1407,9 @@ export default function CatMaster() {
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
                       <button onClick={() => setShowDesktopPalette(!showDesktopPalette)} className="hidden md:block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all whitespace-nowrap">
                         {showDesktopPalette ? 'Hide Palette' : 'Show Palette'}
+                      </button>
+                      <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
+                        {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                       </button>
                       <select 
                         value={reviewFilter} 
