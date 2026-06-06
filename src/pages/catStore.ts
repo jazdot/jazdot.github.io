@@ -25,6 +25,8 @@ interface Progress {
     VARC: number;
     DILR: number;
   };
+  currentStreak?: number;
+  maxStreak?: number;
 }
 
 interface CatState {
@@ -37,13 +39,14 @@ interface CatState {
   toggleBookmark: (questionId: string) => void;
   clearHistory: () => void;
   updateSkillRating: (subject: 'QA' | 'VARC' | 'DILR', questionDifficulty: number, isCorrect: boolean) => void;
+  updatePracticeStreak: (isCorrect: boolean) => void;
 }
 
 export const useCatStore = create<CatState>()(
   persist(
     (set) => ({
       user: null,
-      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 } },
+      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0 },
       
       login: (name) => set({ user: { name } }),
       logout: () => set({ user: null }),
@@ -87,7 +90,7 @@ export const useCatStore = create<CatState>()(
       }),
       
       clearHistory: () => set((state) => ({
-        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {} }
+        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0 }
       })),
 
       updateSkillRating: (subject, questionDifficulty, isCorrect) => set(state => {
@@ -107,6 +110,19 @@ export const useCatStore = create<CatState>()(
               ...currentRatings,
               [subject]: newUserRating,
             }
+          }
+        };
+      }),
+
+      updatePracticeStreak: (isCorrect) => set(state => {
+        const currentStreak = state.progress.currentStreak || 0;
+        const maxStreak = state.progress.maxStreak || 0;
+        const newStreak = isCorrect ? currentStreak + 1 : 0;
+        return {
+          progress: {
+            ...state.progress,
+            currentStreak: newStreak,
+            maxStreak: Math.max(maxStreak, newStreak)
           }
         };
       })

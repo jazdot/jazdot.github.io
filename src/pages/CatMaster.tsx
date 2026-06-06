@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
 
@@ -272,7 +272,7 @@ export default function CatMaster() {
   const [paperList, setPaperList] = useState<{id: string, title: string}[]>([]);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating, updatePracticeStreak } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -299,6 +299,7 @@ export default function CatMaster() {
   const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
   const [practiceFilterTopic, setPracticeFilterTopic] = useState<string | null>(null);
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
+  const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [formulaSearch, setFormulaSearch] = useState('');
   const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
@@ -531,7 +532,7 @@ export default function CatMaster() {
     if (activeTab === 'practice') {
       fetchPracticeQuestions();
     }
-  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, progress.topicStats, progress.bookmarkedQuestions, isAdaptive, progress.skillRatings, questionRatings]);
+  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, isAdaptive, practiceRefreshTrigger]);
 
   useEffect(() => {
     const fetchQotd = async () => {
@@ -1657,10 +1658,15 @@ export default function CatMaster() {
                     Bookmarks ({progress.bookmarkedQuestions?.length || 0})
                   </button>
                 </div>
-                <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
-                  <input type="checkbox" checked={isAdaptive} onChange={(e) => setIsAdaptive(e.target.checked)} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
-                  <span className={isAdaptive ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>Adaptive Difficulty</span>
-                </label>
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                  <div className="flex items-center gap-2 text-sm font-bold bg-orange-500/10 text-orange-600 dark:text-orange-400 px-3 py-1.5 rounded-lg border border-orange-500/20 shadow-sm" title="Consecutive Correct Answers">
+                    🔥 Streak: {progress.currentStreak || 0} <span className="opacity-50 font-normal ml-1"> (Max: {progress.maxStreak || 0})</span>
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
+                    <input type="checkbox" checked={isAdaptive} onChange={(e) => setIsAdaptive(e.target.checked)} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
+                    <span className={isAdaptive ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>Adaptive Difficulty</span>
+                  </label>
+                </div>
               </div>
               <div className="space-y-6">
                 {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark || isAdaptive) && (
@@ -1700,6 +1706,7 @@ export default function CatMaster() {
                         if (isAnswered) {
                           if (isCorrect) borderClass = 'border-emerald-500', bgClass = 'bg-emerald-500/10 dark:bg-emerald-500/20';
                           else if (isSelected) borderClass = 'border-rose-500', bgClass = 'bg-rose-500/10 dark:bg-rose-500/20';
+                          else if (q.correct === oIdx) borderClass = 'border-emerald-500 border-dashed', bgClass = 'bg-emerald-500/5 dark:bg-emerald-500/10';
                           else borderClass = 'border-slate-200/50 dark:border-white/10 opacity-50';
                         }
 
@@ -1712,6 +1719,7 @@ export default function CatMaster() {
                               setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx }));
                               updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
                               updateQuestionRating(q.id, userRating, isCorrect);
+                              updatePracticeStreak(isCorrect);
                               addResult(1, isCorrect ? 1 : 0);
                               if (!isCorrect) {
                                 const front = `[Auto-Generated]\n\nQ: ${q.text}`;
@@ -1736,6 +1744,7 @@ export default function CatMaster() {
                                     
                                     updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
                                     updateQuestionRating(q.id, userRating, isCorrect);
+                                    updatePracticeStreak(isCorrect);
                                     addResult(1, isCorrect ? 1 : 0);
                                     if (!isCorrect) {
                                       const front = `[Auto-Generated]\n\nQ: ${q.text}`;
@@ -1758,7 +1767,22 @@ export default function CatMaster() {
                     <AnimatePresence>
                       {practiceAnswers[q.id] !== undefined && (
                         <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
-                          <div className="p-5 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
+                          <div className={`p-5 rounded-xl border ${
+                            (q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
+                            (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase())
+                              ? 'bg-emerald-500/5 border-emerald-500/20' 
+                              : 'bg-rose-500/5 border-rose-500/20'
+                          }`}>
+                            <div className={`font-bold flex items-center gap-2 mb-3 text-lg ${
+                              (q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
+                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase())
+                                ? 'text-emerald-500' 
+                                : 'text-rose-500'
+                            }`}>
+                              {(q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
+                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase())
+                                ? '✅ Correct!' : '❌ Incorrect!'}
+                            </div>
                             <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
                             <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
                           </div>
@@ -1767,6 +1791,16 @@ export default function CatMaster() {
                     </AnimatePresence>
                   </div>
                 ))}
+                {practiceQuestions.length > 0 && (
+                  <div className="flex justify-center mt-8 pb-8">
+                    <button 
+                      onClick={() => setPracticeRefreshTrigger(prev => prev + 1)}
+                      className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-8 py-3 rounded-xl font-bold shadow-sm hover:shadow-md hover:border-[hsl(var(--accent))]/50 hover:text-[hsl(var(--accent))] active:scale-95 transition-all flex items-center gap-2"
+                    >
+                      <RotateCcw size={18} /> Load Next Batch
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}

@@ -31,7 +31,7 @@ export default function ContextMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [selectedText, setSelectedText] = useState('');
-  const [toast, setToast] = useState<{ visible: boolean, title: string, message: string, word?: string, definition?: string, x?: number, y?: number } | null>(null);
+  const [toast, setToast] = useState<{ visible: boolean, title: string, message: string, word?: string, definition?: string, x?: number, y?: number, saved?: boolean } | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -150,7 +150,7 @@ export default function ContextMenu() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           style={{ top: toast.y, left: toast.x }}
-          className="fixed z-[100001] bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-2xl rounded-2xl p-4 md:p-5 w-[320px] max-w-[90vw] text-slate-700 dark:text-slate-300"
+          className={`fixed z-[100001] bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border rounded-2xl p-4 md:p-5 w-[320px] max-w-[90vw] text-slate-700 dark:text-slate-300 transition-all duration-300 ${toast.saved ? 'shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] border-emerald-500/50' : 'shadow-2xl border-slate-200/50 dark:border-white/10'}`}
         >
           <div className="flex justify-between items-start mb-2">
             <h3 className="font-bold text-lg text-slate-900 dark:text-white capitalize">{toast.title}</h3>
@@ -161,7 +161,7 @@ export default function ContextMenu() {
              <button 
                onClick={() => {
                   saveFlashcard(toast.word!, toast.definition!);
-                  setToast({ ...toast, message: 'Saved to Flashcards successfully!', word: undefined, definition: undefined });
+                  setToast({ ...toast, message: 'Saved to Flashcards successfully!', word: undefined, definition: undefined, saved: true });
                   setTimeout(() => setToast(null), 2000);
                }}
                className="w-full bg-[hsl(var(--accent))] text-white py-2.5 rounded-xl font-bold shadow-md hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2"
