@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw } from 'lucide-react';
@@ -1725,26 +1725,42 @@ export default function CatMaster() {
                     <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : 'for this skill level'}.</p>
                   </div>
                 )}
-                {practiceQuestions?.map((q, idx) => (
-                  <div key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
-                    {q.context && (
-                      <div className="mb-6 p-6 md:p-8 bg-slate-100 dark:bg-slate-800/50 rounded-xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap max-h-96 overflow-y-auto leading-loose border border-slate-200 dark:border-slate-700 shadow-inner">
-                        {renderContextWithImages(q.context)}
-                      </div>
-                    )}
-                    <div className="flex justify-between items-start mb-6 gap-4">
-                      <div className="font-medium text-lg leading-relaxed flex gap-2 text-slate-800 dark:text-slate-200">
-                        <span>{idx + 1}.</span>
-                        <div>{renderContextWithImages(q.text)}</div>
-                      </div>
-                      <button 
-                        onClick={() => toggleBookmark(q.id)}
-                        className={`p-2 shrink-0 rounded-lg transition-colors ${progress.bookmarkedQuestions?.includes(q.id) ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
-                        title="Bookmark Question"
-                      >
-                        <Bookmark size={20} fill={progress.bookmarkedQuestions?.includes(q.id) ? 'currentColor' : 'none'} />
-                      </button>
-                    </div>
+                {practiceQuestions?.map((q, idx) => {
+                  const showContext = q.context && (idx === 0 || practiceQuestions[idx - 1].context !== q.context);
+                  return (
+                    <Fragment key={q.id}>
+                      {showContext && q.context && (
+                        <div className="p-6 md:p-8 bg-slate-100 dark:bg-slate-800/50 rounded-xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap max-h-96 overflow-y-auto leading-loose border border-slate-200 dark:border-slate-700 shadow-inner">
+                          {renderContextWithImages(q.context)}
+                        </div>
+                      )}
+                      <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
+                        <div className="flex justify-between items-start mb-6 gap-4">
+                          <div className="flex-1">
+                            <div className="flex gap-2 mb-3">
+                              <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
+                              {(() => {
+                                const rating = questionRatings[q.id] || 1200;
+                                let diffText = 'Medium';
+                                let diffColor = 'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border border-yellow-500/20';
+                                if (rating < 1000) { diffText = 'Easy'; diffColor = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'; }
+                                else if (rating > 1400) { diffText = 'Hard'; diffColor = 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20'; }
+                                return <span className={`text-[10px] md:text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${diffColor}`}>{diffText}</span>;
+                              })()}
+                            </div>
+                            <div className="font-medium text-lg leading-relaxed flex gap-2 text-slate-800 dark:text-slate-200">
+                              <span>{idx + 1}.</span>
+                              <div>{renderContextWithImages(q.text)}</div>
+                            </div>
+                          </div>
+                          <button 
+                            onClick={() => toggleBookmark(q.id)}
+                            className={`p-2 shrink-0 rounded-lg transition-colors ${progress.bookmarkedQuestions?.includes(q.id) ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                            title="Bookmark Question"
+                          >
+                            <Bookmark size={20} fill={progress.bookmarkedQuestions?.includes(q.id) ? 'currentColor' : 'none'} />
+                          </button>
+                        </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {q.type === 'MCQ' ? q.options?.map((opt, oIdx) => {
                         const isAnswered = practiceAnswers[q.id] !== undefined;
@@ -1842,7 +1858,9 @@ export default function CatMaster() {
                       )}
                     </AnimatePresence>
                   </div>
-                ))}
+                    </Fragment>
+                  );
+                })}
                 {practiceQuestions.length > 0 && (
                   <div className="flex justify-center mt-8 pb-8">
                     <button 
