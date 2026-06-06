@@ -74,6 +74,23 @@ export const getAllQuestions = async (): Promise<Question[]> => {
 export const getPracticeQuestionsBySection = async (section: 'QA' | 'VARC' | 'DILR'): Promise<Question[]> => {
   const allQs = await getAllQuestions();
   const sectionQs = allQs.filter((q: any) => q && q.section === section);
-  // Shuffle array so practice questions are unique per session
-  return sectionQs.sort(() => 0.5 - Math.random());
+  
+  const groups = new Map<string, Question[]>();
+  const isolated: Question[] = [];
+  sectionQs.forEach((q: Question) => {
+    if (q.context) {
+      if (!groups.has(q.context)) groups.set(q.context, []);
+      groups.get(q.context)!.push(q);
+    } else {
+      isolated.push(q);
+    }
+  });
+  const groupedArray = [...Array.from(groups.values()), ...isolated.map(q => [q])];
+  groupedArray.sort(() => 0.5 - Math.random());
+  const selectedQs: Question[] = [];
+  for (const g of groupedArray) {
+    if (selectedQs.length >= 20) break;
+    selectedQs.push(...g);
+  }
+  return selectedQs;
 };

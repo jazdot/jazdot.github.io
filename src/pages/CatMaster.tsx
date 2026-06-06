@@ -301,6 +301,7 @@ export default function CatMaster() {
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
+  const [lastAnswerStatus, setLastAnswerStatus] = useState<'correct' | 'incorrect' | null>(null);
   const [formulaSearch, setFormulaSearch] = useState('');
   const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
   const [showMobilePalette, setShowMobilePalette] = useState(false);
@@ -502,32 +503,69 @@ export default function CatMaster() {
 
   useEffect(() => {
     const fetchPracticeQuestions = async () => {
+      const groupAndShuffle = (questions: Question[]) => {
+        const groups = new Map<string, Question[]>();
+        const isolated: Question[] = [];
+        questions.forEach(q => {
+          if (q.context) {
+            if (!groups.has(q.context)) groups.set(q.context, []);
+            groups.get(q.context)!.push(q);
+          } else {
+            isolated.push(q);
+          }
+        });
+        const groupedArray = [...Array.from(groups.values()), ...isolated.map(q => [q])];
+        groupedArray.sort(() => 0.5 - Math.random());
+        return groupedArray.flat();
+      };
+
       if (practiceFilterTopic) {
         const allQs = await getAllQuestions();
         const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
-        setPracticeQuestions(allQs.filter(q => topicQIds.includes(q.id)));
+        setPracticeQuestions(groupAndShuffle(allQs.filter(q => topicQIds.includes(q.id))));
       } else if (practiceFilterBookmark) {
         const allQs = await getAllQuestions();
         const bookmarkedIds = progress.bookmarkedQuestions || [];
-        setPracticeQuestions(allQs.filter(q => bookmarkedIds.includes(q.id)));
+        setPracticeQuestions(groupAndShuffle(allQs.filter(q => bookmarkedIds.includes(q.id))));
       } else if (isAdaptive) {
         const allQs = await getAllQuestions();
         const subjectQs = allQs.filter(q => q.section === practiceSubject);
         const userRating = progress.skillRatings?.[practiceSubject] || 1200;
-        const ratedQs = subjectQs.map(q => ({
-          ...q,
-          rating: questionRatings[q.id] || 1200,
-        }));
+        
+        const groups = new Map<string, Question[]>();
+        const isolated: Question[] = [];
+        subjectQs.forEach(q => {
+          if (q.context) {
+            if (!groups.has(q.context)) groups.set(q.context, []);
+            groups.get(q.context)!.push(q);
+          } else {
+            isolated.push(q);
+          }
+        });
 
-        ratedQs.sort((a, b) => Math.abs(a.rating - userRating) - Math.abs(b.rating - userRating));
+        const ratedGroups = [
+          ...Array.from(groups.values()).map(g => {
+            const avgRating = g.reduce((sum, q) => sum + (questionRatings[q.id] || 1200), 0) / g.length;
+            return { qs: g, rating: avgRating };
+          }),
+          ...isolated.map(q => ({ qs: [q], rating: questionRatings[q.id] || 1200 }))
+        ];
 
-        const selectedQs = ratedQs.slice(0, 20).sort(() => 0.5 - Math.random());
+        ratedGroups.sort((a, b) => Math.abs(a.rating - userRating) - Math.abs(b.rating - userRating));
+
+        const selectedGroups = ratedGroups.slice(0, 20).sort(() => 0.5 - Math.random());
+        const selectedQs: Question[] = [];
+        for (const g of selectedGroups) {
+          if (selectedQs.length >= 20) break;
+          selectedQs.push(...g.qs);
+        }
         setPracticeQuestions(selectedQs);
       } else {
         const questions = await getPracticeQuestionsBySection(practiceSubject);
-        setPracticeQuestions(questions.slice(0, 20));
+        setPracticeQuestions(questions);
       }
       setPracticeAnswers({});
+      setLastAnswerStatus(null);
     };
     if (activeTab === 'practice') {
       fetchPracticeQuestions();
@@ -831,7 +869,7 @@ export default function CatMaster() {
   return (
     <m.div 
       initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
-      className="fixed inset-0 z-[1000] flex bg-[#f8fafc] dark:bg-[#020617] text-slate-900 dark:text-slate-100 overflow-hidden font-sans"
+      className={`fixed inset-0 z-[1000] flex text-slate-900 dark:text-slate-100 overflow-hidden font-sans transition-colors duration-500 ${activeTab === 'practice' && lastAnswerStatus === 'correct' ? 'bg-emerald-50 dark:bg-emerald-950/30' : activeTab === 'practice' && lastAnswerStatus === 'incorrect' ? 'bg-rose-50 dark:bg-rose-950/30' : 'bg-[#f8fafc] dark:bg-[#020617]'}`}
     >
       {/* Sidebar */}
         {!hideNavigation && (
@@ -1661,6 +1699,18 @@ export default function CatMaster() {
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                   <div className="flex items-center gap-2 text-sm font-bold bg-orange-500/10 text-orange-600 dark:text-orange-400 px-3 py-1.5 rounded-lg border border-orange-500/20 shadow-sm" title="Consecutive Correct Answers">
                     🔥 Streak: {progress.currentStreak || 0} <span className="opacity-50 font-normal ml-1"> (Max: {progress.maxStreak || 0})</span>
+                    <AnimatePresence>
+                      {(progress.currentStreak || 0) > 1 && progress.currentStreak === progress.maxStreak && (
+                        <m.span 
+                          key={progress.currentStreak}
+                          initial={{ scale: 0.5, opacity: 0, y: 5 }}
+                          animate={{ scale: [1, 1.2, 1], opacity: 1, y: 0 }}
+                          className="ml-1 px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-rose-500 text-white text-[9px] rounded uppercase tracking-wider shadow-sm whitespace-nowrap"
+                        >
+                          New Best!
+                        </m.span>
+                      )}
+                    </AnimatePresence>
                   </div>
                   <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
                     <input type="checkbox" checked={isAdaptive} onChange={(e) => setIsAdaptive(e.target.checked)} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
@@ -1717,6 +1767,7 @@ export default function CatMaster() {
                               const isCorrect = oIdx === q.correct;
 
                               setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx }));
+                              setLastAnswerStatus(isCorrect ? 'correct' : 'incorrect');
                               updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
                               updateQuestionRating(q.id, userRating, isCorrect);
                               updatePracticeStreak(isCorrect);
@@ -1742,6 +1793,7 @@ export default function CatMaster() {
                                     setPracticeAnswers(prev => ({ ...prev, [q.id]: val }));
                                     const isCorrect = String(val).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
                                     
+                                    setLastAnswerStatus(isCorrect ? 'correct' : 'incorrect');
                                     updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
                                     updateQuestionRating(q.id, userRating, isCorrect);
                                     updatePracticeStreak(isCorrect);
