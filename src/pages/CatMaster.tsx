@@ -899,7 +899,7 @@ export default function CatMaster() {
           <style>{`
             @media (min-width: 1024px) {
               .passage-container { width: ${passageWidth}% !important; flex: none !important; }
-              .question-container { width: calc(${100 - passageWidth}% - 2rem) !important; flex: none !important; }
+              .question-container { width: calc(${100 - passageWidth}% - 1rem) !important; flex: none !important; }
             }
           `}</style>
           {activeTab === 'dashboard' && (
@@ -1159,7 +1159,7 @@ export default function CatMaster() {
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions in this section.</div>;
 
                            return (
-                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-2 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
+                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-0 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
                                   <>
                                     <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
@@ -1465,7 +1465,7 @@ export default function CatMaster() {
                            if (!q) return <div className="p-8 text-center text-slate-500">No questions match the current filter in this section.</div>;
 
                            return (
-                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-2 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
+                             <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-0 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
                                   <>
                                     <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
