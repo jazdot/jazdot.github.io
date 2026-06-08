@@ -27,7 +27,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
     >
       <SEO 
         title="Tools | Muhammed Riswan M. P." 
-        description="Explore custom networking and productivity tools built by Muhammed Riswan M. P., including Network Speed Test and CAT Master."
+        description="Explore custom networking and productivity tools built by Muhammed Riswan M. P., including Network Speed Test and CAT Maester."
         path="#/tools"
       />
       <h2 style={{ fontSize: '2.5rem', margin: '0 0 2.5rem 0', fontWeight: 700, letterSpacing: '-0.02em', position: 'relative', display: 'inline-block' }}>
@@ -60,9 +60,9 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
           <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>Measure your download speed with a quick and simple test.</p>
         </m.div>
 
-        {/* Cat Master Tool Card */}
+        {/* Cat Maester Tool Card */}
         <m.div 
-          onClick={() => navigate('/cat-master')}
+          onClick={() => navigate('/cat-maester')}
           whileHover={{ y: -8, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderRadius: '16px', padding: '2rem', cursor: 'pointer', backdropFilter: 'blur(10px)', transition: 'border-color 0.3s ease' }}
@@ -77,7 +77,8 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ background: '#7877c6', padding: '0.75rem', borderRadius: '12px' }}><GraduationCap size={24} color="#fff" /></div>
-            <h2 style={{ margin: 0, fontSize: '1.5rem' }}>CAT Master</h2>
+            <h2 style={{ margin: 0, fontSize: '1.5rem' }}>CAT Maester</h2>
+            <span className="ml-auto px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 shadow-sm">New</span>
           </div>
           <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>Final step to you favourite Business school journey. Master the concepts. Crush the mock. Own the CAT.</p>
         </m.div>
@@ -122,6 +123,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ background: '#a855f7', padding: '0.75rem', borderRadius: '12px' }}><Activity size={24} color="#fff" /></div>
             <h2 style={{ margin: 0, fontSize: '1.5rem' }}>System Health</h2>
+            <span className="ml-auto px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20 shadow-sm">Live</span>
           </div>
           <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>View simulated real-time telemetry and health metrics of my core network infrastructure.</p>
         </m.div>
@@ -144,6 +146,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ background: '#f97316', padding: '0.75rem', borderRadius: '12px' }}><Network size={24} color="#fff" /></div>
             <h2 style={{ margin: 0, fontSize: '1.5rem' }}>Network Topology</h2>
+            <span className="ml-auto px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-orange-500/10 text-orange-500 border border-orange-500/20 shadow-sm">Beta</span>
           </div>
           <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>Interactive visualization of an O-RAN 5G deployment with a UAV Mesh network.</p>
         </m.div>
@@ -188,6 +191,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ background: '#3b82f6', padding: '0.75rem', borderRadius: '12px' }}><BrainCircuit size={24} color="#fff" /></div>
             <h2 style={{ margin: 0, fontSize: '1.5rem' }}>MLOps Pipeline</h2>
+            <span className="ml-auto px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 shadow-sm">Updated</span>
           </div>
           <p style={{ color: '#888', margin: 0, lineHeight: '1.5' }}>Visualize an automated end-to-end Machine Learning deployment pipeline.</p>
         </m.div>
@@ -206,7 +210,16 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
       >
         <Suspense fallback={<Loader text="Loading tool..." className="p-8 min-h-[30vh]" />}>
           {activeTool === 'speedTest' && <SpeedTestTool />}
-          {activeTool === 'terminal' && <TerminalTool />}
+          {activeTool === 'terminal' && (
+            <TerminalTool
+              onCommand={(cmd: string) => {
+                if (cmd === 'cat-maester' || cmd === 'run cat') {
+                  setActiveTool(null);
+                  navigate('/cat-maester');
+                }
+              }} 
+            />
+          )}
           {activeTool === 'infraHealth' && <InfraHealthTool />}
           {activeTool === 'topology' && <TopologyTool />}
           {activeTool === 'pingTrace' && <PingTraceTool />}

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
 import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc } from './firebase';
 
 // --- IndexedDB Helpers ---
-const DB_NAME = 'CatMasterDB';
+const DB_NAME = 'CatMaesterDB';
 const STORE_NAME = 'mockTests';
 const FORMULA_STORE = 'formulas';
 
@@ -363,7 +363,7 @@ const ActivationModal = ({ isOpen, onClose, onActivate, error }: { isOpen: boole
   );
 };
 
-export default function CatMaster() {
+export default function CatMaester() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -417,11 +417,11 @@ export default function CatMaster() {
   const [pendingUnfinishedTest, setPendingUnfinishedTest] = useState<any>(null);
   const [formulaToDelete, setFormulaToDelete] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
-    () => (localStorage.getItem('cat-master-theme') as 'light' | 'dark' | 'system') || 'system'
+    () => (localStorage.getItem('cat-maester-theme') as 'light' | 'dark' | 'system') || 'system'
   );
   const [isAdaptive, setIsAdaptive] = useState(false);
   const [questionRatings, setQuestionRatings] = useState<Record<string, number>>(() => {
-    try { const saved = localStorage.getItem('cat-master-question-ratings'); return saved ? JSON.parse(saved) : {}; } 
+    try { const saved = localStorage.getItem('cat-maester-question-ratings'); return saved ? JSON.parse(saved) : {}; } 
     catch { return {}; }
   });
   const [, setKatexLoaded] = useState(false);
@@ -431,6 +431,7 @@ export default function CatMaster() {
   const [showCalculator, setShowCalculator] = useState(false);
   const [calcExpr, setCalcExpr] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const handleCalcClick = (val: string) => {
     if (val === 'C') setCalcExpr('');
@@ -542,7 +543,7 @@ export default function CatMaster() {
   useEffect(() => {
     // Try to resume an unfinished test from localStorage
     try {
-      const savedStateJSON = localStorage.getItem('cat-master-active-test');
+      const savedStateJSON = localStorage.getItem('cat-maester-active-test');
       if (savedStateJSON) {
         if (window.confirm('An unfinished mock test was found. Would you like to resume?')) {
           const savedState = JSON.parse(savedStateJSON);
@@ -557,12 +558,12 @@ export default function CatMaster() {
           setIsPaused(true);
           setMockPhase('test');
         } else {
-          localStorage.removeItem('cat-master-active-test');
+          localStorage.removeItem('cat-maester-active-test');
         }
       }
     } catch (e) {
       console.error("Failed to load saved test state", e);
-      localStorage.removeItem('cat-master-active-test');
+      localStorage.removeItem('cat-maester-active-test');
     }
 
     const loadSavedTests = async () => {
@@ -587,7 +588,7 @@ export default function CatMaster() {
     
     setQuestionRatings(prev => {
       const newRatings = { ...prev, [questionId]: newQuestionRating };
-      localStorage.setItem('cat-master-question-ratings', JSON.stringify(newRatings));
+      localStorage.setItem('cat-maester-question-ratings', JSON.stringify(newRatings));
       return newRatings;
     });
   };
@@ -637,9 +638,9 @@ export default function CatMaster() {
         sectionTimes,
         isExamMode
       };
-      localStorage.setItem('cat-master-active-test', JSON.stringify(activeTestData));
+      localStorage.setItem('cat-maester-active-test', JSON.stringify(activeTestData));
     } else if (mockPhase !== 'test') {
-      localStorage.removeItem('cat-master-active-test');
+      localStorage.removeItem('cat-maester-active-test');
     }
   }, [mockPhase, currentTest, selectedAnswers, markedForReview, timeLeft, activeSection, activeQuestionIdx, sectionTimes]);
 
@@ -771,7 +772,7 @@ export default function CatMaster() {
     };
 
     updateTheme();
-    localStorage.setItem('cat-master-theme', theme);
+    localStorage.setItem('cat-maester-theme', theme);
 
     mediaQuery.addEventListener('change', updateTheme);
     return () => mediaQuery.removeEventListener('change', updateTheme);
@@ -911,7 +912,7 @@ export default function CatMaster() {
             if (data.progress) setWholeProgress(data.progress);
             if (data.questionRatings) {
               setQuestionRatings(data.questionRatings);
-              localStorage.setItem('cat-master-question-ratings', JSON.stringify(data.questionRatings));
+              localStorage.setItem('cat-maester-question-ratings', JSON.stringify(data.questionRatings));
             }
             if (data.formulas) {
               for (const f of data.formulas) {
@@ -1205,20 +1206,25 @@ export default function CatMaster() {
       className={`fixed inset-0 z-[1000] flex text-slate-900 dark:text-slate-100 overflow-hidden font-sans transition-colors duration-500 ${activeTab === 'practice' && lastAnswerStatus === 'correct' ? 'bg-emerald-50 dark:bg-emerald-950/30' : activeTab === 'practice' && lastAnswerStatus === 'incorrect' ? 'bg-rose-50 dark:bg-rose-950/30' : 'bg-[#f8fafc] dark:bg-[#020617]'}`}
     >
       {/* Sidebar */}
-        {!hideNavigation && (
+        {!hideNavigation && !isSidebarCollapsed && (
           <nav className="w-20 md:w-64 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0 print:hidden">
         <div>
           <div className="p-4 md:p-6">
-            <button onClick={() => navigate('/tools')} className="flex items-center gap-2 text-slate-500 hover:text-[hsl(var(--accent))] transition-colors mb-6 text-[10px] md:text-xs font-bold tracking-widest uppercase">
-              <ArrowLeft size={16} /> <span className="hidden md:inline">Back to Tools</span>
-            </button>
+            <div className="flex items-center justify-between mb-6">
+              <button onClick={() => navigate('/tools')} className="flex items-center gap-2 text-slate-500 hover:text-[hsl(var(--accent))] transition-colors text-[10px] md:text-xs font-bold tracking-widest uppercase">
+                <ArrowLeft size={16} /> <span className="hidden md:inline">Back to Tools</span>
+              </button>
+              <button onClick={() => setIsSidebarCollapsed(true)} className="hidden md:block text-slate-500 hover:text-[hsl(var(--accent))] transition-colors" title="Collapse Sidebar">
+                <Menu size={18} />
+              </button>
+            </div>
             <div className="flex items-center gap-3">
               <div className="bg-[hsl(var(--accent))] text-white p-2 rounded-xl shadow-lg shadow-[hsl(var(--accent))]/30">
                 <Book size={24} />
               </div>
               <div className="font-bold tracking-widest text-lg hidden md:block cursor-default">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">JAZDOT</span>
-                <span style={{ color: 'hsl(var(--accent))' }}>.</span> <span className="text-slate-800 dark:text-white text-sm ml-1">CAT</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">CAT Maester</span>
+                <span style={{ color: 'hsl(var(--accent))' }}>.</span> 
               </div>
             </div>
           </div>
@@ -1280,7 +1286,14 @@ export default function CatMaster() {
       <main className="flex-1 flex flex-col relative overflow-y-auto">
           {!hideNavigation && (
             <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-4 sticky top-0 z-10 flex justify-between items-center px-6 print:hidden">
-          <h2 className="text-2xl font-bold capitalize">{activeTab}</h2>
+          <div className="flex items-center gap-4">
+            {isSidebarCollapsed && (
+              <button onClick={() => setIsSidebarCollapsed(false)} className="text-slate-500 hover:text-[hsl(var(--accent))] transition-colors" title="Expand Sidebar">
+                <Menu size={24} />
+              </button>
+            )}
+            <h2 className="text-2xl font-bold capitalize">{activeTab}</h2>
+          </div>
           <div className="flex items-center gap-4 bg-white/40 dark:bg-white/5 backdrop-blur-md py-2 px-4 rounded-full border border-slate-200/50 dark:border-white/10">
             <div className="text-sm font-medium"><span className="text-slate-500">Accuracy: </span><span className="text-[hsl(var(--accent))] font-bold">{accuracy}%</span></div>
             <div className="w-px h-4 bg-slate-300 dark:bg-slate-600"></div>
@@ -1289,7 +1302,7 @@ export default function CatMaster() {
             </header>
           )}
 
-          <div className={`${hideNavigation ? 'p-0 md:p-0' : 'p-4 md:p-8'} mx-auto w-full flex-1 flex flex-col ${activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review') ? (hideNavigation ? 'max-w-full' : 'max-w-[1800px]') : 'max-w-6xl'}`}>
+          <div className={`${hideNavigation ? 'p-0 md:p-0' : 'p-4 md:p-8 lg:px-12'} mx-auto w-full flex-1 flex flex-col ${hideNavigation ? 'max-w-full' : 'max-w-[1920px]'}`}>
           <style>{`
             @media (min-width: 1024px) {
               .passage-container { width: ${passageWidth}% !important; flex: none !important; }
@@ -1324,8 +1337,8 @@ export default function CatMaster() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+              <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="lg:col-span-2 xl:col-span-3 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                   <h3 className="text-lg font-bold mb-6">Predicted Percentile (IRT Model)</h3>
                   <div className="space-y-6">
                     <div>
@@ -1672,6 +1685,14 @@ export default function CatMaster() {
                                   </div>
                                 </div>
                                 
+                                {q.context && activeSectionQuestions[activeQuestionIdx + 1]?.context !== q.context && (
+                                  <div className="w-full flex justify-center items-center gap-3 pb-6 opacity-40 select-none">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                  </div>
+                                )}
+
                                   <div className="mt-auto shrink-0 flex flex-col sm:flex-row justify-between gap-3 md:gap-4 pb-8 md:pb-0">
                                    <button 
                                      disabled={activeQuestionIdx === 0} 
@@ -2036,6 +2057,14 @@ export default function CatMaster() {
                                   <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
                                   </div>
 
+                                  {q.context && filteredReviewQuestions[activeQuestionIdx + 1]?.context !== q.context && (
+                                    <div className="w-full flex justify-center items-center gap-3 pb-6 opacity-40 select-none">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                      <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                      <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                    </div>
+                                  )}
+
                                   <div className="mt-auto shrink-0 flex flex-col sm:flex-row justify-between items-center gap-4 pb-8 md:pb-0">
                                    <div className="flex items-center gap-2 w-full sm:w-auto">
                                      {taggedQuestions[q.id] ? (
@@ -2196,6 +2225,22 @@ export default function CatMaster() {
                   </label>
                 </div>
               </div>
+
+              {practiceQuestions.length > 0 && (
+                <div className="mb-6 sticky top-[72px] z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-4 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                  <div className="flex justify-between text-sm font-bold mb-2">
+                    <span className="text-slate-600 dark:text-slate-400">Batch Progress</span>
+                    <span className="text-[hsl(var(--accent))]">{Object.keys(practiceAnswers).length} / {practiceQuestions.length}</span>
+                  </div>
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <m.div 
+                      className="h-full bg-[hsl(var(--accent))] transition-all duration-500" 
+                      style={{ width: `${(Object.keys(practiceAnswers).length / practiceQuestions.length) * 100}%` }} 
+                    />
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-6">
                 {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark || practiceFilterDifficulty || isAdaptive) && (
                   <div className="text-center py-16 text-slate-500">
@@ -2203,18 +2248,44 @@ export default function CatMaster() {
                     <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : practiceFilterDifficulty ? `with "${practiceFilterDifficulty}" difficulty` : 'for this skill level'}.</p>
                   </div>
                 )}
-                {practiceQuestions?.map((q, idx) => {
-                  const showContext = q.context && (idx === 0 || practiceQuestions[idx - 1].context !== q.context);
-                  return (
-                    <Fragment key={q.id}>
-                      {showContext && q.context && (
-                        <div className="p-6 md:p-8 bg-slate-100 dark:bg-slate-800/50 rounded-xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap max-h-96 overflow-y-auto leading-loose border border-slate-200 dark:border-slate-700 shadow-inner">
-                          {renderContextWithImages(q.context)}
-                        </div>
+                {(() => {
+                  const groups: { context?: string, qs: { q: Question, idx: number }[] }[] = [];
+                  practiceQuestions?.forEach((q, idx) => {
+                    if (groups.length > 0 && groups[groups.length - 1].context === q.context) {
+                      groups[groups.length - 1].qs.push({ q, idx });
+                    } else {
+                      groups.push({ context: q.context, qs: [{ q, idx }] });
+                    }
+                  });
+
+                  return groups.map((group, gIdx) => (
+                    <Fragment key={`group_${gIdx}`}>
+                      <m.div 
+                        layout 
+                        initial={{ opacity: 0, y: 20 }} 
+                        animate={{ opacity: 1, y: 0 }} 
+                        transition={{ delay: Math.min(gIdx * 0.1, 0.5) }}
+                        className={`flex flex-col ${group.context ? 'lg:flex-row lg:items-start lg:gap-0 gap-6' : 'gap-6'} w-full`}
+                      >
+                      {group.context && (
+                        <>
+                          <div className="passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto max-h-[50vh] lg:max-h-[calc(100vh-160px)]" style={{ scrollbarWidth: 'thin' }}>
+                            {renderContextWithImages(group.context)}
+                          </div>
+                          <div 
+                            className="hidden lg:flex w-4 shrink-0 cursor-col-resize items-center justify-center group select-none outline-none lg:sticky lg:top-[50vh]"
+                            onMouseDown={handleDragStart}
+                            onTouchStart={handleDragStart}
+                          >
+                            <div className="w-1 h-12 bg-slate-300 dark:bg-slate-600 group-hover:bg-[hsl(var(--accent))] rounded-full transition-colors"></div>
+                          </div>
+                        </>
                       )}
-                      <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl p-6 shadow-sm">
-                        <div className="flex justify-between items-start mb-6 gap-4">
-                          <div className="flex-1">
+                      <div className={`${group.context ? 'question-container' : 'w-full max-w-5xl mx-auto'} flex flex-col gap-6`}>
+                        {group.qs.map(({ q, idx }) => (
+                          <m.div layout key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm">
+                            <div className="flex justify-between items-start mb-6 gap-4">
+                              <div className="flex-1">
                             <div className="flex gap-2 mb-3">
                               <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                               {(() => {
@@ -2303,30 +2374,55 @@ export default function CatMaster() {
                               placeholder="Type your answer and press Enter..." 
                            />
                            {practiceAnswers[q.id] !== undefined && (
-                             <div className={`mt-2 text-sm font-bold ${String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase() ? 'text-emerald-500' : 'text-rose-500'}`}>
-                               Your Answer: {practiceAnswers[q.id]} | Correct: {q.tita_answer}
+                             <div className={`mt-2 text-sm font-bold ${practiceAnswers[q.id] === 'SKIPPED' ? 'text-slate-500' : String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase() ? 'text-emerald-500' : 'text-rose-500'}`}>
+                               Your Answer: {practiceAnswers[q.id] === 'SKIPPED' ? 'Skipped' : practiceAnswers[q.id]} | Correct: {q.tita_answer}
                              </div>
                            )}
                         </div>
                       )}
+                      
+                      <div className="mt-4 flex justify-end">
+                        {practiceAnswers[q.id] === undefined && (
+                          <button 
+                            onClick={() => {
+                              const userRating = progress.skillRatings?.[practiceSubject] || 1200;
+                              setPracticeAnswers(prev => ({ ...prev, [q.id]: 'SKIPPED' }));
+                              setLastAnswerStatus('incorrect');
+                              updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, false);
+                              updateQuestionRating(q.id, userRating, false);
+                              updatePracticeStreak(false);
+                              addResult(1, 0);
+                              const front = `[Auto-Generated]\n\nQ: ${q.text}`;
+                              const back = `Correct Answer: ${q.type === 'MCQ' ? q.options?.[q.correct as number] : q.tita_answer}\n\nExplanation:\n${q.explanation}`;
+                              saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
+                            }}
+                            className="text-sm font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                          >
+                            Skip & Reveal Answer
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <AnimatePresence>
                       {practiceAnswers[q.id] !== undefined && (
                         <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
                           <div className={`p-5 rounded-xl border ${
-                            (q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
-                            (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase())
+                            practiceAnswers[q.id] === 'SKIPPED' ? 'bg-slate-500/5 border-slate-500/20' :
+                            ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
+                            (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()))
                               ? 'bg-emerald-500/5 border-emerald-500/20' 
                               : 'bg-rose-500/5 border-rose-500/20'
                           }`}>
                             <div className={`font-bold flex items-center gap-2 mb-3 text-lg ${
-                              (q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
-                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase())
+                              practiceAnswers[q.id] === 'SKIPPED' ? 'text-slate-500 dark:text-slate-400' :
+                              ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
+                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()))
                                 ? 'text-emerald-500' 
                                 : 'text-rose-500'
                             }`}>
-                              {(q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
-                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase())
+                              {practiceAnswers[q.id] === 'SKIPPED' ? '⏭️ Skipped' :
+                               ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
+                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()))
                                 ? '✅ Correct!' : '❌ Incorrect!'}
                             </div>
                             <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
@@ -2335,10 +2431,20 @@ export default function CatMaster() {
                         </m.div>
                       )}
                     </AnimatePresence>
-                  </div>
+                  </m.div>
+                        ))}
+                      </div>
+                      </m.div>
+                      {gIdx < groups.length - 1 && (
+                        <div className="w-full flex justify-center items-center gap-3 py-2 opacity-40 select-none">
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                        </div>
+                      )}
                     </Fragment>
-                  );
-                })}
+                  ));
+                })()}
                 {practiceQuestions.length > 0 && (
                   <div className="flex justify-center mt-8 pb-8">
                     <button 
@@ -2415,7 +2521,7 @@ export default function CatMaster() {
                   <p>No formulas found matching "{formulaSearch}"</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 auto-rows-fr">
                   {filteredFormulas.map((f) => (
                    <Flashcard key={f.id} formula={f} onEdit={() => {
                      setEditingFormulaId(f.id);
@@ -2535,7 +2641,7 @@ export default function CatMaster() {
           setMockPhase('test');
         }}
         onCancel={() => {
-          localStorage.removeItem('cat-master-active-test');
+          localStorage.removeItem('cat-maester-active-test');
           setPendingUnfinishedTest(null);
         }}
       />
@@ -2548,7 +2654,7 @@ export default function CatMaster() {
         isDestructive={true}
         onConfirm={async () => { 
           clearHistory(); 
-          localStorage.removeItem('cat-master-active-test');
+          localStorage.removeItem('cat-maester-active-test');
           setPendingUnfinishedTest(null);
           try {
             const db = await initDB();

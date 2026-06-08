@@ -56,6 +56,10 @@ drwx------ 2 root   root  4096 Jan  1  1970 top_secret`,
   'sudo rm -rf /': `[sudo] password for explorer: \nSorry, try again.\n[sudo] password for explorer: \nsudo: 3 incorrect password attempts\nSECURITY ALERT: This incident will be reported to the sysadmin.`
 };
 
+interface TerminalToolProps {
+  onCommand?: (cmd: string) => void;
+}
+
 const TypewriterText = ({ text, onUpdate }: { text: string; onUpdate?: () => void }) => {
   const [displayedText, setDisplayedText] = useState("");
   const onUpdateRef = useRef(onUpdate);
@@ -78,7 +82,7 @@ const TypewriterText = ({ text, onUpdate }: { text: string; onUpdate?: () => voi
   return <>{displayedText}</>;
 };
 
-export default function TerminalTool() {
+export default function TerminalTool({ onCommand }: TerminalToolProps) {
   const [history, setHistory] = useState<{ command: string; output: string | React.ReactNode }[]>([
     { command: '', output: 'Welcome to JAZDOT terminal! Type "help" for a list of commands.' }
   ]);
@@ -103,6 +107,11 @@ export default function TerminalTool() {
 
     const output = COMMANDS[trimmedInput.toLowerCase()] || `Command not found: ${trimmedInput}. Type "help" for available commands.`;
     
+    // Check for CAT Maester launch command
+    if (onCommand && (trimmedInput.toLowerCase() === 'cat-maester' || trimmedInput.toLowerCase() === 'run cat')) {
+      onCommand(trimmedInput.toLowerCase());
+      return;
+    }
     setHistory(prev => [...prev, { command: trimmedInput, output }]);
     setInput('');
   };

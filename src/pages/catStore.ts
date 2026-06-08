@@ -138,6 +138,6 @@ export const useCatStore = create<CatState>()(
         }
       }))
     }),
-    { name: 'cat-master-storage' }
+    { name: 'cat-maester-storage' }
   )
 );

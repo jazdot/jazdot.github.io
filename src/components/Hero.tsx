@@ -79,28 +79,38 @@ const GlowingButton = ({ children, onClick }: { children: React.ReactNode; onCli
 // ----------------------------------------------------------------------
 // 3. Typewriter Headline
 // ----------------------------------------------------------------------
-const TypewriterHeadline = ({ text }: { text: string }) => {
+const TypewriterTextEffect = ({ 
+  text, 
+  className = "", 
+  showCursor = true,
+  delay = 0.1 
+}: { 
+  text: string; 
+  className?: string; 
+  showCursor?: boolean;
+  delay?: number;
+}) => {
   const characters = text.split("");
   
   const containerVariants: Variants = {
     hidden: { opacity: 1 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.015, delayChildren: 0.1 },
+      transition: { staggerChildren: 0.01, delayChildren: delay },
     },
   };
   
   const charVariants: Variants = {
-    hidden: { opacity: 0, display: "none" },
-    show: { opacity: 1, display: "inline-block" },
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
   };
 
   return (
-    <m.h1
+    <m.div
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter text-center mt-6 text-slate-900 dark:text-white"
+      className={className}
     >
       {characters.map((char, i) => (
         <m.span
@@ -111,12 +121,14 @@ const TypewriterHeadline = ({ text }: { text: string }) => {
           {char}
         </m.span>
       ))}
-      <m.span
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        style={{ display: "inline-block", width: "4px", height: "1em", marginLeft: "12px", borderRadius: "4px", backgroundColor: "var(--accent)" }}
-      />
-    </m.h1>
+      {showCursor && (
+        <m.span
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+          className="inline-block w-[2px] h-[1em] ml-1 bg-accent rounded"
+        />
+      )}
+    </m.div>
   );
 };
 
@@ -318,6 +330,9 @@ export const AuroraBackground = () => {
 // ----------------------------------------------------------------------
 // 6. Main Hero Component
 // ----------------------------------------------------------------------
+// Configuration setting for the availability badge
+const SHOW_OPPORTUNITIES_BADGE = true;
+
 export default function Hero() {
   const navigate = useNavigate();
 
@@ -325,28 +340,26 @@ export default function Hero() {
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center font-sans">
 
       <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-5xl mx-auto mt-20">
-        <m.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ y: -4, scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 10 } }}
-          transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.1 }}
-          className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/40 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-900 dark:text-white cursor-default"
-        >
-          ✨ Available for new opportunities
-        </m.div>
+        {SHOW_OPPORTUNITIES_BADGE && (
+          <m.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ y: -4, scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+            transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.1 }}
+            className="px-4 py-1.5 mb-6 rounded-full border backdrop-blur-md text-sm font-medium shadow-xl bg-white/40 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-900 dark:text-white cursor-default"
+          >
+            ✨ Available for new opportunities
+          </m.div>
+        )}
 
-        <TypewriterHeadline text="Welcome Explorer!" />
+        <TypewriterTextEffect text="Welcome Explorer!" className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter text-center mt-6 text-slate-900 dark:text-white" />
 
-        <m.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.8 }}
-          className="mt-8 mb-12 text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed"
-        >
-          I'm a Results-oriented Network Engineer with hands-on experience in MLOps, SDN, 5G/O-RAN, 
-          and network automation. Specializing in Python, Terraform, and high-performance 
-          cloud infrastructures.
-        </m.p>
+        <TypewriterTextEffect
+          text="I'm a Results-oriented Network Engineer with hands-on experience in MLOps, SDN, 5G/O-RAN, and network automation. Specializing in Python, Terraform, and high-performance cloud infrastructures."
+          className="mt-8 mb-12 text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed mx-auto"
+          showCursor={false} // No cursor for the subtitle
+          delay={0.8}
+        />
 
         {/* CTAs */}
         <m.div

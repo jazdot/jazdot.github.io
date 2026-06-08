@@ -3,7 +3,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { User, Wrench, ChevronLeft, ChevronRight, RotateCcw, BookOpen, X } from 'lucide-react';
 
-const DB_NAME = 'CatMasterDB';
+const DB_NAME = 'CatMaesterDB';
 const FORMULA_STORE = 'formulas';
 
 const saveFlashcard = (front: string, back: string) => {
