@@ -810,9 +810,9 @@ export default function CatMaster() {
     try {
       await signInWithPopup(auth, googleProvider);
       setIsAuthOpen(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Authentication failed", error);
-      alert("Failed to sign in. Please check your connection or Firebase config.");
+      alert(`Failed to sign in: ${error?.message || 'Unknown error'}\n\nTip: Make sure Google Sign-In is enabled in your Firebase console, and your current domain (e.g., localhost or jazdot.github.io) is added to the "Authorized Domains" list under Authentication Settings.`);
     } finally {
       setIsAuthenticating(false);
     }
