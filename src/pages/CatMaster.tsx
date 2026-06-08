@@ -264,16 +264,43 @@ const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confir
   );
 };
 
+const ActivationModal = ({ isOpen, onClose, onActivate, error }: { isOpen: boolean, onClose: () => void, onActivate: (key: string) => void, error: string }) => {
+  const [key, setKey] = useState('');
+  if (!isOpen) return null;
+  
+  return (
+    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[8000] flex items-center justify-center">
+      <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 max-w-sm w-full mx-4">
+        <h3 className="text-xl font-bold mb-2">Activation Required</h3>
+        <p className="text-slate-500 mb-6 text-sm">You've completed your first free mock test. Please enter an activation key to unlock more tests.</p>
+        <input 
+          type="text" 
+          value={key}
+          onChange={(e) => setKey(e.target.value)}
+          placeholder="Enter activation key"
+          className={`w-full bg-white dark:bg-slate-800 border-2 rounded-xl px-4 py-3 mb-2 focus:outline-none transition-colors ${error ? 'border-rose-500' : 'border-slate-200 dark:border-slate-700 focus:border-[hsl(var(--accent))]'}`}
+        />
+        {error && <p className="text-rose-500 text-xs mb-4">{error}</p>}
+        <div className="flex gap-3 mt-2">
+          <button onClick={onClose} className="flex-1 px-4 py-2 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
+          <button onClick={() => onActivate(key)} className="flex-1 px-4 py-2 rounded-xl font-bold text-white bg-[hsl(var(--accent))] hover:opacity-90 transition-all">Activate</button>
+        </div>
+      </m.div>
+    </div>
+  );
+};
+
 export default function CatMaster() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isCloudSyncing, setIsCloudSyncing] = useState(true);
   const [paperList, setPaperList] = useState<{id: string, title: string}[]>([]);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress, setActivated } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -304,6 +331,8 @@ export default function CatMaster() {
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [lastAnswerStatus, setLastAnswerStatus] = useState<'correct' | 'incorrect' | null>(null);
+  const [showActivationModal, setShowActivationModal] = useState(false);
+  const [activationError, setActivationError] = useState('');
   const [formulaSearch, setFormulaSearch] = useState('');
   const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
   const [showMobilePalette, setShowMobilePalette] = useState(false);
@@ -798,6 +827,7 @@ export default function CatMaster() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
+        setIsCloudSyncing(true);
         login(firebaseUser.displayName || 'Aspirant', firebaseUser.uid, firebaseUser.photoURL || undefined);
         
         // Fetch from Cloud
@@ -820,7 +850,11 @@ export default function CatMaster() {
           }
         } catch (e) {
           console.error("Failed to load cloud data", e);
+        } finally {
+          setIsCloudSyncing(false);
         }
+      } else {
+        setIsCloudSyncing(false);
       }
     });
     return () => unsubscribe();
@@ -870,6 +904,11 @@ export default function CatMaster() {
   };
 
   const handleStartPastPaper = async (paperId: string) => {
+    if (!user) {
+      setIsAuthOpen(true);
+      return;
+    }
+
     const loader = paperLoaders[paperId];
     if (!loader) return;
     
@@ -909,6 +948,11 @@ export default function CatMaster() {
   }, [activeTab]);
 
   const startConfirmedTest = () => {
+    if (progress.testsCompleted >= 1 && !progress.isActivated) {
+      setShowActivationModal(true);
+      return;
+    }
+
     setTimeLeft(isExamMode ? 2400 : 7200);
     const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
     setActiveSection(sections[0] || '');
@@ -2385,6 +2429,19 @@ export default function CatMaster() {
         )}
       </AnimatePresence>
 
+      {/* Cloud Sync Loading Overlay */}
+      <AnimatePresence>
+        {isCloudSyncing && (
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[9000] flex items-center justify-center">
+            <div className="flex flex-col items-center text-center p-8 bg-white/10 dark:bg-slate-900/50 rounded-3xl border border-white/20 shadow-2xl">
+              <Loader2 size={48} className="animate-spin text-[hsl(var(--accent))] mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Syncing Cloud Data</h3>
+              <p className="text-slate-300 text-sm max-w-xs">Please wait while we securely retrieve your progress and configurations...</p>
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
+
       {/* Confirmation Modals */}
       <ConfirmationModal 
         isOpen={!!pendingUnfinishedTest}
@@ -2445,6 +2502,24 @@ export default function CatMaster() {
           }
         }}
         onCancel={() => setFormulaToDelete(null)}
+      />
+
+      <ActivationModal
+        isOpen={showActivationModal}
+        error={activationError}
+        onClose={() => {
+          setShowActivationModal(false);
+          setActivationError('');
+        }}
+        onActivate={(key) => {
+          if (key === 'p@ssw0rd') {
+            setActivated();
+            setActivationError('');
+            setShowActivationModal(false);
+          } else {
+            setActivationError('Invalid activation key. Please try again.');
+          }
+        }}
       />
     </m.div>
   );

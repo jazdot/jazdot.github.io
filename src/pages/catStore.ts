@@ -27,6 +27,7 @@ interface Progress {
   };
   currentStreak?: number;
   maxStreak?: number;
+  isActivated?: boolean;
 }
 
 interface CatState {
@@ -41,13 +42,14 @@ interface CatState {
   clearHistory: () => void;
   updateSkillRating: (subject: 'QA' | 'VARC' | 'DILR', questionDifficulty: number, isCorrect: boolean) => void;
   updatePracticeStreak: (isCorrect: boolean) => void;
+  setActivated: () => void;
 }
 
 export const useCatStore = create<CatState>()(
   persist(
     (set) => ({
       user: null,
-      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0 },
+      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0, isActivated: false },
       
       login: (name, uid, photoURL) => set({ user: { name, uid, photoURL } }),
       setWholeProgress: (progress) => set({ progress }),
@@ -92,7 +94,7 @@ export const useCatStore = create<CatState>()(
       }),
       
       clearHistory: () => set((state) => ({
-        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0 }
+        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0, isActivated: false }
       })),
 
       updateSkillRating: (subject, questionDifficulty, isCorrect) => set(state => {
@@ -127,7 +129,14 @@ export const useCatStore = create<CatState>()(
             maxStreak: Math.max(maxStreak, newStreak)
           }
         };
-      })
+      }),
+
+      setActivated: () => set(state => ({
+        progress: {
+          ...state.progress,
+          isActivated: true
+        }
+      }))
     }),
     { name: 'cat-master-storage' }
   )
