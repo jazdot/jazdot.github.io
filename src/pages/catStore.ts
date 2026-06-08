@@ -30,9 +30,10 @@ interface Progress {
 }
 
 interface CatState {
-  user: { name: string } | null;
+  user: { name: string, uid?: string, photoURL?: string } | null;
   progress: Progress;
-  login: (name: string) => void;
+  login: (name: string, uid?: string, photoURL?: string) => void;
+  setWholeProgress: (progress: Progress) => void;
   logout: () => void;
   addResult: (attempted: number, correct: number) => void;
   addTopicResult: (topic: string, isCorrect: boolean, questionId?: string) => void;
@@ -48,7 +49,8 @@ export const useCatStore = create<CatState>()(
       user: null,
       progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0 },
       
-      login: (name) => set({ user: { name } }),
+      login: (name, uid, photoURL) => set({ user: { name, uid, photoURL } }),
+      setWholeProgress: (progress) => set({ progress }),
       logout: () => set({ user: null }),
       
       addResult: (attempted, correct) => set((state) => ({

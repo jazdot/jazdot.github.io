@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
+import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc } from './firebase';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMasterDB';
@@ -272,7 +273,7 @@ export default function CatMaster() {
   const [paperList, setPaperList] = useState<{id: string, title: string}[]>([]);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating, updatePracticeStreak } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -299,6 +300,7 @@ export default function CatMaster() {
   const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
   const [practiceFilterTopic, setPracticeFilterTopic] = useState<string | null>(null);
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
+  const [practiceFilterDifficulty, setPracticeFilterDifficulty] = useState<string | null>(null);
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [lastAnswerStatus, setLastAnswerStatus] = useState<'correct' | 'incorrect' | null>(null);
@@ -323,7 +325,32 @@ export default function CatMaster() {
   const [, setKatexLoaded] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [isExamMode, setIsExamMode] = useState(true);
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [calcExpr, setCalcExpr] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const handleCalcClick = (val: string) => {
+    if (val === 'C') setCalcExpr('');
+    else if (val === '=') {
+      try {
+        const result = new Function('return ' + calcExpr)();
+        setCalcExpr(String(Math.round(result * 10000) / 10000));
+      } catch {
+        setCalcExpr('Error');
+      }
+    } else if (val === 'sqrt') {
+      try {
+        const result = Math.sqrt(new Function('return ' + calcExpr)());
+        setCalcExpr(String(Math.round(result * 10000) / 10000));
+      } catch {
+        setCalcExpr('Error');
+      }
+    } else {
+      if (calcExpr === 'Error') setCalcExpr(val);
+      else setCalcExpr(prev => prev + val);
+    }
+  };
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -424,6 +451,7 @@ export default function CatMaster() {
           setActiveSection(savedState.activeSection || '');
           setActiveQuestionIdx(savedState.activeQuestionIdx || 0);
           setSectionTimes(savedState.sectionTimes || {});
+          setIsExamMode(savedState.isExamMode || false);
           setIsPaused(true);
           setMockPhase('test');
         } else {
@@ -477,11 +505,22 @@ export default function CatMaster() {
         }));
       }, 1000);
     } else if (timeLeft <= 0 && mockPhase === 'test' && !isPaused) {
-      // Auto-submit triggers when timer expires, evaluating the exact final score using the latest render scope's answers
-      handleSubmitMock();
+      if (isExamMode && currentTest) {
+        const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+        const currIdx = sections.indexOf(activeSection);
+        if (currIdx < sections.length - 1) {
+          setActiveSection(sections[currIdx + 1]);
+          setActiveQuestionIdx(0);
+          setTimeLeft(2400);
+        } else {
+          handleSubmitMock();
+        }
+      } else {
+        handleSubmitMock();
+      }
     }
     return () => clearInterval(timer);
-  }, [mockPhase, timeLeft, activeSection, isPaused, isSoundEnabled]);
+  }, [mockPhase, timeLeft, activeSection, isPaused, isSoundEnabled, isExamMode, currentTest]);
 
   useEffect(() => {
     if (mockPhase === 'test' && currentTest) {
@@ -494,6 +533,7 @@ export default function CatMaster() {
         activeSection,
         activeQuestionIdx,
         sectionTimes,
+        isExamMode
       };
       localStorage.setItem('cat-master-active-test', JSON.stringify(activeTestData));
     } else if (mockPhase !== 'test') {
@@ -527,6 +567,37 @@ export default function CatMaster() {
         const allQs = await getAllQuestions();
         const bookmarkedIds = progress.bookmarkedQuestions || [];
         setPracticeQuestions(groupAndShuffle(allQs.filter(q => bookmarkedIds.includes(q.id))));
+      } else if (practiceFilterDifficulty) {
+        const allQs = await getAllQuestions();
+        const subjectQs = allQs.filter(q => q.section === practiceSubject);
+        const filteredQs = subjectQs.filter(q => {
+          const rating = questionRatings[q.id] || 1200;
+          if (practiceFilterDifficulty === 'Easy') return rating < 1000;
+          if (practiceFilterDifficulty === 'Medium') return rating >= 1000 && rating <= 1400;
+          if (practiceFilterDifficulty === 'Hard') return rating > 1400;
+          return true;
+        });
+        
+        const groups = new Map<string, Question[]>();
+        const isolated: Question[] = [];
+        filteredQs.forEach(q => {
+          if (q.context) {
+            if (!groups.has(q.context)) groups.set(q.context, []);
+            groups.get(q.context)!.push(q);
+          } else {
+            isolated.push(q);
+          }
+        });
+        
+        const groupedArray = [...Array.from(groups.values()), ...isolated.map(q => [q])];
+        groupedArray.sort(() => 0.5 - Math.random());
+        
+        const selectedQs: Question[] = [];
+        for (const g of groupedArray) {
+          if (selectedQs.length >= 20) break;
+          selectedQs.push(...g);
+        }
+        setPracticeQuestions(selectedQs);
       } else if (isAdaptive) {
         const allQs = await getAllQuestions();
         const subjectQs = allQs.filter(q => q.section === practiceSubject);
@@ -570,7 +641,7 @@ export default function CatMaster() {
     if (activeTab === 'practice') {
       fetchPracticeQuestions();
     }
-  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, isAdaptive, practiceRefreshTrigger]);
+  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, practiceFilterDifficulty, isAdaptive, practiceRefreshTrigger]);
 
   useEffect(() => {
     const fetchQotd = async () => {
@@ -606,16 +677,38 @@ export default function CatMaster() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Global shortcut to clear all progress and saved tests
+      if (e.ctrlKey && e.shiftKey && (e.key === 'Backspace' || e.key === 'Delete')) {
+        e.preventDefault();
+        setShowClearHistoryConfirmationModal(true);
+      }
+
+      // Shortcut to instantly reset current mock test (Alt + R)
+      if (activeTab === 'mock' && mockPhase === 'test') {
+        if (e.altKey && e.key.toLowerCase() === 'r') {
+          e.preventDefault();
+          if (window.confirm("Are you sure you want to instantly clear all progress and saved answers for this test?")) {
+            setSelectedAnswers({});
+            setMarkedForReview({});
+            setSectionTimes({});
+            const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+            setActiveSection(sections[0] || '');
+            setActiveQuestionIdx(0);
+            setTimeLeft(isExamMode ? 2400 : 7200);
+          }
+        }
+      }
+
       if (activeTab === 'practice') {
         const activeTag = document.activeElement?.tagName.toLowerCase();
         if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
         
         if (e.key === '1') {
-          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false);
+          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null);
         } else if (e.key === '2') {
-          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false);
+          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null);
         } else if (e.key === '3') {
-          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false);
+          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null);
         }
       }
     };
@@ -683,14 +776,77 @@ export default function CatMaster() {
     }
   }, [activeTab]);
 
-  const handleAuth = () => {
+  const handleAuth = async () => {
     setIsAuthenticating(true);
-    setTimeout(() => {
-      login('Aspirant');
-      setIsAuthenticating(false);
+    try {
+      await signInWithPopup(auth, googleProvider);
       setIsAuthOpen(false);
-    }, 1500);
+    } catch (error) {
+      console.error("Authentication failed", error);
+      alert("Failed to sign in. Please check your connection or Firebase config.");
+    } finally {
+      setIsAuthenticating(false);
+    }
   };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    logout();
+  };
+
+  // Listen for Firebase Auth changes and Cloud Sync
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        login(firebaseUser.displayName || 'Aspirant', firebaseUser.uid, firebaseUser.photoURL || undefined);
+        
+        // Fetch from Cloud
+        try {
+          const snap = await getDoc(doc(db, 'users', firebaseUser.uid));
+          if (snap.exists()) {
+            const data = snap.data();
+            if (data.progress) setWholeProgress(data.progress);
+            if (data.questionRatings) {
+              setQuestionRatings(data.questionRatings);
+              localStorage.setItem('cat-master-question-ratings', JSON.stringify(data.questionRatings));
+            }
+            if (data.formulas) {
+              for (const f of data.formulas) {
+                await saveFormula(f);
+              }
+              const updatedF = await getFormulas();
+              setFormulas(updatedF);
+            }
+          }
+        } catch (e) {
+          console.error("Failed to load cloud data", e);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [login, setWholeProgress]);
+
+  // Auto-sync to cloud when data changes (debounced)
+  useEffect(() => {
+    const uid = user?.uid;
+    if (!uid) return;
+    
+    const syncToCloud = async () => {
+      try {
+        await setDoc(doc(db, 'users', uid), {
+          progress,
+          questionRatings,
+          formulas,
+          lastSynced: new Date().toISOString()
+        }, { merge: true });
+      } catch (e) {
+        console.error("Failed to sync to cloud", e);
+      }
+    };
+
+    const timeoutId = setTimeout(syncToCloud, 5000);
+    return () => clearTimeout(timeoutId);
+  }, [progress, questionRatings, formulas, user?.uid]);
 
   const handleTagTopic = (q: any, topic: string) => {
     if (!topic.trim()) return;
@@ -753,7 +909,7 @@ export default function CatMaster() {
   }, [activeTab]);
 
   const startConfirmedTest = () => {
-    setTimeLeft(7200);
+    setTimeLeft(isExamMode ? 2400 : 7200);
     const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
     setActiveSection(sections[0] || '');
     setActiveQuestionIdx(0);
@@ -770,19 +926,77 @@ export default function CatMaster() {
   const handleSubmitMock = async () => {
     let score = 0;
     let answeredCount = 0;
+    let correctCount = 0;
+    const sectionStats: Record<string, { correct: number, attempted: number, total: number, score: number }> = {};
+    const testTopicStats: Record<string, { correct: number, attempted: number, total: number, score: number }> = {};
+
+    const inferTopic = (q: any) => {
+      if (taggedQuestions[q.id]) return taggedQuestions[q.id];
+      for (const [topic, stat] of Object.entries(progress.topicStats || {})) {
+        if (stat.questionIds?.includes(q.id)) return topic;
+      }
+      const text = (q.text + ' ' + (q.explanation || '') + ' ' + (q.context || '')).toLowerCase();
+      if (q.section === 'VARC') {
+        if (q.context) return 'Reading Comprehension';
+        if (text.includes('jumbled') || text.includes('sequence') || text.includes('properly sequenced')) return 'Parajumbles';
+        if (text.includes('summar') || text.includes('essence')) return 'Paragraph Summary';
+        if (text.includes('odd one out') || text.includes('odd sentence')) return 'Odd One Out';
+        return 'Verbal Ability';
+      }
+      if (q.section === 'DILR' || q.section === 'LRDI') {
+        if (text.includes('arrangement') || text.includes('seated') || text.includes('row')) return 'Arrangements';
+        if (text.includes('graph') || text.includes('table') || text.includes('chart') || text.includes('average')) return 'Data Interpretation';
+        if (text.includes('tournament') || text.includes('match') || text.includes('player')) return 'Games & Tournaments';
+        if (text.includes('venn') || text.includes('diagram')) return 'Venn Diagrams';
+        return 'Logical Reasoning';
+      }
+      if (q.section === 'QA' || q.section === 'Quant') {
+        if (text.includes('triangle') || text.includes('circle') || text.includes('radius') || text.includes('area') || text.includes('geometry')) return 'Geometry';
+        if (text.includes('equation') || text.includes('roots') || text.includes('x^2') || text.includes('polynomial')) return 'Algebra';
+        if (text.includes('profit') || text.includes('discount') || text.includes('interest') || text.includes('sell')) return 'Commercial Math';
+        if (text.includes('speed') || text.includes('time') || text.includes('distance') || text.includes('km') || text.includes('train')) return 'Time, Speed & Distance';
+        if (text.includes('log') || text.includes('logarithm')) return 'Logarithms';
+        if (text.includes('probability') || text.includes('ways') || text.includes('arrange') || text.includes('chosen')) return 'Combinatorics';
+        if (text.includes('ratio') || text.includes('proportion')) return 'Ratio & Proportion';
+        return 'Arithmetic';
+      }
+      return 'General';
+    };
+
     if (currentTest) {
       currentTest.questions?.forEach((q: any, idx: number) => {
+        const sec = q.section;
+        if (!sectionStats[sec]) sectionStats[sec] = { correct: 0, attempted: 0, total: 0, score: 0 };
+        sectionStats[sec].total++;
+
+        const topic = inferTopic(q);
+        if (!testTopicStats[topic]) testTopicStats[topic] = { correct: 0, attempted: 0, total: 0, score: 0 };
+        testTopicStats[topic].total++;
+
         const answer = selectedAnswers[idx];
         if (answer !== undefined && String(answer).trim() !== '') {
           answeredCount++;
+          sectionStats[sec].attempted++;
+          testTopicStats[topic].attempted++;
+
           let isCorrect = false;
+          let qScore = 0;
           if (q.type === 'MCQ') {
-            if (answer === q.correct) { score++; isCorrect = true; }
+            if (answer === q.correct) { qScore = 3; isCorrect = true; }
+            else { qScore = -1; }
           } else {
-            if (String(answer).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()) { score++; isCorrect = true; }
+            if (String(answer).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()) { qScore = 3; isCorrect = true; }
           }
           
-          if (!isCorrect) {
+          score += qScore;
+          sectionStats[sec].score += qScore;
+          testTopicStats[topic].score += qScore;
+
+          if (isCorrect) {
+            correctCount++;
+            sectionStats[sec].correct++;
+            testTopicStats[topic].correct++;
+          } else {
             const front = `[Auto-Generated]\n\nQ: ${q.text}`;
             const correctAnsStr = q.type === 'MCQ' ? q.options?.[q.correct as number] : q.tita_answer;
             const back = `Correct Answer: ${correctAnsStr}\n\nExplanation:\n${q.explanation}`;
@@ -792,24 +1006,26 @@ export default function CatMaster() {
       });
 
       const totalQuestions = currentTest.questions?.length || 0;
-      const incorrectCount = answeredCount - score;
+      const incorrectCount = answeredCount - correctCount;
       const unansweredCount = totalQuestions - answeredCount;
-      const accuracy = answeredCount > 0 ? Math.round((score / answeredCount) * 100) : 0;
-      const timeTaken = 7200 - timeLeft;
+      const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+      const timeTaken = Object.values(sectionTimes).reduce((sum, t) => sum + t, 0);
 
       setLastTestResult({
         score,
         total: totalQuestions,
         answered: answeredCount,
-        correct: score,
+        correct: correctCount,
         incorrect: incorrectCount,
         unanswered: unansweredCount,
         accuracy,
         sectionTimes,
+        sectionStats,
+        testTopicStats
       });
 
       setMockPhase('result');
-      addResult(answeredCount, score);
+      addResult(answeredCount, correctCount);
 
       // Wire up API call for global percentiles
       try {
@@ -906,10 +1122,32 @@ export default function CatMaster() {
         </div>
         
         <div className="p-4 border-t border-slate-200/50 dark:border-white/10 space-y-4">
-          <button onClick={() => user ? logout() : setIsAuthOpen(true)} className="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors">
-            {user ? <LogOut size={20} /> : <LogIn size={20} />}
-            <span className="hidden md:inline font-medium">{user ? 'Log Out' : 'Log In'}</span>
-          </button>
+          {user ? (
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-3 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10">
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full shadow-sm" />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white font-bold">{user.name.charAt(0)}</div>
+                )}
+                <div className="flex-1 truncate hidden md:block">
+                  <p className="text-sm font-bold truncate text-slate-900 dark:text-white">{user.name}</p>
+                  <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Cloud Synced
+                  </p>
+                </div>
+              </div>
+              <button onClick={handleLogout} className="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-500 transition-colors">
+                <LogOut size={20} />
+                <span className="hidden md:inline font-medium">Log Out</span>
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setIsAuthOpen(true)} className="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors">
+              <LogIn size={20} />
+              <span className="hidden md:inline font-medium">Sign In to Sync</span>
+            </button>
+          )}
         </div>
         <div className="p-2 md:p-4 border-t border-slate-200/50 dark:border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-around gap-1 md:gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
@@ -960,7 +1198,7 @@ export default function CatMaster() {
                 <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-bold">Quick Stats</h3>
-                    <button onClick={() => { if(confirm('Are you sure you want to clear your entire history?')) clearHistory(); }} className="text-xs font-bold text-rose-500 hover:bg-rose-500/10 px-3 py-1.5 rounded-lg transition-colors border border-rose-500/20">Clear History</button>
+                    <button onClick={() => setShowClearHistoryConfirmationModal(true)} className="text-xs font-bold text-rose-500 hover:bg-rose-500/10 px-3 py-1.5 rounded-lg transition-colors border border-rose-500/20" title="Shortcut: Ctrl+Shift+Backspace">Clear History</button>
                   </div>
                   <div className="grid grid-cols-2 gap-4 h-[calc(100%-2rem)]">
                     <div className="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/5 flex flex-col justify-center shadow-inner"><div className="text-slate-500 mb-2 text-sm font-medium uppercase tracking-wider">Attempted</div><div className="text-4xl font-black">{progress.totalAttempted}</div></div>
@@ -1010,6 +1248,7 @@ export default function CatMaster() {
                     setPracticeSubject((qotd.section as 'QA' | 'VARC' | 'DILR') || 'QA');
                     setPracticeFilterTopic(null);
                     setPracticeFilterBookmark(false);
+                    setPracticeFilterDifficulty(null);
                     setActiveTab('practice');
                   }} className="text-sm font-bold bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-lg shadow-md hover:opacity-90 transition-all">
                     Solve in Practice Mode
@@ -1051,6 +1290,7 @@ export default function CatMaster() {
                             className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 p-2 -mx-2 rounded-lg transition-colors group"
                             onClick={() => {
                               setPracticeFilterTopic(t.topic);
+                              setPracticeFilterDifficulty(null);
                               setActiveTab('practice');
                             }}
                           >
@@ -1097,7 +1337,24 @@ export default function CatMaster() {
                   
                   {savedTests.length > 0 && (
                     <div className="p-8 flex flex-col flex-1 bg-black/5 dark:bg-white/5">
-                      <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Book size={24} className="text-[hsl(var(--accent))]" /> Saved Offline Tests</h3>
+                      <div className="flex justify-between items-center mb-6">
+                        <h3 className="text-xl font-bold flex items-center gap-2"><Book size={24} className="text-[hsl(var(--accent))]" /> Saved Offline Tests</h3>
+                        <button 
+                          onClick={async () => {
+                            if(window.confirm('Instantly clear all saved offline tests and their progress?')) {
+                               try {
+                                 const db = await initDB();
+                                 const tx = db.transaction(STORE_NAME, 'readwrite');
+                                 tx.objectStore(STORE_NAME).clear();
+                                 setSavedTests([]);
+                               } catch(e) {}
+                            }
+                          }}
+                          className="text-xs font-bold text-rose-500 hover:text-rose-600 transition-colors border border-rose-500/20 hover:bg-rose-500/10 px-3 py-1.5 rounded-lg"
+                        >
+                          Clear All
+                        </button>
+                      </div>
                       <div className="flex-1 overflow-y-auto pr-2 space-y-3" style={{ maxHeight: '350px', scrollbarWidth: 'thin' }}>
                         {savedTests.map(test => (
                           <div key={test.id} className="p-4 bg-white/60 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-white/10 flex justify-between items-center shadow-sm hover:border-[hsl(var(--accent))]/50 transition-colors">
@@ -1117,8 +1374,12 @@ export default function CatMaster() {
                 <div className="flex flex-col items-center justify-center flex-1 p-8 text-center">
                    <h2 className="text-3xl font-black mb-4">{currentTest.title}</h2>
                    <p className="text-slate-500 mb-8 max-w-lg">
-                     You are about to start this mock test. The test contains {currentTest.questions?.length || 0} questions and you will have 120 minutes to complete it. Ensure you have a stable connection and are ready to begin.
+                     You are about to start this mock test. The test contains {currentTest.questions?.length || 0} questions and you will have {isExamMode ? '40 minutes per section' : '120 minutes'} to complete it. Ensure you have a stable connection and are ready to begin.
                    </p>
+                   <label className="flex items-center gap-2 cursor-pointer text-sm font-bold bg-white dark:bg-slate-800 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:border-[hsl(var(--accent))]/50 mb-8">
+                     <input type="checkbox" checked={isExamMode} onChange={e => setIsExamMode(e.target.checked)} className="w-4 h-4 text-[hsl(var(--accent))] rounded border-slate-300 focus:ring-[hsl(var(--accent))]" />
+                     Strict Sectional Timing (40 min / section)
+                   </label>
                    <div className="flex gap-4">
                      <button onClick={() => setMockPhase('select')} className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
                      <button onClick={startConfirmedTest} className="px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))] text-white shadow-lg hover:scale-105 active:scale-95 transition-all">Begin Test</button>
@@ -1127,6 +1388,39 @@ export default function CatMaster() {
               )}
               {mockPhase === 'test' && currentTest && (
                 <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50 relative">
+                  <AnimatePresence>
+                    {showCalculator && (
+                      <m.div
+                        drag
+                        dragMomentum={false}
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        className="absolute top-20 right-4 md:right-20 z-[6000] w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden flex flex-col"
+                        style={{ touchAction: "none" }}
+                      >
+                        <div className="bg-slate-100/50 dark:bg-slate-800/50 p-3 flex justify-between items-center cursor-move border-b border-slate-200/50 dark:border-white/10">
+                          <span className="font-bold text-sm flex items-center gap-2 text-slate-700 dark:text-slate-300"><Calculator size={16} /> Calculator</span>
+                          <button onClick={() => setShowCalculator(false)} className="text-slate-400 hover:text-rose-500 transition-colors"><X size={16} /></button>
+                        </div>
+                        <div className="p-4">
+                          <div className="bg-white dark:bg-slate-950 p-3 rounded-xl text-right font-mono text-xl mb-4 overflow-x-auto min-h-[3.5rem] flex items-center justify-end border border-slate-200/50 dark:border-white/5 shadow-inner">
+                            {calcExpr || '0'}
+                          </div>
+                          <div className="grid grid-cols-4 gap-2">
+                            {['7','8','9','/','4','5','6','*','1','2','3','-','0','.','=','+'].map(btn => (
+                              <button key={btn} onClick={() => handleCalcClick(btn)} className={`p-3 rounded-xl font-bold text-lg transition-colors shadow-sm active:scale-95 ${btn === '=' ? 'bg-[hsl(var(--accent))] text-white hover:opacity-90' : ['/','*','-','+'].includes(btn) ? 'bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:bg-slate-600 text-[hsl(var(--accent))]' : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700'}`}>
+                                {btn}
+                              </button>
+                            ))}
+                            <button onClick={() => handleCalcClick('C')} className="col-span-2 p-2 rounded-xl font-bold bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 shadow-sm active:scale-95 transition-colors">Clear</button>
+                            <button onClick={() => handleCalcClick('sqrt')} className="p-2 rounded-xl font-bold bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-[hsl(var(--accent))] shadow-sm active:scale-95 transition-colors">√</button>
+                            <button onClick={() => setCalcExpr(prev => prev.slice(0, -1))} className="p-2 rounded-xl font-bold bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-[hsl(var(--accent))] shadow-sm active:scale-95 transition-colors">⌫</button>
+                          </div>
+                        </div>
+                      </m.div>
+                    )}
+                  </AnimatePresence>
                   <AnimatePresence>
                     {isPaused && (
                       <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-[100] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex flex-col items-center justify-center text-center p-6">
@@ -1147,9 +1441,23 @@ export default function CatMaster() {
                       <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
                         {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                       </button>
+                      <button onClick={() => setShowCalculator(!showCalculator)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title="Calculator">
+                        <Calculator size={18} />
+                      </button>
                       <button onClick={() => setIsSoundEnabled(!isSoundEnabled)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isSoundEnabled ? "Mute Timer" : "Unmute Timer"}>
                         {isSoundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                       </button>
+                      <button onClick={() => {
+                        if (window.confirm('Are you sure you want to instantly clear all progress and saved answers for this test?')) {
+                          setSelectedAnswers({});
+                          setMarkedForReview({});
+                          setSectionTimes({});
+                          const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+                          setActiveSection(sections[0] || '');
+                          setActiveQuestionIdx(0);
+                          setTimeLeft(isExamMode ? 2400 : 7200);
+                        }
+                      }} className="bg-rose-500/10 text-rose-500 border border-rose-500/20 hover:bg-rose-500 hover:text-white px-3 py-1.5 rounded-lg font-bold shadow-sm active:scale-95 transition-all text-sm hidden lg:block" title="Reset Test (Alt+R)">Reset</button>
                       <button onClick={() => setIsPaused(true)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm hidden lg:block">Pause</button>
                       <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-2 md:px-3 py-1.5 rounded-lg font-bold text-sm md:text-lg flex items-center gap-1 md:gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
                          <Timer size={18} /> {formatTime(timeLeft)}
@@ -1171,8 +1479,14 @@ export default function CatMaster() {
                      {Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))).map((sec: any) => (
                        <button 
                          key={sec} 
-                         onClick={() => { setActiveSection(sec); setActiveQuestionIdx(0); }}
-                         className={`px-6 py-3 font-bold text-sm border-b-2 transition-colors whitespace-nowrap ${activeSection === sec ? 'border-[hsl(var(--accent))] text-[hsl(var(--accent))]' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                         onClick={() => { 
+                           if (!isExamMode) {
+                             setActiveSection(sec); 
+                             setActiveQuestionIdx(0); 
+                           }
+                         }}
+                         className={`px-6 py-3 font-bold text-sm border-b-2 transition-colors whitespace-nowrap ${activeSection === sec ? 'border-[hsl(var(--accent))] text-[hsl(var(--accent))]' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'} ${(isExamMode && activeSection !== sec) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                         disabled={isExamMode && activeSection !== sec}
                        >
                          {sec}
                        </button>
@@ -1348,7 +1662,7 @@ export default function CatMaster() {
                     <p className="text-slate-500 mb-8">Here's a summary of your performance for this session.</p>
                     
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left mb-8 text-slate-800 dark:text-slate-200">
-                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Score</div><div className="text-3xl font-black">{lastTestResult.score} <span className="text-lg font-bold text-slate-400">/ {lastTestResult.total}</span></div></div>
+                      <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Score</div><div className="text-3xl font-black">{lastTestResult.score} <span className="text-lg font-bold text-slate-400">/ {lastTestResult.total * 3}</span></div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Accuracy</div><div className="text-3xl font-black text-[hsl(var(--accent))]">{lastTestResult.accuracy}%</div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Percentile</div><div className="text-3xl font-black text-blue-500">{lastTestResult.percentile ? `${lastTestResult.percentile} PR` : <Loader2 size={24} className="animate-spin mt-1" />}</div></div>
                       <div className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-200/50 dark:border-white/10"><div className="text-slate-500 text-sm font-medium">Avg Peer Time</div><div className="text-3xl font-black text-indigo-500">{lastTestResult.averagePeerTime ? formatTime(lastTestResult.averagePeerTime) : <Loader2 size={24} className="animate-spin mt-1" />}</div></div>
@@ -1359,7 +1673,7 @@ export default function CatMaster() {
                     </div>
                     
                     <div className="mb-8 bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 text-left">
-                      <h3 className="font-bold mb-4">Section Time Analysis</h3>
+                      <h3 className="font-bold mb-4">Section Analysis</h3>
                       <div className="flex flex-col md:flex-row gap-8 items-center">
                         {(() => {
                           const sections = Array.from(new Set(currentTest.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
@@ -1400,9 +1714,15 @@ export default function CatMaster() {
                                         <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: color }}></div>
                                         <span className="font-bold text-slate-700 dark:text-slate-300">{sec}</span>
                                       </div>
-                                      <div className="flex items-center gap-4 text-sm mt-2 sm:mt-0">
+                                      <div className="flex flex-wrap items-center gap-4 text-sm mt-2 sm:mt-0">
                                          <span className="text-slate-500">Total: <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{formatTime(time)}</span></span>
                                          <span className="text-slate-500">Avg/Q: <span className="font-mono font-bold text-[hsl(var(--accent))]">{formatTime(avg)}</span></span>
+                                         {lastTestResult.sectionStats?.[sec] && (
+                                           <>
+                                             <span className="text-slate-500 hidden xl:inline">Score: <span className="font-mono font-bold text-emerald-500">{lastTestResult.sectionStats[sec].score > 0 ? `+${lastTestResult.sectionStats[sec].score}` : lastTestResult.sectionStats[sec].score}</span></span>
+                                             <span className="text-slate-500">Acc: <span className="font-mono font-bold text-blue-500">{lastTestResult.sectionStats[sec].attempted > 0 ? Math.round((lastTestResult.sectionStats[sec].correct / lastTestResult.sectionStats[sec].attempted) * 100) : 0}%</span></span>
+                                           </>
+                                         )}
                                       </div>
                                     </div>
                                   );
@@ -1413,6 +1733,33 @@ export default function CatMaster() {
                         })()}
                       </div>
                     </div>
+
+                    {lastTestResult.testTopicStats && Object.keys(lastTestResult.testTopicStats).length > 0 && (
+                      <div className="mb-8 bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/10 text-left">
+                        <h3 className="font-bold mb-4">Detailed Topic Analysis</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {Object.entries(lastTestResult.testTopicStats)
+                            .sort(([, a]: any, [, b]: any) => b.score - a.score)
+                            .map(([topic, stat]: any) => {
+                               const acc = stat.attempted > 0 ? Math.round((stat.correct / stat.attempted) * 100) : 0;
+                               return (
+                                 <div key={topic} className="bg-white/60 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200/50 dark:border-slate-700/50 hover:border-[hsl(var(--accent))]/50 transition-colors">
+                                   <div className="flex justify-between items-start mb-3">
+                                     <span className="font-bold text-slate-700 dark:text-slate-300 pr-2">{topic}</span>
+                                     <span className={`text-xs font-bold px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 ${acc < 50 && stat.attempted > 0 ? 'text-rose-500' : acc < 80 && stat.attempted > 0 ? 'text-yellow-500' : stat.attempted > 0 ? 'text-emerald-500' : 'text-slate-400'}`}>
+                                       {stat.attempted > 0 ? `${acc}% Acc` : 'Skipped'}
+                                     </span>
+                                   </div>
+                                   <div className="flex justify-between text-sm text-slate-500">
+                                     <span>Score: <strong className={stat.score > 0 ? 'text-emerald-500' : stat.score < 0 ? 'text-rose-500' : 'text-slate-800 dark:text-slate-200'}>{stat.score > 0 ? `+${stat.score}` : stat.score}</strong></span>
+                                     <span>Attempted: <strong>{stat.attempted}/{stat.total}</strong></span>
+                                   </div>
+                                 </div>
+                               )
+                            })}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex flex-wrap justify-center gap-4 mt-8">
                       <button onClick={() => { 
@@ -1683,7 +2030,7 @@ export default function CatMaster() {
               <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                 <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                   {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
-                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                       {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
                     </button>
                   ))}
@@ -1692,9 +2039,23 @@ export default function CatMaster() {
                       {practiceFilterTopic} Focus
                     </button>
                   )}
-                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                     Bookmarks ({progress.bookmarkedQuestions?.length || 0})
                   </button>
+                  <select 
+                    value={practiceFilterDifficulty || ''}
+                    onChange={(e) => {
+                      setPracticeFilterTopic(null);
+                      setPracticeFilterBookmark(false);
+                      setPracticeFilterDifficulty(e.target.value || null);
+                    }}
+                    className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none ${practiceFilterDifficulty ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
+                  >
+                    <option value="" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Any Difficulty</option>
+                    <option value="Easy" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Easy</option>
+                    <option value="Medium" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Medium</option>
+                    <option value="Hard" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Hard</option>
+                  </select>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                   <div className="flex items-center gap-2 text-sm font-bold bg-orange-500/10 text-orange-600 dark:text-orange-400 px-3 py-1.5 rounded-lg border border-orange-500/20 shadow-sm" title="Consecutive Correct Answers">
@@ -1719,10 +2080,10 @@ export default function CatMaster() {
                 </div>
               </div>
               <div className="space-y-6">
-                {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark || isAdaptive) && (
+                {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark || practiceFilterDifficulty || isAdaptive) && (
                   <div className="text-center py-16 text-slate-500">
                     <BrainCircuit size={48} className="mx-auto mb-4 opacity-20" />
-                    <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : 'for this skill level'}.</p>
+                    <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : practiceFilterDifficulty ? `with "${practiceFilterDifficulty}" difficulty` : 'for this skill level'}.</p>
                   </div>
                 )}
                 {practiceQuestions?.map((q, idx) => {
@@ -2002,10 +2363,23 @@ export default function CatMaster() {
                 <h3 className="text-2xl font-bold">Sign In</h3>
                 <button onClick={() => setIsAuthOpen(false)} className="text-slate-400 hover:text-slate-600"><X /></button>
               </div>
-              <p className="text-slate-500 mb-6">Sign in to sync your CAT prep progress.</p>
-              <button onClick={handleAuth} disabled={isAuthenticating} className="w-full flex items-center justify-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-xl hover:bg-slate-800 transition font-medium">
-                {isAuthenticating ? <Loader2 className="animate-spin" /> : 'Continue'}
+              <p className="text-slate-500 mb-8 leading-relaxed">Sign in to securely sync your CAT prep progress, Elo ratings, and custom flashcards across all your devices.</p>
+              <button onClick={handleAuth} disabled={isAuthenticating} className="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition shadow-sm font-bold">
+                {isAuthenticating ? <Loader2 className="animate-spin" /> : (
+                  <>
+                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    Continue with Google
+                  </>
+                )}
               </button>
+              <div className="mt-6 text-center text-xs text-slate-500">
+                By continuing, you agree to our Terms of Service and Privacy Policy.
+              </div>
             </m.div>
           </m.div>
         )}
@@ -2038,11 +2412,22 @@ export default function CatMaster() {
 
       <ConfirmationModal 
         isOpen={showClearHistoryConfirmationModal}
-        title="Clear History"
-        message="Are you sure you want to clear your entire progress history? This action cannot be undone."
-        confirmText="Clear History"
+        title="Clear All Progress & Saved Tests"
+        message="Are you sure you want to clear your entire progress history, including all saved offline tests and unfinished attempts? This action cannot be undone."
+        confirmText="Clear Everything"
         isDestructive={true}
-        onConfirm={() => { clearHistory(); setShowClearHistoryConfirmationModal(false); }}
+        onConfirm={async () => { 
+          clearHistory(); 
+          localStorage.removeItem('cat-master-active-test');
+          setPendingUnfinishedTest(null);
+          try {
+            const db = await initDB();
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            tx.objectStore(STORE_NAME).clear();
+            setSavedTests([]);
+          } catch(e) {}
+          setShowClearHistoryConfirmationModal(false); 
+        }}
         onCancel={() => setShowClearHistoryConfirmationModal(false)}
       />
 
