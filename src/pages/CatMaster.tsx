@@ -173,15 +173,88 @@ const PinchZoomImage = ({ src, alt }: { src: string, alt: string }) => {
 };
 
 // --- Render Context Helper ---
+const renderTable = (lines: string[], key: number) => {
+  let isHeader = true;
+  return (
+    <div key={`tbl_${key}`} className="overflow-x-auto my-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm w-full">
+      <table className="w-full text-sm text-left border-collapse bg-white dark:bg-slate-900">
+        <tbody>
+          {lines.map((line, idx) => {
+            // Check if it's the markdown separator row (e.g. |---|---|)
+            if (line.match(/^\|[\s\-:|]+\|$/)) {
+              isHeader = false;
+              return null;
+            }
+            // Extract cell content, slicing off the start and end pipes
+            const cells = line.split('|').slice(1, -1);
+            return (
+              <tr key={idx} className="border-b last:border-b-0 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                {cells.map((cell, cIdx) => (
+                  isHeader ? (
+                    <th key={cIdx} className="border-r last:border-r-0 border-slate-200 dark:border-slate-700 px-4 py-3 bg-slate-50 dark:bg-slate-800/80 font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      <span dangerouslySetInnerHTML={{ __html: renderLatex(cell.trim()) }} />
+                    </th>
+                  ) : (
+                    <td key={cIdx} className="border-r last:border-r-0 border-slate-200 dark:border-slate-700 px-4 py-3 text-slate-600 dark:text-slate-400 align-top">
+                      <span dangerouslySetInnerHTML={{ __html: renderLatex(cell.trim()) }} />
+                    </td>
+                  )
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 const renderContextWithImages = (text: string) => {
   if (!text) return null;
   const parts = text.split(/(!\[.*?\]\(.*?\))/g);
   return parts.map((part, i) => {
     const imgMatch = part.match(/!\[(.*?)\]\((.*?)\)/);
     if (imgMatch) {
-      return <PinchZoomImage key={i} alt={imgMatch[1]} src={imgMatch[2]} />;
+      return <PinchZoomImage key={`img_${i}`} alt={imgMatch[1]} src={imgMatch[2]} />;
     }
-    return <span key={i} dangerouslySetInnerHTML={{ __html: renderLatex(part) }} />;
+    
+    const lines = part.split('\n');
+    const blocks: React.ReactNode[] = [];
+    let currentText = '';
+    let tableLines: string[] = [];
+    let inTable = false;
+
+    const flushText = () => {
+      if (currentText) {
+        blocks.push(<span key={`txt_${blocks.length}`} dangerouslySetInnerHTML={{ __html: renderLatex(currentText) }} />);
+        currentText = '';
+      }
+    };
+
+    for (let j = 0; j < lines.length; j++) {
+      const line = lines[j].trim();
+      if (line.startsWith('|') && line.endsWith('|')) {
+        if (!inTable) {
+          flushText();
+          inTable = true;
+        }
+        tableLines.push(line);
+      } else {
+        if (inTable) {
+          blocks.push(renderTable(tableLines, blocks.length));
+          tableLines = [];
+          inTable = false;
+        }
+        currentText += lines[j] + (j === lines.length - 1 ? '' : '\n');
+      }
+    }
+    
+    if (inTable) {
+      blocks.push(renderTable(tableLines, blocks.length));
+    }
+    flushText();
+
+    return <Fragment key={`frag_${i}`}>{blocks}</Fragment>;
   });
 };
 
