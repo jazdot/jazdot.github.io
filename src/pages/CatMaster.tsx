@@ -119,6 +119,14 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
     You are an expert examiner for the Indian Common Admission Test (CAT). 
     Generate 5 highly challenging, unique questions for the section: ${subject}. 
     ${topic ? `\nCRITICAL: The questions MUST be strictly focused on the specific topic: ${topic}.` : ''}
+    ${subject === 'VARC' ? `
+    CRITICAL VARC INSTRUCTIONS:
+    - If generating Reading Comprehension, the 'context' field MUST contain a highly complex, dense, and intellectually stimulating passage of around 500 to 700 words, exactly like actual CAT exam passages.
+    - Topics should be drawn from philosophy, sociology, history, evolutionary biology, economics, or literature.
+    - The questions MUST test deep critical reasoning (Inference, Central Idea, Tone, Weakening/Strengthening arguments). Do NOT ask direct factual questions.` : ''}
+    ${subject === 'DILR' ? `
+    CRITICAL DILR INSTRUCTIONS:
+    - If generating a set, the 'context' field MUST contain a highly complex logic puzzle, intricate data table, seating arrangement, or tournament scenario exactly like real CAT DILR sets.` : ''}
     
     CRITICAL INSTRUCTION: You must respond ONLY with a raw JSON array. Do not include markdown formatting (like \`\`\`json), explanations, or any other text. 
     
@@ -1585,13 +1593,14 @@ export default function CatMaester() {
                       <YAxis domain={['dataMin - 50', 'dataMax + 50']} fontSize={10} tick={{ fill: 'currentColor', opacity: 0.6 }} axisLine={{ stroke: 'currentColor', opacity: 0.2 }} tickLine={{ stroke: 'currentColor', opacity: 0.2 }} />
                       <Tooltip
                         contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem' }}
-                        labelStyle={{ fontWeight: 'bold' }}
+                        labelStyle={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px' }}
+                        labelFormatter={(label) => new Date(label).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                         formatter={(value: any) => [typeof value === 'number' ? Math.round(value) : value, 'Elo']}
                       />
                       <Legend wrapperStyle={{ fontSize: '12px' }} />
-                      <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} />
-                      <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} />
-                      <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} />
+                      <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" />
+                      <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={200} />
+                      <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={400} />
                     </LineChart>
                   </ResponsiveContainer>
                 ) : (
