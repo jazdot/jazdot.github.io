@@ -121,8 +121,7 @@ const deleteFormula = async (id: string) => {
 const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: string, retries = 2): Promise<Question[]> => {
   console.log(`[AI] Generating new batch for ${subject}${topic ? ` on ${topic}` : ''} via Gemini...`);
   
-  // IMPORTANT: This key is likely invalid. Replace with your actual key or use environment variables.
-  const GEMINI_API_KEY = "AIzaSyA0Os43E1UjN0AOjpYax-dA7v8X_L7jjP4"; 
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; 
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
 
   const promptText = `
@@ -611,6 +610,7 @@ export default function CatMaester() {
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [activeHint, setActiveHint] = useState<string | null>(null);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
+  const [revealedExplanations, setRevealedExplanations] = useState<Record<string, boolean>>({});
   const [prefetchedBatch, setPrefetchedBatch] = useState<{ subject: string, topic?: string, questions: Question[] } | null>(null);
   const isPrefetching = useRef<string>('');
   const [practiceFilterAIBatch, setPracticeFilterAIBatch] = useState<number | null>(null);
@@ -1042,6 +1042,7 @@ export default function CatMaester() {
       setPracticeAnswers({});
       setLastAnswerStatus(null);
       setActiveHint(null);
+      setRevealedExplanations({});
     };
     if (activeTab === 'practice') {
       fetchPracticeQuestions();
@@ -2758,25 +2759,48 @@ export default function CatMaester() {
                                       </p>
                                       <p className="text-xs text-slate-500">{b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'}</p>
                                     </div>
-                                    <button
-                                      onClick={async (e) => {
-                                        e.stopPropagation();
-                                        if (window.confirm("Delete this AI generated batch?")) {
-                                          await deleteGeneratedBatch(b.subject, b.batchId);
-                                          const updated = await getGeneratedBatches(practiceSubject);
-                                          setAiBatchesList(updated);
-                                          if (practiceFilterAIBatch === b.batchId) {
-                                            setPracticeFilterAIBatch(null);
-                                            setPracticeRefreshTrigger(prev => prev + 1);
+                                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          const data = {
+                                            id: b.topic ? `AI_Generated_${b.subject}_${b.topic.replace(/\s+/g, '_')}` : `AI_Generated_${b.subject}_Batch_${b.batchId}`,
+                                            title: b.topic ? `AI: ${b.topic}` : `AI Batch #${b.batchId + 1}`,
+                                            questions: b.questions
+                                          };
+                                          const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                                          const url = URL.createObjectURL(blob);
+                                          const a = document.createElement('a');
+                                          a.href = url;
+                                          a.download = `${data.id}.json`;
+                                          a.click();
+                                          URL.revokeObjectURL(url);
+                                        }}
+                                        className="p-2 text-slate-400 hover:text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]/10 rounded-lg transition-colors"
+                                        title="Download JSON for Repo"
+                                      >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                      </button>
+                                      <button
+                                        onClick={async (e) => {
+                                          e.stopPropagation();
+                                          if (window.confirm("Delete this AI generated batch?")) {
+                                            await deleteGeneratedBatch(b.subject, b.batchId);
+                                            const updated = await getGeneratedBatches(practiceSubject);
+                                            setAiBatchesList(updated);
+                                            if (practiceFilterAIBatch === b.batchId) {
+                                              setPracticeFilterAIBatch(null);
+                                              setPracticeRefreshTrigger(prev => prev + 1);
+                                            }
+                                            if (updated.length === 0) setIsAiBatchDropdownOpen(false);
                                           }
-                                          if (updated.length === 0) setIsAiBatchDropdownOpen(false);
-                                        }
-                                      }}
-                                      className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                                      title="Delete Batch"
-                                    >
-                                      <Trash2 size={16} />
-                                    </button>
+                                        }}
+                                        className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors"
+                                        title="Delete Batch"
+                                      >
+                                        <Trash2 size={16} />
+                                      </button>
+                                    </div>
                                   </div>
                                 ))}
                               </div>
@@ -2873,15 +2897,36 @@ export default function CatMaester() {
 
               <div className="space-y-6">
                 {isGenerating ? (
-                  <div className="flex flex-col items-center justify-center flex-1 py-16 text-center">
-                    <m.div
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                      className="w-16 h-16 border-4 border-slate-200/50 dark:border-white/10 rounded-full"
-                      style={{ borderTopColor: "hsl(var(--accent))", boxShadow: "0 0 20px -5px hsl(var(--accent) / 0.5)" }}
-                    />
-                    <h3 className="text-xl font-bold mt-6 text-slate-800 dark:text-slate-200">Maester is Crafting New Challenges...</h3>
-                    <p className="text-slate-500 max-w-md mt-2">Our AI is generating a unique set of questions for you. This may take a moment. Thank you for your patience.</p>
+                  <div className={`w-full flex flex-col ${practiceSubject !== 'QA' ? 'lg:flex-row' : ''} gap-6 animate-pulse`}>
+                    {practiceSubject !== 'QA' && (
+                      <div className="passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/40 dark:bg-white/5 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm max-h-[50vh] lg:max-h-[calc(100vh-160px)] flex flex-col gap-4">
+                        <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/4 mb-4"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full mt-4"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-4/5"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
+                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-2/3"></div>
+                        <div className="mt-8 flex flex-col items-center justify-center opacity-50">
+                          <m.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }} className="w-10 h-10 border-4 border-slate-200/50 dark:border-white/10 rounded-full mb-3" style={{ borderTopColor: "hsl(var(--accent))" }} />
+                          <span className="text-sm font-bold text-[hsl(var(--accent))]">Maester is crafting...</span>
+                        </div>
+                      </div>
+                    )}
+                    <div className={`${practiceSubject !== 'QA' ? 'question-container' : 'w-full max-w-5xl mx-auto'} flex flex-col gap-6`}>
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="bg-white/40 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm">
+                          <div className="flex justify-between items-start mb-6">
+                            <div className="flex gap-2 w-full"><div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-8"></div><div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-16"></div></div>
+                          </div>
+                          <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-6"></div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {[1, 2, 3, 4].map(j => <div key={j} className="h-16 bg-slate-200 dark:bg-slate-700 rounded-xl"></div>)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ) : generationError ? (
                   <div className="flex flex-col items-center justify-center flex-1 py-16 text-center">
@@ -3109,45 +3154,57 @@ export default function CatMaester() {
                     <AnimatePresence>
                       {practiceAnswers[q.id] !== undefined && (
                         <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
-                          <div className={`p-5 rounded-xl border ${
-                            practiceAnswers[q.id] === 'SKIPPED' ? 'bg-slate-500/5 border-slate-500/20' :
-                            ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
-                            (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()))
-                              ? 'bg-emerald-500/5 border-emerald-500/20' 
-                              : 'bg-rose-500/5 border-rose-500/20'
-                          }`}>
-                            <div className={`font-bold flex items-center gap-2 mb-3 text-lg ${
-                              practiceAnswers[q.id] === 'SKIPPED' ? 'text-slate-500 dark:text-slate-400' :
-                              ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
-                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()))
-                                ? 'text-emerald-500' 
-                                : 'text-rose-500'
-                            }`}>
-                              {practiceAnswers[q.id] === 'SKIPPED' ? '⏭️ Skipped' :
-                               ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || 
-                              (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()))
-                                ? '✅ Correct!' : '❌ Incorrect!'}
-                            </div>
-                            <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
-                            <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
+                          {(() => {
+                            const isSkipped = practiceAnswers[q.id] === 'SKIPPED';
+                            const isCorrect = !isSkipped && ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()));
+                            const showExp = !isCorrect || revealedExplanations[q.id];
                             
-                            {q.id.startsWith('gen_') && (
-                              <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10">
-                                <p className="text-xs font-bold text-slate-500 mb-2">Rate this AI-generated question:</p>
-                                <div className="flex gap-1">
-                                  {[1, 2, 3, 4, 5].map(star => (
-                                    <button 
-                                      key={star} 
-                                      onClick={() => handleAiQuestionRating(q.id, star)}
-                                      className="text-slate-300 dark:text-slate-600 hover:text-yellow-400 transition-colors"
-                                    >
-                                      <Star size={20} className={`transition-colors ${aiQuestionFeedback[q.id] >= star ? 'text-yellow-400 fill-yellow-400' : ''}`} />
+                            return (
+                              <div className={`p-5 rounded-xl border ${isSkipped ? 'bg-slate-500/5 border-slate-500/20' : isCorrect ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-rose-500/5 border-rose-500/20'}`}>
+                                <div className="flex justify-between items-start md:items-center mb-3">
+                                  <div className={`font-bold flex items-center gap-2 text-lg ${isSkipped ? 'text-slate-500 dark:text-slate-400' : isCorrect ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                    {isSkipped ? '⏭️ Skipped' : isCorrect ? '✅ Correct!' : '❌ Incorrect!'}
+                                  </div>
+                                  {isCorrect && !showExp && (
+                                    <button onClick={() => setRevealedExplanations(prev => ({...prev, [q.id]: true}))} className="text-sm font-bold text-[hsl(var(--accent))] hover:underline flex items-center gap-1.5">
+                                      <Book size={16} /> View Explanation
                                     </button>
-                                  ))}
+                                  )}
+                                  {isCorrect && showExp && (
+                                    <button onClick={() => setRevealedExplanations(prev => ({...prev, [q.id]: false}))} className="text-sm font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:underline flex items-center gap-1.5">
+                                      Hide Explanation
+                                    </button>
+                                  )}
                                 </div>
+                                
+                                <AnimatePresence>
+                                  {showExp && (
+                                    <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                                      <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))] mt-2"><Book size={18} /> Coach&apos;s Explanation</div>
+                                      <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
+                                      
+                                      {q.id.startsWith('gen_') && (
+                                        <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10">
+                                          <p className="text-xs font-bold text-slate-500 mb-2">Rate this AI-generated question:</p>
+                                          <div className="flex gap-1">
+                                            {[1, 2, 3, 4, 5].map(star => (
+                                              <button 
+                                                key={star} 
+                                                onClick={() => handleAiQuestionRating(q.id, star)}
+                                                className="text-slate-300 dark:text-slate-600 hover:text-yellow-400 transition-colors"
+                                              >
+                                                <Star size={20} className={`transition-colors ${aiQuestionFeedback[q.id] >= star ? 'text-yellow-400 fill-yellow-400' : ''}`} />
+                                              </button>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </m.div>
+                                  )}
+                                </AnimatePresence>
                               </div>
-                            )}
-                          </div>
+                            );
+                          })()}
                         </m.div>
                       )}
                     </AnimatePresence>
@@ -3166,7 +3223,7 @@ export default function CatMaester() {
                   ));
                 })()}
                 {practiceQuestions.length > 0 && (
-                  <div className="flex justify-center mt-8 pb-8">
+                  <div className="flex justify-center flex-wrap gap-4 mt-8 pb-8">
                     {(() => {
                       const topicPrompt = (isAiTopicMode && aiTopicFocus.trim()) ? aiTopicFocus.trim() : undefined;
                       const isReady = prefetchedBatch && prefetchedBatch.subject === practiceSubject && prefetchedBatch.topic === topicPrompt;
@@ -3183,6 +3240,27 @@ export default function CatMaester() {
                         </button>
                       );
                     })()}
+                    <button 
+                      onClick={() => {
+                         const data = {
+                           id: practiceFilterTopic ? `AI_Generated_${practiceSubject}_${practiceFilterTopic.replace(/\s+/g, '_')}` : `AI_Generated_${practiceSubject}_Batch`,
+                           title: practiceFilterTopic ? `AI: ${practiceFilterTopic}` : `AI Generated Batch`,
+                           questions: practiceQuestions
+                         };
+                         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                         const url = URL.createObjectURL(blob);
+                         const a = document.createElement('a');
+                         a.href = url;
+                         a.download = `${data.id}.json`;
+                         a.click();
+                         URL.revokeObjectURL(url);
+                      }}
+                      className="px-6 py-3 rounded-xl font-bold shadow-sm hover:shadow-md active:scale-95 transition-all flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-500/50 hover:text-emerald-500"
+                      title="Download as JSON to save in repository"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      <span className="hidden sm:inline">Export JSON</span>
+                    </button>
                   </div>
                 )}
               </div>

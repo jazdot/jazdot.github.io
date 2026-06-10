@@ -4,7 +4,7 @@ import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, limit, g
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC91mImCoi0X5E1j4v5H-YBFKlNwnngybQ",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "cat-maester.firebaseapp.com",
   projectId: "cat-maester",
   storageBucket: "cat-maester.firebasestorage.app",
