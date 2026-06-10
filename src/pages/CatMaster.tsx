@@ -5,7 +5,7 @@ import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCir
 import { useCatStore } from './catStore';
 import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
 import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, query, getDocs, limit } from './firebase';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMaesterDB';
@@ -660,6 +660,19 @@ export default function CatMaester() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [chatMessages, setChatMessages] = useState<Record<string, { role: 'user'|'model', text: string }[]>>({});
+  const [chatInputs, setChatInputs] = useState<Record<string, string>>({});
+  const [isChatLoading, setIsChatLoading] = useState<Record<string, boolean>>({});
+  const [targetPercentile, setTargetPercentile] = useState<number>(() => {
+    const saved = localStorage.getItem('cat-maester-target-pr');
+    return saved ? Number(saved) : 99.0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cat-maester-target-pr', targetPercentile.toString());
+  }, [targetPercentile]);
+
+  const targetElo = Math.round(1200 + 200 * (-Math.log(1 / (Math.max(0.01, Math.min(99.99, targetPercentile)) / 100) - 1) / 1.702));
 
   useEffect(() => {
     if (practiceFilterDifficulty) localStorage.setItem('cat-maester-difficulty', practiceFilterDifficulty);
@@ -669,6 +682,113 @@ export default function CatMaester() {
   useEffect(() => {
     localStorage.setItem('cat-maester-adaptive', isAdaptive.toString());
   }, [isAdaptive]);
+
+  const handleAskMaester = async (q: any, userAnswerText: string, isInitial: boolean = false, userMessage?: string) => {
+    const qId = q.originalIndex !== undefined ? `mock_${q.originalIndex}` : q.id;
+    
+    let newHistory = [...(chatMessages[qId] || [])];
+    
+    if (isInitial) {
+      const correctAnsStr = q.type === 'MCQ' ? q.options?.[q.correct as number] : q.tita_answer;
+      let providedAns = userAnswerText;
+      if (q.type === 'MCQ' && userAnswerText !== 'I skipped this question.' && userAnswerText !== 'I did not answer this question.') {
+         providedAns = q.options?.[parseInt(userAnswerText)] || userAnswerText;
+      }
+
+      const initialPrompt = `I am reviewing a CAT exam question. \n\nQuestion: ${q.text}\n${q.options ? `Options: ${q.options.join(', ')}\n` : ''}\nCorrect Answer: ${correctAnsStr}\nMy Answer: ${providedAns}\nExplanation provided: ${q.explanation}\n\nI got this wrong (or couldn't figure it out). Act as a Socratic tutor. Don't just give the answer, help me understand the flaw in my logic or guide me to the correct thought process. Be concise, encouraging, and format your response beautifully with paragraphs.`;
+      
+      newHistory = [{ role: 'user', text: initialPrompt }];
+    } else if (userMessage) {
+      newHistory.push({ role: 'user', text: userMessage });
+    }
+
+    setChatMessages(prev => ({ ...prev, [qId]: newHistory }));
+    setIsChatLoading(prev => ({ ...prev, [qId]: true }));
+    setChatInputs(prev => ({ ...prev, [qId]: '' }));
+
+    try {
+      const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; 
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+
+      const contents = newHistory.map(msg => ({
+        role: msg.role,
+        parts: [{ text: msg.text }]
+      }));
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents })
+      });
+
+      if (!response.ok) throw new Error("API Error");
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't process that.";
+      
+      setChatMessages(prev => ({
+        ...prev,
+        [qId]: [...newHistory, { role: 'model', text: reply }]
+      }));
+    } catch (err) {
+      console.error(err);
+      setChatMessages(prev => ({
+        ...prev,
+        [qId]: [...newHistory, { role: 'model', text: 'Error connecting to Maester. Please try again.' }]
+      }));
+    } finally {
+      setIsChatLoading(prev => ({ ...prev, [qId]: false }));
+    }
+  };
+
+  const renderChatBlock = (qId: string, q: any, userAnswerText: string) => {
+    const messages = chatMessages[qId];
+    if (!messages) return null;
+    
+    return (
+      <div className="mt-6 p-4 md:p-5 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-xl border border-indigo-500/20">
+        <h4 className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2 mb-4"><Bot size={18} /> Chat with Maester</h4>
+        <div className="space-y-4 max-h-60 overflow-y-auto mb-4 pr-2" style={{ scrollbarWidth: 'thin' }}>
+          {messages.slice(1).map((msg, idx) => (
+            <div key={idx} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              {msg.role === 'model' && <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white shrink-0 mt-1"><Bot size={12}/></div>}
+              <div className={`p-3 rounded-xl max-w-[90%] text-sm leading-relaxed ${msg.role === 'user' ? 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tr-none border border-slate-200/50 dark:border-white/5' : 'bg-indigo-500/10 text-slate-800 dark:text-slate-200 border border-indigo-500/20 rounded-tl-none'}`}>
+                <span dangerouslySetInnerHTML={{ __html: renderLatex(msg.text) }} />
+              </div>
+            </div>
+          ))}
+          {isChatLoading[qId] && (
+            <div className="flex gap-3 justify-start">
+              <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white shrink-0 mt-1"><Bot size={12}/></div>
+              <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 rounded-tl-none flex items-center gap-2">
+                 <Loader2 size={14} className="animate-spin text-indigo-500" /> <span className="text-xs text-slate-500">Maester is thinking...</span>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <input 
+            type="text" 
+            value={chatInputs[qId] || ''}
+            onChange={e => setChatInputs(prev => ({...prev, [qId]: e.target.value}))}
+            onKeyDown={e => {
+              if (e.key === 'Enter' && chatInputs[qId]?.trim() && !isChatLoading[qId]) {
+                handleAskMaester(q, userAnswerText, false, chatInputs[qId]);
+              }
+            }}
+            placeholder="Ask a follow-up question..."
+            className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+          />
+          <button 
+            onClick={() => handleAskMaester(q, userAnswerText, false, chatInputs[qId])}
+            disabled={isChatLoading[qId] || !chatInputs[qId]?.trim()}
+            className="bg-indigo-500 text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-indigo-600 disabled:opacity-50 transition-colors"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   const handleAiQuestionRating = (questionId: string, rating: number) => {
     setAiQuestionFeedback(prev => {
@@ -1603,6 +1723,57 @@ export default function CatMaester() {
     }
   };
 
+  const handleGenerateMiniMock = async () => {
+    if (!progress.topicStats || Object.keys(progress.topicStats).length === 0) {
+      alert("You need to flag questions to topics during Practice or Review to identify weak areas first!");
+      return;
+    }
+    
+    let weakTopics = Object.entries(progress.topicStats)
+      .filter(([_, stat]) => stat.attempted >= 3)
+      .sort((a, b) => (a[1].correct / a[1].attempted) - (b[1].correct / b[1].attempted))
+      .map(t => t[0])
+      .slice(0, 3);
+      
+    if (weakTopics.length === 0) {
+      weakTopics = Object.entries(progress.topicStats)
+        .sort((a, b) => (a[1].correct / a[1].attempted) - (b[1].correct / b[1].attempted))
+        .map(t => t[0])
+        .slice(0, 3);
+    }
+
+    setIsGenerating(true);
+    try {
+      const subjectMap: Record<string, 'QA'|'VARC'|'DILR'> = {
+        'Reading Comprehension': 'VARC', 'Parajumbles': 'VARC', 'Paragraph Summary': 'VARC', 'Odd One Out': 'VARC', 'Verbal Ability': 'VARC',
+        'Arrangements': 'DILR', 'Data Interpretation': 'DILR', 'Games & Tournaments': 'DILR', 'Venn Diagrams': 'DILR', 'Logical Reasoning': 'DILR',
+        'Geometry': 'QA', 'Algebra': 'QA', 'Commercial Math': 'QA', 'Time, Speed & Distance': 'QA', 'Logarithms': 'QA', 'Combinatorics': 'QA', 'Ratio & Proportion': 'QA', 'Arithmetic': 'QA'
+      };
+
+      const promises = weakTopics.map(topic => {
+        const subj = subjectMap[topic] || 'QA';
+        return generateQuestionsAPI(subj, topic, 1);
+      });
+
+      const results = await Promise.all(promises);
+      const flatQs = results.flat();
+      
+      if (flatQs.length === 0) throw new Error("Failed to generate questions.");
+
+      const miniMock = { id: `minimock_${Date.now()}`, date: new Date().toISOString(), title: `Targeted Mini-Mock: ${weakTopics.join(', ')}`, questions: flatQs };
+      await saveMockTest(miniMock);
+      const tests = await getMockTests();
+      setSavedTests(tests.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+      setCurrentTest(miniMock);
+      setActiveTab('mock');
+      setMockPhase('confirm');
+    } catch (e) {
+      alert("Failed to generate Mini-Mock. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   // Zero-dependency SVG Donut Chart Calculation
   const accuracy = progress.totalAttempted > 0 ? Math.round((progress.correct / progress.totalAttempted) * 100) : 0;
 
@@ -1770,19 +1941,28 @@ export default function CatMaester() {
               
               <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <div className="lg:col-span-2 xl:col-span-3 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-6">Predicted Percentile (IRT Model)</h3>
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-lg font-bold">Predicted Percentile (IRT Model)</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-bold text-slate-500">Target Goal:</span>
+                      <div className="relative">
+                        <input type="number" min="50" max="100" step="0.1" value={targetPercentile} onChange={e => setTargetPercentile(Number(e.target.value))} className="w-20 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-sm font-bold text-[hsl(var(--accent))] focus:outline-none" />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">PR</span>
+                      </div>
+                    </div>
+                  </div>
                   <div className="space-y-6">
                     <div>
                       <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Quantitative Ability (QA)</span><span className="text-[hsl(var(--accent))] font-bold">{qaPercentile} PR</span></div>
-                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${qaPercentile}%` }} transition={{ duration: 1, delay: 0.2 }} className="bg-[hsl(var(--accent))] h-full rounded-full shadow-[0_0_10px_hsl(var(--accent))]"></m.div></div>
+                      <div className="relative w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${qaPercentile}%` }} transition={{ duration: 1, delay: 0.2 }} className="bg-[hsl(var(--accent))] h-full rounded-full shadow-[0_0_10px_hsl(var(--accent))]"></m.div><div className="absolute top-0 bottom-0 w-1 bg-slate-400/50 dark:bg-slate-500/50 z-10" style={{ left: `${targetPercentile}%` }} title={`Target: ${targetPercentile} PR`}></div></div>
                     </div>
                     <div>
                       <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Verbal Ability (VARC)</span><span className="text-purple-500 font-bold">{varcPercentile} PR</span></div>
-                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${varcPercentile}%` }} transition={{ duration: 1, delay: 0.3 }} className="bg-purple-500 h-full rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]"></m.div></div>
+                      <div className="relative w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${varcPercentile}%` }} transition={{ duration: 1, delay: 0.3 }} className="bg-purple-500 h-full rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]"></m.div><div className="absolute top-0 bottom-0 w-1 bg-slate-400/50 dark:bg-slate-500/50 z-10" style={{ left: `${targetPercentile}%` }} title={`Target: ${targetPercentile} PR`}></div></div>
                     </div>
                     <div>
                       <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Data Interpretation (DILR)</span><span className="text-emerald-500 font-bold">{dilrPercentile} PR</span></div>
-                      <div className="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${dilrPercentile}%` }} transition={{ duration: 1, delay: 0.4 }} className="bg-emerald-500 h-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]"></m.div></div>
+                      <div className="relative w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${dilrPercentile}%` }} transition={{ duration: 1, delay: 0.4 }} className="bg-emerald-500 h-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]"></m.div><div className="absolute top-0 bottom-0 w-1 bg-slate-400/50 dark:bg-slate-500/50 z-10" style={{ left: `${targetPercentile}%` }} title={`Target: ${targetPercentile} PR`}></div></div>
                     </div>
                   </div>
                 </div>
@@ -1819,6 +1999,7 @@ export default function CatMaester() {
                           formatter={(value: any) => [typeof value === 'number' ? Math.round(value) : value, 'Elo']}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />
+                        <ReferenceLine y={targetElo} stroke="hsl(var(--accent))" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: `Target Goal`, fill: 'currentColor', fontSize: 10, opacity: 0.5 }} />
                         <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" />
                         <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={200} />
                         <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={400} />
@@ -1936,6 +2117,17 @@ export default function CatMaester() {
                     </div>
                   ) : (
                     <div className="h-40 flex items-center justify-center text-center text-slate-500 px-4 text-sm">Flag questions to specific topics during review to identify your weak areas here!</div>
+                  )}
+                  {progress.topicStats && Object.keys(progress.topicStats).length > 0 && (
+                    <div className="mt-6">
+                      <button 
+                        onClick={handleGenerateMiniMock} 
+                        disabled={isGenerating}
+                        className="w-full bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))] hover:text-white px-4 py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 border border-[hsl(var(--accent))]/20 disabled:opacity-50"
+                      >
+                        {isGenerating ? <><Loader2 size={18} className="animate-spin" /> Analyzing & Generating...</> : <><BrainCircuit size={18} /> Generate Weakness Mini-Mock</>}
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -2606,11 +2798,6 @@ export default function CatMaester() {
                                   </div>
                                 </div>
                                 
-                                  <div className="mb-6 p-6 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
-                                  <div className="font-bold flex items-center gap-2 mb-3 text-[hsl(var(--accent))]"><Book size={18} /> Explanation</div>
-                                  <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
-                                  </div>
-
                                   {q.context && filteredReviewQuestions[activeQuestionIdx + 1]?.context !== q.context && (
                                     <div className="w-full flex justify-center items-center gap-3 pb-6 opacity-40 select-none">
                                       <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
@@ -3284,6 +3471,16 @@ export default function CatMaester() {
                                           </div>
                                         </div>
                                       )}
+                                      
+                                      {!isCorrect && !chatMessages[q.id] && (
+                                        <button 
+                                          onClick={() => handleAskMaester(q, practiceAnswers[q.id] === 'SKIPPED' ? 'I skipped this question.' : String(practiceAnswers[q.id]), true)} 
+                                          className="mt-6 text-sm font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2 border border-indigo-500/20"
+                                        >
+                                          <Bot size={18} /> Ask Maester to Clarify
+                                        </button>
+                                      )}
+                                      {renderChatBlock(q.id, q, String(practiceAnswers[q.id]))}
                                     </m.div>
                                   )}
                                 </AnimatePresence>
