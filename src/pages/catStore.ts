@@ -13,6 +13,11 @@ interface TopicStat {
   questionIds?: string[];
 }
 
+interface SkillHistory {
+  date: string;
+  skillRatings: { QA: number; VARC: number; DILR: number; };
+}
+
 interface Progress {
   totalAttempted: number;
   correct: number;
@@ -28,6 +33,7 @@ interface Progress {
   currentStreak?: number;
   maxStreak?: number;
   isActivated?: boolean;
+  skillHistory?: SkillHistory[];
 }
 
 interface CatState {
@@ -49,7 +55,7 @@ export const useCatStore = create<CatState>()(
   persist(
     (set) => ({
       user: null,
-      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0, isActivated: false },
+      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0, isActivated: false, skillHistory: [] },
       
       login: (name, uid, photoURL) => set({ user: { name, uid, photoURL } }),
       setWholeProgress: (progress) => set({ progress }),
@@ -94,7 +100,7 @@ export const useCatStore = create<CatState>()(
       }),
       
       clearHistory: () => set((state) => ({
-        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0, isActivated: false }
+        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0, isActivated: false, skillHistory: [] }
       })),
 
       updateSkillRating: (subject, questionDifficulty, isCorrect) => set(state => {
@@ -106,14 +112,19 @@ export const useCatStore = create<CatState>()(
         const actualScore = isCorrect ? 1 : 0;
         
         const newUserRating = Math.round(userRating + K * (actualScore - expectedScore));
+        const newSkillRatings = {
+          ...currentRatings,
+          [subject]: newUserRating,
+        };
         
         return {
           progress: {
             ...state.progress,
-            skillRatings: {
-              ...currentRatings,
-              [subject]: newUserRating,
-            }
+            skillRatings: newSkillRatings,
+            skillHistory: [
+              ...(state.progress.skillHistory || []).slice(-99), // Keep last 100 entries
+              { date: new Date().toISOString(), skillRatings: newSkillRatings }
+            ]
           }
         };
       }),

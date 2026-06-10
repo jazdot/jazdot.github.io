@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star } from 'lucide-react';
 import { useCatStore } from './catStore';
-import { paperLoaders, getPracticeQuestionsBySection, getAllQuestions, type Question } from '../data/cat_db';
+import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
 import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc } from './firebase';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMaesterDB';
 const STORE_NAME = 'mockTests';
 const FORMULA_STORE = 'formulas';
+const GENERATED_Q_STORE = 'generatedQuestions';
 
 const initDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 2);
+    const request = indexedDB.open(DB_NAME, 3);
     request.onupgradeneeded = () => {
       const db = request.result;
       if (!db.objectStoreNames.contains(STORE_NAME)) {
@@ -21,6 +23,9 @@ const initDB = (): Promise<IDBDatabase> => {
       }
       if (!db.objectStoreNames.contains(FORMULA_STORE)) {
         db.createObjectStore(FORMULA_STORE, { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains(GENERATED_Q_STORE)) {
+        db.createObjectStore(GENERATED_Q_STORE, { keyPath: ['subject', 'batchId'] });
       }
     };
     request.onsuccess = () => resolve(request.result);
@@ -44,6 +49,30 @@ const getMockTests = async (): Promise<any[]> => {
     const tx = db.transaction(STORE_NAME, 'readonly');
     const req = tx.objectStore(STORE_NAME).getAll();
     req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+};
+
+const saveGeneratedBatch = async (subject: string, batchId: number, questions: Question[]) => {
+  const db = await initDB();
+  return new Promise<void>((resolve, reject) => {
+    const tx = db.transaction(GENERATED_Q_STORE, 'readwrite');
+    const store = tx.objectStore(GENERATED_Q_STORE);
+    store.put({ subject, batchId, questions, createdAt: new Date().toISOString() });
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+};
+
+const getGeneratedBatches = async (subject: string): Promise<any[]> => {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(GENERATED_Q_STORE, 'readonly');
+    const store = tx.objectStore(GENERATED_Q_STORE);
+    const req = store.getAll();
+    req.onsuccess = () => {
+      resolve(req.result.filter(batch => batch.subject === subject));
+    };
     req.onerror = () => reject(req.error);
   });
 };
@@ -77,6 +106,85 @@ const deleteFormula = async (id: string) => {
     req.onerror = () => reject(req.error);
   });
 };
+
+// --- Real AI Generation via Gemini ---
+const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: string, retries = 2): Promise<Question[]> => {
+  console.log(`[AI] Generating new batch for ${subject}${topic ? ` on ${topic}` : ''} via Gemini...`);
+  
+  // IMPORTANT: This key is likely invalid. Replace with your actual key or use environment variables.
+  const GEMINI_API_KEY = "AIzaSyA0Os43E1UjN0AOjpYax-dA7v8X_L7jjP4"; 
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+
+  const promptText = `
+    You are an expert examiner for the Indian Common Admission Test (CAT). 
+    Generate 5 highly challenging, unique questions for the section: ${subject}. 
+    ${topic ? `\nCRITICAL: The questions MUST be strictly focused on the specific topic: ${topic}.` : ''}
+    
+    CRITICAL INSTRUCTION: You must respond ONLY with a raw JSON array. Do not include markdown formatting (like \`\`\`json), explanations, or any other text. 
+    
+    The JSON objects must strictly follow this TypeScript interface:
+    {
+      id: string; // generate a unique string like "gen_${subject.toLowerCase()}_<random>"
+      text: string; // The question text. Use $...$ or $$...$$ for Math LaTeX if QA.
+      type: 'MCQ' | 'TITA';
+      options?: string[]; // Array of 4 strings if MCQ, omit if TITA
+      correct?: number; // 0, 1, 2, or 3 representing the index of the correct option if MCQ
+      tita_answer?: string; // String answer if TITA, omit if MCQ
+      explanation: string; // Detailed step-by-step solution
+      section: '${subject}';
+      context?: string; // Optional: Passage for VARC or Data table for DILR. (Group questions with the same context if generating a DILR set or Reading Comprehension).
+    }
+  `;
+
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }],
+          generationConfig: {
+            temperature: 0.7, // Balances creativity with strict formatting
+          }
+        })
+      });
+
+      if (!response.ok) {
+        let errorBody = 'No details available. This might be a CORS or network issue.';
+        try {
+          const errorData = await response.json();
+          errorBody = errorData?.error?.message || JSON.stringify(errorData);
+        } catch {}
+        throw new Error(`Gemini API error: ${response.status} ${response.statusText}. Details: ${errorBody}`);
+      }
+
+      const data = await response.json();
+      let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!rawText) throw new Error("No response generated from AI.");
+
+      rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+
+      const parsedQuestions: Question[] = JSON.parse(rawText);
+      
+      if (!Array.isArray(parsedQuestions)) {
+        throw new Error("AI returned invalid structure (not an array).");
+      }
+
+      console.log(`[AI] Generation complete for ${subject}.`, parsedQuestions);
+      return parsedQuestions;
+
+    } catch (error) {
+      console.error(`[AI] Attempt ${attempt}/${retries} failed:`, error);
+      if (attempt === retries) {
+        throw error;
+      }
+      await new Promise(res => setTimeout(res, 1500 * attempt));
+    }
+  }
+  throw new Error("AI generation failed after multiple retries.");
+};
+
 
 // --- Latex Helper ---
 const renderLatex = (text: string) => {
@@ -403,6 +511,18 @@ export default function CatMaester() {
   const [practiceFilterDifficulty, setPracticeFilterDifficulty] = useState<string | null>(null);
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
+  const [prefetchedBatch, setPrefetchedBatch] = useState<{ subject: string, topic?: string, questions: Question[] } | null>(null);
+  const isPrefetching = useRef<string>('');
+  const [practiceFilterAIBatch, setPracticeFilterAIBatch] = useState<number | null>(null);
+  const [aiBatchesList, setAiBatchesList] = useState<any[]>([]);
+  const [isAiTopicMode, setIsAiTopicMode] = useState(false);
+  const [aiTopicFocus, setAiTopicFocus] = useState('');
+  const [aiQuestionFeedback, setAiQuestionFeedback] = useState<Record<string, number>>(() => {
+    try { const saved = localStorage.getItem('cat-maester-ai-feedback'); return saved ? JSON.parse(saved) : {}; }
+    catch { return {}; }
+  });
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState<string | null>(null);
   const [lastAnswerStatus, setLastAnswerStatus] = useState<'correct' | 'incorrect' | null>(null);
   const [showActivationModal, setShowActivationModal] = useState(false);
   const [activationError, setActivationError] = useState('');
@@ -432,6 +552,15 @@ export default function CatMaester() {
   const [calcExpr, setCalcExpr] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const handleAiQuestionRating = (questionId: string, rating: number) => {
+    setAiQuestionFeedback(prev => {
+      const newFeedback = { ...prev, [questionId]: rating };
+      // Also save to local storage for persistence without cloud sync
+      localStorage.setItem('cat-maester-ai-feedback', JSON.stringify(newFeedback));
+      return newFeedback;
+    });
+  };
 
   const handleCalcClick = (val: string) => {
     if (val === 'C') setCalcExpr('');
@@ -517,6 +646,13 @@ export default function CatMaester() {
     link.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css';
     document.head.appendChild(link);
   }, []);
+
+  useEffect(() => {
+    if (activeTab === 'practice' && !isGenerating) {
+      getGeneratedBatches(practiceSubject).then(setAiBatchesList).catch(console.error);
+    }
+  }, [activeTab, practiceSubject, isGenerating]);
+
 
   const audioCtxRef = useRef<any>(null);
   const playTickSound = () => {
@@ -734,9 +870,71 @@ export default function CatMaester() {
           selectedQs.push(...g.qs);
         }
         setPracticeQuestions(selectedQs);
+      } else if (practiceFilterAIBatch !== null) {
+        const existingBatches = await getGeneratedBatches(practiceSubject);
+        const batch = existingBatches.find(b => b.batchId === practiceFilterAIBatch);
+        if (batch) setPracticeQuestions(batch.questions);
+        else setPracticeQuestions([]);
+      } else if (isAiTopicMode && !aiTopicFocus.trim()) {
+        setPracticeQuestions([]);
       } else {
-        const questions = await getPracticeQuestionsBySection(practiceSubject);
-        setPracticeQuestions(questions);
+        // New AI Generation Flow
+        const loadAndGenerate = async () => {
+          const topicPrompt = (isAiTopicMode && aiTopicFocus.trim()) ? aiTopicFocus.trim() : undefined;
+          
+          const doPrefetch = async () => {
+            const signature = `${practiceSubject}_${topicPrompt || 'none'}_prefetch`;
+            if (isPrefetching.current === signature) return;
+            isPrefetching.current = signature;
+            try {
+              const prefetchedQs = await generateQuestionsAPI(practiceSubject, topicPrompt);
+              if (prefetchedQs && prefetchedQs.length > 0) {
+                setPrefetchedBatch({ subject: practiceSubject, topic: topicPrompt, questions: prefetchedQs });
+              }
+            } catch (e) {
+              console.error("[AI] Prefetch failed", e);
+            } finally {
+              if (isPrefetching.current === signature) isPrefetching.current = '';
+            }
+          };
+  
+          if (prefetchedBatch && prefetchedBatch.subject === practiceSubject && prefetchedBatch.topic === topicPrompt) {
+            setPracticeQuestions(prefetchedBatch.questions);
+            const existingBatches = await getGeneratedBatches(practiceSubject);
+            await saveGeneratedBatch(practiceSubject, existingBatches.length, prefetchedBatch.questions);
+            setPrefetchedBatch(null);
+            doPrefetch();
+            return;
+          }
+  
+          setIsGenerating(true);
+          setGenerationError(null);
+          setPracticeQuestions([]);
+  
+          try {
+            const existingBatches = await getGeneratedBatches(practiceSubject);
+            
+            let newQuestions: Question[] = [];
+            if (existingBatches.length > 0 && practiceRefreshTrigger === 0) {
+              newQuestions = existingBatches[existingBatches.length - 1].questions;
+            } else {
+              newQuestions = await generateQuestionsAPI(practiceSubject, topicPrompt);
+            }
+            
+            if (newQuestions && newQuestions.length > 0) {
+              await saveGeneratedBatch(practiceSubject, existingBatches.length, newQuestions);
+              setPracticeQuestions(newQuestions);
+              doPrefetch();
+            } else {
+              throw new Error("AI failed to generate questions.");
+            }
+          } catch (err: any) {
+            setGenerationError(err.message || "An unknown error occurred during question generation.");
+          } finally {
+            setIsGenerating(false);
+          }
+        };
+        loadAndGenerate();
       }
       setPracticeAnswers({});
       setLastAnswerStatus(null);
@@ -744,7 +942,7 @@ export default function CatMaester() {
     if (activeTab === 'practice') {
       fetchPracticeQuestions();
     }
-  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, practiceFilterDifficulty, isAdaptive, practiceRefreshTrigger]);
+  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, practiceFilterDifficulty, practiceFilterAIBatch, isAdaptive, isAiTopicMode, practiceRefreshTrigger]);
 
   useEffect(() => {
     const fetchQotd = async () => {
@@ -807,11 +1005,11 @@ export default function CatMaester() {
         if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
         
         if (e.key === '1') {
-          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null);
+          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
         } else if (e.key === '2') {
-          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null);
+          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
         } else if (e.key === '3') {
-          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null);
+          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
         }
       }
     };
@@ -914,6 +1112,10 @@ export default function CatMaester() {
               setQuestionRatings(data.questionRatings);
               localStorage.setItem('cat-maester-question-ratings', JSON.stringify(data.questionRatings));
             }
+            if (data.aiQuestionFeedback) {
+              setAiQuestionFeedback(data.aiQuestionFeedback);
+              localStorage.setItem('cat-maester-ai-feedback', JSON.stringify(data.aiQuestionFeedback));
+            }
             if (data.formulas) {
               for (const f of data.formulas) {
                 await saveFormula(f);
@@ -945,6 +1147,7 @@ export default function CatMaester() {
           progress,
           questionRatings,
           formulas,
+          aiQuestionFeedback,
           lastSynced: new Date().toISOString()
         }, { merge: true });
       } catch (e) {
@@ -954,7 +1157,7 @@ export default function CatMaester() {
 
     const timeoutId = setTimeout(syncToCloud, 5000);
     return () => clearTimeout(timeoutId);
-  }, [progress, questionRatings, formulas, user?.uid]);
+  }, [progress, questionRatings, formulas, aiQuestionFeedback, user?.uid]);
 
   const handleTagTopic = (q: any, topic: string) => {
     if (!topic.trim()) return;
@@ -1365,6 +1568,39 @@ export default function CatMaester() {
                 </div>
               </div>
 
+              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                <h3 className="text-lg font-bold mb-6">Elo Rating Over Time</h3>
+                {progress.skillHistory && progress.skillHistory.length > 1 ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <LineChart data={progress.skillHistory} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(128, 128, 128, 0.2)" />
+                      <XAxis 
+                        dataKey="date" 
+                        tickFormatter={(d) => new Date(d).toLocaleDateString()} 
+                        fontSize={10} 
+                        tick={{ fill: 'currentColor', opacity: 0.6 }} 
+                        axisLine={{ stroke: 'currentColor', opacity: 0.2 }} 
+                        tickLine={{ stroke: 'currentColor', opacity: 0.2 }}
+                      />
+                      <YAxis domain={['dataMin - 50', 'dataMax + 50']} fontSize={10} tick={{ fill: 'currentColor', opacity: 0.6 }} axisLine={{ stroke: 'currentColor', opacity: 0.2 }} tickLine={{ stroke: 'currentColor', opacity: 0.2 }} />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem' }}
+                        labelStyle={{ fontWeight: 'bold' }}
+                        formatter={(value: any) => [typeof value === 'number' ? Math.round(value) : value, 'Elo']}
+                      />
+                      <Legend wrapperStyle={{ fontSize: '12px' }} />
+                      <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                      <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} />
+                      <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[250px] flex items-center justify-center text-slate-500 text-sm">
+                    <p>Answer more questions in Practice Mode to see your Elo rating history.</p>
+                  </div>
+                )}
+              </div>
+
               {qotd && (
                 <div className="mt-6 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-[hsl(var(--accent))]/30 shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[hsl(var(--accent))]/10 rounded-bl-full pointer-events-none"></div>
@@ -1379,6 +1615,8 @@ export default function CatMaester() {
                     setPracticeFilterTopic(null);
                     setPracticeFilterBookmark(false);
                     setPracticeFilterDifficulty(null);
+                    setIsAiTopicMode(false);
+                    setPracticeFilterAIBatch(null);
                     setActiveTab('practice');
                   }} className="text-sm font-bold bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-lg shadow-md hover:opacity-90 transition-all">
                     Solve in Practice Mode
@@ -1421,6 +1659,8 @@ export default function CatMaester() {
                             onClick={() => {
                               setPracticeFilterTopic(t.topic);
                               setPracticeFilterDifficulty(null);
+                              setIsAiTopicMode(false);
+                              setPracticeFilterAIBatch(null);
                               setActiveTab('practice');
                             }}
                           >
@@ -2176,7 +2416,7 @@ export default function CatMaester() {
               <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                 <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                   {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
-                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAiTopicMode && practiceFilterAIBatch === null ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                       {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
                     </button>
                   ))}
@@ -2185,7 +2425,7 @@ export default function CatMaester() {
                       {practiceFilterTopic} Focus
                     </button>
                   )}
-                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                     Bookmarks ({progress.bookmarkedQuestions?.length || 0})
                   </button>
                   <select 
@@ -2194,6 +2434,8 @@ export default function CatMaester() {
                       setPracticeFilterTopic(null);
                       setPracticeFilterBookmark(false);
                       setPracticeFilterDifficulty(e.target.value || null);
+                      setIsAiTopicMode(false);
+                      setPracticeFilterAIBatch(null);
                     }}
                     className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none ${practiceFilterDifficulty ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
                   >
@@ -2202,6 +2444,27 @@ export default function CatMaester() {
                     <option value="Medium" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Medium</option>
                     <option value="Hard" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Hard</option>
                   </select>
+                  {aiBatchesList.length > 0 && (
+                    <select 
+                      value={practiceFilterAIBatch !== null ? practiceFilterAIBatch : ''}
+                      onChange={(e) => {
+                        setPracticeFilterTopic(null);
+                        setPracticeFilterBookmark(false);
+                        setPracticeFilterDifficulty(null);
+                        setIsAiTopicMode(false);
+                        setIsAdaptive(false);
+                        setPracticeFilterAIBatch(e.target.value !== '' ? Number(e.target.value) : null);
+                      }}
+                      className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none ${practiceFilterAIBatch !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
+                    >
+                      <option value="" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Saved AI Batches</option>
+                      {aiBatchesList.map((b) => (
+                        <option key={b.batchId} value={b.batchId} className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">
+                          {b.topic ? `AI: ${b.topic} (${b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'})` : `AI Batch #${b.batchId + 1} (${b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'})`}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                 </div>
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                   <div className="flex items-center gap-2 text-sm font-bold bg-orange-500/10 text-orange-600 dark:text-orange-400 px-3 py-1.5 rounded-lg border border-orange-500/20 shadow-sm" title="Consecutive Correct Answers">
@@ -2220,11 +2483,54 @@ export default function CatMaester() {
                     </AnimatePresence>
                   </div>
                   <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
-                    <input type="checkbox" checked={isAdaptive} onChange={(e) => setIsAdaptive(e.target.checked)} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
+                    <input type="checkbox" checked={isAdaptive} onChange={(e) => { setIsAdaptive(e.target.checked); if(e.target.checked) { setIsAiTopicMode(false); setPracticeFilterAIBatch(null); } }} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
                     <span className={isAdaptive ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>Adaptive Difficulty</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
+                    <input type="checkbox" checked={isAiTopicMode} onChange={(e) => {
+                      setIsAiTopicMode(e.target.checked);
+                      if (e.target.checked) {
+                        setPracticeFilterTopic(null);
+                        setPracticeFilterBookmark(false);
+                        setPracticeFilterDifficulty(null);
+                        setIsAdaptive(false);
+                        setPracticeFilterAIBatch(null);
+                      }
+                    }} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
+                    <span className={isAiTopicMode ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>AI Topic Focus</span>
                   </label>
                 </div>
               </div>
+
+              <AnimatePresence>
+                {isAiTopicMode && (
+                  <m.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mb-6 flex flex-col sm:flex-row gap-4 items-center bg-white/60 dark:bg-white/5 backdrop-blur-xl p-4 rounded-xl border border-[hsl(var(--accent))]/30 shadow-sm overflow-hidden"
+                  >
+                    <div className="flex-1 w-full relative">
+                      <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input 
+                        type="text" 
+                        placeholder="What topic do you want to practice? (e.g. Geometry, Syllogisms, Parajumbles...)" 
+                        value={aiTopicFocus} 
+                        onChange={e => setAiTopicFocus(e.target.value)} 
+                        onKeyDown={e => { if (e.key === 'Enter' && !isGenerating && aiTopicFocus.trim()) setPracticeRefreshTrigger(prev => prev + 1); }}
+                        className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" 
+                      />
+                    </div>
+                    <button 
+                      onClick={() => setPracticeRefreshTrigger(prev => prev + 1)}
+                      disabled={isGenerating || !aiTopicFocus.trim()}
+                      className="w-full sm:w-auto bg-[hsl(var(--accent))] text-white px-6 py-2.5 rounded-xl font-bold shadow-md hover:opacity-90 active:scale-95 transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+                    >
+                      {isGenerating ? <><Loader2 size={18} className="animate-spin" /> Generating...</> : <><Bot size={18} /> Ask Maester</>}
+                    </button>
+                  </m.div>
+                )}
+              </AnimatePresence>
 
               {practiceQuestions.length > 0 && (
                 <div className="mb-6 sticky top-[72px] z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-4 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
@@ -2242,13 +2548,37 @@ export default function CatMaester() {
               )}
 
               <div className="space-y-6">
-                {practiceQuestions.length === 0 && (practiceFilterTopic || practiceFilterBookmark || practiceFilterDifficulty || isAdaptive) && (
+                {isGenerating ? (
+                  <div className="flex flex-col items-center justify-center flex-1 py-16 text-center">
+                    <m.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                      className="w-16 h-16 border-4 border-slate-200/50 dark:border-white/10 rounded-full"
+                      style={{ borderTopColor: "hsl(var(--accent))", boxShadow: "0 0 20px -5px hsl(var(--accent) / 0.5)" }}
+                    />
+                    <h3 className="text-xl font-bold mt-6 text-slate-800 dark:text-slate-200">Maester is Crafting New Challenges...</h3>
+                    <p className="text-slate-500 max-w-md mt-2">Our AI is generating a unique set of questions for you. This may take a moment. Thank you for your patience.</p>
+                  </div>
+                ) : generationError ? (
+                  <div className="flex flex-col items-center justify-center flex-1 py-16 text-center">
+                    <BrainCircuit size={48} className="mx-auto mb-4 text-rose-500/50" />
+                    <h3 className="text-xl font-bold text-rose-500">Generation Failed</h3>
+                    <p className="text-slate-500 max-w-md mt-2 mb-6">{generationError}</p>
+                    <button onClick={() => setPracticeRefreshTrigger(prev => prev + 1)} className="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 px-6 py-2 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                      Retry Generation
+                    </button>
+                  </div>
+                ) : practiceQuestions.length === 0 ? (
                   <div className="text-center py-16 text-slate-500">
                     <BrainCircuit size={48} className="mx-auto mb-4 opacity-20" />
-                    <p>No questions found {practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : practiceFilterDifficulty ? `with "${practiceFilterDifficulty}" difficulty` : 'for this skill level'}.</p>
+                    <p>
+                      {isAiTopicMode && !aiTopicFocus.trim() 
+                        ? "Enter a topic above and ask Maester to generate custom questions." 
+                        : `No questions found ${practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : practiceFilterDifficulty ? `with "${practiceFilterDifficulty}" difficulty` : practiceFilterAIBatch !== null ? 'in this saved AI batch' : 'for this skill level'}.`
+                      }
+                    </p>
                   </div>
-                )}
-                {(() => {
+                ) : (() => {
                   const groups: { context?: string, qs: { q: Question, idx: number }[] }[] = [];
                   practiceQuestions?.forEach((q, idx) => {
                     if (groups.length > 0 && groups[groups.length - 1].context === q.context) {
@@ -2427,6 +2757,23 @@ export default function CatMaester() {
                             </div>
                             <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
                             <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
+                            
+                            {q.id.startsWith('gen_') && (
+                              <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10">
+                                <p className="text-xs font-bold text-slate-500 mb-2">Rate this AI-generated question:</p>
+                                <div className="flex gap-1">
+                                  {[1, 2, 3, 4, 5].map(star => (
+                                    <button 
+                                      key={star} 
+                                      onClick={() => handleAiQuestionRating(q.id, star)}
+                                      className="text-slate-300 dark:text-slate-600 hover:text-yellow-400 transition-colors"
+                                    >
+                                      <Star size={20} className={`transition-colors ${aiQuestionFeedback[q.id] >= star ? 'text-yellow-400 fill-yellow-400' : ''}`} />
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </m.div>
                       )}
@@ -2447,12 +2794,22 @@ export default function CatMaester() {
                 })()}
                 {practiceQuestions.length > 0 && (
                   <div className="flex justify-center mt-8 pb-8">
-                    <button 
-                      onClick={() => setPracticeRefreshTrigger(prev => prev + 1)}
-                      className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-8 py-3 rounded-xl font-bold shadow-sm hover:shadow-md hover:border-[hsl(var(--accent))]/50 hover:text-[hsl(var(--accent))] active:scale-95 transition-all flex items-center gap-2"
-                    >
-                      <RotateCcw size={18} /> Load Next Batch
-                    </button>
+                    {(() => {
+                      const topicPrompt = (isAiTopicMode && aiTopicFocus.trim()) ? aiTopicFocus.trim() : undefined;
+                      const isReady = prefetchedBatch && prefetchedBatch.subject === practiceSubject && prefetchedBatch.topic === topicPrompt;
+                      const isNormalOrAiMode = !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAdaptive && practiceFilterAIBatch === null;
+                      return (
+                        <button 
+                          onClick={() => {
+                            setPracticeFilterAIBatch(null);
+                            setPracticeRefreshTrigger(prev => prev + 1);
+                          }}
+                          className={`px-8 py-3 rounded-xl font-bold shadow-sm hover:shadow-md active:scale-95 transition-all flex items-center gap-2 ${isReady && isNormalOrAiMode ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] border border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50 hover:text-[hsl(var(--accent))]'}`}
+                        >
+                          <RotateCcw size={18} /> {isNormalOrAiMode && isReady ? 'Next Batch Ready ⚡' : 'Load Next Batch'}
+                        </button>
+                      );
+                    })()}
                   </div>
                 )}
               </div>
