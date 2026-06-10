@@ -33,6 +33,7 @@ interface Progress {
   currentStreak?: number;
   maxStreak?: number;
   isActivated?: boolean;
+  bookmarkedNotes?: Record<string, string>;
   skillHistory?: SkillHistory[];
 }
 
@@ -45,6 +46,7 @@ interface CatState {
   addResult: (attempted: number, correct: number) => void;
   addTopicResult: (topic: string, isCorrect: boolean, questionId?: string) => void;
   toggleBookmark: (questionId: string) => void;
+  updateBookmarkNote: (questionId: string, note: string) => void;
   clearHistory: () => void;
   updateSkillRating: (subject: 'QA' | 'VARC' | 'DILR', questionDifficulty: number, isCorrect: boolean) => void;
   updatePracticeStreak: (isCorrect: boolean) => void;
@@ -55,7 +57,7 @@ export const useCatStore = create<CatState>()(
   persist(
     (set) => ({
       user: null,
-      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0, isActivated: false, skillHistory: [] },
+      progress: { totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, bookmarkedQuestions: [], bookmarkedNotes: {}, skillRatings: { QA: 1200, VARC: 1200, DILR: 1200 }, currentStreak: 0, maxStreak: 0, isActivated: false, skillHistory: [] },
       
       login: (name, uid, photoURL) => set({ user: { name, uid, photoURL } }),
       setWholeProgress: (progress) => set({ progress }),
@@ -98,9 +100,19 @@ export const useCatStore = create<CatState>()(
           }
         };
       }),
+
+      updateBookmarkNote: (questionId, note) => set((state) => ({
+        progress: {
+          ...state.progress,
+          bookmarkedNotes: {
+            ...(state.progress.bookmarkedNotes || {}),
+            [questionId]: note
+          }
+        }
+      })),
       
       clearHistory: () => set((state) => ({
-        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0, isActivated: false, skillHistory: [] }
+        progress: { ...state.progress, totalAttempted: 0, correct: 0, testsCompleted: 0, history: [], topicStats: {}, currentStreak: 0, maxStreak: 0, isActivated: false, bookmarkedNotes: {}, skillHistory: [] }
       })),
 
       updateSkillRating: (subject, questionDifficulty, isCorrect) => set(state => {

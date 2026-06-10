@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star, ChevronDown } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
-import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc } from './firebase';
+import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, query, getDocs, limit } from './firebase';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 // --- IndexedDB Helpers ---
@@ -77,6 +77,16 @@ const getGeneratedBatches = async (subject: string): Promise<any[]> => {
   });
 };
 
+const deleteGeneratedBatch = async (subject: string, batchId: number) => {
+  const db = await initDB();
+  return new Promise<void>((resolve, reject) => {
+    const tx = db.transaction(GENERATED_Q_STORE, 'readwrite');
+    const req = tx.objectStore(GENERATED_Q_STORE).delete([subject, batchId]);
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(tx.error);
+  });
+};
+
 const saveFormula = async (formula: any) => {
   const db = await initDB();
   return new Promise((resolve, reject) => {
@@ -116,17 +126,22 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
 
   const promptText = `
-    You are an expert examiner for the Indian Common Admission Test (CAT). 
-    Generate 5 highly challenging, unique questions for the section: ${subject}. 
+    You are an expert examiner and content creator for the Indian Common Admission Test (CAT) for IIMs. 
+    Generate 5 highly challenging, unique, and strictly syllabus-aligned questions for the section: ${subject}. 
+    The difficulty, tone, and trickiness MUST perfectly mimic actual CAT past year papers (PYQs).
     ${topic ? `\nCRITICAL: The questions MUST be strictly focused on the specific topic: ${topic}.` : ''}
     ${subject === 'VARC' ? `
     CRITICAL VARC INSTRUCTIONS:
-    - If generating Reading Comprehension, the 'context' field MUST contain a highly complex, dense, and intellectually stimulating passage of around 500 to 700 words, exactly like actual CAT exam passages.
+    - If generating Reading Comprehension, the 'context' field MUST contain a highly complex, dense, and intellectually stimulating passage of exactly 500 to 600 words, mimicking the exact standard of actual CAT exam passages.
     - Topics should be drawn from philosophy, sociology, history, evolutionary biology, economics, or literature.
-    - The questions MUST test deep critical reasoning (Inference, Central Idea, Tone, Weakening/Strengthening arguments). Do NOT ask direct factual questions.` : ''}
+    - The questions MUST test deep critical reasoning (Inference, Central Idea, Tone, Weakening/Strengthening arguments, Double Negatives). Do NOT ask direct factual questions.` : ''}
     ${subject === 'DILR' ? `
     CRITICAL DILR INSTRUCTIONS:
-    - If generating a set, the 'context' field MUST contain a highly complex logic puzzle, intricate data table, seating arrangement, or tournament scenario exactly like real CAT DILR sets.` : ''}
+    - If generating a set, the 'context' field MUST contain a highly complex logic puzzle, intricate data table, seating arrangement, or tournament scenario exactly like real CAT DILR sets. The constraints must be interlocked and require a matrix to solve.` : ''}
+    ${subject === 'QA' ? `
+    CRITICAL QA INSTRUCTIONS:
+    - Questions should test conceptual clarity and clever application of fundamentals rather than tedious calculations.
+    - Focus on Arithmetic, Algebra, Geometry, and Number Systems as per recent CAT trends.` : ''}
     
     CRITICAL INSTRUCTION: You must respond ONLY with a raw JSON array. Do not include markdown formatting (like \`\`\`json), explanations, or any other text. 
     
@@ -196,13 +211,61 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
 };
 
 
-// --- Latex Helper ---
 const renderLatex = (text: string, highlightText?: string | null) => {
   if (!text) return '';
   
   let result = '';
+  const processTextPart = (str: string) => {
+    let textPart = str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
+    // Basic Markdown
+    textPart = textPart.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900 dark:text-white">$1</strong>');
+    textPart = textPart.replace(/\*(.*?)\*/g, '<em class="italic opacity-90">$1</em>');
+    
+    // Unwrapped Math symbols fallback (fixes missing symbols outside $ tags)
+    textPart = textPart.replace(/\\sqrt\s*{([^}]+)}/g, '√$1');
+    textPart = textPart.replace(/\\sqrt\s*(\d+)/g, '√$1');
+    textPart = textPart.replace(/\\frac\s*{([^}]+)}\s*{([^}]+)}/g, '($1/$2)');
+    textPart = textPart.replace(/\\pi/gi, 'π');
+    textPart = textPart.replace(/\\alpha/gi, 'α');
+    textPart = textPart.replace(/\\beta/gi, 'β');
+    textPart = textPart.replace(/\\theta/gi, 'θ');
+    textPart = textPart.replace(/\\Delta/g, 'Δ');
+    textPart = textPart.replace(/\\times/gi, '×');
+    textPart = textPart.replace(/\\div/gi, '÷');
+    textPart = textPart.replace(/\\pm/gi, '±');
+    textPart = textPart.replace(/\\sum/gi, '∑');
+    textPart = textPart.replace(/\\infty/gi, '∞');
+    textPart = textPart.replace(/\\approx/gi, '≈');
+    textPart = textPart.replace(/\\cdot/gi, '·');
+    textPart = textPart.replace(/\\circ/gi, '°');
+    textPart = textPart.replace(/\\ge/g, '≥');
+    textPart = textPart.replace(/\\le/g, '≤');
+    textPart = textPart.replace(/\\neq/g, '≠');
+    textPart = textPart.replace(/\^2/g, '²');
+    textPart = textPart.replace(/\^3/g, '³');
+    
+    textPart = textPart.replace(/=>/g, '<strong class="text-[hsl(var(--accent))] mx-1">⇒</strong>');
+
+    // Highlight "Correct Option" or "Answer" statements
+    textPart = textPart.replace(/(The correct option is [A-D]\.?|(?:Therefore|Hence),? option [A-D] is the correct answer\.?|Option [A-D] is the correct answer\.?|(?:Therefore|Hence),? (?:[A-D]|\d+(?:\.\d+)?) is the correct answer\.?)/gi, (match) => {
+      return `<br/><br/><span class="inline-block px-3 py-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-lg font-bold shadow-sm">${match}</span>`;
+    });
+
+    // Elegant formatting for logic/math explanations (breaks down walls of text automatically)
+    textPart = textPart.replace(/(^|\.\s+)(Given|Now|Also|Therefore|Hence|Thus|Step \d+:?|Case \d+:?),?\s+/gi, (match, p1, p2) => {
+      const prefix = p1.includes('.') ? '.<br/><br/>' : ''; 
+      const hasComma = match.includes(',');
+      const capP2 = p2.charAt(0).toUpperCase() + p2.slice(1);
+      return `${prefix}<strong class="text-[hsl(var(--accent))] opacity-90">${capP2}${hasComma ? ',' : ''}</strong> `;
+    });
+
+    textPart = textPart.replace(/\n/g, '<br/>');
+    return textPart;
+  };
+
   if (!(window as any).katex) {
-    result = text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
+    result = processTextPart(text);
   } else {
     const parts = text.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
     result = parts.map(part => {
@@ -211,7 +274,7 @@ const renderLatex = (text: string, highlightText?: string | null) => {
       } else if (part.startsWith('$') && part.endsWith('$')) {
         try { return (window as any).katex.renderToString(part.slice(1, -1), { displayMode: false, throwOnError: false }); } catch(e) { return part; }
       }
-      return part.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
+      return processTextPart(part);
     }).join('');
   }
 
@@ -505,7 +568,7 @@ export default function CatMaester() {
   const [paperList, setPaperList] = useState<{id: string, title: string}[]>([]);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress, setActivated } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, updateBookmarkNote, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress, setActivated } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -540,6 +603,8 @@ export default function CatMaester() {
   const isPrefetching = useRef<string>('');
   const [practiceFilterAIBatch, setPracticeFilterAIBatch] = useState<number | null>(null);
   const [aiBatchesList, setAiBatchesList] = useState<any[]>([]);
+  const [isAiBatchDropdownOpen, setIsAiBatchDropdownOpen] = useState(false);
+  const [isDifficultyDropdownOpen, setIsDifficultyDropdownOpen] = useState(false);
   const [isAiTopicMode, setIsAiTopicMode] = useState(false);
   const [aiTopicFocus, setAiTopicFocus] = useState('');
   const [aiQuestionFeedback, setAiQuestionFeedback] = useState<Record<string, number>>(() => {
@@ -577,6 +642,7 @@ export default function CatMaester() {
   const [calcExpr, setCalcExpr] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
 
   const handleAiQuestionRating = (questionId: string, rating: number) => {
     setAiQuestionFeedback(prev => {
@@ -1170,6 +1236,8 @@ export default function CatMaester() {
     const syncToCloud = async () => {
       try {
         await setDoc(doc(db, 'users', uid), {
+          displayName: user.name,
+          photoURL: user.photoURL || null,
           progress,
           questionRatings,
           formulas,
@@ -1183,7 +1251,34 @@ export default function CatMaester() {
 
     const timeoutId = setTimeout(syncToCloud, 5000);
     return () => clearTimeout(timeoutId);
-  }, [progress, questionRatings, formulas, aiQuestionFeedback, user?.uid]);
+  }, [progress, questionRatings, formulas, aiQuestionFeedback, user?.uid, user?.name, user?.photoURL]);
+
+  useEffect(() => {
+    if (activeTab === 'dashboard') {
+      const fetchLeaderboard = async () => {
+        try {
+          const q = query(collection(db, 'users'), limit(50));
+          const querySnapshot = await getDocs(q);
+          const leaders: any[] = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data.progress?.skillRatings && data.displayName) {
+              const qa = data.progress.skillRatings.QA || 1200;
+              const varc = data.progress.skillRatings.VARC || 1200;
+              const dilr = data.progress.skillRatings.DILR || 1200;
+              const overall = Math.round((qa + varc + dilr) / 3);
+              leaders.push({ uid: doc.id, name: data.displayName, photoURL: data.photoURL, qa, varc, dilr, overall });
+            }
+          });
+          leaders.sort((a, b) => b.overall - a.overall);
+          setLeaderboard(leaders.slice(0, 10)); // Display Top 10
+        } catch (e) {
+          console.error("Failed to fetch leaderboard", e);
+        }
+      };
+      fetchLeaderboard();
+    }
+  }, [activeTab]);
 
   const handleTagTopic = (q: any, topic: string) => {
     if (!topic.trim()) return;
@@ -1594,38 +1689,72 @@ export default function CatMaester() {
                 </div>
               </div>
 
-              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                <h3 className="text-lg font-bold mb-6">Elo Rating Over Time</h3>
-                {progress.skillHistory && progress.skillHistory.length > 1 ? (
-                  <ResponsiveContainer width="100%" height={250}>
-                    <LineChart data={progress.skillHistory} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(128, 128, 128, 0.2)" />
-                      <XAxis 
-                        dataKey="date" 
-                        tickFormatter={(d) => new Date(d).toLocaleDateString()} 
-                        fontSize={10} 
-                        tick={{ fill: 'currentColor', opacity: 0.6 }} 
-                        axisLine={{ stroke: 'currentColor', opacity: 0.2 }} 
-                        tickLine={{ stroke: 'currentColor', opacity: 0.2 }}
-                      />
-                      <YAxis domain={['dataMin - 50', 'dataMax + 50']} fontSize={10} tick={{ fill: 'currentColor', opacity: 0.6 }} axisLine={{ stroke: 'currentColor', opacity: 0.2 }} tickLine={{ stroke: 'currentColor', opacity: 0.2 }} />
-                      <Tooltip
-                        contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem' }}
-                        labelStyle={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px' }}
-                        labelFormatter={(label) => new Date(label).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        formatter={(value: any) => [typeof value === 'number' ? Math.round(value) : value, 'Elo']}
-                      />
-                      <Legend wrapperStyle={{ fontSize: '12px' }} />
-                      <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" />
-                      <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={200} />
-                      <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={400} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <div className="h-[250px] flex items-center justify-center text-slate-500 text-sm">
-                    <p>Answer more questions in Practice Mode to see your Elo rating history.</p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
+                  <h3 className="text-lg font-bold mb-6">Elo Rating Over Time</h3>
+                  {progress.skillHistory && progress.skillHistory.length > 1 ? (
+                    <ResponsiveContainer width="100%" height={250}>
+                      <LineChart data={progress.skillHistory} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(128, 128, 128, 0.2)" />
+                        <XAxis 
+                          dataKey="date" 
+                          tickFormatter={(d) => new Date(d).toLocaleDateString()} 
+                          fontSize={10} 
+                          tick={{ fill: 'currentColor', opacity: 0.6 }} 
+                          axisLine={{ stroke: 'currentColor', opacity: 0.2 }} 
+                          tickLine={{ stroke: 'currentColor', opacity: 0.2 }}
+                        />
+                        <YAxis domain={['dataMin - 50', 'dataMax + 50']} fontSize={10} tick={{ fill: 'currentColor', opacity: 0.6 }} axisLine={{ stroke: 'currentColor', opacity: 0.2 }} tickLine={{ stroke: 'currentColor', opacity: 0.2 }} />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem' }}
+                          labelStyle={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px' }}
+                          labelFormatter={(label) => new Date(label).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                          formatter={(value: any) => [typeof value === 'number' ? Math.round(value) : value, 'Elo']}
+                        />
+                        <Legend wrapperStyle={{ fontSize: '12px' }} />
+                        <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" />
+                        <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={200} />
+                        <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={400} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  ) : (
+                    <div className="h-[250px] flex items-center justify-center text-slate-500 text-sm">
+                      <p>Answer more questions in Practice Mode to see your Elo rating history.</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm flex flex-col">
+                  <h3 className="text-lg font-bold mb-6 flex items-center gap-2"><Trophy size={20} className="text-yellow-500" /> Global Leaderboard</h3>
+                  <div className="flex-1 overflow-y-auto pr-2 space-y-3" style={{ maxHeight: '250px', scrollbarWidth: 'thin' }}>
+                    {leaderboard.length > 0 ? leaderboard.map((leader, i) => (
+                      <div key={leader.uid} className={`flex items-center justify-between p-3 rounded-xl border ${leader.uid === user?.uid ? 'bg-[hsl(var(--accent))]/10 border-[hsl(var(--accent))]/30' : 'bg-white/40 dark:bg-slate-800/40 border-slate-200/50 dark:border-white/5'}`}>
+                        <div className="flex items-center gap-3">
+                          <div className="font-bold text-slate-400 w-4 text-center">{i + 1}</div>
+                          {leader.photoURL ? (
+                            <img src={leader.photoURL} alt={leader.name} className="w-8 h-8 rounded-full shadow-sm" />
+                          ) : (
+                            <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 font-bold text-xs">{leader.name.charAt(0)}</div>
+                          )}
+                          <div>
+                            <div className="font-bold text-sm text-slate-800 dark:text-slate-200">{leader.name} {leader.uid === user?.uid && <span className="text-[10px] bg-[hsl(var(--accent))] text-white px-1.5 py-0.5 rounded ml-1">You</span>}</div>
+                            <div className="text-xs text-slate-500 flex gap-2 mt-0.5">
+                              <span>QA: {leader.qa}</span>
+                              <span>VARC: {leader.varc}</span>
+                              <span>DILR: {leader.dilr}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-xl font-black text-[hsl(var(--accent))]">{leader.overall}</div>
+                      </div>
+                    )) : (
+                      <div className="h-full flex flex-col items-center justify-center text-slate-500 text-sm gap-2">
+                        <Loader2 size={24} className="animate-spin text-[hsl(var(--accent))]" /> 
+                        <span>Fetching Leaderboard...</span>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
 
               {qotd && (
@@ -2343,7 +2472,7 @@ export default function CatMaester() {
                                 
                                   <div className="mb-6 p-6 bg-[hsl(var(--accent))]/5 dark:bg-[hsl(var(--accent))]/10 rounded-xl border border-[hsl(var(--accent))]/20">
                                   <div className="font-bold flex items-center gap-2 mb-3 text-[hsl(var(--accent))]"><Book size={18} /> Explanation</div>
-                                  <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
+                                  <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
                                   </div>
 
                                   {q.context && filteredReviewQuestions[activeQuestionIdx + 1]?.context !== q.context && (
@@ -2463,7 +2592,7 @@ export default function CatMaester() {
           {activeTab === 'practice' && (
             <div className="flex flex-col flex-1">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-                <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                <div className="flex flex-wrap gap-2 md:gap-3 pb-2">
                   {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
                     <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAiTopicMode && practiceFilterAIBatch === null ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                       {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
@@ -2477,42 +2606,121 @@ export default function CatMaester() {
                   <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                     Bookmarks ({progress.bookmarkedQuestions?.length || 0})
                   </button>
-                  <select 
-                    value={practiceFilterDifficulty || ''}
-                    onChange={(e) => {
-                      setPracticeFilterTopic(null);
-                      setPracticeFilterBookmark(false);
-                      setPracticeFilterDifficulty(e.target.value || null);
-                      setIsAiTopicMode(false);
-                      setPracticeFilterAIBatch(null);
-                    }}
-                    className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none ${practiceFilterDifficulty ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
-                  >
-                    <option value="" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Any Difficulty</option>
-                    <option value="Easy" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Easy</option>
-                    <option value="Medium" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Medium</option>
-                    <option value="Hard" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Hard</option>
-                  </select>
-                  {aiBatchesList.length > 0 && (
-                    <select 
-                      value={practiceFilterAIBatch !== null ? practiceFilterAIBatch : ''}
-                      onChange={(e) => {
-                        setPracticeFilterTopic(null);
-                        setPracticeFilterBookmark(false);
-                        setPracticeFilterDifficulty(null);
-                        setIsAiTopicMode(false);
-                        setIsAdaptive(false);
-                        setPracticeFilterAIBatch(e.target.value !== '' ? Number(e.target.value) : null);
-                      }}
-                      className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none ${practiceFilterAIBatch !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
+                  
+                  <div className="relative">
+                    <button 
+                      onClick={() => setIsDifficultyDropdownOpen(!isDifficultyDropdownOpen)}
+                      className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 ${practiceFilterDifficulty !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
                     >
-                      <option value="" className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">Saved AI Batches</option>
-                      {aiBatchesList.map((b) => (
-                        <option key={b.batchId} value={b.batchId} className="text-slate-900 dark:text-slate-100 dark:bg-slate-800">
-                          {b.topic ? `AI: ${b.topic} (${b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'})` : `AI Batch #${b.batchId + 1} (${b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'})`}
-                        </option>
-                      ))}
-                    </select>
+                      {practiceFilterDifficulty !== null ? `${practiceFilterDifficulty} Difficulty` : 'Any Difficulty'}
+                      <ChevronDown size={16} className={`transition-transform ${isDifficultyDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    <AnimatePresence>
+                      {isDifficultyDropdownOpen && (
+                        <>
+                          <div className="fixed inset-0 z-40" onClick={() => setIsDifficultyDropdownOpen(false)}></div>
+                          <m.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                            className="absolute top-full mt-2 left-0 w-48 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl z-50 overflow-hidden"
+                          >
+                            <div className="flex flex-col">
+                              {[
+                                { value: null, label: 'Any Difficulty', color: 'text-slate-600 dark:text-slate-400' },
+                                { value: 'Easy', label: 'Easy', color: 'text-emerald-500' },
+                                { value: 'Medium', label: 'Medium', color: 'text-yellow-500' },
+                                { value: 'Hard', label: 'Hard', color: 'text-rose-500' }
+                              ].map(opt => (
+                                <button
+                                  key={opt.label}
+                                  onClick={() => {
+                                    setPracticeFilterTopic(null);
+                                    setPracticeFilterBookmark(false);
+                                    setPracticeFilterDifficulty(opt.value);
+                                    setIsAiTopicMode(false);
+                                    setPracticeFilterAIBatch(null);
+                                    setIsDifficultyDropdownOpen(false);
+                                  }}
+                                  className={`text-left px-4 py-3 text-sm font-bold border-b border-slate-200/50 dark:border-slate-700/50 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${practiceFilterDifficulty === opt.value ? 'bg-slate-50 dark:bg-slate-800/50' : ''} ${opt.color}`}
+                                >
+                                  {opt.label}
+                                </button>
+                              ))}
+                            </div>
+                          </m.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {aiBatchesList.length > 0 && (
+                    <div className="relative">
+                      <button 
+                        onClick={() => setIsAiBatchDropdownOpen(!isAiBatchDropdownOpen)}
+                        className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 ${practiceFilterAIBatch !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
+                      >
+                        {practiceFilterAIBatch !== null ? `AI Batch #${practiceFilterAIBatch + 1}` : 'Saved AI Batches'}
+                        <ChevronDown size={16} className={`transition-transform ${isAiBatchDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {isAiBatchDropdownOpen && (
+                          <>
+                            <div className="fixed inset-0 z-40" onClick={() => setIsAiBatchDropdownOpen(false)}></div>
+                            <m.div
+                              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                              className="absolute top-full mt-2 left-0 sm:left-auto sm:right-0 w-72 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl z-50 overflow-hidden"
+                            >
+                              <div className="max-h-60 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
+                                {aiBatchesList.map((b) => (
+                                  <div key={b.batchId} className="flex items-center justify-between p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+                                    <div
+                                      className="flex-1 cursor-pointer"
+                                      onClick={() => {
+                                        setPracticeFilterTopic(null);
+                                        setPracticeFilterBookmark(false);
+                                        setPracticeFilterDifficulty(null);
+                                        setIsAiTopicMode(false);
+                                        setIsAdaptive(false);
+                                        setPracticeFilterAIBatch(b.batchId);
+                                        setIsAiBatchDropdownOpen(false);
+                                      }}
+                                    >
+                                      <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
+                                         {b.topic ? `AI: ${b.topic}` : `AI Batch #${b.batchId + 1}`}
+                                      </p>
+                                      <p className="text-xs text-slate-500">{b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'}</p>
+                                    </div>
+                                    <button
+                                      onClick={async (e) => {
+                                        e.stopPropagation();
+                                        if (window.confirm("Delete this AI generated batch?")) {
+                                          await deleteGeneratedBatch(b.subject, b.batchId);
+                                          const updated = await getGeneratedBatches(practiceSubject);
+                                          setAiBatchesList(updated);
+                                          if (practiceFilterAIBatch === b.batchId) {
+                                            setPracticeFilterAIBatch(null);
+                                            setPracticeRefreshTrigger(prev => prev + 1);
+                                          }
+                                          if (updated.length === 0) setIsAiBatchDropdownOpen(false);
+                                        }
+                                      }}
+                                      className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                      title="Delete Batch"
+                                    >
+                                      <Trash2 size={16} />
+                                    </button>
+                                  </div>
+                                ))}
+                              </div>
+                            </m.div>
+                          </>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   )}
                 </div>
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -2778,11 +2986,32 @@ export default function CatMaester() {
                         </div>
                       )}
                       
+                      <AnimatePresence>
+                        {progress.bookmarkedQuestions?.includes(q.id) && (
+                          <m.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="mt-4 overflow-hidden"
+                          >
+                            <div className="flex items-start gap-3 bg-amber-50 dark:bg-amber-900/10 p-3 md:p-4 rounded-xl border border-amber-200/50 dark:border-amber-700/50">
+                              <Edit2 size={16} className="text-amber-500 mt-1 shrink-0" />
+                              <textarea
+                                placeholder="Add a personalized note for future review..."
+                                value={progress.bookmarkedNotes?.[q.id] || ''}
+                                onChange={(e) => updateBookmarkNote(q.id, e.target.value)}
+                                className="w-full bg-transparent border-none focus:outline-none text-sm text-slate-700 dark:text-slate-300 resize-none min-h-[40px] placeholder:text-amber-700/30 dark:placeholder:text-amber-300/30"
+                              />
+                            </div>
+                          </m.div>
+                        )}
+                      </AnimatePresence>
+
                       <div className="mt-4 flex justify-between items-center">
                         <div>
                           {q.hint && q.context && (
                             <button
-                              onClick={() => setActiveHint(activeHint === q.hint ? null : q.hint)}
+                              onClick={() => setActiveHint(activeHint === q.hint ? null : (q.hint || null))}
                               className={`text-sm font-bold transition-colors flex items-center gap-1.5 ${activeHint === q.hint ? 'text-[hsl(var(--accent))]' : 'text-amber-500 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300'}`}
                             >
                               <span className="text-base">💡</span> {activeHint === q.hint ? 'Hide Hint' : 'Show Hint'}
@@ -2833,7 +3062,7 @@ export default function CatMaester() {
                                 ? '✅ Correct!' : '❌ Incorrect!'}
                             </div>
                             <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))]"><Book size={18} /> Coach&apos;s Explanation</div>
-                            <div className="text-sm leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
+                            <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
                             
                             {q.id.startsWith('gen_') && (
                               <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10">
