@@ -8,6 +8,8 @@ export interface Question {
   explanation: string;
   section?: 'QA' | 'VARC' | 'DILR';
   context?: string;
+  difficulty?: 'Easy' | 'Medium' | 'Hard';
+  hint?: string;
 }
 
 export interface QuestionGroup {

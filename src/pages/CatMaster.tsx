@@ -141,6 +141,8 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
       explanation: string; // Detailed step-by-step solution
       section: '${subject}';
       context?: string; // Optional: Passage for VARC or Data table for DILR. (Group questions with the same context if generating a DILR set or Reading Comprehension).
+      difficulty?: 'Easy' | 'Medium' | 'Hard'; // Assign an overall difficulty level.
+      hint?: string; // Optional: A specific exact sentence or phrase from the context that contains the answer or provides a strong hint. MUST be an exact substring of the context.
     }
   `;
 
@@ -195,18 +197,32 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
 
 
 // --- Latex Helper ---
-const renderLatex = (text: string) => {
+const renderLatex = (text: string, highlightText?: string | null) => {
   if (!text) return '';
-  if (!(window as any).katex) return text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
-  const parts = text.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
-  return parts.map(part => {
-    if (part.startsWith('$$') && part.endsWith('$$')) {
-      try { return (window as any).katex.renderToString(part.slice(2, -2), { displayMode: true, throwOnError: false }); } catch(e) { return part; }
-    } else if (part.startsWith('$') && part.endsWith('$')) {
-      try { return (window as any).katex.renderToString(part.slice(1, -1), { displayMode: false, throwOnError: false }); } catch(e) { return part; }
-    }
-    return part.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
-  }).join('');
+  
+  let result = '';
+  if (!(window as any).katex) {
+    result = text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
+  } else {
+    const parts = text.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
+    result = parts.map(part => {
+      if (part.startsWith('$$') && part.endsWith('$$')) {
+        try { return (window as any).katex.renderToString(part.slice(2, -2), { displayMode: true, throwOnError: false }); } catch(e) { return part; }
+      } else if (part.startsWith('$') && part.endsWith('$')) {
+        try { return (window as any).katex.renderToString(part.slice(1, -1), { displayMode: false, throwOnError: false }); } catch(e) { return part; }
+      }
+      return part.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>');
+    }).join('');
+  }
+
+  if (highlightText && highlightText.trim() !== '') {
+    const escapedHighlight = highlightText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const htmlEscapedHighlight = escapedHighlight.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const regex = new RegExp(`(${htmlEscapedHighlight})(?![^<]*>)`, 'gi');
+    result = result.replace(regex, '<mark class="bg-yellow-300 dark:bg-yellow-500/40 text-inherit rounded px-1 shadow-sm transition-all duration-300">$1</mark>');
+  }
+
+  return result;
 };
 
 // --- Pinch Zoom Image Component ---
@@ -289,7 +305,7 @@ const PinchZoomImage = ({ src, alt }: { src: string, alt: string }) => {
 };
 
 // --- Render Context Helper ---
-const renderTable = (lines: string[], key: number) => {
+const renderTable = (lines: string[], key: number, highlightText?: string | null) => {
   let isHeader = true;
   return (
     <div key={`tbl_${key}`} className="overflow-x-auto my-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm w-full">
@@ -308,11 +324,11 @@ const renderTable = (lines: string[], key: number) => {
                 {cells.map((cell, cIdx) => (
                   isHeader ? (
                     <th key={cIdx} className="border-r last:border-r-0 border-slate-200 dark:border-slate-700 px-4 py-3 bg-slate-50 dark:bg-slate-800/80 font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                      <span dangerouslySetInnerHTML={{ __html: renderLatex(cell.trim()) }} />
+                      <span dangerouslySetInnerHTML={{ __html: renderLatex(cell.trim(), highlightText) }} />
                     </th>
                   ) : (
                     <td key={cIdx} className="border-r last:border-r-0 border-slate-200 dark:border-slate-700 px-4 py-3 text-slate-600 dark:text-slate-400 align-top">
-                      <span dangerouslySetInnerHTML={{ __html: renderLatex(cell.trim()) }} />
+                      <span dangerouslySetInnerHTML={{ __html: renderLatex(cell.trim(), highlightText) }} />
                     </td>
                   )
                 ))}
@@ -325,7 +341,7 @@ const renderTable = (lines: string[], key: number) => {
   );
 };
 
-const renderContextWithImages = (text: string) => {
+const renderContextWithImages = (text: string, highlightText?: string | null) => {
   if (!text) return null;
   const parts = text.split(/(!\[.*?\]\(.*?\))/g);
   return parts.map((part, i) => {
@@ -342,7 +358,7 @@ const renderContextWithImages = (text: string) => {
 
     const flushText = () => {
       if (currentText) {
-        blocks.push(<span key={`txt_${blocks.length}`} dangerouslySetInnerHTML={{ __html: renderLatex(currentText) }} />);
+        blocks.push(<span key={`txt_${blocks.length}`} dangerouslySetInnerHTML={{ __html: renderLatex(currentText, highlightText) }} />);
         currentText = '';
       }
     };
@@ -357,7 +373,7 @@ const renderContextWithImages = (text: string) => {
         tableLines.push(line);
       } else {
         if (inTable) {
-          blocks.push(renderTable(tableLines, blocks.length));
+          blocks.push(renderTable(tableLines, blocks.length, highlightText));
           tableLines = [];
           inTable = false;
         }
@@ -366,7 +382,7 @@ const renderContextWithImages = (text: string) => {
     }
     
     if (inTable) {
-      blocks.push(renderTable(tableLines, blocks.length));
+      blocks.push(renderTable(tableLines, blocks.length, highlightText));
     }
     flushText();
 
@@ -518,6 +534,7 @@ export default function CatMaester() {
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
   const [practiceFilterDifficulty, setPracticeFilterDifficulty] = useState<string | null>(null);
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
+  const [activeHint, setActiveHint] = useState<string | null>(null);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
   const [prefetchedBatch, setPrefetchedBatch] = useState<{ subject: string, topic?: string, questions: Question[] } | null>(null);
   const isPrefetching = useRef<string>('');
@@ -946,6 +963,7 @@ export default function CatMaester() {
       }
       setPracticeAnswers({});
       setLastAnswerStatus(null);
+      setActiveHint(null);
     };
     if (activeTab === 'practice') {
       fetchPracticeQuestions();
@@ -1895,6 +1913,17 @@ export default function CatMaester() {
                                 {q.context && (
                                   <>
                                     <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+                                      {q.difficulty && q.id.startsWith('gen_') && (
+                                        <div className="mb-4 flex items-center gap-2">
+                                          <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
+                                            q.difficulty === 'Hard' ? 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/20' : 
+                                            q.difficulty === 'Easy' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 
+                                            'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
+                                          }`}>
+                                            Difficulty: {q.difficulty}
+                                          </span>
+                                        </div>
+                                      )}
                                     {renderContextWithImages(q.context)}
                                   </div>
                                     <div 
@@ -2242,6 +2271,17 @@ export default function CatMaester() {
                                 {q.context && (
                                   <>
                                     <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+                                      {q.difficulty && q.id.startsWith('gen_') && (
+                                        <div className="mb-4 flex items-center gap-2">
+                                          <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
+                                            q.difficulty === 'Hard' ? 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/20' : 
+                                            q.difficulty === 'Easy' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 
+                                            'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
+                                          }`}>
+                                            Difficulty: {q.difficulty}
+                                          </span>
+                                        </div>
+                                      )}
                                       {renderContextWithImages(q.context)}
                                     </div>
                                     <div 
@@ -2609,7 +2649,18 @@ export default function CatMaester() {
                       {group.context && (
                         <>
                           <div className="passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto max-h-[50vh] lg:max-h-[calc(100vh-160px)]" style={{ scrollbarWidth: 'thin' }}>
-                            {renderContextWithImages(group.context)}
+                            {group.qs[0].q.difficulty && group.qs[0].q.id.startsWith('gen_') && (
+                              <div className="mb-4 flex items-center gap-2">
+                                <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
+                                  group.qs[0].q.difficulty === 'Hard' ? 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/20' : 
+                                  group.qs[0].q.difficulty === 'Easy' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 
+                                  'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
+                                }`}>
+                                  Passage Difficulty: {group.qs[0].q.difficulty}
+                                </span>
+                              </div>
+                            )}
+                            {renderContextWithImages(group.context, activeHint)}
                           </div>
                           <div 
                             className="hidden lg:flex w-4 shrink-0 cursor-col-resize items-center justify-center group select-none outline-none lg:sticky lg:top-[50vh]"
@@ -2628,11 +2679,18 @@ export default function CatMaester() {
                             <div className="flex gap-2 mb-3">
                               <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                               {(() => {
+                                const aiDifficulty = q.difficulty;
                                 const rating = questionRatings[q.id] || 1200;
                                 let diffText = 'Medium';
                                 let diffColor = 'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border border-yellow-500/20';
-                                if (rating < 1000) { diffText = 'Easy'; diffColor = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'; }
-                                else if (rating > 1400) { diffText = 'Hard'; diffColor = 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20'; }
+                                if (q.id.startsWith('gen_') && aiDifficulty) {
+                                  diffText = aiDifficulty;
+                                  if (aiDifficulty === 'Easy') diffColor = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20';
+                                  else if (aiDifficulty === 'Hard') diffColor = 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20';
+                                } else {
+                                  if (rating < 1000) { diffText = 'Easy'; diffColor = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'; }
+                                  else if (rating > 1400) { diffText = 'Hard'; diffColor = 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20'; }
+                                }
                                 return <span className={`text-[10px] md:text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${diffColor}`}>{diffText}</span>;
                               })()}
                             </div>
@@ -2720,7 +2778,17 @@ export default function CatMaester() {
                         </div>
                       )}
                       
-                      <div className="mt-4 flex justify-end">
+                      <div className="mt-4 flex justify-between items-center">
+                        <div>
+                          {q.hint && q.context && (
+                            <button
+                              onClick={() => setActiveHint(activeHint === q.hint ? null : q.hint)}
+                              className={`text-sm font-bold transition-colors flex items-center gap-1.5 ${activeHint === q.hint ? 'text-[hsl(var(--accent))]' : 'text-amber-500 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300'}`}
+                            >
+                              <span className="text-base">💡</span> {activeHint === q.hint ? 'Hide Hint' : 'Show Hint'}
+                            </button>
+                          )}
+                        </div>
                         {practiceAnswers[q.id] === undefined && (
                           <button 
                             onClick={() => {
