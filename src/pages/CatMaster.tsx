@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Share2, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star, ChevronDown } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star, ChevronDown, RadioTower } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
-import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, query, getDocs, limit } from './firebase';
+import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, query, getDocs, limit, addDoc, updateDoc, onSnapshot } from './firebase';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 
 // --- IndexedDB Helpers ---
@@ -582,7 +582,7 @@ export default function CatMaester() {
   const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, updateBookmarkNote, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress, setActivated } = useCatStore();
   
   // Mock State
-  const [mockPhase, setMockPhase] = useState<'select' | 'confirm' | 'test' | 'result' | 'review'>('select');
+  const [mockPhase, setMockPhase] = useState<'select' | 'lobby' | 'confirm' | 'test' | 'result' | 'review'>('select');
   const [timeLeft, setTimeLeft] = useState(7200);
   const [activeSection, setActiveSection] = useState<string>('');
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
@@ -658,11 +658,13 @@ export default function CatMaester() {
   const [showCalculator, setShowCalculator] = useState(false);
   const [calcExpr, setCalcExpr] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [chatMessages, setChatMessages] = useState<Record<string, { role: 'user'|'model', text: string }[]>>({});
   const [chatInputs, setChatInputs] = useState<Record<string, string>>({});
   const [isChatLoading, setIsChatLoading] = useState<Record<string, boolean>>({});
+  const [liveChallengeId, setLiveChallengeId] = useState<string | null>(null);
+  const [liveChallengeData, setLiveChallengeData] = useState<any>(null);
   const [targetPercentile, setTargetPercentile] = useState<number>(() => {
     const saved = localStorage.getItem('cat-maester-target-pr');
     return saved ? Number(saved) : 99.0;
@@ -1528,6 +1530,106 @@ export default function CatMaester() {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const challengeId = params.get('challenge');
+    const liveChallengeIdParam = params.get('live_challenge');
+    if (challengeId && paperLoaders[challengeId]) {
+      setActiveTab('mock');
+      handleStartPastPaper(challengeId);
+      window.history.replaceState({}, '', location.pathname);
+    } else if (liveChallengeIdParam) {
+      setActiveTab('mock');
+      setLiveChallengeId(liveChallengeIdParam);
+      window.history.replaceState({}, '', location.pathname);
+    }
+  }, [location.search]);
+
+  useEffect(() => {
+    if (!liveChallengeId) return;
+    const unsub = onSnapshot(doc(db, 'challenges', liveChallengeId), async (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setLiveChallengeData(data);
+        
+        if (data.status === 'active' && mockPhase === 'lobby') {
+           const loader = paperLoaders[data.paperId];
+           if (loader) {
+             const paper = await loader();
+             const testObj = {
+               id: paper.id + '_' + Date.now().toString(),
+               date: new Date().toISOString(),
+               title: paper.title || paper.id || 'Live Challenge',
+               questions: paper.questions || []
+             };
+             setCurrentTest(testObj);
+             setTimeLeft(isExamMode ? 2400 : 7200);
+             const sections = Array.from(new Set(testObj.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+             setActiveSection(sections[0] || '');
+             setActiveQuestionIdx(0);
+             setLastTestResult(null);
+             setSelectedAnswers({});
+             setMarkedForReview({});
+             setSectionTimes({});
+             setReviewFilter('all');
+             setTaggedQuestions({});
+             setIsPaused(false);
+             setMockPhase('test');
+           }
+        }
+      }
+    });
+    return () => unsub();
+  }, [liveChallengeId, mockPhase, isExamMode]);
+
+  useEffect(() => {
+    if (liveChallengeId && mockPhase !== 'test' && mockPhase !== 'review' && mockPhase !== 'result') {
+      setMockPhase('lobby');
+      if (user && liveChallengeData) {
+         if (!liveChallengeData.challenger && liveChallengeData.host.uid !== user.uid) {
+           updateDoc(doc(db, 'challenges', liveChallengeId), {
+             challenger: { uid: user.uid, name: user.name, photoURL: user.photoURL || null, score: 0, accuracy: 0, progress: 0 }
+           }).catch(console.error);
+         }
+      }
+    }
+  }, [liveChallengeId, user, liveChallengeData, mockPhase]);
+
+  useEffect(() => {
+    if (mockPhase === 'test' && liveChallengeId && user && currentTest) {
+      const timeoutId = setTimeout(() => {
+        let score = 0;
+        let answeredCount = 0;
+        let correctCount = 0;
+        currentTest.questions?.forEach((q: any, idx: number) => {
+           const answer = selectedAnswers[idx];
+           if (answer !== undefined && String(answer).trim() !== '') {
+             answeredCount++;
+             let isCorrect = false;
+             if (q.type === 'MCQ') {
+               if (answer === q.correct) { score += 3; isCorrect = true; }
+               else { score -= 1; }
+             } else {
+               if (String(answer).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()) { score += 3; isCorrect = true; }
+             }
+             if (isCorrect) correctCount++;
+           }
+        });
+        
+        const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+        const progressPct = Math.round((answeredCount / currentTest.questions.length) * 100);
+        
+        const role = liveChallengeData?.host?.uid === user.uid ? 'host' : 'challenger';
+        updateDoc(doc(db, 'challenges', liveChallengeId), {
+          [`${role}.score`]: score,
+          [`${role}.accuracy`]: accuracy,
+          [`${role}.progress`]: progressPct
+        }).catch(e => console.error("Live challenge update failed", e));
+      }, 3000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [selectedAnswers]);
+
   const handleStartPastPaper = async (paperId: string) => {
     if (!user) {
       setIsAuthOpen(true);
@@ -1552,15 +1654,30 @@ export default function CatMaester() {
     setMockPhase('confirm');
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const challengeId = params.get('challenge');
-    if (challengeId && paperLoaders[challengeId]) {
-      setActiveTab('mock');
-      handleStartPastPaper(challengeId);
-      window.history.replaceState({}, '', location.pathname);
+  const handleCreateLiveChallenge = async (paperId: string) => {
+    if (!user) {
+      setIsAuthOpen(true);
+      return;
     }
-  }, [location.search]); 
+    try {
+      const docRef = await addDoc(collection(db, 'challenges'), {
+        paperId,
+        status: 'waiting',
+        host: { uid: user.uid, name: user.name, photoURL: user.photoURL || null, score: 0, accuracy: 0, progress: 0 },
+        challenger: null,
+        createdAt: new Date().toISOString()
+      });
+      setLiveChallengeId(docRef.id);
+      setMockPhase('lobby');
+      const url = new URL(window.location.href);
+      url.searchParams.set('live_challenge', docRef.id);
+      navigator.clipboard.writeText(url.toString());
+      alert('Live Challenge URL copied to clipboard! Send it to your friend to join.');
+    } catch (e) {
+      console.error(e);
+      alert('Failed to create live challenge.');
+    }
+  };
 
   useEffect(() => {
     if (activeTab === 'mock') {
@@ -1808,39 +1925,49 @@ export default function CatMaester() {
       className={`fixed inset-0 z-[1000] flex text-slate-900 dark:text-slate-100 overflow-hidden font-sans transition-colors duration-500 ${activeTab === 'practice' && lastAnswerStatus === 'correct' ? 'bg-emerald-50 dark:bg-emerald-950/30' : activeTab === 'practice' && lastAnswerStatus === 'incorrect' ? 'bg-rose-50 dark:bg-rose-950/30' : 'bg-[#f8fafc] dark:bg-[#020617]'}`}
     >
       {/* Sidebar */}
-        {!hideNavigation && !isSidebarCollapsed && (
-          <nav className="w-20 md:w-64 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0 print:hidden">
-        <div>
-          <div className="p-4 md:p-6">
-            <div className="flex items-center justify-between mb-6">
-              <button onClick={() => navigate('/tools')} className="flex items-center gap-2 text-slate-500 hover:text-[hsl(var(--accent))] transition-colors text-[10px] md:text-xs font-bold tracking-widest uppercase">
-                <ArrowLeft size={16} /> <span className="hidden md:inline">Back to Tools</span>
-              </button>
-              <button onClick={() => setIsSidebarCollapsed(true)} className="hidden md:block text-slate-500 hover:text-[hsl(var(--accent))] transition-colors" title="Collapse Sidebar">
-                <Menu size={18} />
-              </button>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="bg-[hsl(var(--accent))] text-white p-2 rounded-xl shadow-lg shadow-[hsl(var(--accent))]/30">
-                <Book size={24} />
-              </div>
-              <div className="font-bold tracking-widest text-lg hidden md:block cursor-default">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">CAT Maester</span>
-                <span style={{ color: 'hsl(var(--accent))' }}>.</span> 
-              </div>
-            </div>
-          </div>
-          
-          <div className="px-3 mt-4 space-y-2">
+        {!hideNavigation && (
+          <>
+            {/* Mobile Overlay */}
+            <div 
+              className={`md:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[6000] transition-opacity duration-300 ${isSidebarCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
+              onClick={() => setIsSidebarCollapsed(true)} 
+            />
+            
+            <nav className={`fixed md:relative top-0 left-0 h-[100dvh] md:h-auto z-[6001] md:z-auto bg-white/95 dark:bg-slate-900/95 md:bg-white/60 md:dark:bg-white/5 backdrop-blur-2xl border-r border-slate-200/50 dark:border-white/10 flex flex-col justify-between shrink-0 print:hidden transition-all duration-300 ${isSidebarCollapsed ? '-translate-x-full md:translate-x-0 md:w-20' : 'translate-x-0 w-64'}`}>
+              <div>
+                <div className={`p-4 ${isSidebarCollapsed ? 'md:p-4' : 'md:p-6'}`}>
+                  <div className={`flex items-center ${isSidebarCollapsed ? 'md:justify-center' : 'justify-between'} mb-6`}>
+                    <button onClick={() => navigate('/tools')} className={`flex items-center gap-2 text-slate-500 hover:text-[hsl(var(--accent))] transition-colors text-xs font-bold tracking-widest uppercase ${isSidebarCollapsed ? 'md:hidden' : ''}`}>
+                      <ArrowLeft size={16} /> <span>Back to Tools</span>
+                    </button>
+                    <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="hidden md:block text-slate-500 hover:text-[hsl(var(--accent))] transition-colors p-2" title="Toggle Sidebar">
+                      <Menu size={18} />
+                    </button>
+                    <button onClick={() => setIsSidebarCollapsed(true)} className="md:hidden text-slate-500 hover:text-[hsl(var(--accent))] transition-colors p-2">
+                      <X size={20} />
+                    </button>
+                  </div>
+                  <div className={`flex items-center ${isSidebarCollapsed ? 'md:justify-center' : 'gap-3'}`}>
+                    <div className="bg-[hsl(var(--accent))] text-white p-2 rounded-xl shadow-lg shadow-[hsl(var(--accent))]/30 shrink-0">
+                      <Book size={24} />
+                    </div>
+                    <div className={`font-bold tracking-widest text-lg cursor-default whitespace-nowrap overflow-hidden transition-all ${isSidebarCollapsed ? 'md:w-0 md:opacity-0' : 'w-auto opacity-100'}`}>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">CAT Maester</span>
+                      <span style={{ color: 'hsl(var(--accent))' }}>.</span> 
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="px-3 mt-4 space-y-2">
             {[
               { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
               { id: 'practice', icon: PenTool, label: 'Practice Subjects' },
               { id: 'mock', icon: Bot, label: 'Mock Tests' },
               { id: 'formula', icon: Book, label: 'Formula Hub' }
             ].map((item) => (
-              <button key={item.id} onClick={() => setActiveTab(item.id)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${activeTab === item.id ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5'}`}>
-                <item.icon size={20} />
-                <span className="hidden md:inline">{item.label}</span>
+              <button key={item.id} onClick={() => { setActiveTab(item.id); if(window.innerWidth < 768) setIsSidebarCollapsed(true); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${activeTab === item.id ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5'} ${isSidebarCollapsed ? 'md:justify-center' : ''}`}>
+                <item.icon size={20} className="shrink-0" />
+                <span className={`whitespace-nowrap ${isSidebarCollapsed ? 'md:hidden' : ''}`}>{item.label}</span>
               </button>
             ))}
           </div>
@@ -1849,57 +1976,61 @@ export default function CatMaester() {
         <div className="p-4 border-t border-slate-200/50 dark:border-white/10 space-y-4">
           {user ? (
             <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-3 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10">
+              <div className={`flex items-center gap-3 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 ${isSidebarCollapsed ? 'md:justify-center' : ''}`}>
                 {user.photoURL ? (
-                  <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full shadow-sm" />
+                  <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full shadow-sm shrink-0" />
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white font-bold">{user.name.charAt(0)}</div>
+                  <div className="w-8 h-8 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white font-bold shrink-0">{user.name.charAt(0)}</div>
                 )}
-                <div className="flex-1 truncate hidden md:block">
+                <div className={`flex-1 truncate transition-all ${isSidebarCollapsed ? 'md:hidden' : ''}`}>
                   <p className="text-sm font-bold truncate text-slate-900 dark:text-white">{user.name}</p>
                   <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Cloud Synced
                   </p>
                 </div>
               </div>
-              <button onClick={handleLogout} className="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-500 transition-colors">
-                <LogOut size={20} />
-                <span className="hidden md:inline font-medium">Log Out</span>
+              <button onClick={handleLogout} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-500 transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
+                <LogOut size={20} className="shrink-0" />
+                <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Log Out</span>
               </button>
             </div>
           ) : (
-            <button onClick={() => setIsAuthOpen(true)} className="w-full flex items-center justify-center md:justify-start gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors">
-              <LogIn size={20} />
-              <span className="hidden md:inline font-medium">Sign In to Sync</span>
+            <button onClick={() => setIsAuthOpen(true)} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
+              <LogIn size={20} className="shrink-0" />
+              <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Sign In to Sync</span>
             </button>
           )}
         </div>
         <div className="p-2 md:p-4 border-t border-slate-200/50 dark:border-white/10">
-          <div className="flex flex-col md:flex-row items-center justify-center md:justify-around gap-1 md:gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+          <div className={`flex items-center justify-around gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg ${isSidebarCollapsed ? 'md:flex-col' : 'flex-row'}`}>
             <button onClick={() => setTheme('light')} title="Light Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'light' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Sun size={16} /></button>
             <button onClick={() => setTheme('system')} title="System Preference" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'system' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Monitor size={16} /></button>
             <button onClick={() => setTheme('dark')} title="Dark Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Moon size={16} /></button>
           </div>
         </div>
           </nav>
+          </>
         )}
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col relative overflow-y-auto">
           {!hideNavigation && (
-            <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-4 sticky top-0 z-10 flex justify-between items-center px-6 print:hidden">
-          <div className="flex items-center gap-4">
+            <header className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 p-3 md:p-4 sticky top-0 z-10 flex justify-between items-center px-4 md:px-6 print:hidden">
+          <div className="flex items-center gap-3 md:gap-4">
+            <button onClick={() => setIsSidebarCollapsed(false)} className="text-slate-500 hover:text-[hsl(var(--accent))] transition-colors md:hidden" title="Open Menu">
+              <Menu size={24} />
+            </button>
             {isSidebarCollapsed && (
-              <button onClick={() => setIsSidebarCollapsed(false)} className="text-slate-500 hover:text-[hsl(var(--accent))] transition-colors" title="Expand Sidebar">
+              <button onClick={() => setIsSidebarCollapsed(false)} className="hidden md:block text-slate-500 hover:text-[hsl(var(--accent))] transition-colors" title="Expand Sidebar">
                 <Menu size={24} />
               </button>
             )}
-            <h2 className="text-2xl font-bold capitalize">{activeTab}</h2>
+            <h2 className="text-xl md:text-2xl font-bold capitalize">{activeTab}</h2>
           </div>
-          <div className="flex items-center gap-4 bg-white/40 dark:bg-white/5 backdrop-blur-md py-2 px-4 rounded-full border border-slate-200/50 dark:border-white/10">
-            <div className="text-sm font-medium"><span className="text-slate-500">Accuracy: </span><span className="text-[hsl(var(--accent))] font-bold">{accuracy}%</span></div>
-            <div className="w-px h-4 bg-slate-300 dark:bg-slate-600"></div>
-            <div className="text-sm font-medium"><span className="text-slate-500">Tests: </span><span className="text-[hsl(var(--accent))] font-bold">{progress.testsCompleted}</span></div>
+          <div className="flex items-center gap-2 md:gap-4 bg-white/40 dark:bg-white/5 backdrop-blur-md py-1.5 md:py-2 px-3 md:px-4 rounded-full border border-slate-200/50 dark:border-white/10">
+            <div className="text-xs md:text-sm font-medium"><span className="text-slate-500 hidden sm:inline">Accuracy: </span><span className="text-[hsl(var(--accent))] font-bold">{accuracy}%</span></div>
+            <div className="w-px h-3 md:h-4 bg-slate-300 dark:bg-slate-600"></div>
+            <div className="text-xs md:text-sm font-medium"><span className="text-slate-500 hidden sm:inline">Tests: </span><span className="text-[hsl(var(--accent))] font-bold">{progress.testsCompleted}</span></div>
           </div>
             </header>
           )}
@@ -2151,8 +2282,8 @@ export default function CatMaester() {
                             <button onClick={() => handleStartPastPaper(paper.id)} className="w-full flex items-center justify-center gap-2 bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))] hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
                               <PlayCircle size={18} /> Start Test
                             </button>
-                            <button onClick={(e) => { e.stopPropagation(); const url = new URL(window.location.href); url.searchParams.set('challenge', paper.id); navigator.clipboard.writeText(url.toString()); alert('Challenge URL copied to clipboard!'); }} className="w-full flex items-center justify-center gap-2 bg-purple-500/10 text-purple-500 hover:bg-purple-500 hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
-                              <Share2 size={18} /> Challenge Friend
+                            <button onClick={(e) => { e.stopPropagation(); handleCreateLiveChallenge(paper.id); }} className="w-full flex items-center justify-center gap-2 bg-purple-500/10 text-purple-500 hover:bg-purple-500 hover:text-white px-4 py-2 rounded-lg font-bold transition-colors">
+                              <RadioTower size={18} /> Live Challenge
                             </button>
                           </div>
                         </div>
@@ -2195,6 +2326,73 @@ export default function CatMaester() {
                   )}
                 </div>
               )}
+              {mockPhase === 'lobby' && (
+                <div className="flex flex-col items-center justify-center flex-1 p-8 text-center bg-white/60 dark:bg-white/5 backdrop-blur-xl">
+                  <h2 className="text-3xl font-black mb-2 flex items-center gap-3"><RadioTower className="text-purple-500 animate-pulse" size={32} /> Live Challenge Lobby</h2>
+                  <p className="text-slate-500 mb-8 max-w-lg">
+                    Waiting for players to join. Share the challenge URL with your friend!
+                  </p>
+              
+                  {liveChallengeData && (
+                    <div className="flex items-center gap-12 mb-12">
+                      <div className="flex flex-col items-center gap-3">
+                        {liveChallengeData.host.photoURL ? (
+                          <img src={liveChallengeData.host.photoURL} className="w-20 h-20 rounded-full shadow-lg border-4 border-[hsl(var(--accent))]" />
+                        ) : (
+                           <div className="w-20 h-20 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white text-2xl font-bold shadow-lg border-4 border-[hsl(var(--accent))]">{liveChallengeData.host.name.charAt(0)}</div>
+                        )}
+                        <div className="font-bold text-lg">{liveChallengeData.host.name}</div>
+                        <span className="text-xs font-bold uppercase tracking-widest text-[hsl(var(--accent))]">Host</span>
+                      </div>
+              
+                      <div className="text-4xl font-black text-slate-300 dark:text-slate-700 italic">VS</div>
+              
+                      <div className="flex flex-col items-center gap-3">
+                        {liveChallengeData.challenger ? (
+                           <>
+                              {liveChallengeData.challenger.photoURL ? (
+                                <img src={liveChallengeData.challenger.photoURL} className="w-20 h-20 rounded-full shadow-lg border-4 border-purple-500" />
+                              ) : (
+                                 <div className="w-20 h-20 rounded-full bg-purple-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg border-4 border-purple-500">{liveChallengeData.challenger.name.charAt(0)}</div>
+                              )}
+                              <div className="font-bold text-lg">{liveChallengeData.challenger.name}</div>
+                              <span className="text-xs font-bold uppercase tracking-widest text-purple-500">Challenger</span>
+                           </>
+                        ) : (
+                          <>
+                             <div className="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 border-4 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center animate-pulse">
+                                <Loader2 size={24} className="text-slate-400 animate-spin" />
+                             </div>
+                             <div className="font-bold text-lg text-slate-400">Waiting...</div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+              
+                  {liveChallengeData?.host.uid === user?.uid ? (
+                    <button 
+                      disabled={!liveChallengeData?.challenger}
+                      onClick={() => {
+                         updateDoc(doc(db, 'challenges', liveChallengeId!), { status: 'active' });
+                      }} 
+                      className="px-8 py-3 font-bold text-white rounded-xl shadow-lg bg-[hsl(var(--accent))] hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Start Match
+                    </button>
+                  ) : (
+                    <div className="px-8 py-3 font-bold text-slate-500 rounded-xl bg-slate-100 dark:bg-slate-800">
+                      Waiting for Host to start...
+                    </div>
+                  )}
+                  
+                  {!user && (
+                    <button onClick={() => setIsAuthOpen(true)} className="mt-4 text-sm font-bold text-[hsl(var(--accent))] hover:underline">
+                      Sign in to join
+                    </button>
+                  )}
+                </div>
+              )}
               {mockPhase === 'confirm' && currentTest && (
                 <div className="flex flex-col items-center justify-center flex-1 p-8 text-center">
                    <h2 className="text-3xl font-black mb-4">{currentTest.title}</h2>
@@ -2213,6 +2411,43 @@ export default function CatMaester() {
               )}
               {mockPhase === 'test' && currentTest && (
                 <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50 relative">
+                  <AnimatePresence>
+                    {mockPhase === 'test' && liveChallengeId && liveChallengeData && (
+                      <m.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="absolute top-20 left-4 md:left-auto md:right-4 z-[5000] bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-2xl rounded-2xl p-4 flex flex-col gap-3 w-64 pointer-events-none"
+                      >
+                        <div className="text-xs font-bold uppercase tracking-wider text-slate-500 flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                          <span className="flex items-center gap-1.5"><RadioTower size={14} className="text-rose-500 animate-pulse" /> Live Match</span>
+                        </div>
+                        
+                        <div className={`flex justify-between items-center ${liveChallengeData.host.score >= (liveChallengeData.challenger?.score || 0) ? 'opacity-100' : 'opacity-60'}`}>
+                          <div className="flex items-center gap-2">
+                            {liveChallengeData.host.photoURL ? <img src={liveChallengeData.host.photoURL} className="w-6 h-6 rounded-full" /> : <div className="w-6 h-6 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white text-[10px] font-bold">{liveChallengeData.host.name.charAt(0)}</div>}
+                            <span className="text-sm font-bold truncate max-w-[80px]">{liveChallengeData.host.name}</span>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-lg font-black leading-none">{liveChallengeData.host.score}</div>
+                            <div className="text-[10px] text-slate-500 font-bold">{liveChallengeData.host.accuracy}% Acc</div>
+                          </div>
+                        </div>
+                        
+                        {liveChallengeData.challenger && (
+                          <div className={`flex justify-between items-center ${liveChallengeData.challenger.score >= liveChallengeData.host.score ? 'opacity-100' : 'opacity-60'}`}>
+                            <div className="flex items-center gap-2">
+                              {liveChallengeData.challenger.photoURL ? <img src={liveChallengeData.challenger.photoURL} className="w-6 h-6 rounded-full" /> : <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-[10px] font-bold">{liveChallengeData.challenger.name.charAt(0)}</div>}
+                              <span className="text-sm font-bold truncate max-w-[80px]">{liveChallengeData.challenger.name}</span>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-lg font-black leading-none">{liveChallengeData.challenger.score}</div>
+                              <div className="text-[10px] text-slate-500 font-bold">{liveChallengeData.challenger.accuracy}% Acc</div>
+                            </div>
+                          </div>
+                        )}
+                      </m.div>
+                    )}
+                  </AnimatePresence>
                   <AnimatePresence>
                     {showCalculator && (
                       <m.div
@@ -2344,8 +2579,8 @@ export default function CatMaester() {
                                   <>
                                     <div 
                                       onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === q.context ? null : (q.context || null))}
-                                      className={`passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto ${expandedPassageContext === q.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none' : ''}`} 
-                                      style={expandedPassageContext !== q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}
+                                      className={`passage-container flex-1 lg:flex-none p-5 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto ${expandedPassageContext === q.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none' : 'max-h-[40vh] lg:max-h-[calc(100vh-200px)]'}`} 
+                                      style={expandedPassageContext !== q.context ? (isFullscreen ? { maxHeight: 'calc(100vh - 130px)' } : {}) : {}}
                                     >
                                       {expandedPassageContext === q.context && (
                                         <div className="sticky top-0 flex justify-between items-center mb-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur py-3 px-4 -mx-6 -mt-6 md:-mx-8 md:-mt-8 border-b border-slate-200 dark:border-slate-700 z-10">
@@ -2376,13 +2611,13 @@ export default function CatMaester() {
                                     </div>
                                   </>
                                 )}
-                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}>
-                                  <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
+                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? (isFullscreen ? { maxHeight: 'calc(100vh - 130px)' } : {}) : {}}>
+                                  <div className="bg-white/60 dark:bg-white/5 p-5 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {activeSectionQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <div className="font-medium mb-6 text-base md:text-lg leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(q.text)}</div>
+                                  <div className="font-medium mb-6 text-sm md:text-lg leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(q.text)}</div>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => (
                                       <label key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAnswers[q.originalIndex] === oIdx ? 'border-[hsl(var(--accent))] bg-[hsl(var(--accent))]/5 shadow-sm' : 'border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>
@@ -2458,7 +2693,7 @@ export default function CatMaester() {
                        <div className="md:hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-40" onClick={() => setShowMobilePalette(false)}></div>
                      )}
 
-                     <div className={`w-56 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : (showDesktopPalette ? 'hidden md:flex' : 'hidden md:hidden')}`}>
+                     <div className={`w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-[5000] shadow-2xl' : (showDesktopPalette ? 'hidden md:flex' : 'hidden md:hidden')}`}>
                         <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold flex justify-between items-center">
                           <span>Question Palette</span>
                           <button onClick={() => setShowMobilePalette(false)} className="md:hidden text-slate-500"><X size={20} /></button>
@@ -2628,6 +2863,8 @@ export default function CatMaester() {
                         setSelectedAnswers({}); 
                         setLastTestResult(null); 
                         setMarkedForReview({});
+                        setLiveChallengeId(null);
+                        setLiveChallengeData(null);
                       }} className="border px-8 py-3 rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
                         Back to Mock Tests
                       </button>
@@ -2656,9 +2893,9 @@ export default function CatMaester() {
               
               {mockPhase === 'review' && currentTest && (
                 <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
-                  <div className={`flex justify-between items-center ${isFullscreen ? 'p-2 md:p-3' : 'p-4'} border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0`}>
-                    <h3 className={`${isFullscreen ? 'text-base' : 'text-lg'} font-bold truncate pr-2 md:pr-4`}>{currentTest.title} - Review</h3>
-                    <div className="flex items-center gap-1.5 md:gap-4">
+                  <div className={`flex justify-between items-center ${isFullscreen ? 'p-2 md:p-3' : 'p-3 md:p-4'} border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0 gap-2`}>
+                    <h3 className={`${isFullscreen ? 'text-sm md:text-base' : 'text-base md:text-lg'} font-bold truncate flex-1 min-w-[80px] pr-2 md:pr-4`}>{currentTest.title || 'Mock Test Active'}</h3>
+                    <div className="flex items-center gap-1.5 md:gap-4 overflow-x-auto scrollbar-hide shrink-0 max-w-[65%] md:max-w-none pl-2">
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title="Question Palette">
                         <LayoutDashboard size={18} />
                       </button>
@@ -2718,8 +2955,8 @@ export default function CatMaester() {
                                   <>
                                     <div 
                                       onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === q.context ? null : (q.context || null))}
-                                      className={`passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto ${expandedPassageContext === q.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none' : ''}`} 
-                                      style={expandedPassageContext !== q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}
+                                      className={`passage-container flex-1 lg:flex-none p-5 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-sm md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto ${expandedPassageContext === q.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none' : 'max-h-[40vh] lg:max-h-[calc(100vh-200px)]'}`} 
+                                      style={expandedPassageContext !== q.context ? (isFullscreen ? { maxHeight: 'calc(100vh - 130px)' } : {}) : {}}
                                     >
                                       {expandedPassageContext === q.context && (
                                         <div className="sticky top-0 flex justify-between items-center mb-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur py-3 px-4 -mx-6 -mt-6 md:-mx-8 md:-mt-8 border-b border-slate-200 dark:border-slate-700 z-10">
@@ -2750,13 +2987,13 @@ export default function CatMaester() {
                                     </div>
                                   </>
                                 )}
-                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}>
-                                  <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
+                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? (isFullscreen ? { maxHeight: 'calc(100vh - 130px)' } : {}) : {}}>
+                                  <div className="bg-white/60 dark:bg-white/5 p-5 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {filteredReviewQuestions.length}</span></p>
                                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
                                   </div>
-                                  <div className="font-medium mb-6 text-base md:text-lg leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(q.text)}</div>
+                                  <div className="font-medium mb-6 text-sm md:text-lg leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(q.text)}</div>
                                   <div className="space-y-3">
                                     {q.type === 'MCQ' ? q.options?.map((opt: string, oIdx: number) => {
                                       const isSelected = selectedAnswers[q.originalIndex] === oIdx;
@@ -2772,7 +3009,7 @@ export default function CatMaester() {
                                       }
 
                                       return (
-                                        <div key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 transition-all ${borderClass} ${bgClass}`}>
+                                        <div key={oIdx} className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border-2 text-sm md:text-base transition-all ${borderClass} ${bgClass}`}>
                                           <div className={`shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSelected ? (isCorrect ? 'border-emerald-500' : 'border-rose-500') : (isCorrect ? 'border-emerald-500' : 'border-slate-400')}`}>
                                             {isSelected && <div className={`w-2.5 h-2.5 rounded-full ${isCorrect ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>}
                                           </div>
@@ -2862,7 +3099,7 @@ export default function CatMaester() {
                        <div className="md:hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-40" onClick={() => setShowMobilePalette(false)}></div>
                      )}
 
-                     <div className={`w-56 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-50 shadow-2xl' : 'hidden md:flex'}`}>
+                     <div className={`w-64 shrink-0 border-l border-slate-200/50 dark:border-white/10 bg-white dark:bg-slate-900 md:bg-white/40 md:dark:bg-white/5 flex-col ${showMobilePalette ? 'flex absolute right-0 inset-y-0 z-[5000] shadow-2xl' : 'hidden md:flex'}`}>
                         <div className="p-4 border-b border-slate-200/50 dark:border-white/10 font-bold flex justify-between items-center">
                           <span>Question Palette</span>
                           <button onClick={() => setShowMobilePalette(false)} className="md:hidden text-slate-500"><X size={20} /></button>
@@ -2920,23 +3157,23 @@ export default function CatMaester() {
               <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                 <div className="flex flex-wrap gap-2 md:gap-3 pb-2">
                   {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
-                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAiTopicMode && practiceFilterAIBatch === null ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap text-sm md:text-base ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAiTopicMode && practiceFilterAIBatch === null ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                       {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
                     </button>
                   ))}
                   {practiceFilterTopic && (
-                    <button className="px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))]">
+                    <button className="px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))] text-sm md:text-base">
                       {practiceFilterTopic} Focus
                     </button>
                   )}
-                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
+                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm text-sm md:text-base ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
                     Bookmarks ({progress.bookmarkedQuestions?.length || 0})
                   </button>
                   
                   <div className="relative">
                     <button 
                       onClick={() => setIsDifficultyDropdownOpen(!isDifficultyDropdownOpen)}
-                      className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 ${practiceFilterDifficulty !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
+                      className={`px-4 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 text-sm md:text-base ${practiceFilterDifficulty !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
                     >
                       {practiceFilterDifficulty !== null ? `${practiceFilterDifficulty} Difficulty` : 'Any Difficulty'}
                       <ChevronDown size={16} className={`transition-transform ${isDifficultyDropdownOpen ? 'rotate-180' : ''}`} />
@@ -2984,7 +3221,7 @@ export default function CatMaester() {
                     <div className="relative">
                       <button 
                         onClick={() => setIsAiBatchDropdownOpen(!isAiBatchDropdownOpen)}
-                        className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 ${practiceFilterAIBatch !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
+                        className={`px-4 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 text-sm md:text-base ${practiceFilterAIBatch !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
                       >
                         {practiceFilterAIBatch !== null ? `AI Batch #${practiceFilterAIBatch + 1}` : 'Saved AI Batches'}
                         <ChevronDown size={16} className={`transition-transform ${isAiBatchDropdownOpen ? 'rotate-180' : ''}`} />
@@ -3231,7 +3468,7 @@ export default function CatMaester() {
                         <>
                           <div 
                             onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === group.context ? null : (group.context || null))}
-                            className={`passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto ${expandedPassageContext === group.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none bg-white dark:bg-slate-900' : 'max-h-[50vh] lg:max-h-[calc(100vh-160px)]'}`} 
+                            className={`passage-container lg:sticky lg:top-[140px] p-5 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-sm md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto ${expandedPassageContext === group.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none bg-white dark:bg-slate-900' : 'max-h-[40vh] lg:max-h-[calc(100vh-160px)]'}`} 
                             style={expandedPassageContext !== group.context ? { scrollbarWidth: 'thin' } : {}}
                           >
                             {expandedPassageContext === group.context && (
@@ -3265,7 +3502,7 @@ export default function CatMaester() {
                       )}
                       <div className={`${group.context ? 'question-container' : 'w-full max-w-5xl mx-auto'} flex flex-col gap-6`}>
                         {group.qs.map(({ q, idx }) => (
-                          <m.div layout key={q.id} id={`practice-q-${idx}`} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm">
+                          <m.div layout key={q.id} id={`practice-q-${idx}`} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl p-5 md:p-8 shadow-sm">
                             <div className="flex justify-between items-start mb-6 gap-4">
                               <div className="flex-1">
                             <div className="flex gap-2 mb-3">
@@ -3286,7 +3523,7 @@ export default function CatMaester() {
                                 return <span className={`text-[10px] md:text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${diffColor}`}>{diffText}</span>;
                               })()}
                             </div>
-                            <div className="font-medium text-lg leading-relaxed flex gap-2 text-slate-800 dark:text-slate-200">
+                            <div className="font-medium text-base md:text-lg leading-relaxed flex gap-2 text-slate-800 dark:text-slate-200">
                               <span>{idx + 1}.</span>
                               <div>{renderContextWithImages(q.text)}</div>
                             </div>
@@ -3332,7 +3569,7 @@ export default function CatMaester() {
                                 saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
                               }
                             }} />
-                            <div className={`border-2 rounded-xl p-4 transition-all duration-200 hover:shadow-md ${borderClass} ${bgClass} leading-relaxed`}>{renderContextWithImages(opt)}</div>
+                            <div className={`border-2 rounded-xl p-3 md:p-4 text-sm md:text-base transition-all duration-200 hover:shadow-md ${borderClass} ${bgClass} leading-relaxed`}>{renderContextWithImages(opt)}</div>
                           </label>
                         );
                       }) : (
