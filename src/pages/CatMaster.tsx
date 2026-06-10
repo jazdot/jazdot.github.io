@@ -144,6 +144,7 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
     - Focus on Arithmetic, Algebra, Geometry, and Number Systems as per recent CAT trends.` : ''}
     
     CRITICAL INSTRUCTION: You must respond ONLY with a raw JSON array. Do not include markdown formatting (like \`\`\`json), explanations, or any other text. 
+    VERY IMPORTANT: You MUST double-escape all backslashes used in LaTeX or math formulas (e.g., write \\\\sqrt instead of \\sqrt, \\\\pi instead of \\pi, \\\\theta instead of \\theta, \\\\frac instead of \\frac) so that the output is strictly valid JSON.
     
     The JSON objects must strictly follow this TypeScript interface:
     {
@@ -190,14 +191,25 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
 
       rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
 
-      const parsedQuestions: Question[] = JSON.parse(rawText);
-      
-      if (!Array.isArray(parsedQuestions)) {
-        throw new Error("AI returned invalid structure (not an array).");
-      }
+      // Robust JSON Sanitization for unescaped LaTeX backslashes
+      // 1. Double escape all single backslashes that are not followed by valid JSON escape chars
+      rawText = rawText.replace(/(?<!\\)\\(?!["\\/bfnrt])/g, '\\\\');
+      // 2. specifically fix common LaTeX commands that start with t, f, b, r, n so they don't break JSON parsing as control characters
+      rawText = rawText.replace(/(?<!\\)\\(theta|frac|beta|nabla|rho|tau|text|times|triangle|to|right|Rightarrow|rightarrow|neq|le|ge|circ|cdot|approx|infty|pm|div)/gi, '\\\\$1');
 
-      console.log(`[AI] Generation complete for ${subject}.`, parsedQuestions);
-      return parsedQuestions;
+      try {
+        const parsedQuestions: Question[] = JSON.parse(rawText);
+        
+        if (!Array.isArray(parsedQuestions)) {
+          throw new Error("AI returned invalid structure (not an array).");
+        }
+  
+        console.log(`[AI] Generation complete for ${subject}.`, parsedQuestions);
+        return parsedQuestions;
+      } catch (parseError: any) {
+        console.error("[AI] JSON Parse Error:", parseError.message, "\nRaw Text:", rawText);
+        throw new Error("Failed to parse AI response. " + parseError.message);
+      }
 
     } catch (error) {
       console.error(`[AI] Attempt ${attempt}/${retries} failed:`, error);
@@ -2007,18 +2019,20 @@ export default function CatMaester() {
                   </AnimatePresence>
                   <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
-                    <div className="flex items-center gap-2 md:gap-4">
-                      <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
+                    <div className="flex items-center gap-1.5 md:gap-4">
+                      <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title="Question Palette">
+                        <LayoutDashboard size={18} />
+                      </button>
                       <button onClick={() => setShowDesktopPalette(!showDesktopPalette)} className="hidden md:block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all whitespace-nowrap">
                         {showDesktopPalette ? 'Hide Palette' : 'Show Palette'}
                       </button>
-                      <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
+                      <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
                         {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                       </button>
-                      <button onClick={() => setShowCalculator(!showCalculator)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title="Calculator">
+                      <button onClick={() => setShowCalculator(!showCalculator)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title="Calculator">
                         <Calculator size={18} />
                       </button>
-                      <button onClick={() => setIsSoundEnabled(!isSoundEnabled)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isSoundEnabled ? "Mute Timer" : "Unmute Timer"}>
+                      <button onClick={() => setIsSoundEnabled(!isSoundEnabled)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title={isSoundEnabled ? "Mute Timer" : "Unmute Timer"}>
                         {isSoundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                       </button>
                       <button onClick={() => {
@@ -2033,10 +2047,10 @@ export default function CatMaester() {
                         }
                       }} className="bg-rose-500/10 text-rose-500 border border-rose-500/20 hover:bg-rose-500 hover:text-white px-3 py-1.5 rounded-lg font-bold shadow-sm active:scale-95 transition-all text-sm hidden lg:block" title="Reset Test (Alt+R)">Reset</button>
                       <button onClick={() => setIsPaused(true)} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm hidden lg:block">Pause</button>
-                      <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-2 md:px-3 py-1.5 rounded-lg font-bold text-sm md:text-lg flex items-center gap-1 md:gap-2 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
-                         <Timer size={18} /> {formatTime(timeLeft)}
+                      <div className={`font-mono bg-slate-100 dark:bg-slate-800 px-1.5 md:px-3 py-1.5 rounded-lg font-bold text-xs md:text-lg flex items-center gap-1 md:gap-2 shrink-0 ${timeLeft < 300 ? 'text-rose-500' : 'text-[hsl(var(--accent))]'}`}>
+                         <Timer size={16} className="md:w-[18px] md:h-[18px]" /> {formatTime(timeLeft)}
                       </div>
-                      <button onClick={() => setShowSubmitSummary(true)} className="bg-[hsl(var(--accent))] text-white px-3 md:px-5 py-1.5 md:py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base">Submit</button>
+                      <button onClick={() => setShowSubmitSummary(true)} className="bg-[hsl(var(--accent))] text-white px-2.5 md:px-5 py-1.5 md:py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-xs md:text-base shrink-0">Submit</button>
                     </div>
                   </div>
 
@@ -2391,25 +2405,27 @@ export default function CatMaester() {
                 <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
                   <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
                     <h3 className="text-lg font-bold truncate pr-4">{currentTest.title} - Review</h3>
-                    <div className="flex items-center gap-2 md:gap-4">
-                      <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm">Palette</button>
+                    <div className="flex items-center gap-1.5 md:gap-4">
+                      <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title="Question Palette">
+                        <LayoutDashboard size={18} />
+                      </button>
                       <button onClick={() => setShowDesktopPalette(!showDesktopPalette)} className="hidden md:block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all whitespace-nowrap">
                         {showDesktopPalette ? 'Hide Palette' : 'Show Palette'}
                       </button>
-                      <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
+                      <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
                         {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                       </button>
                       <select 
                         value={reviewFilter} 
                         onChange={(e) => { setReviewFilter(e.target.value as any); setActiveQuestionIdx(0); }}
-                        className="bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm font-medium focus:outline-none focus:border-[hsl(var(--accent))]"
+                        className="bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-2 md:px-3 py-1.5 text-xs md:text-sm font-medium focus:outline-none focus:border-[hsl(var(--accent))] shrink-0 max-w-[120px] md:max-w-none truncate"
                       >
                         <option value="all">All Questions</option>
                         <option value="correct">Correct Only</option>
                         <option value="incorrect">Incorrect Only</option>
                         <option value="unanswered">Unanswered Only</option>
                       </select>
-                      <button onClick={() => setMockPhase('result')} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 md:px-5 py-1.5 md:py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-sm md:text-base whitespace-nowrap">Back <span className="hidden md:inline">to Results</span></button>
+                      <button onClick={() => setMockPhase('result')} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-2.5 md:px-5 py-1.5 md:py-2 rounded-lg font-bold shadow-md hover:opacity-90 active:scale-95 transition-all text-xs md:text-base whitespace-nowrap shrink-0">Back <span className="hidden md:inline">to Results</span></button>
                     </div>
                   </div>
                   
@@ -2804,7 +2820,7 @@ export default function CatMaester() {
                     }} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
                     <span className={isAiTopicMode ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>AI Topic Focus</span>
                   </label>
-                  <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
+                  <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
                     {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                   </button>
                 </div>
