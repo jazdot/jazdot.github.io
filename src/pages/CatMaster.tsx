@@ -2804,6 +2804,9 @@ export default function CatMaester() {
                     }} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
                     <span className={isAiTopicMode ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>AI Topic Focus</span>
                   </label>
+                  <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all hidden sm:block" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
+                    {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+                  </button>
                 </div>
               </div>
 
