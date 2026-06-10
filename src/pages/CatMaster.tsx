@@ -1068,47 +1068,6 @@ export default function CatMaester() {
     return () => mediaQuery.removeEventListener('change', updateTheme);
   }, [theme]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Global shortcut to clear all progress and saved tests
-      if (e.ctrlKey && e.shiftKey && (e.key === 'Backspace' || e.key === 'Delete')) {
-        e.preventDefault();
-        setShowClearHistoryConfirmationModal(true);
-      }
-
-      // Shortcut to instantly reset current mock test (Alt + R)
-      if (activeTab === 'mock' && mockPhase === 'test') {
-        if (e.altKey && e.key.toLowerCase() === 'r') {
-          e.preventDefault();
-          if (window.confirm("Are you sure you want to instantly clear all progress and saved answers for this test?")) {
-            setSelectedAnswers({});
-            setMarkedForReview({});
-            setSectionTimes({});
-            const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
-            setActiveSection(sections[0] || '');
-            setActiveQuestionIdx(0);
-            setTimeLeft(isExamMode ? 2400 : 7200);
-          }
-        }
-      }
-
-      if (activeTab === 'practice') {
-        const activeTag = document.activeElement?.tagName.toLowerCase();
-        if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
-        
-        if (e.key === '1') {
-          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        } else if (e.key === '2') {
-          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        } else if (e.key === '3') {
-          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        }
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeTab]);
-
   // Memoize questions mapping and filtering to optimize re-renders during test/review
   const allQuestionsMapped = useMemo(() => {
     return currentTest?.questions?.map((q: any, i: number) => ({ ...q, originalIndex: i })) || [];
@@ -1133,6 +1092,95 @@ export default function CatMaester() {
       return true;
     });
   }, [mockPhase, activeSectionQuestions, reviewFilter, selectedAnswers]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = document.activeElement?.tagName.toLowerCase();
+      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+
+      // Global shortcut to clear all progress and saved tests
+      if (e.ctrlKey && e.shiftKey && (e.key === 'Backspace' || e.key === 'Delete')) {
+        e.preventDefault();
+        setShowClearHistoryConfirmationModal(true);
+      }
+
+      // Shortcut to instantly reset current mock test (Alt + R)
+      if (activeTab === 'mock' && mockPhase === 'test') {
+        if (e.altKey && e.key.toLowerCase() === 'r') {
+          e.preventDefault();
+          if (window.confirm("Are you sure you want to instantly clear all progress and saved answers for this test?")) {
+            setSelectedAnswers({});
+            setMarkedForReview({});
+            setSectionTimes({});
+            const sections = Array.from(new Set(currentTest?.questions?.map((q: any) => q.section).filter(Boolean))) as string[];
+            setActiveSection(sections[0] || '');
+            setActiveQuestionIdx(0);
+            setTimeLeft(isExamMode ? 2400 : 7200);
+          }
+        }
+
+        const q = activeSectionQuestions[activeQuestionIdx];
+        if (q && q.type === 'MCQ' && ['1', '2', '3', '4'].includes(e.key)) {
+          e.preventDefault();
+          const optIdx = parseInt(e.key) - 1;
+          if (q.options && optIdx < q.options.length) {
+            setSelectedAnswers(prev => ({ ...prev, [q.originalIndex]: optIdx }));
+          }
+        }
+      }
+
+      if (activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review')) {
+         if (e.key === 'ArrowRight') {
+             e.preventDefault();
+             const maxIdx = mockPhase === 'test' ? activeSectionQuestions.length - 1 : filteredReviewQuestions.length - 1;
+             if (activeQuestionIdx < maxIdx) setActiveQuestionIdx(prev => prev + 1);
+         } else if (e.key === 'ArrowLeft') {
+             e.preventDefault();
+             if (activeQuestionIdx > 0) setActiveQuestionIdx(prev => prev - 1);
+         }
+      }
+
+      if (activeTab === 'practice') {
+        if (e.key === '1') {
+          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
+        } else if (e.key === '2') {
+          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
+        } else if (e.key === '3') {
+          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
+        } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const subjects = ['QA', 'VARC', 'DILR'];
+          const curr = subjects.indexOf(practiceSubject);
+          const next = e.key === 'ArrowRight' ? (curr + 1) % subjects.length : (curr - 1 + subjects.length) % subjects.length;
+          setPracticeSubject(subjects[next] as 'QA' | 'VARC' | 'DILR');
+          setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          let closestIdx = 0;
+          let minDistance = Infinity;
+          for(let i = 0; i < practiceQuestions.length; i++) {
+             const el = document.getElementById(`practice-q-${i}`);
+             if(el) {
+                const rect = el.getBoundingClientRect();
+                // Calculate distance to vertical center to see which question is currently focused on the screen
+                const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+                if(distance < minDistance) {
+                   minDistance = distance;
+                   closestIdx = i;
+                }
+             }
+          }
+          const targetIdx = e.key === 'ArrowDown' 
+              ? Math.min(closestIdx + 1, practiceQuestions.length - 1) 
+              : Math.max(closestIdx - 1, 0);
+          
+          document.getElementById(`practice-q-${targetIdx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeTab, mockPhase, currentTest, isExamMode, activeQuestionIdx, activeSectionQuestions, filteredReviewQuestions.length, practiceSubject, practiceQuestions.length]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -2881,7 +2929,7 @@ export default function CatMaester() {
                       )}
                       <div className={`${group.context ? 'question-container' : 'w-full max-w-5xl mx-auto'} flex flex-col gap-6`}>
                         {group.qs.map(({ q, idx }) => (
-                          <m.div layout key={q.id} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm">
+                          <m.div layout key={q.id} id={`practice-q-${idx}`} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm">
                             <div className="flex justify-between items-start mb-6 gap-4">
                               <div className="flex-1">
                             <div className="flex gap-2 mb-3">
