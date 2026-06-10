@@ -535,8 +535,8 @@ const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confir
         <h3 className="text-xl font-bold mb-2">{title}</h3>
         <p className="text-slate-500 mb-6 text-sm">{message}</p>
         <div className="flex gap-3">
-          <button onClick={onCancel} className="flex-1 px-4 py-2 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">{cancelText}</button>
-          <button onClick={onConfirm} className={`flex-1 px-4 py-2 rounded-xl font-bold text-white transition-all ${isDestructive ? 'bg-rose-500 hover:bg-rose-600' : 'bg-[hsl(var(--accent))] hover:opacity-90'}`}>{confirmText}</button>
+          <button onClick={onCancel} className="px-4 py-2 flex-1 font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">{cancelText}</button>
+          <button onClick={onConfirm} className={`px-4 py-2 flex-1 font-bold text-white transition-all rounded-xl ${isDestructive ? 'bg-rose-500 hover:bg-rose-600' : 'bg-[hsl(var(--accent))] hover:opacity-90'}`}>{confirmText}</button>
         </div>
       </m.div>
     </div>
@@ -561,8 +561,8 @@ const ActivationModal = ({ isOpen, onClose, onActivate, error }: { isOpen: boole
         />
         {error && <p className="text-rose-500 text-xs mb-4">{error}</p>}
         <div className="flex gap-3 mt-2">
-          <button onClick={onClose} className="flex-1 px-4 py-2 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
-          <button onClick={() => onActivate(key)} className="flex-1 px-4 py-2 rounded-xl font-bold text-white bg-[hsl(var(--accent))] hover:opacity-90 transition-all">Activate</button>
+          <button onClick={onClose} className="px-4 py-2 flex-1 font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
+          <button onClick={() => onActivate(key)} className="px-4 py-2 flex-1 font-bold text-white rounded-xl bg-[hsl(var(--accent))] hover:opacity-90 transition-all">Activate</button>
         </div>
       </m.div>
     </div>
@@ -606,7 +606,9 @@ export default function CatMaester() {
   const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
   const [practiceFilterTopic, setPracticeFilterTopic] = useState<string | null>(null);
   const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
-  const [practiceFilterDifficulty, setPracticeFilterDifficulty] = useState<string | null>(null);
+  const [practiceFilterDifficulty, setPracticeFilterDifficulty] = useState<string | null>(() => {
+    return localStorage.getItem('cat-maester-difficulty') || null;
+  });
   const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
   const [activeHint, setActiveHint] = useState<string | null>(null);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
@@ -641,7 +643,10 @@ export default function CatMaester() {
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
     () => (localStorage.getItem('cat-maester-theme') as 'light' | 'dark' | 'system') || 'system'
   );
-  const [isAdaptive, setIsAdaptive] = useState(false);
+  const [isAdaptive, setIsAdaptive] = useState(() => {
+    return localStorage.getItem('cat-maester-adaptive') === 'true';
+  });
+  const [expandedPassageContext, setExpandedPassageContext] = useState<string | null>(null);
   const [questionRatings, setQuestionRatings] = useState<Record<string, number>>(() => {
     try { const saved = localStorage.getItem('cat-maester-question-ratings'); return saved ? JSON.parse(saved) : {}; } 
     catch { return {}; }
@@ -655,6 +660,15 @@ export default function CatMaester() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (practiceFilterDifficulty) localStorage.setItem('cat-maester-difficulty', practiceFilterDifficulty);
+    else localStorage.removeItem('cat-maester-difficulty');
+  }, [practiceFilterDifficulty]);
+
+  useEffect(() => {
+    localStorage.setItem('cat-maester-adaptive', isAdaptive.toString());
+  }, [isAdaptive]);
 
   const handleAiQuestionRating = (questionId: string, rating: number) => {
     setAiQuestionFeedback(prev => {
@@ -690,10 +704,42 @@ export default function CatMaester() {
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
+      if (!!document.fullscreenElement) {
+        setIsSidebarCollapsed(true);
+      }
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
+
+  // Mobile Edge-Swipe Gestures for Sidebar & Question Palette
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = Math.abs(touchEndY - touchStartY);
+      
+      if (deltaY > 50) return; // Ignore primarily vertical swipes
+      
+      if (touchStartX < 30 && deltaX > 50) {
+        setIsSidebarCollapsed(false); // Swipe right from left edge
+      }
+      if (touchStartX > window.innerWidth - 30 && deltaX < -50) {
+        if (activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review')) setShowMobilePalette(true);
+        else setIsSidebarCollapsed(true); // Swipe left from right edge
+      }
+    };
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    return () => { window.removeEventListener('touchstart', handleTouchStart); window.removeEventListener('touchend', handleTouchEnd); };
+  }, [activeTab, mockPhase]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -1968,8 +2014,8 @@ export default function CatMaester() {
                      Strict Sectional Timing (40 min / section)
                    </label>
                    <div className="flex gap-4">
-                     <button onClick={() => setMockPhase('select')} className="px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
-                     <button onClick={startConfirmedTest} className="px-8 py-3 rounded-xl font-bold bg-[hsl(var(--accent))] text-white shadow-lg hover:scale-105 active:scale-95 transition-all">Begin Test</button>
+                     <button onClick={() => setMockPhase('select')} className="py-3 px-6 font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Cancel</button>
+                     <button onClick={startConfirmedTest} className="py-3 px-8 font-bold text-white rounded-xl shadow-lg bg-[hsl(var(--accent))] hover:scale-105 active:scale-95 transition-all">Begin Test</button>
                    </div>
                 </div>
               )}
@@ -2018,8 +2064,8 @@ export default function CatMaester() {
                       </m.div>
                     )}
                   </AnimatePresence>
-                  <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
-                    <h3 className="text-lg font-bold truncate pr-4">{currentTest.title || 'Mock Test Active'}</h3>
+                  <div className={`flex justify-between items-center ${isFullscreen ? 'p-2 md:p-3' : 'p-4'} border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0`}>
+                    <h3 className={`${isFullscreen ? 'text-base' : 'text-lg'} font-bold truncate pr-2 md:pr-4`}>{currentTest.title || 'Mock Test Active'}</h3>
                     <div className="flex items-center gap-1.5 md:gap-4">
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title="Question Palette">
                         <LayoutDashboard size={18} />
@@ -2104,7 +2150,18 @@ export default function CatMaester() {
                              <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-0 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
                                   <>
-                                    <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+                                    <div 
+                                      onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === q.context ? null : (q.context || null))}
+                                      className={`passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto ${expandedPassageContext === q.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none' : ''}`} 
+                                      style={expandedPassageContext !== q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}
+                                    >
+                                      {expandedPassageContext === q.context && (
+                                        <div className="sticky top-0 flex justify-between items-center mb-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur py-3 px-4 -mx-6 -mt-6 md:-mx-8 md:-mt-8 border-b border-slate-200 dark:border-slate-700 z-10">
+                                           <span className="font-bold text-[hsl(var(--accent))] flex items-center gap-2"><Maximize size={18}/> Reading Mode</span>
+                                           <button onClick={() => setExpandedPassageContext(null)} className="text-slate-500 hover:text-rose-500 bg-slate-100 dark:bg-slate-700 p-2 rounded-lg flex items-center gap-2 text-sm font-bold transition-colors"><Minimize size={16}/> Close</button>
+                                        </div>
+                                      )}
+                                      {!expandedPassageContext && <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-4 lg:hidden flex items-center gap-1"><Maximize size={12}/> Double tap passage to expand</div>}
                                       {q.difficulty && q.id.startsWith('gen_') && (
                                         <div className="mb-4 flex items-center gap-2">
                                           <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
@@ -2127,7 +2184,7 @@ export default function CatMaester() {
                                     </div>
                                   </>
                                 )}
-                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: 'calc(100vh - 200px)' } : {}}>
+                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}>
                                   <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {activeSectionQuestions.length}</span></p>
@@ -2167,7 +2224,7 @@ export default function CatMaester() {
                                    <button 
                                      disabled={activeQuestionIdx === 0} 
                                      onClick={() => setActiveQuestionIdx(prev => prev - 1)}
-                                     className="w-full sm:w-auto px-4 md:px-6 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all order-2 sm:order-1 text-sm md:text-base"
+                                     className="w-full sm:w-auto py-3 px-4 md:px-6 font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all order-2 sm:order-1 text-sm md:text-base"
                                    >
                                      Previous
                                    </button>
@@ -2239,7 +2296,10 @@ export default function CatMaester() {
                                   return (
                                     <button 
                                       key={idx}
-                                      onClick={() => setActiveQuestionIdx(idx)}
+                                      onClick={() => {
+                                        setActiveQuestionIdx(idx);
+                                        setShowMobilePalette(false);
+                                      }}
                                       className={`aspect-square rounded-lg border flex items-center justify-center font-bold text-sm transition-all hover:scale-105 ${btnClass}`}
                                     >
                                       {idx + 1}
@@ -2404,8 +2464,8 @@ export default function CatMaester() {
               
               {mockPhase === 'review' && currentTest && (
                 <div className="flex flex-col flex-1 h-full bg-slate-50/50 dark:bg-slate-900/50">
-                  <div className="flex justify-between items-center p-4 border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0">
-                    <h3 className="text-lg font-bold truncate pr-4">{currentTest.title} - Review</h3>
+                  <div className={`flex justify-between items-center ${isFullscreen ? 'p-2 md:p-3' : 'p-4'} border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shrink-0`}>
+                    <h3 className={`${isFullscreen ? 'text-base' : 'text-lg'} font-bold truncate pr-2 md:pr-4`}>{currentTest.title} - Review</h3>
                     <div className="flex items-center gap-1.5 md:gap-4">
                       <button onClick={() => setShowMobilePalette(!showMobilePalette)} className="md:hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg font-bold text-sm shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title="Question Palette">
                         <LayoutDashboard size={18} />
@@ -2464,7 +2524,18 @@ export default function CatMaester() {
                              <div className={`mx-auto w-full pb-8 ${q.context ? 'max-w-full flex flex-col lg:flex-row lg:gap-0 gap-6 h-full' : 'max-w-5xl flex flex-col'}`}>
                                 {q.context && (
                                   <>
-                                    <div className="passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+                                    <div 
+                                      onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === q.context ? null : (q.context || null))}
+                                      className={`passage-container flex-1 lg:flex-none p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose overflow-y-auto ${expandedPassageContext === q.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none' : ''}`} 
+                                      style={expandedPassageContext !== q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}
+                                    >
+                                      {expandedPassageContext === q.context && (
+                                        <div className="sticky top-0 flex justify-between items-center mb-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur py-3 px-4 -mx-6 -mt-6 md:-mx-8 md:-mt-8 border-b border-slate-200 dark:border-slate-700 z-10">
+                                           <span className="font-bold text-[hsl(var(--accent))] flex items-center gap-2"><Maximize size={18}/> Reading Mode</span>
+                                           <button onClick={() => setExpandedPassageContext(null)} className="text-slate-500 hover:text-rose-500 bg-slate-100 dark:bg-slate-700 p-2 rounded-lg flex items-center gap-2 text-sm font-bold transition-colors"><Minimize size={16}/> Close</button>
+                                        </div>
+                                      )}
+                                      {!expandedPassageContext && <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-4 lg:hidden flex items-center gap-1"><Maximize size={12}/> Double tap passage to expand</div>}
                                       {q.difficulty && q.id.startsWith('gen_') && (
                                         <div className="mb-4 flex items-center gap-2">
                                           <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
@@ -2487,7 +2558,7 @@ export default function CatMaester() {
                                     </div>
                                   </>
                                 )}
-                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: 'calc(100vh - 200px)' } : {}}>
+                                <div className={`question-container flex-1 ${q.context ? 'lg:flex-none overflow-y-auto pr-2 pb-16 md:pb-0' : ''} flex flex-col`} style={q.context ? { maxHeight: isFullscreen ? 'calc(100vh - 130px)' : 'calc(100vh - 200px)' } : {}}>
                                   <div className="bg-white/60 dark:bg-white/5 p-4 md:p-6 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm mb-6">
                                   <div className="flex justify-between items-start mb-4">
                                     <p className="font-bold text-base md:text-lg">Question {activeQuestionIdx + 1} <span className="text-slate-400 text-xs md:text-sm font-normal">of {filteredReviewQuestions.length}</span></p>
@@ -2580,7 +2651,7 @@ export default function CatMaester() {
                                      <button 
                                        disabled={activeQuestionIdx === 0} 
                                        onClick={() => setActiveQuestionIdx(prev => prev - 1)}
-                                       className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
+                                       className="flex-1 sm:flex-none py-2.5 px-6 font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm md:text-base"
                                      >
                                        Previous
                                      </button>
@@ -2632,7 +2703,10 @@ export default function CatMaester() {
                                   return (
                                     <button 
                                       key={idx}
-                                      onClick={() => setActiveQuestionIdx(idx)}
+                                      onClick={() => {
+                                        setActiveQuestionIdx(idx);
+                                        setShowMobilePalette(false);
+                                      }}
                                       className={`aspect-square rounded-lg border flex items-center justify-center font-bold text-sm transition-all hover:scale-105 ${btnClass}`}
                                     >
                                       {activeSectionQuestions.findIndex((sq: any) => sq.originalIndex === q.originalIndex) + 1}
@@ -2968,7 +3042,18 @@ export default function CatMaester() {
                       >
                       {group.context && (
                         <>
-                          <div className="passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto max-h-[50vh] lg:max-h-[calc(100vh-160px)]" style={{ scrollbarWidth: 'thin' }}>
+                          <div 
+                            onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === group.context ? null : (group.context || null))}
+                            className={`passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-base md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto ${expandedPassageContext === group.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none bg-white dark:bg-slate-900' : 'max-h-[50vh] lg:max-h-[calc(100vh-160px)]'}`} 
+                            style={expandedPassageContext !== group.context ? { scrollbarWidth: 'thin' } : {}}
+                          >
+                            {expandedPassageContext === group.context && (
+                              <div className="sticky top-0 flex justify-between items-center mb-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur py-3 px-4 -mx-6 -mt-6 md:-mx-8 md:-mt-8 border-b border-slate-200 dark:border-slate-700 z-10">
+                                 <span className="font-bold text-[hsl(var(--accent))] flex items-center gap-2"><Maximize size={18}/> Reading Mode</span>
+                                 <button onClick={() => setExpandedPassageContext(null)} className="text-slate-500 hover:text-rose-500 bg-slate-100 dark:bg-slate-800 p-2 rounded-lg flex items-center gap-2 text-sm font-bold transition-colors"><Minimize size={16}/> Close</button>
+                              </div>
+                            )}
+                            {!expandedPassageContext && <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-4 lg:hidden flex items-center gap-1"><Maximize size={12}/> Double tap passage to expand</div>}
                             {group.qs[0].q.difficulty && group.qs[0].q.id.startsWith('gen_') && (
                               <div className="mb-4 flex items-center gap-2">
                                 <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
@@ -3377,8 +3462,8 @@ export default function CatMaester() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <button onClick={() => setShowSubmitSummary(false)} className="flex-1 py-3 rounded-xl font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Resume</button>
-                <button onClick={() => { setShowSubmitSummary(false); handleSubmitMock(); }} className="flex-1 py-3 rounded-xl font-bold bg-[hsl(var(--accent))] text-white shadow-lg hover:scale-105 active:scale-95 transition-all">Confirm Submit</button>
+                <button onClick={() => setShowSubmitSummary(false)} className="py-3 flex-1 font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Resume</button>
+                <button onClick={() => { setShowSubmitSummary(false); handleSubmitMock(); }} className="py-3 flex-1 font-bold text-white rounded-xl shadow-lg bg-[hsl(var(--accent))] hover:scale-105 active:scale-95 transition-all">Confirm Submit</button>
               </div>
             </m.div>
           </m.div>
