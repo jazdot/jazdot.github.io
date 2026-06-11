@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [
     react(),
     ViteImageOptimizer({
+      exclude: ['jd-maskable.png', 'jd-android.png'],
       png: { quality: 80 },
       jpeg: { quality: 80 },
       webp: { lossless: true },
