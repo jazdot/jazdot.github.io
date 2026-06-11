@@ -18,7 +18,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['jd.png', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf', 'og-image.jpg'],
+      includeAssets: ['jd.png', 'jd-android.png', 'jd-maskable.png', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf', 'og-image.jpg'],
       manifest: {
         name: 'Muhammed Riswan | Network Engineer',
         short_name: 'JAZDOT',
@@ -28,16 +28,22 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: 'jd.png',
+            src: 'jd-android.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any'
           },
           {
-            src: 'jd.png',
+            src: 'jd-android.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
+          },
+          {
+            src: 'jd-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       },
