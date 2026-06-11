@@ -2,12 +2,44 @@
 // @ts-ignore - Ignores TS error if vite-env.d.ts doesn't explicitly declare the virtual module
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { m, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 
 export default function PWAReloadPrompt() {
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
-  } = useRegisterSW();
+  } = useRegisterSW({
+    onRegisteredSW(swUrl, r) {
+      if (r) {
+        // Periodically check for updates every hour
+        setInterval(async () => {
+          if (r.installing || !navigator) return;
+          if (('connection' in navigator) && !navigator.onLine) return;
+          try {
+            // Force fetch bypassing cache
+            const resp = await fetch(swUrl, { cache: 'no-store', headers: { cache: 'no-store', 'cache-control': 'no-cache' } });
+            if (resp?.status === 200) await r.update();
+          } catch (err) {
+            // Ignore offline network errors
+          }
+        }, 60 * 60 * 1000);
+      }
+    }
+  });
+
+  // Proactively check for updates when the user returns to the tab
+  useEffect(() => {
+    const handleFocus = async () => {
+      if ('serviceWorker' in navigator) {
+        try {
+          const registration = await navigator.serviceWorker.ready;
+          if (registration) await registration.update();
+        } catch (err) {}
+      }
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
 
   return (
     <AnimatePresence>

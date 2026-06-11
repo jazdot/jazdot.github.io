@@ -48,6 +48,9 @@ export default defineConfig({
         ]
       },
       workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpeg,jpg,webp,pdf}'],
+        cleanupOutdatedCaches: true,
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB to ensure large assets trigger updates
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/unpkg\.com\/.*/i,
