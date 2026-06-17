@@ -48,7 +48,7 @@ export default function PWAReloadPrompt() {
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.9 }}
-          className="fixed bottom-6 right-6 z-[10000] bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl p-4 md:p-5 rounded-2xl shadow-2xl border border-slate-200/50 dark:border-white/10 flex flex-col gap-3 md:gap-4 min-w-[300px]"
+          className="fixed bottom-4 left-4 right-4 md:bottom-6 md:right-6 md:left-auto md:max-w-sm z-[10000] bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl p-4 md:p-5 rounded-2xl shadow-2xl border border-slate-200/50 dark:border-white/10 flex flex-col gap-3 md:gap-4"
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center shrink-0">

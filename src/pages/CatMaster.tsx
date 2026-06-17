@@ -1414,6 +1414,9 @@ export default function CatMaester() {
   const handleLogout = async () => {
     await signOut(auth);
     logout();
+    if (window.innerWidth < 768) {
+      setIsSidebarCollapsed(true);
+    }
   };
 
   // Listen for Firebase Auth changes and Cloud Sync
@@ -1995,7 +1998,12 @@ export default function CatMaester() {
               </button>
             </div>
           ) : (
-            <button onClick={() => setIsAuthOpen(true)} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
+            <button onClick={() => {
+              setIsAuthOpen(true);
+              if (window.innerWidth < 768) {
+                setIsSidebarCollapsed(true);
+              }
+            }} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
               <LogIn size={20} className="shrink-0" />
               <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Sign In to Sync</span>
             </button>
@@ -3871,7 +3879,7 @@ export default function CatMaester() {
       {/* Submit Summary Modal */}
       <AnimatePresence>
         {showSubmitSummary && currentTest && (
-          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[6000] flex items-center justify-center">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[7000] flex items-center justify-center">
             <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-6 md:p-8 rounded-2xl shadow-2xl border border-white/10 max-w-md w-full mx-4">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold">Submit Test</h3>
@@ -3907,7 +3915,7 @@ export default function CatMaester() {
       {/* Auth Modal */}
       <AnimatePresence>
         {isAuthOpen && (
-          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[6000] flex items-center justify-center">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[7000] flex items-center justify-center">
             <m.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-8 rounded-2xl shadow-2xl border border-white/10 max-w-md w-full mx-4">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold">Sign In</h3>

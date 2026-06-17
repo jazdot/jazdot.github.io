@@ -21,12 +21,33 @@ export default defineConfig({
       registerType: 'prompt',
       includeAssets: ['jd.png', 'jd-android.png', 'jd-maskable.png', 'pp.jpeg', 'Muhammed_Riswan_Resume_2026.pdf', 'og-image.jpg'],
       manifest: {
-        name: 'Muhammed Riswan | Network Engineer',
-        short_name: 'JAZDOT',
-        description: 'Portfolio of Muhammed Riswan M. P., Network & MLOps Engineer.',
+        name: 'CAT Maester',
+        short_name: 'CAT Maester',
+        description: 'CAT Exam Preparation & Analytics Platform.',
+        start_url: './#/cat-maester',
         theme_color: '#0f172a',
         background_color: '#020617',
         display: 'standalone',
+        shortcuts: [
+          {
+            name: 'CAT Maester',
+            short_name: 'CAT Maester',
+            url: './#/cat-maester',
+            icons: [{ src: 'jd-android.png', sizes: '192x192' }]
+          },
+          {
+            name: 'Network Tools',
+            short_name: 'Tools',
+            url: './#/tools',
+            icons: [{ src: 'jd-android.png', sizes: '192x192' }]
+          },
+          {
+            name: 'Portfolio Home',
+            short_name: 'Home',
+            url: './',
+            icons: [{ src: 'jd-android.png', sizes: '192x192' }]
+          }
+        ],
         icons: [
           {
             src: 'jd-android.png',
