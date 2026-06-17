@@ -1976,47 +1976,49 @@ export default function CatMaester() {
           </div>
         </div>
         
-        <div className="p-4 border-t border-slate-200/50 dark:border-white/10 space-y-4">
-          {user ? (
-            <div className="flex flex-col gap-3">
-              <div className={`flex items-center gap-3 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 ${isSidebarCollapsed ? 'md:justify-center' : ''}`}>
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full shadow-sm shrink-0" />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white font-bold shrink-0">{user.name.charAt(0)}</div>
-                )}
-                <div className={`flex-1 truncate transition-all ${isSidebarCollapsed ? 'md:hidden' : ''}`}>
-                  <p className="text-sm font-bold truncate text-slate-900 dark:text-white">{user.name}</p>
-                  <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Cloud Synced
-                  </p>
+        <div className="flex flex-col shrink-0">
+          <div className="p-4 border-t border-slate-200/50 dark:border-white/10 space-y-4">
+            {user ? (
+              <div className="flex flex-col gap-3">
+                <div className={`flex items-center gap-3 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 ${isSidebarCollapsed ? 'md:justify-center' : ''}`}>
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full shadow-sm shrink-0" />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-[hsl(var(--accent))] flex items-center justify-center text-white font-bold shrink-0">{user.name.charAt(0)}</div>
+                  )}
+                  <div className={`flex-1 truncate transition-all ${isSidebarCollapsed ? 'md:hidden' : ''}`}>
+                    <p className="text-sm font-bold truncate text-slate-900 dark:text-white">{user.name}</p>
+                    <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Cloud Synced
+                    </p>
+                  </div>
                 </div>
+                <button onClick={handleLogout} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-500 transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
+                  <LogOut size={20} className="shrink-0" />
+                  <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Log Out</span>
+                </button>
               </div>
-              <button onClick={handleLogout} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-500 transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
-                <LogOut size={20} className="shrink-0" />
-                <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Log Out</span>
+            ) : (
+              <button onClick={() => {
+                setIsAuthOpen(true);
+                if (window.innerWidth < 768) {
+                  setIsSidebarCollapsed(true);
+                }
+              }} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
+                <LogIn size={20} className="shrink-0" />
+                <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Sign In to Sync</span>
               </button>
+            )}
+          </div>
+          <div className="p-2 md:p-4 border-t border-slate-200/50 dark:border-white/10">
+            <div className={`flex items-center justify-around gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg ${isSidebarCollapsed ? 'md:flex-col' : 'flex-row'}`}>
+              <button onClick={() => setTheme('light')} title="Light Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'light' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Sun size={16} /></button>
+              <button onClick={() => setTheme('system')} title="System Preference" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'system' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Monitor size={16} /></button>
+              <button onClick={() => setTheme('dark')} title="Dark Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Moon size={16} /></button>
             </div>
-          ) : (
-            <button onClick={() => {
-              setIsAuthOpen(true);
-              if (window.innerWidth < 768) {
-                setIsSidebarCollapsed(true);
-              }
-            }} className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[hsl(var(--accent))]/10 hover:text-[hsl(var(--accent))] transition-colors ${isSidebarCollapsed ? '' : 'md:justify-start'}`}>
-              <LogIn size={20} className="shrink-0" />
-              <span className={`font-medium ${isSidebarCollapsed ? 'md:hidden' : ''}`}>Sign In to Sync</span>
-            </button>
-          )}
-        </div>
-        <div className="p-2 md:p-4 border-t border-slate-200/50 dark:border-white/10">
-          <div className={`flex items-center justify-around gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg ${isSidebarCollapsed ? 'md:flex-col' : 'flex-row'}`}>
-            <button onClick={() => setTheme('light')} title="Light Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'light' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Sun size={16} /></button>
-            <button onClick={() => setTheme('system')} title="System Preference" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'system' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Monitor size={16} /></button>
-            <button onClick={() => setTheme('dark')} title="Dark Mode" className={`p-2 rounded-md text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-white dark:bg-slate-700 shadow-sm text-[hsl(var(--accent))]' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}><Moon size={16} /></button>
           </div>
         </div>
-          </nav>
+      </nav>
           </>
         )}
 
