@@ -24,7 +24,7 @@ export default defineConfig({
         name: 'CAT Maester',
         short_name: 'CAT Maester',
         description: 'CAT Exam Preparation & Analytics Platform.',
-        start_url: './#/cat-maester',
+        start_url: 'index.html#/cat-maester',
         theme_color: '#0f172a',
         background_color: '#020617',
         display: 'standalone',
@@ -32,19 +32,19 @@ export default defineConfig({
           {
             name: 'CAT Maester',
             short_name: 'CAT Maester',
-            url: './#/cat-maester',
+            url: 'index.html#/cat-maester',
             icons: [{ src: 'jd-android.png', sizes: '192x192' }]
           },
           {
             name: 'Network Tools',
             short_name: 'Tools',
-            url: './#/tools',
+            url: 'index.html#/tools',
             icons: [{ src: 'jd-android.png', sizes: '192x192' }]
           },
           {
             name: 'Portfolio Home',
             short_name: 'Home',
-            url: './',
+            url: 'index.html',
             icons: [{ src: 'jd-android.png', sizes: '192x192' }]
           }
         ],
@@ -96,7 +96,7 @@ export default defineConfig({
       }
     })
   ],
-  base: './', // Add this to ensure assets are linked with relative paths
+  base: '/', // Use absolute path for jazdot.github.io root-domain deployment
   build: {
     target: 'esnext',
     rollupOptions: {
