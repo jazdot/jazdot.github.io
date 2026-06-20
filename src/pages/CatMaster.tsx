@@ -159,6 +159,8 @@ const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: str
       difficulty?: 'Easy' | 'Medium' | 'Hard'; // Assign an overall difficulty level.
       hint?: string; // Optional: A specific exact sentence or phrase from the context that contains the answer or provides a strong hint. MUST be an exact substring of the context.
     }
+
+    Also, ensure that the questions, options, answers, and explanations are 100% accurate(recheck and verify the questions again after generation with paraphrasing) and strictly align to the CAT syllabus and difficulty level. 
   `;
 
   for (let attempt = 1; attempt <= retries; attempt++) {
