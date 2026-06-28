@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star, ChevronDown, RadioTower } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, PlayCircle, Timer, Sun, Moon, Monitor, Volume2, VolumeX, Maximize, Minimize, Calculator, Menu, RadioTower } from 'lucide-react';
 import { useCatStore } from './catStore';
-import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
+import { paperLoaders } from '../data/cat_db';
 import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, addDoc, updateDoc, onSnapshot } from './firebase';
 
-import { generateCatQuestions } from '../cat-engine/ai-service';
 import AnalyticsDashboard from '../components/cat-maester/AnalyticsDashboard';
 import AdaptiveEngine from '../components/cat-maester/AdaptiveEngine';
+import PracticeArena from '../components/cat-maester/PracticeArena';
+import MockExamCenter from '../components/cat-maester/MockExamCenter';
+import StudyHub from '../components/cat-maester/StudyHub';
 
 
 // --- IndexedDB Helpers ---
@@ -57,39 +59,9 @@ const getMockTests = async (): Promise<any[]> => {
   });
 };
 
-const saveGeneratedBatch = async (subject: string, batchId: number, questions: Question[]) => {
-  const db = await initDB();
-  return new Promise<void>((resolve, reject) => {
-    const tx = db.transaction(GENERATED_Q_STORE, 'readwrite');
-    const store = tx.objectStore(GENERATED_Q_STORE);
-    store.put({ subject, batchId, questions, createdAt: new Date().toISOString() });
-    tx.oncomplete = () => resolve();
-    tx.onerror = () => reject(tx.error);
-  });
-};
 
-const getGeneratedBatches = async (subject: string): Promise<any[]> => {
-  const db = await initDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(GENERATED_Q_STORE, 'readonly');
-    const store = tx.objectStore(GENERATED_Q_STORE);
-    const req = store.getAll();
-    req.onsuccess = () => {
-      resolve(req.result.filter(batch => batch.subject === subject));
-    };
-    req.onerror = () => reject(req.error);
-  });
-};
 
-const deleteGeneratedBatch = async (subject: string, batchId: number) => {
-  const db = await initDB();
-  return new Promise<void>((resolve, reject) => {
-    const tx = db.transaction(GENERATED_Q_STORE, 'readwrite');
-    const req = tx.objectStore(GENERATED_Q_STORE).delete([subject, batchId]);
-    req.onsuccess = () => resolve();
-    req.onerror = () => reject(tx.error);
-  });
-};
+
 
 const saveFormula = async (formula: any) => {
   const db = await initDB();
@@ -122,32 +94,7 @@ const deleteFormula = async (id: string) => {
 };
 
 // --- Real AI Generation via Gemini ---
-const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: string): Promise<Question[]> => {
-  console.log(`[AI] Generating new batch for ${subject}${topic ? ` on ${topic}` : ''} via cat-engine...`);
-  
-  const subtopic = topic || (subject === 'QA' ? 'Time Speed Distance' : subject === 'VARC' ? 'Reading Comprehension' : 'Caselet');
-  const parentTopic = subject === 'QA' ? 'Arithmetic' : subject === 'VARC' ? 'VARC' : 'Data Interpretation';
-  
-  try {
-    const rawQs = await generateCatQuestions(subject, parentTopic, subtopic, 'Medium', 'AUTO', 5);
-    
-    return rawQs.map(q => ({
-      id: q.id,
-      text: q.question,
-      type: q.type,
-      options: q.options ? [q.options.A, q.options.B, q.options.C, q.options.D] : undefined,
-      correct: q.options ? ['A', 'B', 'C', 'D'].indexOf(q.correct_answer) : undefined,
-      tita_answer: q.type === 'TITA' ? q.correct_answer : undefined,
-      explanation: `${q.explanation.brief}\n\nStandard Method: ${q.explanation.standard_method}\n\nShortcut: ${q.explanation.shortcut}\n\nCommon Mistakes: ${q.explanation.common_mistakes?.join(', ') || 'None'}`,
-      section: q.section,
-      context: q.passage || undefined,
-      difficulty: q.difficulty,
-      hint: q.explanation.common_mistakes?.[0]
-    }));
-  } catch (err: any) {
-    throw new Error("AI generation failed: " + err.message);
-  }
-};
+
 
 
 const renderLatex = (text: string, highlightText?: string | null) => {
@@ -392,67 +339,7 @@ const renderContextWithImages = (text: string, highlightText?: string | null) =>
   });
 };
 
-// --- Flashcard Component ---
-const Flashcard = ({ formula, onEdit, onDelete, onUpdate }: { formula: any, onEdit: () => void, onDelete: () => void, onUpdate: (f: any) => void }) => {
-  const [flipped, setFlipped] = useState(false);
-  
-  const handleRate = (e: React.MouseEvent, performance: number) => {
-    e.stopPropagation();
-    let { reps = 0, interval = 1, ease = 2.5 } = formula;
-    if (performance >= 3) {
-      if (reps === 0) interval = 1;
-      else if (reps === 1) interval = 6;
-      else interval = Math.round(interval * ease);
-      reps += 1;
-      ease = ease + (0.1 - (5 - performance) * (0.08 + (5 - performance) * 0.02));
-    } else {
-      reps = 0;
-      interval = 1;
-      ease = Math.max(1.3, ease - 0.2);
-    }
-    const nextReview = Date.now() + interval * 86400000;
-    onUpdate({ ...formula, reps, interval, ease, nextReview, lastPerformance: performance });
-    setFlipped(false);
-  };
 
-  const isDue = !formula.nextReview || formula.nextReview <= Date.now();
-  const mastery = formula.reps > 4 ? 'Mastered' : formula.reps > 0 ? 'Learning' : 'New';
-
-  return (
-    <div className="relative w-full h-64 cursor-pointer group" style={{ perspective: '1000px' }} onClick={() => setFlipped(!flipped)}>
-      <div className="absolute top-4 right-4 flex gap-2 z-10 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <button onClick={(e) => { e.stopPropagation(); onEdit(); }} className="p-2 text-slate-500 hover:text-[hsl(var(--accent))] bg-white/90 dark:bg-slate-800/90 rounded-lg backdrop-blur-md shadow-sm border border-slate-200/50 dark:border-white/10 transition-colors"><Edit2 size={16} /></button>
-        <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-2 text-slate-500 hover:text-rose-500 bg-white/90 dark:bg-slate-800/90 rounded-lg backdrop-blur-md shadow-sm border border-slate-200/50 dark:border-white/10 transition-colors"><Trash2 size={16} /></button>
-      </div>
-      <div className="absolute top-4 left-4 z-10 flex gap-2">
-         <span className={`text-xs font-bold px-2 py-1 rounded ${mastery === 'Mastered' ? 'bg-emerald-500/20 text-emerald-500' : mastery === 'Learning' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-rose-500/20 text-rose-500'}`}>{mastery}</span>
-         {isDue && <span className="text-xs font-bold px-2 py-1 rounded bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))]">Due</span>}
-         {formula.isOfficial && <span className="text-xs font-bold px-2 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">Official</span>}
-      </div>
-      <m.div
-        className="w-full h-full relative"
-        style={{ transformStyle: 'preserve-3d' }}
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.6, type: 'spring', stiffness: 260, damping: 20 }}
-      >
-        {/* Front */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-center items-center p-6 text-center overflow-y-auto" style={{ backfaceVisibility: 'hidden' }}>
-          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-wrap">{renderContextWithImages(formula.front)}</h3>
-          {formula.topic && <div className="absolute bottom-5 text-xs font-bold text-slate-400 uppercase tracking-wider">{formula.topic}</div>}
-        </div>
-        {/* Back */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl shadow-sm bg-[hsl(var(--accent))] border-[hsl(var(--accent))] flex flex-col justify-between items-center p-6 text-center overflow-y-auto" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-          <div className="flex-1 flex items-center justify-center text-lg font-medium text-white leading-relaxed whitespace-pre-wrap">{renderContextWithImages(formula.back)}</div>
-          <div className="flex gap-2 w-full mt-4">
-             <button onClick={(e) => handleRate(e, 1)} className="flex-1 bg-rose-500/20 hover:bg-rose-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Hard</button>
-             <button onClick={(e) => handleRate(e, 3)} className="flex-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Good</button>
-             <button onClick={(e) => handleRate(e, 5)} className="flex-1 bg-emerald-500/20 hover:bg-emerald-500/40 text-white py-2 rounded-lg text-sm font-bold transition-colors">Easy</button>
-          </div>
-        </div>
-      </m.div>
-    </div>
-  );
-};
 // -------------------------
 
 const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = 'Confirm', cancelText = 'Cancel', isDestructive = false }: any) => {
@@ -507,7 +394,7 @@ export default function CatMaester() {
   const [paperList, setPaperList] = useState<{id: string, title: string}[]>([]);
   
   // Zustand Global State
-  const { user, progress, login, logout, addResult, addTopicResult, toggleBookmark, updateBookmarkNote, clearHistory, updateSkillRating, updatePracticeStreak, setWholeProgress, setActivated } = useCatStore();
+  const { user, progress, login, logout, addResult, addTopicResult, clearHistory, setWholeProgress, setActivated } = useCatStore();
   
   // Mock State
   const [mockPhase, setMockPhase] = useState<'select' | 'lobby' | 'confirm' | 'test' | 'result' | 'review'>('select');
@@ -527,39 +414,10 @@ export default function CatMaester() {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | string>>({});
   const [savedTests, setSavedTests] = useState<any[]>([]);
   const [formulas, setFormulas] = useState<any[]>([]);
-  const [isAddingFormula, setIsAddingFormula] = useState(false);
-  const [newFormula, setNewFormula] = useState({ front: '', back: '' });
-  const [editingFormulaId, setEditingFormulaId] = useState<string | null>(null);
-  const [practiceSubject, setPracticeSubject] = useState<'QA' | 'VARC' | 'DILR'>('QA');
-  const [practiceQuestions, setPracticeQuestions] = useState<Question[]>([]);
-  const [practiceFilterTopic, setPracticeFilterTopic] = useState<string | null>(null);
-  const [practiceFilterBookmark, setPracticeFilterBookmark] = useState(false);
-  const [practiceFilterDifficulty, setPracticeFilterDifficulty] = useState<string | null>(() => {
-    return localStorage.getItem('cat-maester-difficulty') || null;
-  });
-  const [practiceRefreshTrigger, setPracticeRefreshTrigger] = useState(0);
-  const [activeHint, setActiveHint] = useState<string | null>(null);
-  const [practiceAnswers, setPracticeAnswers] = useState<Record<string, number | string>>({});
-  const [revealedExplanations, setRevealedExplanations] = useState<Record<string, boolean>>({});
-  const [prefetchedBatch, setPrefetchedBatch] = useState<{ subject: string, topic?: string, questions: Question[] } | null>(null);
-  const isPrefetching = useRef<string>('');
-  const [practiceFilterAIBatch, setPracticeFilterAIBatch] = useState<number | null>(null);
-  const [aiBatchesList, setAiBatchesList] = useState<any[]>([]);
-  const [isAiBatchDropdownOpen, setIsAiBatchDropdownOpen] = useState(false);
-  const [isDifficultyDropdownOpen, setIsDifficultyDropdownOpen] = useState(false);
-  const [isAiTopicMode, setIsAiTopicMode] = useState(false);
-  const [aiTopicFocus, setAiTopicFocus] = useState('');
-  const [aiQuestionFeedback, setAiQuestionFeedback] = useState<Record<string, number>>(() => {
-    try { const saved = localStorage.getItem('cat-maester-ai-feedback'); return saved ? JSON.parse(saved) : {}; }
-    catch { return {}; }
-  });
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generationError, setGenerationError] = useState<string | null>(null);
-  const [lastAnswerStatus, setLastAnswerStatus] = useState<'correct' | 'incorrect' | null>(null);
+
   const [showActivationModal, setShowActivationModal] = useState(false);
   const [activationError, setActivationError] = useState('');
-  const [formulaSearch, setFormulaSearch] = useState('');
-  const [formulaTopicFilter, setFormulaTopicFilter] = useState('All');
+  const [expandedPassageContext, setExpandedPassageContext] = useState<string | null>(null);
   const [showMobilePalette, setShowMobilePalette] = useState(false);
   const [showDesktopPalette, setShowDesktopPalette] = useState(true);
   const [showClearHistoryConfirmationModal, setShowClearHistoryConfirmationModal] = useState(false);
@@ -570,10 +428,6 @@ export default function CatMaester() {
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
     () => (localStorage.getItem('cat-maester-theme') as 'light' | 'dark' | 'system') || 'system'
   );
-  const [isAdaptive, setIsAdaptive] = useState(() => {
-    return localStorage.getItem('cat-maester-adaptive') === 'true';
-  });
-  const [expandedPassageContext, setExpandedPassageContext] = useState<string | null>(null);
   const [questionRatings, setQuestionRatings] = useState<Record<string, number>>(() => {
     try { const saved = localStorage.getItem('cat-maester-question-ratings'); return saved ? JSON.parse(saved) : {}; } 
     catch { return {}; }
@@ -587,137 +441,10 @@ export default function CatMaester() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
 
-  const [chatMessages, setChatMessages] = useState<Record<string, { role: 'user'|'model', text: string }[]>>({});
-  const [chatInputs, setChatInputs] = useState<Record<string, string>>({});
-  const [isChatLoading, setIsChatLoading] = useState<Record<string, boolean>>({});
   const [liveChallengeId, setLiveChallengeId] = useState<string | null>(null);
   const [liveChallengeData, setLiveChallengeData] = useState<any>(null);
 
 
-  useEffect(() => {
-    if (practiceFilterDifficulty) localStorage.setItem('cat-maester-difficulty', practiceFilterDifficulty);
-    else localStorage.removeItem('cat-maester-difficulty');
-  }, [practiceFilterDifficulty]);
-
-  useEffect(() => {
-    localStorage.setItem('cat-maester-adaptive', isAdaptive.toString());
-  }, [isAdaptive]);
-
-  const handleAskMaester = async (q: any, userAnswerText: string, isInitial: boolean = false, userMessage?: string) => {
-    const qId = q.originalIndex !== undefined ? `mock_${q.originalIndex}` : q.id;
-    
-    let newHistory = [...(chatMessages[qId] || [])];
-    
-    if (isInitial) {
-      const correctAnsStr = q.type === 'MCQ' ? q.options?.[q.correct as number] : q.tita_answer;
-      let providedAns = userAnswerText;
-      if (q.type === 'MCQ' && userAnswerText !== 'I skipped this question.' && userAnswerText !== 'I did not answer this question.') {
-         providedAns = q.options?.[parseInt(userAnswerText)] || userAnswerText;
-      }
-
-      const initialPrompt = `I am reviewing a CAT exam question. \n\nQuestion: ${q.text}\n${q.options ? `Options: ${q.options.join(', ')}\n` : ''}\nCorrect Answer: ${correctAnsStr}\nMy Answer: ${providedAns}\nExplanation provided: ${q.explanation}\n\nI got this wrong (or couldn't figure it out). Act as a Socratic tutor. Don't just give the answer, help me understand the flaw in my logic or guide me to the correct thought process. Be concise, encouraging, and format your response beautifully with paragraphs.`;
-      
-      newHistory = [{ role: 'user', text: initialPrompt }];
-    } else if (userMessage) {
-      newHistory.push({ role: 'user', text: userMessage });
-    }
-
-    setChatMessages(prev => ({ ...prev, [qId]: newHistory }));
-    setIsChatLoading(prev => ({ ...prev, [qId]: true }));
-    setChatInputs(prev => ({ ...prev, [qId]: '' }));
-
-    try {
-      const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; 
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
-
-      const contents = newHistory.map(msg => ({
-        role: msg.role,
-        parts: [{ text: msg.text }]
-      }));
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents })
-      });
-
-      if (!response.ok) throw new Error("API Error");
-      const data = await response.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't process that.";
-      
-      setChatMessages(prev => ({
-        ...prev,
-        [qId]: [...newHistory, { role: 'model', text: reply }]
-      }));
-    } catch (err) {
-      console.error(err);
-      setChatMessages(prev => ({
-        ...prev,
-        [qId]: [...newHistory, { role: 'model', text: 'Error connecting to Maester. Please try again.' }]
-      }));
-    } finally {
-      setIsChatLoading(prev => ({ ...prev, [qId]: false }));
-    }
-  };
-
-  const renderChatBlock = (qId: string, q: any, userAnswerText: string) => {
-    const messages = chatMessages[qId];
-    if (!messages) return null;
-    
-    return (
-      <div className="mt-6 p-4 md:p-5 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-xl border border-indigo-500/20">
-        <h4 className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2 mb-4"><Bot size={18} /> Chat with Maester</h4>
-        <div className="space-y-4 max-h-60 overflow-y-auto mb-4 pr-2" style={{ scrollbarWidth: 'thin' }}>
-          {messages.slice(1).map((msg, idx) => (
-            <div key={idx} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              {msg.role === 'model' && <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white shrink-0 mt-1"><Bot size={12}/></div>}
-              <div className={`p-3 rounded-xl max-w-[90%] text-sm leading-relaxed ${msg.role === 'user' ? 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tr-none border border-slate-200/50 dark:border-white/5' : 'bg-indigo-500/10 text-slate-800 dark:text-slate-200 border border-indigo-500/20 rounded-tl-none'}`}>
-                <span dangerouslySetInnerHTML={{ __html: renderLatex(msg.text) }} />
-              </div>
-            </div>
-          ))}
-          {isChatLoading[qId] && (
-            <div className="flex gap-3 justify-start">
-              <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white shrink-0 mt-1"><Bot size={12}/></div>
-              <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 rounded-tl-none flex items-center gap-2">
-                 <Loader2 size={14} className="animate-spin text-indigo-500" /> <span className="text-xs text-slate-500">Maester is thinking...</span>
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="flex gap-2">
-          <input 
-            type="text" 
-            value={chatInputs[qId] || ''}
-            onChange={e => setChatInputs(prev => ({...prev, [qId]: e.target.value}))}
-            onKeyDown={e => {
-              if (e.key === 'Enter' && chatInputs[qId]?.trim() && !isChatLoading[qId]) {
-                handleAskMaester(q, userAnswerText, false, chatInputs[qId]);
-              }
-            }}
-            placeholder="Ask a follow-up question..."
-            className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
-          />
-          <button 
-            onClick={() => handleAskMaester(q, userAnswerText, false, chatInputs[qId])}
-            disabled={isChatLoading[qId] || !chatInputs[qId]?.trim()}
-            className="bg-indigo-500 text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-indigo-600 disabled:opacity-50 transition-colors"
-          >
-            Send
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  const handleAiQuestionRating = (questionId: string, rating: number) => {
-    setAiQuestionFeedback(prev => {
-      const newFeedback = { ...prev, [questionId]: rating };
-      // Also save to local storage for persistence without cloud sync
-      localStorage.setItem('cat-maester-ai-feedback', JSON.stringify(newFeedback));
-      return newFeedback;
-    });
-  };
 
   const handleCalcClick = (val: string) => {
     if (val === 'C') setCalcExpr('');
@@ -836,11 +563,7 @@ export default function CatMaester() {
     document.head.appendChild(link);
   }, []);
 
-  useEffect(() => {
-    if (activeTab === 'practice' && !isGenerating) {
-      getGeneratedBatches(practiceSubject).then(setAiBatchesList).catch(console.error);
-    }
-  }, [activeTab, practiceSubject, isGenerating]);
+
 
 
   const audioCtxRef = useRef<any>(null);
@@ -902,21 +625,7 @@ export default function CatMaester() {
     loadSavedTests();
   }, [mockPhase]); // Refresh list when phase changes
 
-  const updateQuestionRating = (questionId: string, userRating: number, isCorrect: boolean) => {
-    const questionRating = questionRatings[questionId] || 1200;
-    const K = 32;
-    const expectedScoreForUser = 1 / (1 + Math.pow(10, (questionRating - userRating) / 400));
-    const actualScoreForUser = isCorrect ? 1 : 0;
-    
-    const ratingChange = K * (actualScoreForUser - expectedScoreForUser);
-    const newQuestionRating = Math.round(questionRating - ratingChange);
-    
-    setQuestionRatings(prev => {
-      const newRatings = { ...prev, [questionId]: newQuestionRating };
-      localStorage.setItem('cat-maester-question-ratings', JSON.stringify(newRatings));
-      return newRatings;
-    });
-  };
+
 
   useEffect(() => {
     let timer: any;
@@ -969,171 +678,7 @@ export default function CatMaester() {
     }
   }, [mockPhase, currentTest, selectedAnswers, markedForReview, timeLeft, activeSection, activeQuestionIdx, sectionTimes]);
 
-  useEffect(() => {
-    const fetchPracticeQuestions = async () => {
-      const groupAndShuffle = (questions: Question[]) => {
-        const groups = new Map<string, Question[]>();
-        const isolated: Question[] = [];
-        questions.forEach(q => {
-          if (q.context) {
-            if (!groups.has(q.context)) groups.set(q.context, []);
-            groups.get(q.context)!.push(q);
-          } else {
-            isolated.push(q);
-          }
-        });
-        const groupedArray = [...Array.from(groups.values()), ...isolated.map(q => [q])];
-        groupedArray.sort(() => 0.5 - Math.random());
-        return groupedArray.flat();
-      };
 
-      if (practiceFilterTopic) {
-        const allQs = await getAllQuestions();
-        const topicQIds = progress.topicStats?.[practiceFilterTopic]?.questionIds || [];
-        setPracticeQuestions(groupAndShuffle(allQs.filter(q => topicQIds.includes(q.id))));
-      } else if (practiceFilterBookmark) {
-        const allQs = await getAllQuestions();
-        const bookmarkedIds = progress.bookmarkedQuestions || [];
-        setPracticeQuestions(groupAndShuffle(allQs.filter(q => bookmarkedIds.includes(q.id))));
-      } else if (practiceFilterDifficulty) {
-        const allQs = await getAllQuestions();
-        const subjectQs = allQs.filter(q => q.section === practiceSubject);
-        const filteredQs = subjectQs.filter(q => {
-          const rating = questionRatings[q.id] || 1200;
-          if (practiceFilterDifficulty === 'Easy') return rating < 1000;
-          if (practiceFilterDifficulty === 'Medium') return rating >= 1000 && rating <= 1400;
-          if (practiceFilterDifficulty === 'Hard') return rating > 1400;
-          return true;
-        });
-        
-        const groups = new Map<string, Question[]>();
-        const isolated: Question[] = [];
-        filteredQs.forEach(q => {
-          if (q.context) {
-            if (!groups.has(q.context)) groups.set(q.context, []);
-            groups.get(q.context)!.push(q);
-          } else {
-            isolated.push(q);
-          }
-        });
-        
-        const groupedArray = [...Array.from(groups.values()), ...isolated.map(q => [q])];
-        groupedArray.sort(() => 0.5 - Math.random());
-        
-        const selectedQs: Question[] = [];
-        for (const g of groupedArray) {
-          if (selectedQs.length >= 20) break;
-          selectedQs.push(...g);
-        }
-        setPracticeQuestions(selectedQs);
-      } else if (isAdaptive) {
-        const allQs = await getAllQuestions();
-        const subjectQs = allQs.filter(q => q.section === practiceSubject);
-        const userRating = progress.skillRatings?.[practiceSubject] || 1200;
-        
-        const groups = new Map<string, Question[]>();
-        const isolated: Question[] = [];
-        subjectQs.forEach(q => {
-          if (q.context) {
-            if (!groups.has(q.context)) groups.set(q.context, []);
-            groups.get(q.context)!.push(q);
-          } else {
-            isolated.push(q);
-          }
-        });
-
-        const ratedGroups = [
-          ...Array.from(groups.values()).map(g => {
-            const avgRating = g.reduce((sum, q) => sum + (questionRatings[q.id] || 1200), 0) / g.length;
-            return { qs: g, rating: avgRating };
-          }),
-          ...isolated.map(q => ({ qs: [q], rating: questionRatings[q.id] || 1200 }))
-        ];
-
-        ratedGroups.sort((a, b) => Math.abs(a.rating - userRating) - Math.abs(b.rating - userRating));
-
-        const selectedGroups = ratedGroups.slice(0, 20).sort(() => 0.5 - Math.random());
-        const selectedQs: Question[] = [];
-        for (const g of selectedGroups) {
-          if (selectedQs.length >= 20) break;
-          selectedQs.push(...g.qs);
-        }
-        setPracticeQuestions(selectedQs);
-      } else if (practiceFilterAIBatch !== null) {
-        const existingBatches = await getGeneratedBatches(practiceSubject);
-        const batch = existingBatches.find(b => b.batchId === practiceFilterAIBatch);
-        if (batch) setPracticeQuestions(batch.questions);
-        else setPracticeQuestions([]);
-      } else if (isAiTopicMode && !aiTopicFocus.trim()) {
-        setPracticeQuestions([]);
-      } else {
-        // New AI Generation Flow
-        const loadAndGenerate = async () => {
-          const topicPrompt = (isAiTopicMode && aiTopicFocus.trim()) ? aiTopicFocus.trim() : undefined;
-          
-          const doPrefetch = async () => {
-            const signature = `${practiceSubject}_${topicPrompt || 'none'}_prefetch`;
-            if (isPrefetching.current === signature) return;
-            isPrefetching.current = signature;
-            try {
-              const prefetchedQs = await generateQuestionsAPI(practiceSubject, topicPrompt);
-              if (prefetchedQs && prefetchedQs.length > 0) {
-                setPrefetchedBatch({ subject: practiceSubject, topic: topicPrompt, questions: prefetchedQs });
-              }
-            } catch (e) {
-              console.error("[AI] Prefetch failed", e);
-            } finally {
-              if (isPrefetching.current === signature) isPrefetching.current = '';
-            }
-          };
-  
-          if (prefetchedBatch && prefetchedBatch.subject === practiceSubject && prefetchedBatch.topic === topicPrompt) {
-            setPracticeQuestions(prefetchedBatch.questions);
-            const existingBatches = await getGeneratedBatches(practiceSubject);
-            await saveGeneratedBatch(practiceSubject, existingBatches.length, prefetchedBatch.questions);
-            setPrefetchedBatch(null);
-            doPrefetch();
-            return;
-          }
-  
-          setIsGenerating(true);
-          setGenerationError(null);
-          setPracticeQuestions([]);
-  
-          try {
-            const existingBatches = await getGeneratedBatches(practiceSubject);
-            
-            let newQuestions: Question[] = [];
-            if (existingBatches.length > 0 && practiceRefreshTrigger === 0) {
-              newQuestions = existingBatches[existingBatches.length - 1].questions;
-            } else {
-              newQuestions = await generateQuestionsAPI(practiceSubject, topicPrompt);
-            }
-            
-            if (newQuestions && newQuestions.length > 0) {
-              await saveGeneratedBatch(practiceSubject, existingBatches.length, newQuestions);
-              setPracticeQuestions(newQuestions);
-              doPrefetch();
-            } else {
-              throw new Error("AI failed to generate questions.");
-            }
-          } catch (err: any) {
-            setGenerationError(err.message || "An unknown error occurred during question generation.");
-          } finally {
-            setIsGenerating(false);
-          }
-        };
-        loadAndGenerate();
-      }
-      setPracticeAnswers({});
-      setLastAnswerStatus(null);
-      setActiveHint(null);
-      setRevealedExplanations({});
-    };
-    if (activeTab === 'practice') {
-      fetchPracticeQuestions();
-    }
-  }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, practiceFilterDifficulty, practiceFilterAIBatch, isAdaptive, isAiTopicMode, practiceRefreshTrigger]);
 
 
 
@@ -1227,48 +772,11 @@ export default function CatMaester() {
              if (activeQuestionIdx > 0) setActiveQuestionIdx(prev => prev - 1);
          }
       }
-
-      if (activeTab === 'practice') {
-        if (e.key === '1') {
-          setPracticeSubject('QA'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        } else if (e.key === '2') {
-          setPracticeSubject('VARC'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        } else if (e.key === '3') {
-          setPracticeSubject('DILR'); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const subjects = ['QA', 'VARC', 'DILR'];
-          const curr = subjects.indexOf(practiceSubject);
-          const next = e.key === 'ArrowRight' ? (curr + 1) % subjects.length : (curr - 1 + subjects.length) % subjects.length;
-          setPracticeSubject(subjects[next] as 'QA' | 'VARC' | 'DILR');
-          setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null);
-        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-          e.preventDefault();
-          let closestIdx = 0;
-          let minDistance = Infinity;
-          for(let i = 0; i < practiceQuestions.length; i++) {
-             const el = document.getElementById(`practice-q-${i}`);
-             if(el) {
-                const rect = el.getBoundingClientRect();
-                // Calculate distance to vertical center to see which question is currently focused on the screen
-                const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
-                if(distance < minDistance) {
-                   minDistance = distance;
-                   closestIdx = i;
-                }
-             }
-          }
-          const targetIdx = e.key === 'ArrowDown' 
-              ? Math.min(closestIdx + 1, practiceQuestions.length - 1) 
-              : Math.max(closestIdx - 1, 0);
-          
-          document.getElementById(`practice-q-${targetIdx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeTab, mockPhase, currentTest, isExamMode, activeQuestionIdx, activeSectionQuestions, filteredReviewQuestions.length, practiceSubject, practiceQuestions.length]);
+  }, [activeTab, mockPhase, currentTest, isExamMode, activeQuestionIdx, activeSectionQuestions, filteredReviewQuestions.length]);
 
   useEffect(() => {
     if (activeTab === 'formula') {
@@ -1343,10 +851,7 @@ export default function CatMaester() {
               setQuestionRatings(data.questionRatings);
               localStorage.setItem('cat-maester-question-ratings', JSON.stringify(data.questionRatings));
             }
-            if (data.aiQuestionFeedback) {
-              setAiQuestionFeedback(data.aiQuestionFeedback);
-              localStorage.setItem('cat-maester-ai-feedback', JSON.stringify(data.aiQuestionFeedback));
-            }
+
             if (data.formulas) {
               for (const f of data.formulas) {
                 await saveFormula(f);
@@ -1380,7 +885,6 @@ export default function CatMaester() {
           progress,
           questionRatings,
           formulas,
-          aiQuestionFeedback,
           lastSynced: new Date().toISOString()
         }, { merge: true });
       } catch (e) {
@@ -1390,7 +894,7 @@ export default function CatMaester() {
 
     const timeoutId = setTimeout(syncToCloud, 5000);
     return () => clearTimeout(timeoutId);
-  }, [progress, questionRatings, formulas, aiQuestionFeedback, user?.uid, user?.name, user?.photoURL]);
+  }, [progress, questionRatings, formulas, user?.uid, user?.name, user?.photoURL]);
 
 
 
@@ -1731,15 +1235,7 @@ export default function CatMaester() {
 
 
 
-  const formulaTopics = ['All', 'Custom (Mine)', ...Array.from(new Set(formulas.filter(f => f.isOfficial).map(f => f.topic)))];
 
-  const filteredFormulas = formulas.filter(f => {
-    const matchesSearch = f.front.toLowerCase().includes(formulaSearch.toLowerCase()) || f.back.toLowerCase().includes(formulaSearch.toLowerCase());
-    if (!matchesSearch) return false;
-    if (formulaTopicFilter === 'All') return true;
-    if (formulaTopicFilter === 'Custom (Mine)') return !f.isOfficial;
-    return f.topic === formulaTopicFilter;
-  });
 
   const hideNavigation = isFullscreen && activeTab === 'mock' && (mockPhase === 'test' || mockPhase === 'review');
   const testReviewClasses = hideNavigation 
@@ -1749,7 +1245,7 @@ export default function CatMaester() {
   return (
     <m.div 
       initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
-      className={`fixed inset-0 z-[1000] flex text-slate-900 dark:text-slate-100 overflow-hidden font-sans transition-colors duration-500 ${activeTab === 'practice' && lastAnswerStatus === 'correct' ? 'bg-emerald-50 dark:bg-emerald-950/30' : activeTab === 'practice' && lastAnswerStatus === 'incorrect' ? 'bg-rose-50 dark:bg-rose-950/30' : 'bg-[#f8fafc] dark:bg-[#020617]'}`}
+      className="fixed inset-0 z-[1000] flex text-slate-900 dark:text-slate-100 overflow-hidden font-sans bg-[#f8fafc] dark:bg-[#020617]"
     >
       {/* Sidebar */}
         {!hideNavigation && (
@@ -1787,10 +1283,10 @@ export default function CatMaester() {
                 
                 <div className="px-3 mt-4 space-y-2">
             {[
-              { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-              { id: 'practice', icon: PenTool, label: 'Practice Subjects' },
-              { id: 'mock', icon: Bot, label: 'Mock Tests' },
-              { id: 'formula', icon: Book, label: 'Formula Hub' }
+              { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard & Analytics' },
+              { id: 'practice', icon: PenTool, label: 'Practice Arena' },
+              { id: 'mock', icon: Bot, label: 'Mock Exam Center' },
+              { id: 'formula', icon: Book, label: 'Study Hub & Formulas' }
             ].map((item) => (
               <button key={item.id} onClick={() => { setActiveTab(item.id); if(window.innerWidth < 768) setIsSidebarCollapsed(true); }} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${activeTab === item.id ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5'} ${isSidebarCollapsed ? 'md:justify-center' : ''}`}>
                 <item.icon size={20} className="shrink-0" />
@@ -2773,719 +2269,19 @@ export default function CatMaester() {
             </div>
           )}
 
+          {activeTab === 'mock' && (
+            <MockExamCenter />
+          )}
+
           {activeTab === 'practice' && (
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-                <div className="flex flex-wrap gap-2 md:gap-3 pb-2">
-                  {(['QA', 'VARC', 'DILR'] as const).map((subj, i) => (
-                    <button key={subj} onClick={() => { setPracticeSubject(subj); setPracticeFilterTopic(null); setPracticeFilterBookmark(false); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm whitespace-nowrap text-sm md:text-base ${practiceSubject === subj && !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAiTopicMode && practiceFilterAIBatch === null ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
-                      {subj} Training <span className="opacity-50 text-xs ml-1 font-normal hidden sm:inline">[{i + 1}]</span>
-                    </button>
-                  ))}
-                  {practiceFilterTopic && (
-                    <button className="px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30 border border-[hsl(var(--accent))] text-sm md:text-base">
-                      {practiceFilterTopic} Focus
-                    </button>
-                  )}
-                  <button onClick={() => { setPracticeFilterTopic(null); setPracticeFilterBookmark(true); setPracticeFilterDifficulty(null); setIsAiTopicMode(false); setPracticeFilterAIBatch(null); }} className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm text-sm md:text-base ${practiceFilterBookmark && !practiceFilterTopic ? 'bg-[hsl(var(--accent))] text-white shadow-[hsl(var(--accent))]/30' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/90 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'}`}>
-                    Bookmarks ({progress.bookmarkedQuestions?.length || 0})
-                  </button>
-                  
-                  <div className="relative">
-                    <button 
-                      onClick={() => setIsDifficultyDropdownOpen(!isDifficultyDropdownOpen)}
-                      className={`px-4 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 text-sm md:text-base ${practiceFilterDifficulty !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
-                    >
-                      {practiceFilterDifficulty !== null ? `${practiceFilterDifficulty} Difficulty` : 'Any Difficulty'}
-                      <ChevronDown size={16} className={`transition-transform ${isDifficultyDropdownOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    <AnimatePresence>
-                      {isDifficultyDropdownOpen && (
-                        <>
-                          <div className="fixed inset-0 z-40" onClick={() => setIsDifficultyDropdownOpen(false)}></div>
-                          <m.div
-                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                            className="absolute top-full mt-2 left-0 w-48 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl z-50 overflow-hidden"
-                          >
-                            <div className="flex flex-col">
-                              {[
-                                { value: null, label: 'Any Difficulty', color: 'text-slate-600 dark:text-slate-400' },
-                                { value: 'Easy', label: 'Easy', color: 'text-emerald-500' },
-                                { value: 'Medium', label: 'Medium', color: 'text-yellow-500' },
-                                { value: 'Hard', label: 'Hard', color: 'text-rose-500' }
-                              ].map(opt => (
-                                <button
-                                  key={opt.label}
-                                  onClick={() => {
-                                    setPracticeFilterTopic(null);
-                                    setPracticeFilterBookmark(false);
-                                    setPracticeFilterDifficulty(opt.value);
-                                    setIsAiTopicMode(false);
-                                    setPracticeFilterAIBatch(null);
-                                    setIsDifficultyDropdownOpen(false);
-                                  }}
-                                  className={`text-left px-4 py-3 text-sm font-bold border-b border-slate-200/50 dark:border-slate-700/50 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${practiceFilterDifficulty === opt.value ? 'bg-slate-50 dark:bg-slate-800/50' : ''} ${opt.color}`}
-                                >
-                                  {opt.label}
-                                </button>
-                              ))}
-                            </div>
-                          </m.div>
-                        </>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {aiBatchesList.length > 0 && (
-                    <div className="relative">
-                      <button 
-                        onClick={() => setIsAiBatchDropdownOpen(!isAiBatchDropdownOpen)}
-                        className={`px-4 py-2 md:py-2.5 rounded-xl font-bold transition-all shadow-sm focus:outline-none flex items-center gap-2 text-sm md:text-base ${practiceFilterAIBatch !== null ? 'bg-[hsl(var(--accent))] text-white border-[hsl(var(--accent))]' : 'bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/10'}`}
-                      >
-                        {practiceFilterAIBatch !== null ? `AI Batch #${practiceFilterAIBatch + 1}` : 'Saved AI Batches'}
-                        <ChevronDown size={16} className={`transition-transform ${isAiBatchDropdownOpen ? 'rotate-180' : ''}`} />
-                      </button>
-                      
-                      <AnimatePresence>
-                        {isAiBatchDropdownOpen && (
-                          <>
-                            <div className="fixed inset-0 z-40" onClick={() => setIsAiBatchDropdownOpen(false)}></div>
-                            <m.div
-                              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                              className="absolute top-full mt-2 left-0 sm:left-auto sm:right-0 w-72 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl z-50 overflow-hidden"
-                            >
-                              <div className="max-h-60 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
-                                {aiBatchesList.map((b) => (
-                                  <div key={b.batchId} className="flex items-center justify-between p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
-                                    <div
-                                      className="flex-1 cursor-pointer"
-                                      onClick={() => {
-                                        setPracticeFilterTopic(null);
-                                        setPracticeFilterBookmark(false);
-                                        setPracticeFilterDifficulty(null);
-                                        setIsAiTopicMode(false);
-                                        setIsAdaptive(false);
-                                        setPracticeFilterAIBatch(b.batchId);
-                                        setIsAiBatchDropdownOpen(false);
-                                      }}
-                                    >
-                                      <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                                         {b.topic ? `AI: ${b.topic}` : `AI Batch #${b.batchId + 1}`}
-                                      </p>
-                                      <p className="text-xs text-slate-500">{b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Saved'}</p>
-                                    </div>
-                                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                      <button
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          const data = {
-                                            id: b.topic ? `AI_Generated_${b.subject}_${b.topic.replace(/\s+/g, '_')}` : `AI_Generated_${b.subject}_Batch_${b.batchId}`,
-                                            title: b.topic ? `AI: ${b.topic}` : `AI Batch #${b.batchId + 1}`,
-                                            questions: b.questions
-                                          };
-                                          const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                                          const url = URL.createObjectURL(blob);
-                                          const a = document.createElement('a');
-                                          a.href = url;
-                                          a.download = `${data.id}.json`;
-                                          a.click();
-                                          URL.revokeObjectURL(url);
-                                        }}
-                                        className="p-2 text-slate-400 hover:text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]/10 rounded-lg transition-colors"
-                                        title="Download JSON for Repo"
-                                      >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                                      </button>
-                                      <button
-                                        onClick={async (e) => {
-                                          e.stopPropagation();
-                                          if (window.confirm("Delete this AI generated batch?")) {
-                                            await deleteGeneratedBatch(b.subject, b.batchId);
-                                            const updated = await getGeneratedBatches(practiceSubject);
-                                            setAiBatchesList(updated);
-                                            if (practiceFilterAIBatch === b.batchId) {
-                                              setPracticeFilterAIBatch(null);
-                                              setPracticeRefreshTrigger(prev => prev + 1);
-                                            }
-                                            if (updated.length === 0) setIsAiBatchDropdownOpen(false);
-                                          }
-                                        }}
-                                        className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors"
-                                        title="Delete Batch"
-                                      >
-                                        <Trash2 size={16} />
-                                      </button>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </m.div>
-                          </>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                  <div className="flex items-center gap-2 text-sm font-bold bg-orange-500/10 text-orange-600 dark:text-orange-400 px-3 py-1.5 rounded-lg border border-orange-500/20 shadow-sm" title="Consecutive Correct Answers">
-                    🔥 Streak: {progress.currentStreak || 0} <span className="opacity-50 font-normal ml-1"> (Max: {progress.maxStreak || 0})</span>
-                    <AnimatePresence>
-                      {(progress.currentStreak || 0) > 1 && progress.currentStreak === progress.maxStreak && (
-                        <m.span 
-                          key={progress.currentStreak}
-                          initial={{ scale: 0.5, opacity: 0, y: 5 }}
-                          animate={{ scale: [1, 1.2, 1], opacity: 1, y: 0 }}
-                          className="ml-1 px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-rose-500 text-white text-[9px] rounded uppercase tracking-wider shadow-sm whitespace-nowrap"
-                        >
-                          New Best!
-                        </m.span>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                  <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
-                    <input type="checkbox" checked={isAdaptive} onChange={(e) => { setIsAdaptive(e.target.checked); if(e.target.checked) { setIsAiTopicMode(false); setPracticeFilterAIBatch(null); } }} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
-                    <span className={isAdaptive ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>Adaptive Difficulty</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer text-sm font-medium whitespace-nowrap">
-                    <input type="checkbox" checked={isAiTopicMode} onChange={(e) => {
-                      setIsAiTopicMode(e.target.checked);
-                      if (e.target.checked) {
-                        setPracticeFilterTopic(null);
-                        setPracticeFilterBookmark(false);
-                        setPracticeFilterDifficulty(null);
-                        setIsAdaptive(false);
-                        setPracticeFilterAIBatch(null);
-                      }
-                    }} className="w-4 h-4 rounded text-[hsl(var(--accent))] bg-slate-100 border-slate-300 focus:ring-[hsl(var(--accent))] dark:bg-slate-700 dark:border-slate-600" />
-                    <span className={isAiTopicMode ? 'text-[hsl(var(--accent))] font-bold' : 'text-slate-600 dark:text-slate-400'}>AI Topic Focus</span>
-                  </label>
-                  <button onClick={toggleFullscreen} className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all flex shrink-0 items-center justify-center" title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
-                    {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-                  </button>
-                </div>
-              </div>
-
-              <AnimatePresence>
-                {isAiTopicMode && (
-                  <m.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mb-6 flex flex-col sm:flex-row gap-4 items-center bg-white/60 dark:bg-white/5 backdrop-blur-xl p-4 rounded-xl border border-[hsl(var(--accent))]/30 shadow-sm overflow-hidden"
-                  >
-                    <div className="flex-1 w-full relative">
-                      <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                      <input 
-                        type="text" 
-                        placeholder="What topic do you want to practice? (e.g. Geometry, Syllogisms, Parajumbles...)" 
-                        value={aiTopicFocus} 
-                        onChange={e => setAiTopicFocus(e.target.value)} 
-                        onKeyDown={e => { if (e.key === 'Enter' && !isGenerating && aiTopicFocus.trim()) setPracticeRefreshTrigger(prev => prev + 1); }}
-                        className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" 
-                      />
-                    </div>
-                    <button 
-                      onClick={() => setPracticeRefreshTrigger(prev => prev + 1)}
-                      disabled={isGenerating || !aiTopicFocus.trim()}
-                      className="w-full sm:w-auto bg-[hsl(var(--accent))] text-white px-6 py-2.5 rounded-xl font-bold shadow-md hover:opacity-90 active:scale-95 transition-all disabled:opacity-50 flex justify-center items-center gap-2"
-                    >
-                      {isGenerating ? <><Loader2 size={18} className="animate-spin" /> Generating...</> : <><Bot size={18} /> Ask Maester</>}
-                    </button>
-                  </m.div>
-                )}
-              </AnimatePresence>
-
-              {practiceQuestions.length > 0 && (
-                <div className="mb-6 sticky top-[72px] z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-4 rounded-xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <div className="flex justify-between text-sm font-bold mb-2">
-                    <span className="text-slate-600 dark:text-slate-400">Batch Progress</span>
-                    <span className="text-[hsl(var(--accent))]">{Object.keys(practiceAnswers).length} / {practiceQuestions.length}</span>
-                  </div>
-                  <div className="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                    <m.div 
-                      className="h-full bg-[hsl(var(--accent))] transition-all duration-500" 
-                      style={{ width: `${(Object.keys(practiceAnswers).length / practiceQuestions.length) * 100}%` }} 
-                    />
-                  </div>
-                </div>
-              )}
-
-              <div className="space-y-6">
-                {isGenerating ? (
-                  <div className={`w-full flex flex-col ${practiceSubject !== 'QA' ? 'lg:flex-row' : ''} gap-6 animate-pulse`}>
-                    {practiceSubject !== 'QA' && (
-                      <div className="passage-container lg:sticky lg:top-[140px] p-6 md:p-8 bg-white/40 dark:bg-white/5 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm max-h-[50vh] lg:max-h-[calc(100vh-160px)] flex flex-col gap-4">
-                        <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/4 mb-4"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full mt-4"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-4/5"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-2/3"></div>
-                        <div className="mt-8 flex flex-col items-center justify-center opacity-50">
-                          <m.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }} className="w-10 h-10 border-4 border-slate-200/50 dark:border-white/10 rounded-full mb-3" style={{ borderTopColor: "hsl(var(--accent))" }} />
-                          <span className="text-sm font-bold text-[hsl(var(--accent))]">Maester is crafting...</span>
-                        </div>
-                      </div>
-                    )}
-                    <div className={`${practiceSubject !== 'QA' ? 'question-container' : 'w-full max-w-5xl mx-auto'} flex flex-col gap-6`}>
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="bg-white/40 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm">
-                          <div className="flex justify-between items-start mb-6">
-                            <div className="flex gap-2 w-full"><div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-8"></div><div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-16"></div></div>
-                          </div>
-                          <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-6"></div>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {[1, 2, 3, 4].map(j => <div key={j} className="h-16 bg-slate-200 dark:bg-slate-700 rounded-xl"></div>)}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : generationError ? (
-                  <div className="flex flex-col items-center justify-center flex-1 py-16 text-center">
-                    <BrainCircuit size={48} className="mx-auto mb-4 text-rose-500/50" />
-                    <h3 className="text-xl font-bold text-rose-500">Generation Failed</h3>
-                    <p className="text-slate-500 max-w-md mt-2 mb-6">{generationError}</p>
-                    <button onClick={() => setPracticeRefreshTrigger(prev => prev + 1)} className="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 px-6 py-2 rounded-xl font-bold hover:opacity-90 transition-opacity">
-                      Retry Generation
-                    </button>
-                  </div>
-                ) : practiceQuestions.length === 0 ? (
-                  <div className="text-center py-16 text-slate-500">
-                    <BrainCircuit size={48} className="mx-auto mb-4 opacity-20" />
-                    <p>
-                      {isAiTopicMode && !aiTopicFocus.trim() 
-                        ? "Enter a topic above and ask Maester to generate custom questions." 
-                        : `No questions found ${practiceFilterTopic ? `for topic "${practiceFilterTopic}"` : practiceFilterBookmark ? 'in your bookmarks' : practiceFilterDifficulty ? `with "${practiceFilterDifficulty}" difficulty` : practiceFilterAIBatch !== null ? 'in this saved AI batch' : 'for this skill level'}.`
-                      }
-                    </p>
-                  </div>
-                ) : (() => {
-                  const groups: { context?: string, qs: { q: Question, idx: number }[] }[] = [];
-                  practiceQuestions?.forEach((q, idx) => {
-                    if (groups.length > 0 && groups[groups.length - 1].context === q.context) {
-                      groups[groups.length - 1].qs.push({ q, idx });
-                    } else {
-                      groups.push({ context: q.context, qs: [{ q, idx }] });
-                    }
-                  });
-
-                  return groups.map((group, gIdx) => (
-                    <Fragment key={`group_${gIdx}`}>
-                      <m.div 
-                        layout 
-                        initial={{ opacity: 0, y: 20 }} 
-                        animate={{ opacity: 1, y: 0 }} 
-                        transition={{ delay: Math.min(gIdx * 0.1, 0.5) }}
-                        className={`flex flex-col ${group.context ? 'lg:flex-row lg:items-start lg:gap-0 gap-6' : 'gap-6'} w-full`}
-                      >
-                      {group.context && (
-                        <>
-                          <div 
-                            onDoubleClick={() => setExpandedPassageContext(expandedPassageContext === group.context ? null : (group.context || null))}
-                            className={`passage-container lg:sticky lg:top-[140px] p-5 md:p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl text-sm md:text-lg text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-loose border border-slate-200/50 dark:border-white/10 shadow-sm overflow-y-auto ${expandedPassageContext === group.context ? 'fixed inset-2 md:inset-10 z-[9999] shadow-2xl !max-h-none !max-w-none bg-white dark:bg-slate-900' : 'max-h-[40vh] lg:max-h-[calc(100vh-160px)]'}`} 
-                            style={expandedPassageContext !== group.context ? { scrollbarWidth: 'thin' } : {}}
-                          >
-                            {expandedPassageContext === group.context && (
-                              <div className="sticky top-0 flex justify-between items-center mb-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur py-3 px-4 -mx-6 -mt-6 md:-mx-8 md:-mt-8 border-b border-slate-200 dark:border-slate-700 z-10">
-                                 <span className="font-bold text-[hsl(var(--accent))] flex items-center gap-2"><Maximize size={18}/> Reading Mode</span>
-                                 <button onClick={() => setExpandedPassageContext(null)} className="text-slate-500 hover:text-rose-500 bg-slate-100 dark:bg-slate-800 p-2 rounded-lg flex items-center gap-2 text-sm font-bold transition-colors"><Minimize size={16}/> Close</button>
-                              </div>
-                            )}
-                            {!expandedPassageContext && <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-4 lg:hidden flex items-center gap-1"><Maximize size={12}/> Double tap passage to expand</div>}
-                            {group.qs[0].q.difficulty && group.qs[0].q.id.startsWith('gen_') && (
-                              <div className="mb-4 flex items-center gap-2">
-                                <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${
-                                  group.qs[0].q.difficulty === 'Hard' ? 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/20' : 
-                                  group.qs[0].q.difficulty === 'Easy' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 
-                                  'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
-                                }`}>
-                                  Passage Difficulty: {group.qs[0].q.difficulty}
-                                </span>
-                              </div>
-                            )}
-                            {renderContextWithImages(group.context, activeHint)}
-                          </div>
-                          <div 
-                            className="hidden lg:flex w-4 shrink-0 cursor-col-resize items-center justify-center group select-none outline-none lg:sticky lg:top-[50vh]"
-                            onMouseDown={handleDragStart}
-                            onTouchStart={handleDragStart}
-                          >
-                            <div className="w-1 h-12 bg-slate-300 dark:bg-slate-600 group-hover:bg-[hsl(var(--accent))] rounded-full transition-colors"></div>
-                          </div>
-                        </>
-                      )}
-                      <div className={`${group.context ? 'question-container' : 'w-full max-w-5xl mx-auto'} flex flex-col gap-6`}>
-                        {group.qs.map(({ q, idx }) => (
-                          <m.div layout key={q.id} id={`practice-q-${idx}`} className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl p-5 md:p-8 shadow-sm">
-                            <div className="flex justify-between items-start mb-6 gap-4">
-                              <div className="flex-1">
-                            <div className="flex gap-2 mb-3">
-                              <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{q.type}</span>
-                              {(() => {
-                                const aiDifficulty = q.difficulty;
-                                const rating = questionRatings[q.id] || 1200;
-                                let diffText = 'Medium';
-                                let diffColor = 'text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 border border-yellow-500/20';
-                                if (q.id.startsWith('gen_') && aiDifficulty) {
-                                  diffText = aiDifficulty;
-                                  if (aiDifficulty === 'Easy') diffColor = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20';
-                                  else if (aiDifficulty === 'Hard') diffColor = 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20';
-                                } else {
-                                  if (rating < 1000) { diffText = 'Easy'; diffColor = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'; }
-                                  else if (rating > 1400) { diffText = 'Hard'; diffColor = 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20'; }
-                                }
-                                return <span className={`text-[10px] md:text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${diffColor}`}>{diffText}</span>;
-                              })()}
-                            </div>
-                            <div className="font-medium text-base md:text-lg leading-relaxed flex gap-2 text-slate-800 dark:text-slate-200">
-                              <span>{idx + 1}.</span>
-                              <div>{renderContextWithImages(q.text)}</div>
-                            </div>
-                          </div>
-                          <button 
-                            onClick={() => toggleBookmark(q.id)}
-                            className={`p-2 shrink-0 rounded-lg transition-colors ${progress.bookmarkedQuestions?.includes(q.id) ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
-                            title="Bookmark Question"
-                          >
-                            <Bookmark size={20} fill={progress.bookmarkedQuestions?.includes(q.id) ? 'currentColor' : 'none'} />
-                          </button>
-                        </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {q.type === 'MCQ' ? q.options?.map((opt, oIdx) => {
-                        const isAnswered = practiceAnswers[q.id] !== undefined;
-                        const isSelected = practiceAnswers[q.id] === oIdx;
-                        const isCorrect = q.correct === oIdx;
-                        let borderClass = 'border-slate-200/50 dark:border-white/10 hover:border-[hsl(var(--accent))]/50';
-                        let bgClass = 'bg-white/40 dark:bg-white/5';
-                        
-                        if (isAnswered) {
-                          if (isCorrect) borderClass = 'border-emerald-500', bgClass = 'bg-emerald-500/10 dark:bg-emerald-500/20';
-                          else if (isSelected) borderClass = 'border-rose-500', bgClass = 'bg-rose-500/10 dark:bg-rose-500/20';
-                          else if (q.correct === oIdx) borderClass = 'border-emerald-500 border-dashed', bgClass = 'bg-emerald-500/5 dark:bg-emerald-500/10';
-                          else borderClass = 'border-slate-200/50 dark:border-white/10 opacity-50';
-                        }
-
-                        return (
-                          <label key={oIdx} className="relative cursor-pointer">
-                            <input type="radio" name={`pq-${q.id}`} disabled={isAnswered} className="sr-only" onChange={() => {
-                              const userRating = progress.skillRatings?.[practiceSubject] || 1200;
-                              const isCorrect = oIdx === q.correct;
-
-                              setPracticeAnswers(prev => ({ ...prev, [q.id]: oIdx }));
-                              setLastAnswerStatus(isCorrect ? 'correct' : 'incorrect');
-                              updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
-                              updateQuestionRating(q.id, userRating, isCorrect);
-                              updatePracticeStreak(isCorrect);
-                              addResult(1, isCorrect ? 1 : 0);
-                              if (!isCorrect) {
-                                const front = `[Auto-Generated]\n\nQ: ${q.text}`;
-                                const back = `Correct Answer: ${q.options?.[q.correct as number]}\\n\\nExplanation:\\n${q.explanation}`;
-                                saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
-                              }
-                            }} />
-                            <div className={`border-2 rounded-xl p-3 md:p-4 text-sm md:text-base transition-all duration-200 hover:shadow-md ${borderClass} ${bgClass} leading-relaxed`}>{renderContextWithImages(opt)}</div>
-                          </label>
-                        );
-                      }) : (
-                        <div className="sm:col-span-2">
-                           <input 
-                              type="text" 
-                              disabled={practiceAnswers[q.id] !== undefined} 
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    const val = e.currentTarget.value;
-                                    const userRating = progress.skillRatings?.[practiceSubject] || 1200;
-                                    setPracticeAnswers(prev => ({ ...prev, [q.id]: val }));
-                                    const isCorrect = String(val).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase();
-                                    
-                                    setLastAnswerStatus(isCorrect ? 'correct' : 'incorrect');
-                                    updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, isCorrect);
-                                    updateQuestionRating(q.id, userRating, isCorrect);
-                                    updatePracticeStreak(isCorrect);
-                                    addResult(1, isCorrect ? 1 : 0);
-                                    if (!isCorrect) {
-                                      const front = `[Auto-Generated]\n\nQ: ${q.text}`;
-                                      const back = `Correct Answer: ${q.tita_answer}\\n\\nExplanation:\\n${q.explanation}`;
-                                      saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
-                                    }
-                                }
-                              }} 
-                              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors disabled:opacity-50" 
-                              placeholder="Type your answer and press Enter..." 
-                           />
-                           {practiceAnswers[q.id] !== undefined && (
-                             <div className={`mt-2 text-sm font-bold ${practiceAnswers[q.id] === 'SKIPPED' ? 'text-slate-500' : String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase() ? 'text-emerald-500' : 'text-rose-500'}`}>
-                               Your Answer: {practiceAnswers[q.id] === 'SKIPPED' ? 'Skipped' : practiceAnswers[q.id]} | Correct: {q.tita_answer}
-                             </div>
-                           )}
-                        </div>
-                      )}
-                      
-                      <AnimatePresence>
-                        {progress.bookmarkedQuestions?.includes(q.id) && (
-                          <m.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="mt-4 overflow-hidden"
-                          >
-                            <div className="flex items-start gap-3 bg-amber-50 dark:bg-amber-900/10 p-3 md:p-4 rounded-xl border border-amber-200/50 dark:border-amber-700/50">
-                              <Edit2 size={16} className="text-amber-500 mt-1 shrink-0" />
-                              <textarea
-                                placeholder="Add a personalized note for future review..."
-                                value={progress.bookmarkedNotes?.[q.id] || ''}
-                                onChange={(e) => updateBookmarkNote(q.id, e.target.value)}
-                                className="w-full bg-transparent border-none focus:outline-none text-sm text-slate-700 dark:text-slate-300 resize-none min-h-[40px] placeholder:text-amber-700/30 dark:placeholder:text-amber-300/30"
-                              />
-                            </div>
-                          </m.div>
-                        )}
-                      </AnimatePresence>
-
-                      <div className="mt-4 flex justify-between items-center">
-                        <div>
-                          {q.hint && q.context && (
-                            <button
-                              onClick={() => setActiveHint(activeHint === q.hint ? null : (q.hint || null))}
-                              className={`text-sm font-bold transition-colors flex items-center gap-1.5 ${activeHint === q.hint ? 'text-[hsl(var(--accent))]' : 'text-amber-500 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300'}`}
-                            >
-                              <span className="text-base">💡</span> {activeHint === q.hint ? 'Hide Hint' : 'Show Hint'}
-                            </button>
-                          )}
-                        </div>
-                        {practiceAnswers[q.id] === undefined && (
-                          <button 
-                            onClick={() => {
-                              const userRating = progress.skillRatings?.[practiceSubject] || 1200;
-                              setPracticeAnswers(prev => ({ ...prev, [q.id]: 'SKIPPED' }));
-                              setLastAnswerStatus('incorrect');
-                              updateSkillRating(practiceSubject, questionRatings[q.id] || 1200, false);
-                              updateQuestionRating(q.id, userRating, false);
-                              updatePracticeStreak(false);
-                              addResult(1, 0);
-                              const front = `[Auto-Generated]\n\nQ: ${q.text}`;
-                              const back = `Correct Answer: ${q.type === 'MCQ' ? q.options?.[q.correct as number] : q.tita_answer}\n\nExplanation:\n${q.explanation}`;
-                              saveFormula({ id: `auto_${q.id}`, front, back }).catch(console.error);
-                            }}
-                            className="text-sm font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                          >
-                            Skip & Reveal Answer
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                    <AnimatePresence>
-                      {practiceAnswers[q.id] !== undefined && (
-                        <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden mt-6">
-                          {(() => {
-                            const isSkipped = practiceAnswers[q.id] === 'SKIPPED';
-                            const isCorrect = !isSkipped && ((q.type === 'MCQ' && practiceAnswers[q.id] === q.correct) || (q.type !== 'MCQ' && String(practiceAnswers[q.id]).trim().toLowerCase() === String(q.tita_answer).trim().toLowerCase()));
-                            const showExp = !isCorrect || revealedExplanations[q.id];
-                            
-                            return (
-                              <div className={`p-5 rounded-xl border ${isSkipped ? 'bg-slate-500/5 border-slate-500/20' : isCorrect ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-rose-500/5 border-rose-500/20'}`}>
-                                <div className="flex justify-between items-start md:items-center mb-3">
-                                  <div className={`font-bold flex items-center gap-2 text-lg ${isSkipped ? 'text-slate-500 dark:text-slate-400' : isCorrect ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                    {isSkipped ? '⏭️ Skipped' : isCorrect ? '✅ Correct!' : '❌ Incorrect!'}
-                                  </div>
-                                  {isCorrect && !showExp && (
-                                    <button onClick={() => setRevealedExplanations(prev => ({...prev, [q.id]: true}))} className="text-sm font-bold text-[hsl(var(--accent))] hover:underline flex items-center gap-1.5">
-                                      <Book size={16} /> View Explanation
-                                    </button>
-                                  )}
-                                  {isCorrect && showExp && (
-                                    <button onClick={() => setRevealedExplanations(prev => ({...prev, [q.id]: false}))} className="text-sm font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:underline flex items-center gap-1.5">
-                                      Hide Explanation
-                                    </button>
-                                  )}
-                                </div>
-                                
-                                <AnimatePresence>
-                                  {showExp && (
-                                    <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                                      <div className="font-bold flex items-center gap-2 mb-2 text-[hsl(var(--accent))] mt-2"><Book size={18} /> Coach&apos;s Explanation</div>
-                                      <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">{renderContextWithImages(q.explanation)}</div>
-                                      
-                                      {q.id.startsWith('gen_') && (
-                                        <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10">
-                                          <p className="text-xs font-bold text-slate-500 mb-2">Rate this AI-generated question:</p>
-                                          <div className="flex gap-1">
-                                            {[1, 2, 3, 4, 5].map(star => (
-                                              <button 
-                                                key={star} 
-                                                onClick={() => handleAiQuestionRating(q.id, star)}
-                                                className="text-slate-300 dark:text-slate-600 hover:text-yellow-400 transition-colors"
-                                              >
-                                                <Star size={20} className={`transition-colors ${aiQuestionFeedback[q.id] >= star ? 'text-yellow-400 fill-yellow-400' : ''}`} />
-                                              </button>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      )}
-                                      
-                                      {!isCorrect && !chatMessages[q.id] && (
-                                        <button 
-                                          onClick={() => handleAskMaester(q, practiceAnswers[q.id] === 'SKIPPED' ? 'I skipped this question.' : String(practiceAnswers[q.id]), true)} 
-                                          className="mt-6 text-sm font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2 border border-indigo-500/20"
-                                        >
-                                          <Bot size={18} /> Ask Maester to Clarify
-                                        </button>
-                                      )}
-                                      {renderChatBlock(q.id, q, String(practiceAnswers[q.id]))}
-                                    </m.div>
-                                  )}
-                                </AnimatePresence>
-                              </div>
-                            );
-                          })()}
-                        </m.div>
-                      )}
-                    </AnimatePresence>
-                  </m.div>
-                        ))}
-                      </div>
-                      </m.div>
-                      {gIdx < groups.length - 1 && (
-                        <div className="w-full flex justify-center items-center gap-3 py-2 opacity-40 select-none">
-                          <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
-                          <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
-                          <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
-                        </div>
-                      )}
-                    </Fragment>
-                  ));
-                })()}
-                {practiceQuestions.length > 0 && (
-                  <div className="flex justify-center flex-wrap gap-4 mt-8 pb-8">
-                    {(() => {
-                      const topicPrompt = (isAiTopicMode && aiTopicFocus.trim()) ? aiTopicFocus.trim() : undefined;
-                      const isReady = prefetchedBatch && prefetchedBatch.subject === practiceSubject && prefetchedBatch.topic === topicPrompt;
-                      const isNormalOrAiMode = !practiceFilterTopic && !practiceFilterBookmark && !practiceFilterDifficulty && !isAdaptive && practiceFilterAIBatch === null;
-                      return (
-                        <button 
-                          onClick={() => {
-                            setPracticeFilterAIBatch(null);
-                            setPracticeRefreshTrigger(prev => prev + 1);
-                          }}
-                          className={`px-8 py-3 rounded-xl font-bold shadow-sm hover:shadow-md active:scale-95 transition-all flex items-center gap-2 ${isReady && isNormalOrAiMode ? 'bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] border border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-[hsl(var(--accent))]/50 hover:text-[hsl(var(--accent))]'}`}
-                        >
-                          <RotateCcw size={18} /> {isNormalOrAiMode && isReady ? 'Next Batch Ready ⚡' : 'Load Next Batch'}
-                        </button>
-                      );
-                    })()}
-                    <button 
-                      onClick={() => {
-                         const data = {
-                           id: practiceFilterTopic ? `AI_Generated_${practiceSubject}_${practiceFilterTopic.replace(/\s+/g, '_')}` : `AI_Generated_${practiceSubject}_Batch`,
-                           title: practiceFilterTopic ? `AI: ${practiceFilterTopic}` : `AI Generated Batch`,
-                           questions: practiceQuestions
-                         };
-                         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                         const url = URL.createObjectURL(blob);
-                         const a = document.createElement('a');
-                         a.href = url;
-                         a.download = `${data.id}.json`;
-                         a.click();
-                         URL.revokeObjectURL(url);
-                      }}
-                      className="px-6 py-3 rounded-xl font-bold shadow-sm hover:shadow-md active:scale-95 transition-all flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-emerald-500/50 hover:text-emerald-500"
-                      title="Download as JSON to save in repository"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                      <span className="hidden sm:inline">Export JSON</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
+            <PracticeArena />
           )}
 
           {activeTab === 'formula' && (
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">Interactive Formula Hub</h3>
-                  <p className="text-slate-500">Master the official CAT formulas or add your own custom flashcards to IndexedDB.</p>
-                </div>
-                <div className="flex gap-4 w-full sm:w-auto">
-                  <div className="relative flex-1 sm:w-64">
-                    <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input type="text" placeholder="Search formulas..." value={formulaSearch} onChange={e => setFormulaSearch(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-white/60 dark:bg-slate-900/60 border border-slate-200/50 dark:border-white/10 rounded-xl focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
-                  </div>
-                  <button onClick={() => { setIsAddingFormula(!isAddingFormula); if (isAddingFormula) { setEditingFormulaId(null); setNewFormula({ front: '', back: '' }); } }} className="bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all whitespace-nowrap">
-                    {isAddingFormula ? 'Cancel' : '+ Add'}
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex gap-2 overflow-x-auto pb-4 mb-2 scrollbar-hide">
-                {formulaTopics.map((topic: any) => (
-                  <button 
-                    key={topic} 
-                    onClick={() => setFormulaTopicFilter(topic)} 
-                    className={`px-4 py-2 rounded-xl font-bold whitespace-nowrap text-sm transition-colors ${formulaTopicFilter === topic ? 'bg-[hsl(var(--accent))] text-white' : 'bg-white/60 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700/50 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'}`}
-                  >
-                    {topic}
-                  </button>
-                ))}
-              </div>
-
-              <AnimatePresence>
-                {isAddingFormula && (
-                  <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mb-8 overflow-hidden">
-                    <div className="bg-white/40 dark:bg-white/5 p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 flex flex-col md:flex-row gap-4 mt-2">
-                      <input type="text" placeholder="Front (e.g. Area of a Circle: $A = \pi r^2$)" value={newFormula.front} onChange={e => setNewFormula({...newFormula, front: e.target.value})} className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
-                      <input type="text" placeholder="Back (e.g. $A = \pi r^2$)" value={newFormula.back} onChange={e => setNewFormula({...newFormula, back: e.target.value})} className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[hsl(var(--accent))] transition-colors" />
-                      <button onClick={async () => {
-                        if(!newFormula.front || !newFormula.back) return;
-                        const f = { id: editingFormulaId || Date.now().toString(), front: newFormula.front, back: newFormula.back };
-                        await saveFormula(f);
-                        if (editingFormulaId) {
-                          setFormulas(formulas.map(form => form.id === editingFormulaId ? f : form));
-                          setEditingFormulaId(null);
-                        } else {
-                          setFormulas([...formulas, f]);
-                        }
-                        setNewFormula({ front: '', back: '' });
-                        setIsAddingFormula(false);
-                      }} className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold px-8 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all">
-                        {editingFormulaId ? 'Update Offline' : 'Save Offline'}
-                      </button>
-                    </div>
-                  </m.div>
-                )}
-              </AnimatePresence>
-
-              {filteredFormulas.length === 0 ? (
-                <div className="text-center py-16 text-slate-500">
-                  <Book size={48} className="mx-auto mb-4 opacity-20" />
-                  <p>No formulas found matching "{formulaSearch}"</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 auto-rows-fr">
-                  {filteredFormulas.map((f) => (
-                   <Flashcard key={f.id} formula={f} onEdit={() => {
-                     setEditingFormulaId(f.id);
-                     setNewFormula({ front: f.front, back: f.back });
-                     setIsAddingFormula(true);
-                   }} onDelete={async () => {
-                     setFormulaToDelete(f.id);
-                   }} onUpdate={async (updated) => {
-                     await saveFormula(updated);
-                     setFormulas(formulas.map(form => form.id === updated.id ? updated : form));
-                   }} />
-                  ))}
-                </div>
-              )}
-            </div>
+            <StudyHub />
           )}
+
+
         </div>
       </main>
 
