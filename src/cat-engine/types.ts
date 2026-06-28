@@ -1,7 +1,7 @@
 // types.ts — CAT MCP Server Type Definitions
 
 export type Section = "VARC" | "DILR" | "QA";
-export type Difficulty = "Easy" | "Medium" | "Hard" | "Mixed";
+export type Difficulty = "Easy" | "Medium" | "Hard";
 export type QuestionType = "MCQ" | "TITA";
 export type SubsectionVARC = "Reading Comprehension" | "Para Jumble" | "Para Summary" | "Odd Sentence Out";
 

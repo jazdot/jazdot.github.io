@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useCatStore } from '../../pages/catStore';
-import { Target, TrendingUp, Clock, AlertTriangle, Activity, Map, ArrowUpRight, ArrowDownRight, Layers } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, ZAxis, Cell } from 'recharts';
+import { Target, TrendingUp, Clock, AlertTriangle, Activity, Map } from 'lucide-react';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, ZAxis, Cell } from 'recharts';
 
 export default function AnalyticsDashboard() {
   const { progress } = useCatStore();
-  const { topicStats, skillRatings, skillHistory, studyPlan } = progress;
+  const { topicStats, skillRatings, studyPlan } = progress;
 
   // 1. Weak Topic Ranker & Accuracy Heatmap Data
   const topicAnalysis = useMemo(() => {

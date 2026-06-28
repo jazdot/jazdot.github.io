@@ -4,11 +4,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, LayoutDashboard, PenTool, Bot, Book, LogIn, LogOut, BrainCircuit, Trophy, Loader2, X, Edit2, Trash2, Search, PlayCircle, Timer, Bookmark, Sun, Moon, Monitor, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Calculator, Menu, Star, ChevronDown, RadioTower } from 'lucide-react';
 import { useCatStore } from './catStore';
 import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
-import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, query, getDocs, limit, addDoc, updateDoc, onSnapshot } from './firebase';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, addDoc, updateDoc, onSnapshot } from './firebase';
+
 import { generateCatQuestions } from '../cat-engine/ai-service';
 import AnalyticsDashboard from '../components/cat-maester/AnalyticsDashboard';
 import AdaptiveEngine from '../components/cat-maester/AdaptiveEngine';
+
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMaesterDB';
@@ -121,7 +122,7 @@ const deleteFormula = async (id: string) => {
 };
 
 // --- Real AI Generation via Gemini ---
-const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: string, retries = 2): Promise<Question[]> => {
+const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: string): Promise<Question[]> => {
   console.log(`[AI] Generating new batch for ${subject}${topic ? ` on ${topic}` : ''} via cat-engine...`);
   
   const subtopic = topic || (subject === 'QA' ? 'Time Speed Distance' : subject === 'VARC' ? 'Reading Comprehension' : 'Caselet');
@@ -564,7 +565,6 @@ export default function CatMaester() {
   const [showClearHistoryConfirmationModal, setShowClearHistoryConfirmationModal] = useState(false);
   const [passageWidth, setPassageWidth] = useState(50);
   const isDragging = useRef(false);
-  const [qotd, setQotd] = useState<Question | null>(null);
   const [pendingUnfinishedTest, setPendingUnfinishedTest] = useState<any>(null);
   const [formulaToDelete, setFormulaToDelete] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(
@@ -586,22 +586,13 @@ export default function CatMaester() {
   const [calcExpr, setCalcExpr] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
-  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
   const [chatMessages, setChatMessages] = useState<Record<string, { role: 'user'|'model', text: string }[]>>({});
   const [chatInputs, setChatInputs] = useState<Record<string, string>>({});
   const [isChatLoading, setIsChatLoading] = useState<Record<string, boolean>>({});
   const [liveChallengeId, setLiveChallengeId] = useState<string | null>(null);
   const [liveChallengeData, setLiveChallengeData] = useState<any>(null);
-  const [targetPercentile, setTargetPercentile] = useState<number>(() => {
-    const saved = localStorage.getItem('cat-maester-target-pr');
-    return saved ? Number(saved) : 99.0;
-  });
 
-  useEffect(() => {
-    localStorage.setItem('cat-maester-target-pr', targetPercentile.toString());
-  }, [targetPercentile]);
-
-  const targetElo = Math.round(1200 + 200 * (-Math.log(1 / (Math.max(0.01, Math.min(99.99, targetPercentile)) / 100) - 1) / 1.702));
 
   useEffect(() => {
     if (practiceFilterDifficulty) localStorage.setItem('cat-maester-difficulty', practiceFilterDifficulty);
@@ -1144,18 +1135,7 @@ export default function CatMaester() {
     }
   }, [activeTab, practiceSubject, practiceFilterTopic, practiceFilterBookmark, practiceFilterDifficulty, practiceFilterAIBatch, isAdaptive, isAiTopicMode, practiceRefreshTrigger]);
 
-  useEffect(() => {
-    const fetchQotd = async () => {
-      const allQs = await getAllQuestions();
-      if (allQs.length > 0) {
-        const today = new Date();
-        const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-        const randomIdx = seed % allQs.length;
-        setQotd(allQs[randomIdx]);
-      }
-    };
-    fetchQotd();
-  }, []);
+
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -1412,32 +1392,7 @@ export default function CatMaester() {
     return () => clearTimeout(timeoutId);
   }, [progress, questionRatings, formulas, aiQuestionFeedback, user?.uid, user?.name, user?.photoURL]);
 
-  useEffect(() => {
-    if (activeTab === 'dashboard') {
-      const fetchLeaderboard = async () => {
-        try {
-          const q = query(collection(db, 'users'), limit(50));
-          const querySnapshot = await getDocs(q);
-          const leaders: any[] = [];
-          querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            if (data.progress?.skillRatings && data.displayName) {
-              const qa = data.progress.skillRatings.QA || 1200;
-              const varc = data.progress.skillRatings.VARC || 1200;
-              const dilr = data.progress.skillRatings.DILR || 1200;
-              const overall = Math.round((qa + varc + dilr) / 3);
-              leaders.push({ uid: doc.id, name: data.displayName, photoURL: data.photoURL, qa, varc, dilr, overall });
-            }
-          });
-          leaders.sort((a, b) => b.overall - a.overall);
-          setLeaderboard(leaders.slice(0, 10)); // Display Top 10
-        } catch (e) {
-          console.error("Failed to fetch leaderboard", e);
-        }
-      };
-      fetchLeaderboard();
-    }
-  }, [activeTab]);
+
 
   const handleTagTopic = (q: any, topic: string) => {
     if (!topic.trim()) return;
@@ -1770,69 +1725,11 @@ export default function CatMaester() {
     }
   };
 
-  const handleGenerateMiniMock = async () => {
-    if (!progress.topicStats || Object.keys(progress.topicStats).length === 0) {
-      alert("You need to flag questions to topics during Practice or Review to identify weak areas first!");
-      return;
-    }
-    
-    let weakTopics = Object.entries(progress.topicStats)
-      .filter(([_, stat]) => stat.attempted >= 3)
-      .sort((a, b) => (a[1].correct / a[1].attempted) - (b[1].correct / b[1].attempted))
-      .map(t => t[0])
-      .slice(0, 3);
-      
-    if (weakTopics.length === 0) {
-      weakTopics = Object.entries(progress.topicStats)
-        .sort((a, b) => (a[1].correct / a[1].attempted) - (b[1].correct / b[1].attempted))
-        .map(t => t[0])
-        .slice(0, 3);
-    }
-
-    setIsGenerating(true);
-    try {
-      const subjectMap: Record<string, 'QA'|'VARC'|'DILR'> = {
-        'Reading Comprehension': 'VARC', 'Parajumbles': 'VARC', 'Paragraph Summary': 'VARC', 'Odd One Out': 'VARC', 'Verbal Ability': 'VARC',
-        'Arrangements': 'DILR', 'Data Interpretation': 'DILR', 'Games & Tournaments': 'DILR', 'Venn Diagrams': 'DILR', 'Logical Reasoning': 'DILR',
-        'Geometry': 'QA', 'Algebra': 'QA', 'Commercial Math': 'QA', 'Time, Speed & Distance': 'QA', 'Logarithms': 'QA', 'Combinatorics': 'QA', 'Ratio & Proportion': 'QA', 'Arithmetic': 'QA'
-      };
-
-      const promises = weakTopics.map(topic => {
-        const subj = subjectMap[topic] || 'QA';
-        return generateQuestionsAPI(subj, topic, 1);
-      });
-
-      const results = await Promise.all(promises);
-      const flatQs = results.flat();
-      
-      if (flatQs.length === 0) throw new Error("Failed to generate questions.");
-
-      const miniMock = { id: `minimock_${Date.now()}`, date: new Date().toISOString(), title: `Targeted Mini-Mock: ${weakTopics.join(', ')}`, questions: flatQs };
-      await saveMockTest(miniMock);
-      const tests = await getMockTests();
-      setSavedTests(tests.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
-      setCurrentTest(miniMock);
-      setActiveTab('mock');
-      setMockPhase('confirm');
-    } catch (e) {
-      alert("Failed to generate Mini-Mock. Please try again.");
-    } finally {
-      setIsGenerating(false);
-    }
-  };
 
   // Zero-dependency SVG Donut Chart Calculation
   const accuracy = progress.totalAttempted > 0 ? Math.round((progress.correct / progress.totalAttempted) * 100) : 0;
 
-  // IRT Logistic Percentile Approximation
-  const predictPercentile = (rating: number) => {
-    const z = (rating - 1200) / 200;
-    const p = 1 / (1 + Math.exp(-1.702 * z));
-    return Math.max(1, Math.min(99.99, Number((p * 100).toFixed(2))));
-  };
-  const qaPercentile = predictPercentile(progress.skillRatings?.QA || 1200);
-  const varcPercentile = predictPercentile(progress.skillRatings?.VARC || 1200);
-  const dilrPercentile = predictPercentile(progress.skillRatings?.DILR || 1200);
+
 
   const formulaTopics = ['All', 'Custom (Mine)', ...Array.from(new Set(formulas.filter(f => f.isOfficial).map(f => f.topic)))];
 
@@ -1980,7 +1877,12 @@ export default function CatMaester() {
             }
           `}</style>
           {activeTab === 'dashboard' && (
-            <AnalyticsDashboard />
+            <div className="space-y-12">
+              <AnalyticsDashboard />
+              <div className="pt-8 border-t border-slate-200/50 dark:border-white/10">
+                <AdaptiveEngine />
+              </div>
+            </div>
           )}
 
 

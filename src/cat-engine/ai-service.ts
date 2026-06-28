@@ -1,4 +1,4 @@
-import { CATQuestion, DILRSet, RCPassage, MockTest, TrainingModule, Difficulty, Section } from './types';
+import type { CATQuestion, DILRSet, RCPassage, MockTest, TrainingModule, Difficulty, Section } from './types';
 import { 
   buildQAQuestionPrompt, 
   buildDILRSetPrompt, 
@@ -133,7 +133,7 @@ export async function generateMockTest(
   
   const mockTest: MockTest = {
     test_id: testId,
-    difficulty,
+    difficulty: difficulty as Difficulty,
     year_target: yearTarget,
     sections: {
       VARC: { passages: [], verbal_ability: [] },

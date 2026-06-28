@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useCatStore } from '../../pages/catStore';
-import { BrainCircuit, Settings, RefreshCw, XCircle, AlertOctagon, TrendingUp, Compass, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+
+import { BrainCircuit, RefreshCw, XCircle, AlertOctagon, TrendingUp, Compass, Loader2 } from 'lucide-react';
 import { generateCatQuestions } from '../../cat-engine/ai-service';
 import type { CATQuestion } from '../../cat-engine/types';
 
 export default function AdaptiveEngine() {
-  const { progress } = useCatStore();
+  // const { progress } = useCatStore(); // Removed unused variable
   const [isSimulating, setIsSimulating] = useState(false);
   const [skipTrainingActive, setSkipTrainingActive] = useState(false);
   const [skipQuestions, setSkipQuestions] = useState<CATQuestion[]>([]);
