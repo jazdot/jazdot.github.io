@@ -10,6 +10,8 @@ interface TestHistory {
 interface TopicStat {
   attempted: number;
   correct: number;
+  skipped: number;
+  totalTimeSpent: number; // in seconds
   questionIds?: string[];
 }
 
@@ -35,6 +37,11 @@ interface Progress {
   isActivated?: boolean;
   bookmarkedNotes?: Record<string, string>;
   skillHistory?: SkillHistory[];
+  studyPlan?: {
+    targetPercentile: number;
+    targetDate: string;
+    dailyGoalQuestions: number;
+  };
 }
 
 interface CatState {
@@ -51,6 +58,8 @@ interface CatState {
   updateSkillRating: (subject: 'QA' | 'VARC' | 'DILR', questionDifficulty: number, isCorrect: boolean) => void;
   updatePracticeStreak: (isCorrect: boolean) => void;
   setActivated: () => void;
+  addTopicStatResult: (topic: string, isCorrect: boolean, skipped: boolean, timeSpent: number, questionId?: string) => void;
+  setStudyPlan: (plan: { targetPercentile: number; targetDate: string; dailyGoalQuestions: number }) => void;
 }
 
 export const useCatStore = create<CatState>()(
@@ -74,7 +83,7 @@ export const useCatStore = create<CatState>()(
       
       addTopicResult: (topic, isCorrect, questionId) => set((state) => {
         const stats = state.progress.topicStats || {};
-        const current = stats[topic] || { attempted: 0, correct: 0, questionIds: [] };
+        const current = stats[topic] || { attempted: 0, correct: 0, skipped: 0, totalTimeSpent: 0, questionIds: [] };
         const qIds = current.questionIds || [];
         return {
           progress: {
@@ -82,8 +91,31 @@ export const useCatStore = create<CatState>()(
             topicStats: {
               ...stats,
               [topic]: {
+                ...current,
                 attempted: current.attempted + 1,
                 correct: current.correct + (isCorrect ? 1 : 0),
+                questionIds: questionId && !qIds.includes(questionId) ? [...qIds, questionId] : qIds
+              }
+            }
+          }
+        };
+      }),
+      
+      addTopicStatResult: (topic, isCorrect, skipped, timeSpent, questionId) => set((state) => {
+        const stats = state.progress.topicStats || {};
+        const current = stats[topic] || { attempted: 0, correct: 0, skipped: 0, totalTimeSpent: 0, questionIds: [] };
+        const qIds = current.questionIds || [];
+        return {
+          progress: {
+            ...state.progress,
+            topicStats: {
+              ...stats,
+              [topic]: {
+                ...current,
+                attempted: current.attempted + (!skipped ? 1 : 0),
+                correct: current.correct + (isCorrect && !skipped ? 1 : 0),
+                skipped: current.skipped + (skipped ? 1 : 0),
+                totalTimeSpent: current.totalTimeSpent + timeSpent,
                 questionIds: questionId && !qIds.includes(questionId) ? [...qIds, questionId] : qIds
               }
             }
@@ -158,6 +190,13 @@ export const useCatStore = create<CatState>()(
         progress: {
           ...state.progress,
           isActivated: true
+        }
+      })),
+
+      setStudyPlan: (plan) => set(state => ({
+        progress: {
+          ...state.progress,
+          studyPlan: plan
         }
       }))
     }),

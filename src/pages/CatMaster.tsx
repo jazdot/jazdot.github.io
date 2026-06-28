@@ -6,6 +6,9 @@ import { useCatStore } from './catStore';
 import { paperLoaders, getAllQuestions, type Question } from '../data/cat_db';
 import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, query, getDocs, limit, addDoc, updateDoc, onSnapshot } from './firebase';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { generateCatQuestions } from '../cat-engine/ai-service';
+import AnalyticsDashboard from '../components/cat-maester/AnalyticsDashboard';
+import AdaptiveEngine from '../components/cat-maester/AdaptiveEngine';
 
 // --- IndexedDB Helpers ---
 const DB_NAME = 'CatMaesterDB';
@@ -119,108 +122,30 @@ const deleteFormula = async (id: string) => {
 
 // --- Real AI Generation via Gemini ---
 const generateQuestionsAPI = async (subject: 'QA' | 'VARC' | 'DILR', topic?: string, retries = 2): Promise<Question[]> => {
-  console.log(`[AI] Generating new batch for ${subject}${topic ? ` on ${topic}` : ''} via Gemini...`);
+  console.log(`[AI] Generating new batch for ${subject}${topic ? ` on ${topic}` : ''} via cat-engine...`);
   
-  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
-
-  const promptText = `
-    You are an expert examiner and content creator for the Indian Common Admission Test (CAT) for IIMs. 
-    Generate 5 highly challenging, unique, and strictly syllabus-aligned questions for the section: ${subject}. 
-    The difficulty, tone, and trickiness MUST perfectly mimic actual CAT past year papers (PYQs).
-    ${topic ? `\nCRITICAL: The questions MUST be strictly focused on the specific topic: ${topic}.` : ''}
-    ${subject === 'VARC' ? `
-    CRITICAL VARC INSTRUCTIONS:
-    - If generating Reading Comprehension, the 'context' field MUST contain a highly complex, dense, and intellectually stimulating passage of exactly 500 to 600 words, mimicking the exact standard of actual CAT exam passages.
-    - Topics should be drawn from philosophy, sociology, history, evolutionary biology, economics, or literature.
-    - The questions MUST test deep critical reasoning (Inference, Central Idea, Tone, Weakening/Strengthening arguments, Double Negatives). Do NOT ask direct factual questions.` : ''}
-    ${subject === 'DILR' ? `
-    CRITICAL DILR INSTRUCTIONS:
-    - If generating a set, the 'context' field MUST contain a highly complex logic puzzle, intricate data table, seating arrangement, or tournament scenario exactly like real CAT DILR sets. The constraints must be interlocked and require a matrix to solve.` : ''}
-    ${subject === 'QA' ? `
-    CRITICAL QA INSTRUCTIONS:
-    - Questions should test conceptual clarity and clever application of fundamentals rather than tedious calculations.
-    - Focus on Arithmetic, Algebra, Geometry, and Number Systems as per recent CAT trends.` : ''}
-    
-    CRITICAL INSTRUCTION: You must respond ONLY with a raw JSON array. Do not include markdown formatting (like \`\`\`json), explanations, or any other text. 
-    VERY IMPORTANT: You MUST double-escape all backslashes used in LaTeX or math formulas (e.g., write \\\\sqrt instead of \\sqrt, \\\\pi instead of \\pi, \\\\theta instead of \\theta, \\\\frac instead of \\frac) so that the output is strictly valid JSON.
-    
-    The JSON objects must strictly follow this TypeScript interface:
-    {
-      id: string; // generate a unique string like "gen_${subject.toLowerCase()}_<random>"
-      text: string; // The question text. Use $...$ or $$...$$ for Math LaTeX if QA.
-      type: 'MCQ' | 'TITA';
-      options?: string[]; // Array of 4 strings if MCQ, omit if TITA
-      correct?: number; // 0, 1, 2, or 3 representing the index of the correct option if MCQ
-      tita_answer?: string; // String answer if TITA, omit if MCQ
-      explanation: string; // Detailed step-by-step solution
-      section: '${subject}';
-      context?: string; // Optional: Passage for VARC or Data table for DILR. (Group questions with the same context if generating a DILR set or Reading Comprehension).
-      difficulty?: 'Easy' | 'Medium' | 'Hard'; // Assign an overall difficulty level.
-      hint?: string; // Optional: A specific exact sentence or phrase from the context that contains the answer or provides a strong hint. MUST be an exact substring of the context.
-    }
-
-    Also, ensure that the questions, options, answers, and explanations are 100% accurate(recheck and verify the questions again after generation with paraphrasing) and strictly align to the CAT syllabus and difficulty level. 
-  `;
-
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: promptText }] }],
-          generationConfig: {
-            temperature: 0.7, // Balances creativity with strict formatting
-          }
-        })
-      });
-
-      if (!response.ok) {
-        let errorBody = 'No details available. This might be a CORS or network issue.';
-        try {
-          const errorData = await response.json();
-          errorBody = errorData?.error?.message || JSON.stringify(errorData);
-        } catch {}
-        throw new Error(`Gemini API error: ${response.status} ${response.statusText}. Details: ${errorBody}`);
-      }
-
-      const data = await response.json();
-      let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-      if (!rawText) throw new Error("No response generated from AI.");
-
-      rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-
-      // Robust JSON Sanitization for unescaped LaTeX backslashes
-      // 1. Double escape all single backslashes that are not followed by valid JSON escape chars
-      rawText = rawText.replace(/(?<!\\)\\(?!["\\/bfnrt])/g, '\\\\');
-      // 2. specifically fix common LaTeX commands that start with t, f, b, r, n so they don't break JSON parsing as control characters
-      rawText = rawText.replace(/(?<!\\)\\(theta|frac|beta|nabla|rho|tau|text|times|triangle|to|right|Rightarrow|rightarrow|neq|le|ge|circ|cdot|approx|infty|pm|div)/gi, '\\\\$1');
-
-      try {
-        const parsedQuestions: Question[] = JSON.parse(rawText);
-        
-        if (!Array.isArray(parsedQuestions)) {
-          throw new Error("AI returned invalid structure (not an array).");
-        }
+  const subtopic = topic || (subject === 'QA' ? 'Time Speed Distance' : subject === 'VARC' ? 'Reading Comprehension' : 'Caselet');
+  const parentTopic = subject === 'QA' ? 'Arithmetic' : subject === 'VARC' ? 'VARC' : 'Data Interpretation';
   
-        console.log(`[AI] Generation complete for ${subject}.`, parsedQuestions);
-        return parsedQuestions;
-      } catch (parseError: any) {
-        console.error("[AI] JSON Parse Error:", parseError.message, "\nRaw Text:", rawText);
-        throw new Error("Failed to parse AI response. " + parseError.message);
-      }
-
-    } catch (error) {
-      console.error(`[AI] Attempt ${attempt}/${retries} failed:`, error);
-      if (attempt === retries) {
-        throw error;
-      }
-      await new Promise(res => setTimeout(res, 1500 * attempt));
-    }
+  try {
+    const rawQs = await generateCatQuestions(subject, parentTopic, subtopic, 'Medium', 'AUTO', 5);
+    
+    return rawQs.map(q => ({
+      id: q.id,
+      text: q.question,
+      type: q.type,
+      options: q.options ? [q.options.A, q.options.B, q.options.C, q.options.D] : undefined,
+      correct: q.options ? ['A', 'B', 'C', 'D'].indexOf(q.correct_answer) : undefined,
+      tita_answer: q.type === 'TITA' ? q.correct_answer : undefined,
+      explanation: `${q.explanation.brief}\n\nStandard Method: ${q.explanation.standard_method}\n\nShortcut: ${q.explanation.shortcut}\n\nCommon Mistakes: ${q.explanation.common_mistakes?.join(', ') || 'None'}`,
+      section: q.section,
+      context: q.passage || undefined,
+      difficulty: q.difficulty,
+      hint: q.explanation.common_mistakes?.[0]
+    }));
+  } catch (err: any) {
+    throw new Error("AI generation failed: " + err.message);
   }
-  throw new Error("AI generation failed after multiple retries.");
 };
 
 
@@ -2055,227 +1980,9 @@ export default function CatMaester() {
             }
           `}</style>
           {activeTab === 'dashboard' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 flex flex-col items-center shadow-sm">
-                  <h3 className="text-lg font-bold mb-4 w-full text-left">Performance Overview</h3>
-                  {/* Zero Dependency SVG Donut Chart */}
-                  <svg viewBox="0 0 36 36" className="w-40 h-40 circular-chart text-emerald-500 drop-shadow-md">
-                    <path className="text-rose-500 stroke-current stroke-[3]" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path className="stroke-current stroke-[3] transition-all duration-1000 ease-out" fill="none" strokeDasharray={`${accuracy}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  </svg>
-                  <div className="mt-6 flex gap-6 text-sm font-bold">
-                    <span className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div> Correct</span>
-                    <span className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]"></div> Incorrect</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-bold">Quick Stats</h3>
-                    <button onClick={() => setShowClearHistoryConfirmationModal(true)} className="text-xs font-bold text-rose-500 hover:bg-rose-500/10 px-3 py-1.5 rounded-lg transition-colors border border-rose-500/20" title="Shortcut: Ctrl+Shift+Backspace">Clear History</button>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 h-[calc(100%-2rem)]">
-                    <div className="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/5 flex flex-col justify-center shadow-inner"><div className="text-slate-500 mb-2 text-sm font-medium uppercase tracking-wider">Attempted</div><div className="text-4xl font-black">{progress.totalAttempted}</div></div>
-                    <div className="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-slate-200/50 dark:border-white/5 flex flex-col justify-center shadow-inner"><div className="text-slate-500 mb-2 text-sm font-medium uppercase tracking-wider">Correct</div><div className="text-4xl font-black text-emerald-500">{progress.correct}</div></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <div className="lg:col-span-2 xl:col-span-3 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-lg font-bold">Predicted Percentile (IRT Model)</h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-slate-500">Target Goal:</span>
-                      <div className="relative">
-                        <input type="number" min="50" max="100" step="0.1" value={targetPercentile} onChange={e => setTargetPercentile(Number(e.target.value))} className="w-20 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-sm font-bold text-[hsl(var(--accent))] focus:outline-none" />
-                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">PR</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Quantitative Ability (QA)</span><span className="text-[hsl(var(--accent))] font-bold">{qaPercentile} PR</span></div>
-                      <div className="relative w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${qaPercentile}%` }} transition={{ duration: 1, delay: 0.2 }} className="bg-[hsl(var(--accent))] h-full rounded-full shadow-[0_0_10px_hsl(var(--accent))]"></m.div><div className="absolute top-0 bottom-0 w-1 bg-slate-400/50 dark:bg-slate-500/50 z-10" style={{ left: `${targetPercentile}%` }} title={`Target: ${targetPercentile} PR`}></div></div>
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Verbal Ability (VARC)</span><span className="text-purple-500 font-bold">{varcPercentile} PR</span></div>
-                      <div className="relative w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${varcPercentile}%` }} transition={{ duration: 1, delay: 0.3 }} className="bg-purple-500 h-full rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]"></m.div><div className="absolute top-0 bottom-0 w-1 bg-slate-400/50 dark:bg-slate-500/50 z-10" style={{ left: `${targetPercentile}%` }} title={`Target: ${targetPercentile} PR`}></div></div>
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-2"><span className="font-bold opacity-80">Data Interpretation (DILR)</span><span className="text-emerald-500 font-bold">{dilrPercentile} PR</span></div>
-                      <div className="relative w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden"><m.div initial={{ width: 0 }} animate={{ width: `${dilrPercentile}%` }} transition={{ duration: 1, delay: 0.4 }} className="bg-emerald-500 h-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]"></m.div><div className="absolute top-0 bottom-0 w-1 bg-slate-400/50 dark:bg-slate-500/50 z-10" style={{ left: `${targetPercentile}%` }} title={`Target: ${targetPercentile} PR`}></div></div>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-6">Recent Activity</h3>
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-4"><div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div><div className="flex-1"><p className="text-sm font-bold">Mock Test 4</p><p className="text-slate-500 text-xs mt-0.5">Score: 42/45</p></div><span className="text-xs font-mono text-slate-400">2h ago</span></div>
-                    <div className="flex items-center gap-4"><div className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--accent))] shadow-[0_0_8px_hsl(var(--accent))]"></div><div className="flex-1"><p className="text-sm font-bold">QA Practice</p><p className="text-slate-500 text-xs mt-0.5">15 questions</p></div><span className="text-xs font-mono text-slate-400">1d ago</span></div>
-                    <div className="flex items-center gap-4"><div className="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div><div className="flex-1"><p className="text-sm font-bold">DILR Mock</p><p className="text-slate-500 text-xs mt-0.5">Score: 28/30</p></div><span className="text-xs font-mono text-slate-400">2d ago</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-6">Elo Rating Over Time</h3>
-                  {progress.skillHistory && progress.skillHistory.length > 1 ? (
-                    <ResponsiveContainer width="100%" height={250}>
-                      <LineChart data={progress.skillHistory} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(128, 128, 128, 0.2)" />
-                        <XAxis 
-                          dataKey="date" 
-                          tickFormatter={(d) => new Date(d).toLocaleDateString()} 
-                          fontSize={10} 
-                          tick={{ fill: 'currentColor', opacity: 0.6 }} 
-                          axisLine={{ stroke: 'currentColor', opacity: 0.2 }} 
-                          tickLine={{ stroke: 'currentColor', opacity: 0.2 }}
-                        />
-                        <YAxis domain={['dataMin - 50', 'dataMax + 50']} fontSize={10} tick={{ fill: 'currentColor', opacity: 0.6 }} axisLine={{ stroke: 'currentColor', opacity: 0.2 }} tickLine={{ stroke: 'currentColor', opacity: 0.2 }} />
-                        <Tooltip
-                          contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem' }}
-                          labelStyle={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px' }}
-                          labelFormatter={(label) => new Date(label).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                          formatter={(value: any) => [typeof value === 'number' ? Math.round(value) : value, 'Elo']}
-                        />
-                        <Legend wrapperStyle={{ fontSize: '12px' }} />
-                        <ReferenceLine y={targetElo} stroke="hsl(var(--accent))" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: `Target Goal`, fill: 'currentColor', fontSize: 10, opacity: 0.5 }} />
-                        <Line type="monotone" dataKey="skillRatings.QA" name="QA" stroke="#3b82f6" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" />
-                        <Line type="monotone" dataKey="skillRatings.VARC" name="VARC" stroke="#a855f7" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={200} />
-                        <Line type="monotone" dataKey="skillRatings.DILR" name="DILR" stroke="#10b981" strokeWidth={2} dot={false} isAnimationActive={true} animationDuration={1500} animationEasing="ease-out" animationBegin={400} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  ) : (
-                    <div className="h-[250px] flex items-center justify-center text-slate-500 text-sm">
-                      <p>Answer more questions in Practice Mode to see your Elo rating history.</p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm flex flex-col">
-                  <h3 className="text-lg font-bold mb-6 flex items-center gap-2"><Trophy size={20} className="text-yellow-500" /> Global Leaderboard</h3>
-                  <div className="flex-1 overflow-y-auto pr-2 space-y-3" style={{ maxHeight: '250px', scrollbarWidth: 'thin' }}>
-                    {leaderboard.length > 0 ? leaderboard.map((leader, i) => (
-                      <div key={leader.uid} className={`flex items-center justify-between p-3 rounded-xl border ${leader.uid === user?.uid ? 'bg-[hsl(var(--accent))]/10 border-[hsl(var(--accent))]/30' : 'bg-white/40 dark:bg-slate-800/40 border-slate-200/50 dark:border-white/5'}`}>
-                        <div className="flex items-center gap-3">
-                          <div className="font-bold text-slate-400 w-4 text-center">{i + 1}</div>
-                          {leader.photoURL ? (
-                            <img src={leader.photoURL} alt={leader.name} className="w-8 h-8 rounded-full shadow-sm" />
-                          ) : (
-                            <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 font-bold text-xs">{leader.name.charAt(0)}</div>
-                          )}
-                          <div>
-                            <div className="font-bold text-sm text-slate-800 dark:text-slate-200">{leader.name} {leader.uid === user?.uid && <span className="text-[10px] bg-[hsl(var(--accent))] text-white px-1.5 py-0.5 rounded ml-1">You</span>}</div>
-                            <div className="text-xs text-slate-500 flex gap-2 mt-0.5">
-                              <span>QA: {leader.qa}</span>
-                              <span>VARC: {leader.varc}</span>
-                              <span>DILR: {leader.dilr}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-xl font-black text-[hsl(var(--accent))]">{leader.overall}</div>
-                      </div>
-                    )) : (
-                      <div className="h-full flex flex-col items-center justify-center text-slate-500 text-sm gap-2">
-                        <Loader2 size={24} className="animate-spin text-[hsl(var(--accent))]" /> 
-                        <span>Fetching Leaderboard...</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {qotd && (
-                <div className="mt-6 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-[hsl(var(--accent))]/30 shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[hsl(var(--accent))]/10 rounded-bl-full pointer-events-none"></div>
-                  <h3 className="text-lg font-bold mb-4 flex items-center gap-2"><BrainCircuit className="text-[hsl(var(--accent))]" size={20} /> Question of the Day</h3>
-                  <div className="mb-4 flex gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{qotd.section}</span>
-                    <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">{qotd.type}</span>
-                  </div>
-                  <div className="font-medium text-lg mb-6 max-w-4xl leading-relaxed text-slate-800 dark:text-slate-200">{renderContextWithImages(qotd.text)}</div>
-                  <button onClick={() => {
-                    setPracticeSubject((qotd.section as 'QA' | 'VARC' | 'DILR') || 'QA');
-                    setPracticeFilterTopic(null);
-                    setPracticeFilterBookmark(false);
-                    setPracticeFilterDifficulty(null);
-                    setIsAiTopicMode(false);
-                    setPracticeFilterAIBatch(null);
-                    setActiveTab('practice');
-                  }} className="text-sm font-bold bg-[hsl(var(--accent))] text-white px-5 py-2.5 rounded-lg shadow-md hover:opacity-90 transition-all">
-                    Solve in Practice Mode
-                  </button>
-                </div>
-              )}
-
-              <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-4">Progress Over Time (Accuracy %)</h3>
-                  {progress.history && progress.history.length > 0 ? (
-                    <div className="h-40 flex items-end gap-2 w-full mt-4">
-                      {progress.history.slice(-30).map((h, i) => {
-                        const acc = h.attempted > 0 ? Math.round((h.correct / h.attempted) * 100) : 0;
-                        return (
-                          <div key={i} className="flex-1 bg-[hsl(var(--accent))]/40 hover:bg-[hsl(var(--accent))]/80 rounded-t-md relative group transition-all" style={{ height: `${Math.max(acc, 5)}%` }}>
-                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-10 shadow-lg">
-                               {acc}% ({new Date(h.date).toLocaleDateString()})
-                             </div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  ) : (
-                    <div className="h-40 flex items-center justify-center text-slate-500">Take some tests to see your progress!</div>
-                  )}
-                </div>
-                
-                <div className="bg-white/60 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/50 dark:border-white/10 shadow-sm">
-                  <h3 className="text-lg font-bold mb-4">Topic Performance</h3>
-                  {progress.topicStats && Object.keys(progress.topicStats).length > 0 ? (
-                    <div className="space-y-4 max-h-40 overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
-                      {Object.entries(progress.topicStats)
-                        .map(([topic, stat]) => ({ topic, acc: Math.round((stat.correct / stat.attempted) * 100) }))
-                        .sort((a, b) => a.acc - b.acc)
-                        .map(t => (
-                          <div 
-                            key={t.topic}
-                            className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 p-2 -mx-2 rounded-lg transition-colors group"
-                            onClick={() => {
-                              setPracticeFilterTopic(t.topic);
-                              setPracticeFilterDifficulty(null);
-                              setIsAiTopicMode(false);
-                              setPracticeFilterAIBatch(null);
-                              setActiveTab('practice');
-                            }}
-                          >
-                            <div className="flex justify-between text-sm mb-1"><span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-[hsl(var(--accent))] transition-colors">{t.topic}</span><span className={`font-bold ${t.acc < 50 ? 'text-rose-500' : t.acc < 80 ? 'text-yellow-500' : 'text-emerald-500'}`}>{t.acc}%</span></div>
-                            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
-                              <m.div initial={{ width: 0 }} animate={{ width: `${t.acc}%` }} className={`h-full rounded-full ${t.acc < 50 ? 'bg-rose-500' : t.acc < 80 ? 'bg-yellow-500' : 'bg-emerald-500'}`}></m.div>
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  ) : (
-                    <div className="h-40 flex items-center justify-center text-center text-slate-500 px-4 text-sm">Flag questions to specific topics during review to identify your weak areas here!</div>
-                  )}
-                  {progress.topicStats && Object.keys(progress.topicStats).length > 0 && (
-                    <div className="mt-6">
-                      <button 
-                        onClick={handleGenerateMiniMock} 
-                        disabled={isGenerating}
-                        className="w-full bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))] hover:text-white px-4 py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 border border-[hsl(var(--accent))]/20 disabled:opacity-50"
-                      >
-                        {isGenerating ? <><Loader2 size={18} className="animate-spin" /> Analyzing & Generating...</> : <><BrainCircuit size={18} /> Generate Weakness Mini-Mock</>}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+            <AnalyticsDashboard />
           )}
+
 
           {activeTab === 'mock' && (
               <div className={`bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-sm overflow-hidden flex flex-col flex-1 ${mockPhase === 'test' || mockPhase === 'review' ? testReviewClasses : 'rounded-2xl min-h-[600px] lg:h-[calc(100vh-12rem)]'}`}>
