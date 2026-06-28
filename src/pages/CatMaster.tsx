@@ -18,10 +18,11 @@ const DB_NAME = 'CatMaesterDB';
 const STORE_NAME = 'mockTests';
 const FORMULA_STORE = 'formulas';
 const GENERATED_Q_STORE = 'generatedQuestions';
+const DRILL_STORE = 'drillResults';
 
 const initDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 3);
+    const request = indexedDB.open(DB_NAME, 4);
     request.onupgradeneeded = () => {
       const db = request.result;
       if (!db.objectStoreNames.contains(STORE_NAME)) {
@@ -33,9 +34,52 @@ const initDB = (): Promise<IDBDatabase> => {
       if (!db.objectStoreNames.contains(GENERATED_Q_STORE)) {
         db.createObjectStore(GENERATED_Q_STORE, { keyPath: ['subject', 'batchId'] });
       }
+      if (!db.objectStoreNames.contains(DRILL_STORE)) {
+        db.createObjectStore(DRILL_STORE, { keyPath: 'id' });
+      }
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
+  });
+};
+
+const saveDrillResult = async (drill: any) => {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(DRILL_STORE, 'readwrite');
+    tx.objectStore(DRILL_STORE).put(drill);
+    tx.oncomplete = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
+  });
+};
+
+const getDrillResults = async (): Promise<any[]> => {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(DRILL_STORE, 'readonly');
+    const req = tx.objectStore(DRILL_STORE).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+};
+
+const deleteDrillResult = async (id: string) => {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(DRILL_STORE, 'readwrite');
+    const req = tx.objectStore(DRILL_STORE).delete(id);
+    req.onsuccess = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
+  });
+};
+
+const clearAllDrills = async () => {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(DRILL_STORE, 'readwrite');
+    const req = tx.objectStore(DRILL_STORE).clear();
+    req.onsuccess = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
   });
 };
 
@@ -2274,7 +2318,12 @@ export default function CatMaester() {
           )}
 
           {activeTab === 'practice' && (
-            <PracticeArena />
+            <PracticeArena 
+              saveDrillResult={saveDrillResult}
+              getDrillResults={getDrillResults}
+              deleteDrillResult={deleteDrillResult}
+              clearAllDrills={clearAllDrills}
+            />
           )}
 
           {activeTab === 'formula' && (
