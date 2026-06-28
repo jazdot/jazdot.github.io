@@ -10,8 +10,8 @@ import {
 import { getMockTestDistribution } from './syllabus';
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-// Defaulting to 3.5-flash as per user implementation instruction
-const GEMINI_MODEL = 'gemini-3.5-flash';
+// Defaulting to 3.1-flash-lite as per user implementation instruction
+const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 
 async function fetchGemini(promptText: string, retries = 2): Promise<any> {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
