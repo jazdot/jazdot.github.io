@@ -1,6 +1,6 @@
-import { useState, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { m } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { GraduationCap, Gauge, Wrench, TerminalSquare, Activity, Network, RadioTower, BrainCircuit } from 'lucide-react';
 import ToolModal from '../components/ToolModal';
 import Loader from '../components/Loader';
@@ -14,8 +14,17 @@ const PingTraceTool = lazy(() => import('../tools/PingTraceTool'));
 const MLOpsPipelineTool = lazy(() => import('../tools/MLOpsPipelineTool'));
 
 export default function Tools({ setGlowColor }: { setGlowColor: (color: string) => void }) {
-  const [activeTool, setActiveTool] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [activeTool, setActiveTool] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (location.state && (location.state as any).openTool) {
+      setActiveTool((location.state as any).openTool);
+      // Clear navigation state so a reload doesn't force re-opening
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
 
   return (
     <m.div 
