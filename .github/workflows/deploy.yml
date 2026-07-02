@@ -2,7 +2,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ['main']   # adjust if your default branch is different
+    branches: ['main']   # adjust if you use a different default branch
 
 permissions:
   contents: read
@@ -38,7 +38,7 @@ jobs:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
 
-      - name: List built assets   # <<< optional sanity‑check
+      - name: List built assets   # ← optional sanity‑check
         run: |
           echo "=== ./dist ==="
           ls -R ./dist
@@ -53,4 +53,4 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5   # <-- upgraded version
+        uses: actions/deploy-pages@v5   # ← upgraded version
