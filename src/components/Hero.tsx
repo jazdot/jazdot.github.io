@@ -350,7 +350,7 @@ export default function Hero() {
             {", "}working on 5G protocol integration with OpenAirInterface and Keysight Core. Previously researched autonomous UAV mesh networking at ICFOSS. MTech in Robotics &amp; Automation, CET Trivandrum.
           </m.p>
 
-          {/* Stats — monochrome, no color parade */}
+          {/* Focus Pillars */}
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -358,18 +358,17 @@ export default function Hero() {
             className="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-slate-200/60 dark:border-white/8 max-w-lg w-full"
           >
             {[
-              { value: "99.9%", label: "Protocol Adherence", sub: "OAI + Keysight" },
-              { value: "−15ms", label: "Routing Latency", sub: "CU/DU Stack" },
-              { value: "−40%", label: "Config Errors", sub: "Terraform & Ansible" },
-            ].map((stat) => (
-              <div key={stat.label} className="flex flex-col">
-                <span className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white font-mono tracking-tight">
-                  {stat.value}
+              { title: "5G & O-RAN", desc: "Protocol Stack Integration" },
+              { title: "Cloud & DevOps", desc: "Automation & Infrastructure" },
+              { title: "UAV Swarms", desc: "Mesh Network Research" },
+            ].map((item) => (
+              <div key={item.title} className="flex flex-col">
+                <span className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                  {item.title}
                 </span>
-                <span className="text-[10px] text-slate-500 dark:text-slate-500 font-medium uppercase tracking-wide mt-1 leading-tight">
-                  {stat.label}
+                <span className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                  {item.desc}
                 </span>
-                <span className="text-[9px] text-slate-400 dark:text-slate-600 mt-0.5">{stat.sub}</span>
               </div>
             ))}
           </m.div>
