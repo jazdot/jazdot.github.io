@@ -71,7 +71,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
 
         {/* Cat Maester Tool Card */}
         <m.div 
-          onClick={() => navigate('/cat-maester')}
+          onClick={() => window.open('https://jazdot.github.io/cat-maester', '_blank')}
           whileHover={{ y: -8, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderRadius: '16px', padding: '2rem', cursor: 'pointer', backdropFilter: 'blur(10px)', transition: 'border-color 0.3s ease' }}
@@ -224,7 +224,7 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
               onCommand={(cmd: string) => {
                 if (cmd === 'cat-maester' || cmd === 'run cat') {
                   setActiveTool(null);
-                  navigate('/cat-maester');
+                  window.open('https://jazdot.github.io/cat-maester', '_blank');
                 }
               }} 
             />
