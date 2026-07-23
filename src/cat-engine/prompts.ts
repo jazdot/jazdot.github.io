@@ -1,4 +1,4 @@
-// prompts.ts — Antigravity (Gemini) prompt templates for CAT question generation
+// prompts.ts — Gemini prompt templates for CAT question generation
 
 import type { Difficulty, Section } from "./types.js";
 

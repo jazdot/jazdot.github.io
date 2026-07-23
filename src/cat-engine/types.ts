@@ -114,7 +114,7 @@ export interface SyllabusSection {
   topics: Record<string, QATopicNode | { questions: number; types: string[] } | { passages: number; question_types: string[] }>;
 }
 
-export interface AntigravityConfig {
+export interface GenAIConfig {
   apiKey: string;
   model: string;
   temperature: number;

@@ -167,7 +167,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-slate-500 dark:text-slate-400 mt-4 text-base md:text-lg max-w-2xl leading-relaxed"
           >
-            Simulating, virtualizing, and orchestrating communication meshes from high-throughput core routing stacks to autonomous aerial nodes.
+            Hands-on experience across telecom, cloud, and automation — from 5G protocol stacks to autonomous mesh networks.
           </m.p>
         </div>
 
@@ -227,7 +227,7 @@ export default function Home() {
         </m.div>
       </section>
 
-      {/* Playable Sandbox Section */}
+      {/* Interactive Tools Section */}
       <section className="relative py-20 px-6 max-w-7xl mx-auto w-full border-t border-slate-200/30 dark:border-white/5">
         <div className="flex flex-col mb-16 text-left">
           <m.div
@@ -237,7 +237,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 dark:text-purple-400 text-xs font-bold font-mono tracking-widest uppercase w-max mb-4"
           >
-            <Zap size={14} /> Playable Simulators Sandbox
+            <Zap size={14} /> Interactive Tools
           </m.div>
           <m.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -246,7 +246,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white"
           >
-            Engineering Telemetry Sandbox
+            Project Demonstrations
           </m.h2>
           <m.p 
             initial={{ opacity: 0, y: 20 }}
@@ -255,7 +255,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-slate-500 dark:text-slate-400 mt-4 text-base md:text-lg max-w-2xl leading-relaxed"
           >
-            Run simulated network speed checks, parse telemetry metrics, or query logs inside hardware-accelerated diagnostic widgets.
+            Explore interactive tools — a command-line shell for querying my background, a system health dashboard, and a network speed tester.
           </m.p>
         </div>
 
