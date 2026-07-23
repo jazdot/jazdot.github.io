@@ -10,7 +10,6 @@ import PWAReloadPrompt from './components/PWAReloadPrompt';
 // Dynamically import non-critical pages and modals (Code Splitting)
 const Portfolio = lazy(() => import('./Portfolio'));
 const Tools = lazy(() => import('./pages/Tools'));
-const Blog = lazy(() => import('./pages/Blog'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const GitHubProjects = lazy(() => import('./components/GitHubProjects'));
@@ -35,16 +34,6 @@ const AnimatedRoutes = ({ setGlowColor }: { setGlowColor: (color: string) => voi
         <Route path="/tools" element={
           <Suspense fallback={<Loader text="Loading tools..." className="min-h-[60vh]" />}>
             <Tools setGlowColor={setGlowColor} />
-          </Suspense>
-        } />
-        <Route path="/blog" element={
-          <Suspense fallback={<Loader text="Loading blog..." className="min-h-[60vh]" />}>
-            <Blog />
-          </Suspense>
-        } />
-        <Route path="/blog/:slug" element={
-          <Suspense fallback={<Loader text="Loading article..." className="min-h-[60vh]" />}>
-            <Blog />
           </Suspense>
         } />
         <Route path="*" element={

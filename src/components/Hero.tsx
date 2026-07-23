@@ -69,15 +69,9 @@ export const GlassNavBar = ({
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.startsWith('/blog')) {
-      setActiveSection('blog');
-    } else if (location.pathname === '/tools') {
-      setActiveSection('tools');
-    } else if (location.pathname === '/about') {
-      setActiveSection('profile');
-    } else {
-      setActiveSection('home');
-    }
+    if (location.pathname === "/tools") setActiveSection("tools");
+    else if (location.pathname === "/about") setActiveSection("profile");
+    else setActiveSection("home");
   }, [location]);
 
   const handleNav = (path: string) => {
@@ -90,7 +84,6 @@ export const GlassNavBar = ({
     { label: "Home", path: "/", key: "home" },
     { label: "Profile", path: "/about", key: "profile" },
     { label: "Tools", path: "/tools", key: "tools" },
-    { label: "Blog", path: "/blog", key: "blog" },
   ];
 
   return (
@@ -128,6 +121,13 @@ export const GlassNavBar = ({
               )}
             </button>
           ))}
+          {/* Blog — external link */}
+          <a
+            href="https://jazdot.github.io/blog"
+            className="relative transition-colors hover:text-slate-900 dark:hover:text-white text-slate-500 dark:text-slate-400"
+          >
+            Blog
+          </a>
         </div>
 
         {/* Right side: theme + contact */}
