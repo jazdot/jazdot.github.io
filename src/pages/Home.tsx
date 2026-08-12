@@ -111,13 +111,13 @@ const containerVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12 }
+    transition: { staggerChildren: 0.07 }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 18 } }
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 350, damping: 26 } }
 } as const;
 
 export default function Home() {
@@ -140,7 +140,7 @@ export default function Home() {
       <Hero />
 
       {/* Core Engineering Domains */}
-      <section className="relative py-20 px-6 max-w-7xl mx-auto w-full border-t border-slate-200/30 dark:border-white/5 mt-8">
+      <section className="relative py-20 px-6 max-w-7xl mx-auto w-full border-t border-slate-200/30 dark:border-white/5 mt-8 content-contain">
         <div className="flex flex-col mb-16 text-left">
           <m.div
             initial={{ opacity: 0, x: -20 }}
@@ -228,7 +228,7 @@ export default function Home() {
       </section>
 
       {/* Interactive Tools Section */}
-      <section className="relative py-20 px-6 max-w-7xl mx-auto w-full border-t border-slate-200/30 dark:border-white/5">
+      <section className="relative py-20 px-6 max-w-7xl mx-auto w-full border-t border-slate-200/30 dark:border-white/5 content-contain">
         <div className="flex flex-col mb-16 text-left">
           <m.div
             initial={{ opacity: 0, x: -20 }}

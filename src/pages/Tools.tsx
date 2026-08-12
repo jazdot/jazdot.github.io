@@ -27,12 +27,9 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
   }, [location, navigate]);
 
   return (
-    <m.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      style={{ position: 'relative', zIndex: 10, padding: '150px 5vw 10vh', maxWidth: '1200px', margin: '0 auto', minHeight: '80vh' }}
+    <div 
+      className="gpu-layer"
+      style={{ position: 'relative', zIndex: 10, padding: '140px 5vw 10vh', maxWidth: '1200px', margin: '0 auto', minHeight: '80vh' }}
     >
       <SEO 
         title="Tools | Muhammed Riswan M. P." 
@@ -235,6 +232,6 @@ export default function Tools({ setGlowColor }: { setGlowColor: (color: string) 
           {activeTool === 'mlops' && <MLOpsPipelineTool />}
         </Suspense>
       </ToolModal>
-    </m.div>
+    </div>
   );
 }

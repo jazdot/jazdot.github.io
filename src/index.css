@@ -45,7 +45,7 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* For Firefox */
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 html, body {
@@ -54,9 +54,46 @@ html, body {
   background-color: var(--page-bg);
   color: var(--page-text);
   font-family: system-ui, -apple-system, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
   overflow-x: hidden;
-  -webkit-touch-callout: none; /* Prevents native iOS long-press callout menus from fighting your custom menu */
+  -webkit-touch-callout: none;
+}
+
+/* GPU Acceleration & Performance Helpers */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Content Visibility Containment for 120 FPS Scroll */
+.content-contain {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Fast Aurora Keyframe Animation (GPU-driven) */
+@keyframes aurora-drift-1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(40px, 30px, 0) scale(1.1); }
+  100% { transform: translate3d(-20px, -15px, 0) scale(0.95); }
+}
+
+@keyframes aurora-drift-2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-35px, -25px, 0) scale(1.12); }
+  100% { transform: translate3d(25px, 20px, 0) scale(0.98); }
+}
+
+.aurora-blob-1 {
+  animation: aurora-drift-1 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.aurora-blob-2 {
+  animation: aurora-drift-2 20s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 /* Dot Pattern Background */
@@ -68,7 +105,7 @@ html.dark .bg-dot-pattern {
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%23ffffff' fill-opacity='0.15'/%3E%3C/svg%3E");
 }
 
-/* Accessible Focus Styles (Only shows for keyboard navigation) */
+/* Accessible Focus Styles */
 :focus:not(:focus-visible) {
   outline: none;
 }
@@ -80,18 +117,18 @@ html.dark .bg-dot-pattern {
 
 /* Custom Text Selection Highlight */
 ::selection {
-  background-color: hsl(var(--accent)); /* Uses your accent color for highlight background */
+  background-color: hsl(var(--accent));
   color: #ffffff; 
 }
-
-::-moz-selection { /* For Firefox compatibility */
+::-moz-selection {
   background-color: hsl(var(--accent));
   color: #ffffff;
 }
-/* Custom Webkit Scrollbar (Chrome, Safari, Edge) */
+
+/* Custom Webkit Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
   background: var(--scrollbar-track);
@@ -99,8 +136,8 @@ html.dark .bg-dot-pattern {
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
   border-radius: 10px;
-  border: 3px solid var(--page-bg); /* Creates the "floating" illusion */
-  background-clip: padding-box; /* Ensures the background doesn't bleed under the border */
+  border: 2px solid var(--page-bg);
+  background-clip: padding-box;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);

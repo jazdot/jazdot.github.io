@@ -19,17 +19,17 @@ import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker as MapMark
 import './Portfolio.css';
 import SEO from './components/SEO';
 
-// Animation Variants
+// Fast, GPU-Accelerated Animation Variants
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
   visible: { 
     opacity: 1, 
     y: 0, 
     scale: 1, 
     transition: { 
       type: "spring", 
-      stiffness: 100, 
-      damping: 20 
+      stiffness: 350, 
+      damping: 28 
     } 
   }
 };
@@ -38,34 +38,32 @@ const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
+    transition: { staggerChildren: 0.08 }
   }
 };
 
 const timelineItemVariant: Variants = {
-  hidden: { opacity: 0, x: -40, scale: 0.9, filter: "blur(8px)" },
+  hidden: { opacity: 0, x: -20, scale: 0.98 },
   visible: { 
     opacity: 1, 
     x: 0, 
     scale: 1, 
-    filter: "blur(0px)",
     transition: { 
       type: "spring", 
-      stiffness: 120, 
-      damping: 14,
-      staggerChildren: 0.15,
-      delayChildren: 0.2
+      stiffness: 350, 
+      damping: 26,
+      staggerChildren: 0.08,
+      delayChildren: 0.1
     } 
   }
 };
 
 const bulletVariant: Variants = {
-  hidden: { opacity: 0, x: 20, filter: "blur(4px)" },
+  hidden: { opacity: 0, x: 12 },
   visible: { 
     opacity: 1, 
     x: 0, 
-    filter: "blur(0px)",
-    transition: { type: "spring", stiffness: 150, damping: 12 } 
+    transition: { type: "spring", stiffness: 400, damping: 25 } 
   }
 };
 
@@ -74,7 +72,7 @@ const AnimatedCounter = ({ value, prefix = "", suffix = "", decimals = 0 }: { va
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { damping: 30, stiffness: 100, mass: 1 });
+  const springValue = useSpring(motionValue, { damping: 24, stiffness: 280, mass: 0.6 });
   const displayValue = useTransform(springValue, (latest) => latest.toFixed(decimals));
 
   useEffect(() => {
